@@ -1,17 +1,24 @@
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Olympus.Server.Database;
+using Olympus.Server.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+	.AddOData(options => {
+		options.EnableQueryFeatures().SetMaxTop(100);
+		options.AddRouteComponents("odata", ODataConfig.GetEdmModel());
+	}
+);
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DatabaseContext>(options =>
-		options.UseSqlServer(connectionString)
+	options.UseSqlServer(connectionString)
 );
 
 var app = builder.Build();
