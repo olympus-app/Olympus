@@ -1,9 +1,18 @@
+using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Olympus.Server.Database;
 using Olympus.Server.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add authentication services
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+		.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+
+// Add authorization services
+builder.Services.AddAuthorization();
 
 // Add services to the container.
 builder.Services.AddControllers()
@@ -34,6 +43,10 @@ app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 
 app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
