@@ -1,0 +1,13 @@
+Copyright (c) [2025] Éwerton Ferreira
+
+All rights reserved.
+
+This software is the exclusive property of the author.
+Copying, redistribution, reverse engineering, modification, or any other use, in whole or in part, is strictly prohibited without prior written permission.
+
+This project is licensed for deployment and use only by the authorized client.
+It may not be sublicensed, resold, redistributed, or used to build competing products.
+
+Access to the source code or application build does not grant rights to reuse, reproduce, or redistribute the software in any form.
+
+For licensing inquiries, please contact: thewerthon@live.com
