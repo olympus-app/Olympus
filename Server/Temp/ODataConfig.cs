@@ -1,7 +1,7 @@
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 
-namespace Olympus.Server.Configuration;
+namespace Olympus.Server.Temp;
 
 public static class ODataConfig {
 

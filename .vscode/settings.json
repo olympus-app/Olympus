@@ -4,7 +4,8 @@
 		"**/obj": true
 	},
 	"search.exclude": {
-		"**/bin": true,
-		"**/obj": true
+		"**/Migrations/**": true,
+		"**/bin/**": true,
+		"**/obj/**": true
 	}
 }

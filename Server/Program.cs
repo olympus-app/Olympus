@@ -2,14 +2,17 @@ using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Olympus.Server.Authentication;
 using Olympus.Server.Database;
-using Olympus.Server.Configuration;
+using Olympus.Server.Temp;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add authentication services
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-		.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+	.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"))
+		.EnableTokenAcquisitionToCallDownstreamApi()
+		.AddInMemoryTokenCaches();
 
 // Add authorization services
 builder.Services.AddAuthorization();
@@ -25,8 +28,16 @@ builder.Services.AddControllers()
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddScoped<IUserProvider, MicrosoftUserProvider>();
+
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<DatabaseContext>(options =>
+builder.Services.AddDbContext<DefaultDatabaseContext>(options =>
 	options.UseSqlServer(connectionString)
 );
 
@@ -48,7 +59,14 @@ app.UseRouting();
 
 app.UseAuthentication();
 
+app.UseMiddleware<UserProviderMiddleware>();
+
 app.UseAuthorization();
+
+app.MapControllerRoute(
+	name: "api",
+	pattern: "api/{controller}/{action=Index}/{id?}"
+);
 
 app.MapControllers();
 
