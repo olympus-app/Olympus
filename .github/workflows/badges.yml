@@ -1,0 +1,36 @@
+name: Badges
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types:
+      - published
+
+jobs:
+  create_badges:
+    runs-on: ubuntu-latest
+    name: Create Badges
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v1
+
+      - name: Generate Badges
+        uses: thewerthon/RepoBadges@v1.0.1
+        id: badges
+        with:
+          debug: true
+          directory: ./
+          patterns: "**/*.cs|**/*.cshtml|**/*.razor|**/*.resx|**/*.css|**/*.json|**/*.html|**/*.js|**/*.yaml|**/*.yml"
+          ignore: "**/service-worker*.js"
+
+      - name: Deploy to Branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          external_repository: thewerthon/badges
+          publish_branch: olympus
+          publish_dir: ./output
+          personal_token: ${{ secrets.PRIVATE_TOKEN }}
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'

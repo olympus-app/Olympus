@@ -17,7 +17,7 @@ The Shared project provides reusable components across both Client and Server (e
 - Language: Mainly C# and some JavaScript in Client project
 - Backend: ASP.NET Core Web API with Entity Framework and OData support
 - Frontend: Blazor WASM with Radzen Component Library
-- Database: SQL Server (Express) with Redis support
+- Database: SQL Server (Express) with Redis for cache service
 - Authentication: JSON Web Token with support for Microsoft 365 OAuth
 
 ## Naming Conventions

@@ -8,6 +8,12 @@ using Olympus.Server.Temp;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure custom configuration path
+builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+	.AddJsonFile("Configuration/Runtime/Default.json", optional: false, reloadOnChange: true)
+	.AddJsonFile($"Configuration/Runtime/{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+	.AddEnvironmentVariables();
+
 // Add authentication services
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"))

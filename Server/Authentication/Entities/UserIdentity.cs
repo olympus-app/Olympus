@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Validator = Olympus.Shared.Utils.Validator;
 using Olympus.Server.System;
 
 namespace Olympus.Server.Authentication;

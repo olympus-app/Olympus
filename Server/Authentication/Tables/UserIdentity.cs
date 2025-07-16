@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Olympus.Server.Authentication;
+using Olympus.Server.Database;
 
-namespace Olympus.Server.Database;
+namespace Olympus.Server.Authentication;
 
-public class UserIdentityonfiguration : IEntityTypeConfiguration<UserIdentity> {
+public class UserIdentityTable : IEntityTypeConfiguration<UserIdentity> {
 
 	public void Configure(EntityTypeBuilder<UserIdentity> builder) {
 

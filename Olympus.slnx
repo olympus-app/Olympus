@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="Client/Client.csproj">
+    <BuildDependency Project="Shared/Shared.csproj" />
+  </Project>
+  <Project Path="Server/Server.csproj">
+    <BuildDependency Project="Client/Client.csproj" />
+    <BuildDependency Project="Shared/Shared.csproj" />
+  </Project>
+  <Project Path="Shared/Shared.csproj" />
+</Solution>

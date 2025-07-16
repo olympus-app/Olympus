@@ -1,0 +1,21 @@
+changelog:
+  exclude:
+    authors:
+      - dependabot
+    labels:
+      - documentation
+      - question
+      - other
+  categories:
+    - title: ✨ New Features
+      labels:
+        - feature
+    - title: 💻 Infrastructure
+      labels:
+        - infra
+    - title: 🪄 Enhancements
+      labels:
+        - enhancement
+    - title: 🛠️ Bug Fixes
+      labels:
+        - bug

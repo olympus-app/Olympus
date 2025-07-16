@@ -1,0 +1,212 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": ".NET: Clean",
+			"command": "dotnet clean",
+			"problemMatcher": [],
+			"icon": {
+				"id": "trash",
+				"color": "terminal.ansiYellow"
+			},
+			"presentation": {
+				"panel": "new",
+				"showReuseMessage": false,
+				"clear": false
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET: Build",
+			"command": "dotnet build",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			},
+			"presentation": {
+				"panel": "new",
+				"showReuseMessage": false,
+				"clear": false
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET: Rebuild",
+			"command": "dotnet clean && dotnet build",
+			"problemMatcher": [],
+			"icon": {
+				"id": "debug-restart",
+				"color": "terminal.ansiYellow"
+			},
+			"presentation": {
+				"panel": "new",
+				"showReuseMessage": false,
+				"clear": false
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET: Watch",
+			"command": "dotnet watch --project Server",
+			"problemMatcher": [],
+			"icon": {
+				"id": "eye",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET: Run",
+			"command": "dotnet run --project Server",
+			"problemMatcher": [],
+			"icon": {
+				"id": "play",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Git: Reset Dev from Origin",
+			"command": "${input:confirm}git checkout dev && git branch -f bkp && git reset --hard origin/main && git push --force origin dev",
+			"problemMatcher": [],
+			"icon": {
+				"id": "github-inverted",
+				"color": "terminal.ansiMagenta"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Git: Reset Main from Origin",
+			"command": "${input:confirm}git checkout main && git reset --hard origin/main",
+			"problemMatcher": [],
+			"icon": {
+				"id": "github-inverted",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Add Migration",
+			"command": "dotnet ef migrations add ${input:migration} --project Server --output-dir Database/Migrations",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Remove Last Migration",
+			"command": "${input:confirm}dotnet ef migrations remove --project Server",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Update Database",
+			"command": "${input:confirm}dotnet ef database update --project Server",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Rollback Database",
+			"command": "${input:confirm}dotnet ef database update ${input:migration} --project Server",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiMagenta"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Drop Database",
+			"command": "${input:confirm}${input:confirm2}dotnet ef database drop --project Server --force",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiRed"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Clear Migrations",
+			"command": "${input:confirm}${input:confirm2}Remove-Item -Path '${workspaceFolder}/Server/Database/Migrations' -Recurse -Force",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiRed"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Docker: Compose Up",
+			"command": "docker compose up -d",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Docker: Compose Down",
+			"command": "${input:confirm}${input:confirm2}docker compose down",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server",
+				"color": "terminal.ansiRed"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Docker: Compose Start",
+			"command": "docker compose start",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Docker: Compose Stop",
+			"command": "${input:confirm}docker compose stop",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server",
+				"color": "terminal.ansiMagenta"
+			}
+		}
+	],
+	"inputs": [
+		{
+			"id": "commit",
+			"type": "promptString",
+			"description": "Enter commit message:",
+		},
+		{
+			"id": "migration",
+			"type": "promptString",
+			"description": "Enter migration name:",
+		},
+		{
+			"id": "confirm",
+			"type": "promptString",
+			"description": "Confirm action?"
+		},
+		{
+			"id": "confirm2",
+			"type": "promptString",
+			"description": "Are you sure?"
+		}
+	]
+}
