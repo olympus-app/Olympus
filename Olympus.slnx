@@ -1,17 +1,128 @@
 <Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+    <BuildType Name="Architect" />
+    <BuildType Name="Backend" />
+    <BuildType Name="Frontend" />
+    <BuildType Name="Tests" />
+    <BuildType Name="Native" />
+    <BuildType Name="Web" />
+    <BuildType Name="Api" />
+  </Configurations>
 	<!-- Architect -->
-	<Project Path="Architect/Domain/Domain.csproj" />
-  <Project Path="Architect/Domain.Tests/Domain.Tests.csproj" />
-	<Project Path="Architect/Application/Application.csproj" />
-  <Project Path="Architect/Application.Tests/Application.Tests.csproj" />
-	<Project Path="Architect/Infrastructure/Infrastructure.csproj" />
-	<Project Path="Architect/Shared/Shared.csproj" />
+	<Project Path="Architect/Domain/Domain.csproj">
+    <Build Solution="Architect|*" Project="true" />
+    <Build Solution="Backend|*" Project="true" />
+    <Build Solution="Frontend|*" Project="false" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="true" />
+  </Project>
+  <Project Path="Architect/Domain.Tests/Domain.Tests.csproj">
+    <Build Solution="Architect|*" Project="true" />
+    <Build Solution="Backend|*" Project="false" />
+    <Build Solution="Frontend|*" Project="false" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="false" />
+  </Project>
+	<Project Path="Architect/Application/Application.csproj">
+    <Build Solution="Architect|*" Project="true" />
+    <Build Solution="Backend|*" Project="true" />
+    <Build Solution="Frontend|*" Project="false" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="true" />
+  </Project>
+  <Project Path="Architect/Application.Tests/Application.Tests.csproj">
+    <Build Solution="Architect|*" Project="true" />
+    <Build Solution="Backend|*" Project="false" />
+    <Build Solution="Frontend|*" Project="false" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="false" />
+  </Project>
+	<Project Path="Architect/Infrastructure/Infrastructure.csproj">
+    <Build Solution="Architect|*" Project="true" />
+    <Build Solution="Backend|*" Project="true" />
+    <Build Solution="Frontend|*" Project="false" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="true" />
+  </Project>
+	<Project Path="Architect/Shared/Shared.csproj">
+    <Build Solution="Architect|*" Project="true" />
+    <Build Solution="Backend|*" Project="true" />
+    <Build Solution="Frontend|*" Project="true" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="true" />
+    <Build Solution="Web|*" Project="true" />
+    <Build Solution="Api|*" Project="true" />
+  </Project>
 	<!-- Backend -->
-	<Project Path="Backend/Api/Api.csproj" />
-  <Project Path="Backend/Api.Tests/Api.Tests.csproj" />
+	<Project Path="Backend/Api/Api.csproj">
+    <Build Solution="Architect|*" Project="false" />
+    <Build Solution="Backend|*" Project="true" />
+    <Build Solution="Frontend|*" Project="false" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="true" />
+  </Project>
+  <Project Path="Backend/Api.Tests/Api.Tests.csproj">
+    <Build Solution="Architect|*" Project="false" />
+    <Build Solution="Backend|*" Project="true" />
+    <Build Solution="Frontend|*" Project="false" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="false" />
+  </Project>
 	<!-- Frontend -->
-	<Project Path="Frontend/Interface/Interface.csproj" />
-  <Project Path="Frontend/Interface.Tests/Interface.Tests.csproj" />
-	<Project Path="Frontend/Native/Native.csproj" />
-	<Project Path="Frontend/Web/Web.csproj" />
+	<Project Path="Frontend/Interface/Interface.csproj">
+    <Build Solution="Architect|*" Project="false" />
+    <Build Solution="Backend|*" Project="false" />
+    <Build Solution="Frontend|*" Project="true" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="true" />
+    <Build Solution="Web|*" Project="true" />
+    <Build Solution="Api|*" Project="false" />
+  </Project>
+  <Project Path="Frontend/Interface.Tests/Interface.Tests.csproj">
+    <Build Solution="Architect|*" Project="false" />
+    <Build Solution="Backend|*" Project="false" />
+    <Build Solution="Frontend|*" Project="true" />
+    <Build Solution="Tests|*" Project="true" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="false" />
+  </Project>
+	<Project Path="Frontend/Native/Native.csproj">
+    <Build Solution="Architect|*" Project="false" />
+    <Build Solution="Backend|*" Project="false" />
+    <Build Solution="Frontend|*" Project="true" />
+    <Build Solution="Tests|*" Project="false" />
+    <Build Solution="Native|*" Project="true" />
+    <Build Solution="Web|*" Project="false" />
+    <Build Solution="Api|*" Project="false" />
+    <Deploy Solution="Debug|*" />
+    <Deploy Solution="Release|*" />
+    <Deploy Solution="Frontend|*" />
+    <Deploy Solution="Native|*" />
+  </Project>
+	<Project Path="Frontend/Web/Web.csproj">
+    <Build Solution="Architect|*" Project="false" />
+    <Build Solution="Backend|*" Project="false" />
+    <Build Solution="Frontend|*" Project="true" />
+    <Build Solution="Tests|*" Project="false" />
+    <Build Solution="Native|*" Project="false" />
+    <Build Solution="Web|*" Project="true" />
+    <Build Solution="Api|*" Project="false" />
+  </Project>
 </Solution>

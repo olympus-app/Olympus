@@ -1,5 +1,4 @@
 {
-	"terminal.integrated.cwd": "Backend/Api",
 	"files.exclude": {
 		"**/[Aa]pp[Ss]ettings*.json": true,
 		"**/bin": true,

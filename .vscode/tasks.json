@@ -78,7 +78,7 @@
 		{
 			"type": "shell",
 			"label": "Git: Reset Dev from Origin",
-			"command": "${input:confirm}git checkout dev && git branch -f bkp && git reset --hard origin/main && git push --force origin dev",
+			"command": "${input:confirm}git checkout dev && git reset --hard origin/main && git push --force origin dev",
 			"problemMatcher": [],
 			"icon": {
 				"id": "github-inverted",
@@ -197,8 +197,28 @@
 		},
 		{
 			"type": "shell",
-			"label": "Solution: Clean Solution",
-			"command": "${input:confirm}Remove-Item -Path '${workspaceFolder}/*/bin' -Recurse -Force",
+			"label": "Solution: Clean All",
+			"command": "${input:confirm}Remove-Item -Path '${workspaceFolder}/*/*/bin' -Recurse -Force; Remove-Item -Path '${workspaceFolder}/*/*/obj' -Recurse -Force",
+			"problemMatcher": [],
+			"icon": {
+				"id": "symbol-function",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Solution: Clean Binaries",
+			"command": "${input:confirm}Remove-Item -Path '${workspaceFolder}/*/*/bin' -Recurse -Force",
+			"problemMatcher": [],
+			"icon": {
+				"id": "symbol-function",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Solution: Clean Objects",
+			"command": "${input:confirm}Remove-Item -Path '${workspaceFolder}/*/*/obj' -Recurse -Force",
 			"problemMatcher": [],
 			"icon": {
 				"id": "symbol-function",

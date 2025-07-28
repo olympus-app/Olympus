@@ -1,8 +1,8 @@
 # Olympus
-[![Current Version](https://raw.githubusercontent.com/thewerthon/badges/olympus/version.svg)](../../releases)
-[![Last Updated](https://raw.githubusercontent.com/thewerthon/badges/olympus/updated.svg)](../../releases)
-[![Total of Files](https://raw.githubusercontent.com/thewerthon/badges/olympus/files.svg)](./README.md)
-[![Lines of Code](https://raw.githubusercontent.com/thewerthon/badges/olympus/lines.svg)](./README.md)
+[![Current Version](https://raw.githubusercontent.com/olympus-app/badges/Olympus/version.svg)](../../releases)
+[![Last Updated](https://raw.githubusercontent.com/olympus-app/badges/Olympus/updated.svg)](../../releases)
+[![Total of Files](https://raw.githubusercontent.com/olympus-app/badges/Olympus/files.svg)](./README.md)
+[![Lines of Code](https://raw.githubusercontent.com/olympus-app/badges/Olympus/lines.svg)](./README.md)
 
 Olympus is a modular monolithic web application designed to support multiple organizations through fully customized builds. Instead of following a traditional multi-tenant SaaS model, Olympus enables individualized deployments per client, allowing deep customization via isolated forks and environment-specific configurations.
 

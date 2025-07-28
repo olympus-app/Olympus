@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Olympus.Architect.Shared.DataObjects
 @using Olympus.Frontend.Interface.Services
 @inject IFormFactor FormFactor
 
@@ -8,7 +9,16 @@
 
 Welcome to your new app running on <em>@factor</em> using <em>@platform</em>.
 
+<br />
+<br />
+
+<p>Descrição: @Teste.Descricao</p>
+
 @code {
+
 	private string factor => FormFactor.GetFormFactor();
 	private string platform => FormFactor.GetPlatform();
+
+	private CriarPedidoDto Teste => new();
+
 }

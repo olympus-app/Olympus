@@ -16,6 +16,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v1
 
+      - name: Get Repository Name
+        run: echo "REPO_NAME=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_ENV
+
       - name: Generate Badges
         uses: thewerthon/RepoBadges@v1.0.1
         id: badges
@@ -28,8 +31,8 @@ jobs:
       - name: Deploy to Branch
         uses: peaceiris/actions-gh-pages@v3
         with:
-          external_repository: thewerthon/badges
-          publish_branch: olympus
+          external_repository: olympus-app/badges
+          publish_branch: ${{ env.REPO_NAME }}
           publish_dir: ./output
           personal_token: ${{ secrets.PRIVATE_TOKEN }}
           user_name: 'github-actions[bot]'
