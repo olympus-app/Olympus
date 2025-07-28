@@ -1,0 +1,7 @@
+:root {
+	--rz-panel-menu-item-active-indicator: var(--rz-primary);
+}
+
+body {
+	background: var(--rz-body-background-color);
+}
