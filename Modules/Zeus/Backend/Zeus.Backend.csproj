@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Imports -->
+	<Import Project="..\..\Core\Backend\Core.Backend.refs" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<AssemblyName>Olympus.Zeus.Backend</AssemblyName>
+		<RootNamespace>Olympus.Zeus.Backend</RootNamespace>
+	</PropertyGroup>
+
+	<!-- Metadata -->
+	<PropertyGroup>
+		<Product>Olympus Backend Zeus</Product>
+		<AssemblyTitle>Olympus Backend Zeus Package</AssemblyTitle>
+		<Description>Zeus module package for Olympus backend layer.</Description>
+	</PropertyGroup>
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionFolder)\Modules\Zeus\Archend\Zeus.Archend.csproj" />
+	</ItemGroup>
+
+	<!-- Usings -->
+	<ItemGroup>
+		<Using Include="Olympus.Zeus.Archend" />
+	</ItemGroup>
+
+</Project>

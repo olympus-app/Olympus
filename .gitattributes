@@ -1,10 +1,6 @@
 # End of Line
 * text=auto
 
-# Linguist Vendored
-**/base-*.css linguist-vendored
-**/service-worker*.js linguist-vendored
-
 # Linguist Detectable
 *.cs linguist-detectable=true
 *.cshtml linguist-detectable=true
@@ -14,12 +10,15 @@
 *.js linguist-detectable=true
 *.json linguist-detectable=true
 *.md linguist-detectable=false
+*.ps1 linguist-detectable=false
 *.razor linguist-detectable=true
+*.resx linguist-detectable=false
 *.sln linguist-detectable=false
 *.slnx linguist-detectable=false
 *.xaml linguist-detectable=true
 *.xml linguist-detectable=true
-*.resx linguist-detectable=false
-*.yml linguist-detectable=false
 *.yaml linguist-detectable=false
-*.ps1 linguist-detectable=false
+*.yml linguist-detectable=false
+
+# Linguist Vendored
+**/*-base.css linguist-vendored

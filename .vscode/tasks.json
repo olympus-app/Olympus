@@ -3,60 +3,185 @@
 	"tasks": [
 		{
 			"type": "shell",
-			"label": ".NET: Build",
-			"command": "dotnet build --configuration ${input:configuration}",
+			"label": ".NET Build: All Projects",
+			"command": "dotnet build",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "package",
 				"color": "terminal.ansiGreen"
-			},
-			"presentation": {
-				"panel": "new",
-				"showReuseMessage": false,
-				"clear": false
 			}
 		},
 		{
 			"type": "shell",
-			"label": ".NET: Watch",
-			"command": "dotnet watch --project ${input:project} --configuration ${input:configuration}",
+			"label": ".NET Build: API Host",
+			"command": "dotnet build Apps/Api/Host",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Build: Web Host",
+			"command": "dotnet build Apps/Web/Host",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Build: Windows Host",
+			"command": "dotnet build Apps/Native/Host -f net9.0-windows10.0.19041.0",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Build: Android Host",
+			"command": "dotnet build Apps/Native/Host -f net9.0-android",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Clean: All Projects",
+			"command": "dotnet clean && Get-ChildItem -Path ${workspaceFolder}/*/bin -Directory -Recurse -Force | Remove-Item -Recurse -Force",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "trash",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Clean: API Host",
+			"command": "dotnet clean Apps/Api/Host && Remove-Item ${workspaceFolder}/Apps/Api/Host/bin -Recurse -Force",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "trash",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Clean: Web Host",
+			"command": "dotnet clean Apps/Web/Host && Remove-Item ${workspaceFolder}/Apps/Web/Host/bin -Recurse -Force",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "trash",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Clean: Windows Host",
+			"command": "dotnet clean Apps/Native/Host -f net9.0-windows10.0.19041.0 && Remove-Item ${workspaceFolder}/Apps/Native/Host/bin/*/net9.0-windows10.0.19041.0 -Recurse -Force",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "trash",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Clean: Android Host",
+			"command": "dotnet clean Apps/Native/Host -f net9.0-android && Remove-Item ${workspaceFolder}/Apps/Native/Host/bin/*/net9.0-android -Recurse -Force",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "trash",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Watch: API Host",
+			"command": "dotnet watch --project Apps/Api/Host",
 			"problemMatcher": [],
 			"icon": {
 				"id": "eye",
-				"color": "terminal.ansiGreen"
+				"color": "terminal.ansiCyan"
 			}
 		},
 		{
 			"type": "shell",
-			"label": ".NET: Run",
-			"command": "dotnet run --project ${input:project} --configuration ${input:configuration}",
+			"label": ".NET Watch: Web Host",
+			"command": "dotnet watch --project Apps/Web/Host",
 			"problemMatcher": [],
 			"icon": {
-				"id": "play",
-				"color": "terminal.ansiGreen"
+				"id": "eye",
+				"color": "terminal.ansiCyan"
 			}
 		},
 		{
 			"type": "shell",
-			"label": ".NET: Publish",
-			"command": "dotnet publish",
+			"label": ".NET Watch: Windows Host",
+			"command": "dotnet watch --project Apps/Native/Host -f net9.0-windows10.0.19041.0",
 			"problemMatcher": [],
 			"icon": {
-				"id": "verified",
-				"color": "terminal.ansiGreen"
+				"id": "eye",
+				"color": "terminal.ansiCyan"
 			}
 		},
 		{
 			"type": "shell",
-			"label": ".NET: Serve",
-			"command": "dotnet Server.dll --urls=https://0.0.0.0:3333",
-			"dependsOn": ".NET: Publish",
-			"options": {
-				"cwd": "${workspaceFolder}\\Server\\bin\\Release\\net9.0\\publish"
-			},
+			"label": ".NET Publish: API Host",
+			"command": "dotnet publish Apps/Api/Host -c Release",
+			"problemMatcher": [],
 			"icon": {
 				"id": "server-process",
 				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Publish: Web Host",
+			"command": "dotnet publish Apps/Web/Host -c Release",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server-process",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Publish: Windows Host",
+			"command": "dotnet publish Apps/Native/Host  -f net9.0-windows10.0.19041.0 -c Release",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server-process",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Publish: Android Host",
+			"command": "dotnet publish Apps/Native/Host  -f net9.0-android -c Release",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server-process",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Serve: API Host",
+			"command": "dotnet Olympus.Api.Host.dll --urls=https://0.0.0.0:3333",
+			"dependsOn": ".NET Publish: API Host",
+			"options": {
+				"cwd": "${workspaceFolder}/Apps/Api/Host/bin/Release/net9.0/publish"
+			},
+			"icon": {
+				"id": "server-process",
+				"color": "terminal.ansiCyan"
 			},
 			"isBackground": true,
 			"problemMatcher": {
@@ -73,6 +198,74 @@
 					"beginsPattern": "info: Microsoft.Hosting.Lifetime",
 					"endsPattern": "Application started."
 				}
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Cloudflared: Launch Tunnel",
+			"command": "cloudflared tunnel --url https://localhost:3333 run olympus-dev",
+			"problemMatcher": [],
+			"dependsOn": ".NET Serve: API Host",
+			"icon": {
+				"id": "globe",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Android: Emulator",
+			"command": "emulator -avd pixel_7_-_api_35 -no-snapshot-load -no-metrics",
+			"icon": {
+				"id": "device-mobile",
+				"color": "terminal.ansiWhite"
+			},
+			"isBackground": true,
+			"problemMatcher": {
+				"pattern": [
+					{
+						"regexp": ".",
+						"file": 1,
+						"location": 2,
+						"message": 3
+					}
+				],
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": ".*Android emulator.*",
+					"endsPattern": ".*Boot completed.*"
+				}
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Android: Install App",
+			"command": "dotnet build Apps/Native/Host -t:Install -f net9.0-android",
+			"dependsOn": "Android: Emulator",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "device-mobile",
+				"color": "terminal.ansiWhite"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Android: Launch App",
+			"command": "adb shell am start -n 'com.olympus.app/com.olympus.app.MainActivity'",
+			"problemMatcher": "$msCompile",
+			"dependsOn": "Android: Install App",
+			"icon": {
+				"id": "device-mobile",
+				"color": "terminal.ansiWhite"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Android: Stop App",
+			"command": "adb shell am force-stop com.olympus.app",
+			"problemMatcher": [],
+			"icon": {
+				"id": "device-mobile",
+				"color": "terminal.ansiWhite"
 			}
 		},
 		{
@@ -97,66 +290,6 @@
 		},
 		{
 			"type": "shell",
-			"label": "EF Core: Add Migration",
-			"command": "dotnet ef migrations add ${input:migration} --project Server --output-dir Database/Migrations",
-			"problemMatcher": [],
-			"icon": {
-				"id": "database",
-				"color": "terminal.ansiGreen"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "EF Core: Remove Last Migration",
-			"command": "${input:confirm}dotnet ef migrations remove --project Server",
-			"problemMatcher": [],
-			"icon": {
-				"id": "database",
-				"color": "terminal.ansiYellow"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "EF Core: Update Database",
-			"command": "${input:confirm}dotnet ef database update --project Server",
-			"problemMatcher": [],
-			"icon": {
-				"id": "database",
-				"color": "terminal.ansiCyan"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "EF Core: Rollback Database",
-			"command": "${input:confirm}dotnet ef database update ${input:migration} --project Server",
-			"problemMatcher": [],
-			"icon": {
-				"id": "database",
-				"color": "terminal.ansiMagenta"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "EF Core: Drop Database",
-			"command": "${input:confirm}${input:confirm2}dotnet ef database drop --project Server --force",
-			"problemMatcher": [],
-			"icon": {
-				"id": "database",
-				"color": "terminal.ansiRed"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "EF Core: Clear Migrations",
-			"command": "${input:confirm}${input:confirm2}Remove-Item -Path '${workspaceFolder}/Server/Database/Migrations' -Recurse -Force",
-			"problemMatcher": [],
-			"icon": {
-				"id": "database",
-				"color": "terminal.ansiRed"
-			}
-		},
-		{
-			"type": "shell",
 			"label": "Docker: Compose Up",
 			"command": "docker compose up -d",
 			"problemMatcher": [],
@@ -172,7 +305,7 @@
 			"problemMatcher": [],
 			"icon": {
 				"id": "server",
-				"color": "terminal.ansiRed"
+				"color": "terminal.ansiMagenta"
 			}
 		},
 		{
@@ -182,7 +315,7 @@
 			"problemMatcher": [],
 			"icon": {
 				"id": "server",
-				"color": "terminal.ansiGreen"
+				"color": "terminal.ansiCyan"
 			}
 		},
 		{
@@ -192,62 +325,81 @@
 			"problemMatcher": [],
 			"icon": {
 				"id": "server",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Add Migration",
+			"command": "dotnet ef migrations add ${input:migration} --project Apps/Api/Host",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Remove Last Migration",
+			"command": "${input:confirm}dotnet ef migrations remove --project Apps/Api/Host",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Update Database",
+			"command": "${input:confirm}dotnet ef database update --project Apps/Api/Host",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Rollback Database",
+			"command": "${input:confirm}dotnet ef database update ${input:migration} --project Apps/Api/Host",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
 				"color": "terminal.ansiMagenta"
 			}
 		},
 		{
 			"type": "shell",
+			"label": "EF Core: Drop Database",
+			"command": "${input:confirm}${input:confirm2}dotnet ef database drop --project Apps/Api/Host --force",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiRed"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Clear Migrations",
+			"command": "${input:confirm}${input:confirm2}Remove-Item -Path '${workspaceFolder}/Apps/Api/Host/Migrations' -Recurse -Force",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiRed"
+			}
+		},
+		{
+			"type": "shell",
 			"label": "Solution: Clean All",
-			"command": "${input:confirm}Remove-Item -Path '${workspaceFolder}/*/*/bin' -Recurse -Force; Remove-Item -Path '${workspaceFolder}/*/*/obj' -Recurse -Force",
+			"command": "${input:confirm}Get-ChildItem -Path ${workspaceFolder}/* -Include bin,obj -Directory -Recurse -Force | Remove-Item -Recurse -Force",
 			"problemMatcher": [],
 			"icon": {
 				"id": "symbol-function",
-				"color": "terminal.ansiYellow"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "Solution: Clean Binaries",
-			"command": "${input:confirm}Remove-Item -Path '${workspaceFolder}/*/*/bin' -Recurse -Force",
-			"problemMatcher": [],
-			"icon": {
-				"id": "symbol-function",
-				"color": "terminal.ansiYellow"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "Solution: Clean Objects",
-			"command": "${input:confirm}Remove-Item -Path '${workspaceFolder}/*/*/obj' -Recurse -Force",
-			"problemMatcher": [],
-			"icon": {
-				"id": "symbol-function",
-				"color": "terminal.ansiYellow"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "Cloudflare: Launch Tunnel",
-			"command": "cloudflared tunnel --url https://localhost:3333 run olympus-dev",
-			"problemMatcher": [],
-			"dependsOn": ".NET: Serve",
-			"icon": {
-				"id": "globe",
 				"color": "terminal.ansiYellow"
 			}
 		}
 	],
 	"inputs": [
-		{
-			"id": "project",
-			"type": "pickString",
-			"description": "Choose project:",
-			"options": [
-				"Server",
-				"Client"
-			],
-			"default": "Server"
-		},
 		{
 			"id": "configuration",
 			"type": "pickString",
@@ -261,12 +413,12 @@
 		{
 			"id": "commit",
 			"type": "promptString",
-			"description": "Enter commit message:",
+			"description": "Enter commit message:"
 		},
 		{
 			"id": "migration",
 			"type": "promptString",
-			"description": "Enter migration name:",
+			"description": "Enter migration name:"
 		},
 		{
 			"id": "confirm",

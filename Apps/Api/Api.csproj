@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Imports -->
+	<Import Project=".\Api.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<AssemblyName>Olympus.Api</AssemblyName>
+		<RootNamespace>Olympus.Api</RootNamespace>
+	</PropertyGroup>
+
+	<!-- Metadata -->
+	<PropertyGroup>
+		<Product>Olympus API</Product>
+		<AssemblyTitle>Olympus API Package</AssemblyTitle>
+		<Description>Main package for Olympus API.</Description>
+	</PropertyGroup>
+
+</Project>

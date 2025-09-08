@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<!-- Imports -->
+	<Import Project=".\Native.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<AssemblyName>Olympus.Native</AssemblyName>
+		<RootNamespace>Olympus.Native</RootNamespace>
+	</PropertyGroup>
+
+	<!-- Metadata -->
+	<PropertyGroup>
+		<Product>Olympus Native</Product>
+		<AssemblyTitle>Olympus Native Package</AssemblyTitle>
+		<Description>Main package for Olympus Native.</Description>
+	</PropertyGroup>
+
+</Project>

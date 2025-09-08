@@ -1,12 +1,22 @@
 {
 	"files.exclude": {
-		"**/[Aa]pp[Ss]ettings*.json": true,
-		"**/bin": true,
-		"**/obj": true
+		".editorconfig": false,
+		".gitattributes": false,
+		".config": false,
+		".github": false,
+		".gitignore": false,
+		".globalconfig": false,
+		".scripts": false,
+		"**/.vscode": false,
+		"**/*.config": false,
+		"**/*.csproj": false,
+		"**/*.props": false,
+		"**/*.slnx": false,
+		"Compose.yml": false,
+		"LICENSE.txt": false,
+		"README.md": false
 	},
 	"search.exclude": {
-		"**/Migrations/**": true,
-		"**/bin/**": true,
-		"**/obj/**": true
+		"**/Migrations/**": true
 	}
 }

@@ -8,28 +8,30 @@ on:
     types:
       - published
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   create_badges:
     runs-on: ubuntu-latest
     name: Create Badges
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: Get Repository Name
         run: echo "REPO_NAME=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_ENV
 
       - name: Generate Badges
         uses: thewerthon/RepoBadges@v1.0.1
-        id: badges
         with:
-          debug: true
           directory: ./
-          patterns: "**"
-          ignore: "**/base-*.css|**/service-worker*.js"
+          patterns: "**/*.cs|**/*.cshtml|**/*.css|**/*.html|**/*.js|**/*.json|**/*.razor|**/*.xaml|**/*.xml|**/*.yaml|**/*.yml"
+          ignore: "**/*-base.css"
 
       - name: Deploy to Branch
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           external_repository: olympus-app/badges
           publish_branch: ${{ env.REPO_NAME }}
@@ -37,3 +39,4 @@ jobs:
           personal_token: ${{ secrets.PRIVATE_TOKEN }}
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
+          force_orphan: true

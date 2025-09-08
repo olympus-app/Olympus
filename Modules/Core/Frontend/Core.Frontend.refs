@@ -1,0 +1,11 @@
+<Project>
+
+	<!-- Imports -->
+	<Import Project=".\Core.Frontend.props" />
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionFolder)\Modules\Core\Frontend\Core.Frontend.csproj" />
+	</ItemGroup>
+
+</Project>

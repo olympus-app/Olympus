@@ -1,0 +1,56 @@
+<Project>
+
+	<!-- Imports -->
+	<Import Project="..\..\Global.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<ServiceWorkerEnabled>true</ServiceWorkerEnabled>
+		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+		<!-- <ErrorOnDuplicatePublishAssets>false</ErrorOnDuplicatePublishAssets> -->
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<IsAotCompatible>true</IsAotCompatible>
+		<IsTrimmable>true</IsTrimmable>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<!-- Settings -->
+	<ItemGroup>
+		<EmbeddedResource Include="$(SolutionFolder)\Settings\GlobalSettings.json" LogicalName="Settings.Global.json" Link="Settings\Global.json" />
+		<EmbeddedResource Include="$(SolutionFolder)\Settings\WebSettings.Default.json" LogicalName="Settings.Default.json" Link="Settings\Default.json" />
+		<EmbeddedResource Include="$(SolutionFolder)\Settings\WebSettings.Development.json" LogicalName="Settings.Development.json" Link="Settings\Development.json" />
+		<EmbeddedResource Include="$(SolutionFolder)\Settings\WebSettings.Production.json" LogicalName="Settings.Production.json" Link="Settings\Production.json" />
+		<EmbeddedResource Include="$(SolutionFolder)\Resources\Localization\*.resx" LogicalName="%(Filename).resources" Link="Resources\Localization\%(Filename).resx" GenerateSource="false" />
+	</ItemGroup>
+
+	<!-- Service Worker -->
+	<ItemGroup>
+		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+	</ItemGroup>
+
+	<!-- Packages -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.8" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionFolder)\Apps\Web\Web.csproj" />
+		<ProjectReference Include="$(SolutionFolder)\Modules\Core\Frontend\Core.Frontend.csproj" />
+		<!-- <ProjectReference Include="$(SolutionFolder)\Modules\Zeus\Frontend\Zeus.Frontend.csproj" /> -->
+	</ItemGroup>
+
+	<!-- Usings -->
+	<ItemGroup>
+		<Using Include="Humanizer" />
+		<Using Include="Olympus.Shared" />
+		<Using Include="Olympus.Kernel" />
+		<Using Include="Olympus.Core.Archend" />
+		<Using Include="Olympus.Core.Frontend" />
+		<Using Include="Olympus.Web" />
+		<Using Include="Olympus.Web.Host" />
+		<Using Include="Microsoft.Extensions.DependencyInjection" />
+	</ItemGroup>
+
+</Project>

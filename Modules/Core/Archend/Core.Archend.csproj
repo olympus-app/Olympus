@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Imports -->
+	<Import Project=".\Core.Archend.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<AssemblyName>Olympus.Core.Archend</AssemblyName>
+		<RootNamespace>Olympus.Core.Archend</RootNamespace>
+	</PropertyGroup>
+
+	<!-- Metadata -->
+	<PropertyGroup>
+		<Product>Olympus Core Archend</Product>
+		<AssemblyTitle>Olympus Core Archend Package</AssemblyTitle>
+		<Description>Core module package for Olympus archend layer.</Description>
+	</PropertyGroup>
+
+</Project>

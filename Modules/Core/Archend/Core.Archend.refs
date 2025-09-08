@@ -1,0 +1,11 @@
+<Project>
+
+	<!-- Imports -->
+	<Import Project=".\Core.Archend.props" />
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionFolder)\Modules\Core\Archend\Core.Archend.csproj" />
+	</ItemGroup>
+
+</Project>

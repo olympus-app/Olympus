@@ -1,0 +1,46 @@
+<Project>
+
+	<!-- Imports -->
+	<Import Project="..\..\..\Global.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<IsAotCompatible>true</IsAotCompatible>
+		<IsTrimmable>true</IsTrimmable>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<!-- Platforms -->
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<!-- Packages -->
+	<ItemGroup>
+		<!-- <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.8" /> -->
+		<PackageReference Include="Radzen.Blazor" Version="7.3.1" />
+	</ItemGroup>
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionFolder)\Libraries\Shared\Shared.csproj" />
+		<ProjectReference Include="$(SolutionFolder)\Libraries\Kernel\Kernel.csproj" />
+		<ProjectReference Include="$(SolutionFolder)\Modules\Core\Archend\Core.Archend.csproj" />
+	</ItemGroup>
+
+	<!-- Usings -->
+	<ItemGroup>
+		<Using Include="Humanizer" />
+		<Using Include="Olympus.Shared" />
+		<Using Include="Olympus.Kernel" />
+		<Using Include="Olympus.Core.Archend" />
+		<Using Include="Olympus.Core.Frontend" />
+		<Using Include="Microsoft.Extensions.Options" />
+		<Using Include="Microsoft.Extensions.DependencyInjection" />
+		<Using Include="Radzen" />
+		<Using Include="Radzen.Blazor" />
+		<Using Include="ServiceScan.SourceGenerator" />
+	</ItemGroup>
+
+</Project>

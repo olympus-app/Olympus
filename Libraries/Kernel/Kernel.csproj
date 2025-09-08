@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Imports -->
+	<Import Project=".\Kernel.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<AssemblyName>Olympus.Kernel</AssemblyName>
+		<RootNamespace>Olympus.Kernel</RootNamespace>
+	</PropertyGroup>
+
+	<!-- Metadata -->
+	<PropertyGroup>
+		<Product>Olympus Kernel</Product>
+		<AssemblyTitle>Olympus Kernel Package</AssemblyTitle>
+		<Description>Kernel package for Olympus applications.</Description>
+	</PropertyGroup>
+
+</Project>

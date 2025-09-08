@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<!-- Imports -->
+	<Import Project=".\Web.Host.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<AssemblyName>Olympus.Web.Host</AssemblyName>
+		<RootNamespace>Olympus.Web.Host</RootNamespace>
+	</PropertyGroup>
+
+	<!-- Metadata -->
+	<PropertyGroup>
+		<Product>Olympus Web Host</Product>
+		<AssemblyTitle>Olympus Web Host Application</AssemblyTitle>
+		<Description>Host application for Olympus Web.</Description>
+	</PropertyGroup>
+
+</Project>

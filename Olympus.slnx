@@ -1,128 +1,40 @@
 <Solution>
-  <Configurations>
-    <BuildType Name="Debug" />
-    <BuildType Name="Release" />
-    <BuildType Name="Architect" />
-    <BuildType Name="Backend" />
-    <BuildType Name="Frontend" />
-    <BuildType Name="Tests" />
-    <BuildType Name="Native" />
-    <BuildType Name="Web" />
-    <BuildType Name="Api" />
-  </Configurations>
-	<!-- Architect -->
-	<Project Path="Architect/Domain/Domain.csproj">
-    <Build Solution="Architect|*" Project="true" />
-    <Build Solution="Backend|*" Project="true" />
-    <Build Solution="Frontend|*" Project="false" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="true" />
-  </Project>
-  <Project Path="Architect/Domain.Tests/Domain.Tests.csproj">
-    <Build Solution="Architect|*" Project="true" />
-    <Build Solution="Backend|*" Project="false" />
-    <Build Solution="Frontend|*" Project="false" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="false" />
-  </Project>
-	<Project Path="Architect/Application/Application.csproj">
-    <Build Solution="Architect|*" Project="true" />
-    <Build Solution="Backend|*" Project="true" />
-    <Build Solution="Frontend|*" Project="false" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="true" />
-  </Project>
-  <Project Path="Architect/Application.Tests/Application.Tests.csproj">
-    <Build Solution="Architect|*" Project="true" />
-    <Build Solution="Backend|*" Project="false" />
-    <Build Solution="Frontend|*" Project="false" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="false" />
-  </Project>
-	<Project Path="Architect/Infrastructure/Infrastructure.csproj">
-    <Build Solution="Architect|*" Project="true" />
-    <Build Solution="Backend|*" Project="true" />
-    <Build Solution="Frontend|*" Project="false" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="true" />
-  </Project>
-	<Project Path="Architect/Shared/Shared.csproj">
-    <Build Solution="Architect|*" Project="true" />
-    <Build Solution="Backend|*" Project="true" />
-    <Build Solution="Frontend|*" Project="true" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="true" />
-    <Build Solution="Web|*" Project="true" />
-    <Build Solution="Api|*" Project="true" />
-  </Project>
-	<!-- Backend -->
-	<Project Path="Backend/Api/Api.csproj">
-    <Build Solution="Architect|*" Project="false" />
-    <Build Solution="Backend|*" Project="true" />
-    <Build Solution="Frontend|*" Project="false" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="true" />
-  </Project>
-  <Project Path="Backend/Api.Tests/Api.Tests.csproj">
-    <Build Solution="Architect|*" Project="false" />
-    <Build Solution="Backend|*" Project="true" />
-    <Build Solution="Frontend|*" Project="false" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="false" />
-  </Project>
-	<!-- Frontend -->
-	<Project Path="Frontend/Interface/Interface.csproj">
-    <Build Solution="Architect|*" Project="false" />
-    <Build Solution="Backend|*" Project="false" />
-    <Build Solution="Frontend|*" Project="true" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="true" />
-    <Build Solution="Web|*" Project="true" />
-    <Build Solution="Api|*" Project="false" />
-  </Project>
-  <Project Path="Frontend/Interface.Tests/Interface.Tests.csproj">
-    <Build Solution="Architect|*" Project="false" />
-    <Build Solution="Backend|*" Project="false" />
-    <Build Solution="Frontend|*" Project="true" />
-    <Build Solution="Tests|*" Project="true" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="false" />
-  </Project>
-	<Project Path="Frontend/Native/Native.csproj">
-    <Build Solution="Architect|*" Project="false" />
-    <Build Solution="Backend|*" Project="false" />
-    <Build Solution="Frontend|*" Project="true" />
-    <Build Solution="Tests|*" Project="false" />
-    <Build Solution="Native|*" Project="true" />
-    <Build Solution="Web|*" Project="false" />
-    <Build Solution="Api|*" Project="false" />
-    <Deploy Solution="Debug|*" />
-    <Deploy Solution="Release|*" />
-    <Deploy Solution="Frontend|*" />
-    <Deploy Solution="Native|*" />
-  </Project>
-	<Project Path="Frontend/Web/Web.csproj">
-    <Build Solution="Architect|*" Project="false" />
-    <Build Solution="Backend|*" Project="false" />
-    <Build Solution="Frontend|*" Project="true" />
-    <Build Solution="Tests|*" Project="false" />
-    <Build Solution="Native|*" Project="false" />
-    <Build Solution="Web|*" Project="true" />
-    <Build Solution="Api|*" Project="false" />
-  </Project>
+
+	<!-- Apps -->
+	<Folder Name="/Apps/">
+		<Project Path="Apps/Api/Api.csproj" />
+		<Project Path="Apps/Native/Native.csproj" />
+		<Project Path="Apps/Web/Web.csproj" />
+	</Folder>
+
+	<!-- Hosts -->
+	<Folder Name="/Hosts/">
+		<Project Path="Hosts/Api/Api.Host.csproj" />
+		<Project Path="Hosts/Native/Native.Host.csproj" />
+		<Project Path="Hosts/Web/Web.Host.csproj" />
+	</Folder>
+
+	<!-- Libraries -->
+	<Folder Name="/Libraries/">
+		<Project Path="Libraries/Kernel/Kernel.csproj" />
+		<Project Path="Libraries/Shared/Shared.csproj" />
+	</Folder>
+
+	<!-- Modules -->
+	<Folder Name="/Modules/" />
+
+	<!-- Core Module -->
+	<Folder Name="/Modules/Core/">
+		<Project Path="Modules/Core/Archend/Core.Archend.csproj" />
+		<Project Path="Modules/Core/Backend/Core.Backend.csproj" />
+		<Project Path="Modules/Core/Frontend/Core.Frontend.csproj" />
+	</Folder>
+
+	<!-- Zeus Module -->
+	<Folder Name="/Modules/Zeus/">
+		<Project Path="Modules/Zeus/Archend/Zeus.Archend.csproj" />
+		<Project Path="Modules/Zeus/Backend/Zeus.Backend.csproj" />
+		<!-- <Project Path="Modules/Zeus/Frontend/Zeus.Frontend.csproj" /> -->
+	</Folder>
+
 </Solution>

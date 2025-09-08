@@ -1,0 +1,11 @@
+<Project>
+
+	<!-- Imports -->
+	<Import Project=".\Core.Backend.props" />
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionFolder)\Modules\Core\Backend\Core.Backend.csproj" />
+	</ItemGroup>
+
+</Project>

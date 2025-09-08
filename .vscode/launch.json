@@ -1,0 +1,52 @@
+{
+	"configurations": [
+		{
+			"name": "API Host",
+			"type": "dotnet",
+			"request": "launch",
+			"projectPath": "${workspaceFolder}\\Apps\\Api\\Host\\Api.Host.csproj",
+			"launchConfigurationId": "TargetFramework=;API",
+			"internalConsoleOptions": "openOnSessionStart",
+			"serverReadyAction": {
+				"action": "debugWithChrome",
+				"uriFormat": "https://localhost:3333",
+				"pattern": "\\bNow listening on:\\s+https?://\\S+",
+				"killOnServerStop": true
+			}
+		},
+		{
+			"name": "Web Host",
+			"type": "dotnet",
+			"request": "launch",
+			"projectPath": "${workspaceFolder}\\Apps\\Web\\Host\\Web.Host.csproj",
+			"launchConfigurationId": "TargetFramework=;Web",
+			"internalConsoleOptions": "openOnSessionStart",
+			"serverReadyAction": {
+				"action": "debugWithChrome",
+				"uriFormat": "https://localhost:3333",
+				"pattern": "\\bNow listening on:\\s+https?://\\S+",
+				"killOnServerStop": true
+			}
+		},
+		{
+			"name": "Windows Host",
+			"type": "maui",
+			"request": "launch",
+			"preLaunchTask": ".NET Build: Windows Host",
+			"internalConsoleOptions": "openOnSessionStart",
+			"targetFramework": "net9.0-windows10.0.19041.0",
+			"project": "C:\\Development\\Olympus\\Apps\\Native\\Host\\Native.Host.csproj",
+			"device": "Computador Local"
+		},
+		{
+			"name": "Android Host",
+			"type": "maui",
+			"request": "launch",
+			"preLaunchTask": "Android: Launch App",
+			"internalConsoleOptions": "openOnSessionStart",
+			"targetFramework": "net9.0-android",
+			"project": "C:\\Development\\Olympus\\Apps\\Native\\Host\\Native.Host.csproj",
+			"device": "pixel_7_-_api_35"
+		}
+	]
+}

@@ -1,0 +1,52 @@
+<Project>
+
+	<!-- Imports -->
+	<Import Project="..\..\Global.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<!-- Release Specific Configuration -->
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<BlazorWebAssemblyOmitDebugProxyOutput>true</BlazorWebAssemblyOmitDebugProxyOutput>
+	</PropertyGroup>
+
+	<!-- Packages -->
+	<ItemGroup>
+		<PackageReference Include="Asp.Versioning.OData.ApiExplorer" Version="8.2.0" />
+		<PackageReference Include="EFCoreSecondLevelCacheInterceptor.MemoryCache" Version="5.3.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.8" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+		<PackageReference Include="Scalar.AspNetCore" Version="2.7.2" />
+	</ItemGroup>
+
+	<!-- Dependencies -->
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionFolder)\Libraries\Shared\Shared.csproj" />
+		<ProjectReference Include="$(SolutionFolder)\Libraries\Kernel\Kernel.csproj" />
+		<ProjectReference Include="$(SolutionFolder)\Modules\Core\Archend\Core.Archend.csproj" />
+		<ProjectReference Include="$(SolutionFolder)\Modules\Core\Backend\Core.Backend.csproj" />
+	</ItemGroup>
+
+	<!-- Usings -->
+	<ItemGroup>
+		<Using Include="Humanizer" />
+		<Using Include="Asp.Versioning" />
+		<Using Include="Olympus.Shared" />
+		<Using Include="Olympus.Kernel" />
+		<Using Include="Olympus.Core.Archend" />
+		<Using Include="Olympus.Core.Backend" />
+		<Using Include="Olympus.Api" />
+		<Using Include="Microsoft.AspNetCore.Builder" />
+		<Using Include="Microsoft.AspNetCore.Routing" />
+		<Using Include="Microsoft.Extensions.Options" />
+		<Using Include="Microsoft.Extensions.DependencyInjection" />
+	</ItemGroup>
+
+</Project>

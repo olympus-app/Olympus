@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Imports -->
+	<Import Project=".\Shared.props" />
+
+	<!-- Project -->
+	<PropertyGroup>
+		<AssemblyName>Olympus.Shared</AssemblyName>
+		<RootNamespace>Olympus.Shared</RootNamespace>
+	</PropertyGroup>
+
+	<!-- Metadata -->
+	<PropertyGroup>
+		<Product>Olympus Shared</Product>
+		<AssemblyTitle>Olympus Shared Package</AssemblyTitle>
+		<Description>Shared package for Olympus applications.</Description>
+	</PropertyGroup>
+
+</Project>
