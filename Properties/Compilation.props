@@ -1,0 +1,23 @@
+<Project>
+
+	<!-- General Compilation -->
+	<PropertyGroup Label="Compilation">
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
+		<EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
+		<InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.Extensions.Configuration.Binder.SourceGeneration</InterceptorsNamespaces>
+	</PropertyGroup>
+
+	<!-- Just in Time Compilation -->
+	<PropertyGroup Label="Compilation" Condition="$(Compilation)=='JustInTime' Or ($(ProjectLayer)=='Backend' Or $(ApplicationType)=='API')">
+		<RunAOTCompilation>false</RunAOTCompilation>
+		<IsAotCompatible>false</IsAotCompatible>
+	</PropertyGroup>
+
+	<!-- Ahead of Time Compilation -->
+	<PropertyGroup Label="Compilation" Condition="$(Compilation)=='AheadOfTime' Or !($(ProjectLayer)=='Backend' Or $(ApplicationType)=='API')">
+		<RunAOTCompilation>false</RunAOTCompilation>
+		<IsAotCompatible>false</IsAotCompatible>
+	</PropertyGroup>
+
+</Project>

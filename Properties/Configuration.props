@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Debug Configuration -->
+	<PropertyGroup Label="Configuration" Condition="$(Configuration)=='Debug' Or $(Configuration)==''">
+		<BlazorWebAssemblyOmitDebugProxyOutput>false</BlazorWebAssemblyOmitDebugProxyOutput>
+		<WasmApplicationEnvironmentName>Development</WasmApplicationEnvironmentName>
+	</PropertyGroup>
+
+	<!-- Release Configuration -->
+	<PropertyGroup Label="Configuration" Condition="$(Configuration)=='Release'">
+		<BlazorWebAssemblyOmitDebugProxyOutput>true</BlazorWebAssemblyOmitDebugProxyOutput>
+		<WasmApplicationEnvironmentName>Production</WasmApplicationEnvironmentName>
+	</PropertyGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+<Project>
+
+	<!-- Project Metadata for Modular Packages -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ModularProjectTypes.Contains(';$(ProjectType);'))">
+		<Product>$(SolutionName) $(ModuleName) $(ProjectLayer)</Product>
+		<AssemblyTitle>$(SolutionName) $(ModuleName) $(ProjectLayer) Package</AssemblyTitle>
+		<Description>$(ProjectLayer) package for $(SolutionDescription) $(ModuleName) module.</Description>
+	</PropertyGroup>
+
+	<!-- Project Metadata for Application Packages -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='ApplicationPackage'">
+		<Product>$(SolutionName) $(ApplicationType)</Product>
+		<AssemblyTitle>$(SolutionName) $(ApplicationType) Application Package</AssemblyTitle>
+		<Description>$(ApplicationType) application package for $(SolutionDescription).</Description>
+	</PropertyGroup>
+
+	<!-- Project Metadata for Application Hosts -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='ApplicationHost'">
+		<Product>$(SolutionName) $(ApplicationType)</Product>
+		<AssemblyTitle>$(SolutionName) $(ApplicationType) Application Host</AssemblyTitle>
+		<Description>$(ApplicationType) application host for $(SolutionDescription).</Description>
+	</PropertyGroup>
+
+	<!-- Project Metadata for Tests -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='UnitTests' Or $(ProjectType)=='IntegrationTests'">
+		<Product>$(ProjectType) for $(BaseProjectName)</Product>
+		<AssemblyTitle>$(ProjectType) for $(BaseProjectName)</AssemblyTitle>
+		<Description>$(ProjectType) for $(BaseProjectName)</Description>
+	</PropertyGroup>
+
+</Project>

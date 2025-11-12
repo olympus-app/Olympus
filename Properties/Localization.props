@@ -1,0 +1,36 @@
+<Project>
+
+	<!-- Localization Configuration -->
+	<PropertyGroup Label="Localization">
+		<InvariantTimezone>true</InvariantTimezone>
+		<InvariantGlobalization>true</InvariantGlobalization>
+		<SatelliteResourceLanguages>en;es;pt</SatelliteResourceLanguages>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+	</PropertyGroup>
+
+	<!-- Variant Globalization -->
+	<PropertyGroup Label="Localization" Condition="$(UseLocalization)=='true' Or $(ClientApplicationTypes.Contains(';$(ApplicationType);'))">
+		<InvariantTimezone>false</InvariantTimezone>
+		<InvariantGlobalization>false</InvariantGlobalization>
+	</PropertyGroup>
+
+	<!-- Resources Configuration -->
+	<ItemGroup Label="Resources" Condition="!($(ProjectType)=='ApplicationHost' Or $(ProjectType)=='IntegrationTests' Or $(ProjectType)=='UnitTests')">
+		<EmbeddedResource Include="$(ProjectFolder)\Resources\Localization\*.resx">
+			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
+			<CustomNamespace>$(RootNamespace).Localization</CustomNamespace>
+			<EmitFormatMethods>true</EmitFormatMethods>
+			<GenerateSource>true</GenerateSource>
+			<DefaultLang>en</DefaultLang>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<!-- Resources Configuration for Hosts and Tests -->
+	<ItemGroup Label="Resources" Condition="$(ProjectType)=='ApplicationHost' Or $(ProjectType)=='IntegrationTests' Or $(ProjectType)=='UnitTests'">
+		<EmbeddedResource Include="$(SolutionFolder)\Resources\Localization\*.resx">
+			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
+			<GenerateSource>false</GenerateSource>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>

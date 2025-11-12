@@ -1,0 +1,47 @@
+﻿@namespace Olympus.Core.Frontend.Pages
+
+@page "/"
+
+@* @using Olympus.Archend.Kernel *@
+@* @using Olympus.Frontend.Interface.Services *@
+@* @using Olympus.Frontend.Interface.Theming *@
+
+@* @inject ApplicationSettings application *@
+@* @inject ThemingService ThemingService *@
+@* @inject IFormFactor FormFactor *@
+
+<PageTitle>Olympus</PageTitle>
+
+<h1>Hello, world!</h1>
+
+@* Welcome to your new app running on <em>@factor</em> using <em>@platform</em>. *@
+
+<br />
+<br />
+
+@* <RadzenButton Text="Default" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.Default))" />
+<RadzenButton Text="Bootstrap" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.Bootstrap))" />
+<RadzenButton Text="MaterialDesign" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.MaterialDesign))" />
+<RadzenButton Text="MaterialYou" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.MaterialYou))" />
+<RadzenButton Text="FluentUI" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.FluentUI))" />
+
+<br />
+<br />
+
+<RadzenButton Text="Default" Click="@(async () => await ThemingService.ApplyColors(ThemingColors.Default))" />
+<RadzenButton Text="Eleuthia" Click="@(async () => await ThemingService.ApplyColors(ThemingColors.Eleuthia))" />
+<RadzenButton Text="Athenas" Click="@(async () => await ThemingService.ApplyColors(ThemingColors.Athenas))" />
+
+<br />
+<br />
+
+<RadzenButton Text="System" Click="@(async () => await ThemingService.ApplySchema(ThemingSchemas.System))" />
+<RadzenButton Icon="light_mode" Click="@(async () => await ThemingService.ApplySchema(ThemingSchemas.Light))" />
+<RadzenButton Icon="dark_mode" Click="@(async () => await ThemingService.ApplySchema(ThemingSchemas.Dark))" /> *@
+
+@code {
+
+	@* private string factor => FormFactor.GetFormFactor(); *@
+	@* private string platform => FormFactor.GetPlatform(); *@
+
+}

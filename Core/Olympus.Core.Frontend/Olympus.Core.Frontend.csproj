@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<ProjectType>CorePackage</ProjectType>
+		<ProjectLayer>Frontend</ProjectLayer>
+		<ModuleName>Core</ModuleName>
+	</PropertyGroup>
+
+	<!-- Project References -->
+	<ItemGroup Label="ProjectReferences">
+		<ProjectReference Include="$(BaseArchendProjectFile)" />
+	</ItemGroup>
+
+	<!-- Package References -->
+	<ItemGroup Label="PackageReferences">
+		<PackageReference Include="Radzen.Blazor" Version="8.3.0" />
+	</ItemGroup>
+
+</Project>

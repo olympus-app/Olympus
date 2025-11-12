@@ -1,0 +1,136 @@
+<Project>
+
+	<!-- Framework Properties -->
+	<PropertyGroup Label="FrameworkProperties">
+		<LangVersion>14</LangVersion>
+		<TargetFramework>net10.0</TargetFramework>
+		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+	</PropertyGroup>
+
+	<!-- Solution Properties -->
+	<PropertyGroup Label="SolutionProperties">
+		<SolutionName>Olympus</SolutionName>
+		<SolutionDescription>Olympus Monolith</SolutionDescription>
+		<SolutionFolder>$(MSBuildThisFileDirectory)</SolutionFolder>
+		<AppsFolder>$(MSBuildThisFileDirectory)\Apps</AppsFolder>
+		<CoreFolder>$(MSBuildThisFileDirectory)\Core</CoreFolder>
+		<ModulesFolder>$(MSBuildThisFileDirectory)\Modules</ModulesFolder>
+		<PropertiesFolder>$(MSBuildThisFileDirectory)\Properties</PropertiesFolder>
+		<ResourcesFolder>$(MSBuildThisFileDirectory)\Resources</ResourcesFolder>
+		<SettingsFolder>$(MSBuildThisFileDirectory)\Settings</SettingsFolder>
+		<TestsFolder>$(MSBuildThisFileDirectory)\Tests</TestsFolder>
+	</PropertyGroup>
+
+	<!-- Solution Metadata -->
+	<PropertyGroup Label="SolutionMetadata">
+		<Company>Olympus</Company>
+		<Product>Olympus</Product>
+		<Version>0.4.0.0-alpha</Version>
+		<Copyright>©2025 Éwerton Ferreira</Copyright>
+		<ApplicationIcon>$(ResourcesFolder)\Icons\AppIcon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>$(MSBuildProjectName)</RootNamespace>
+		<ProjectName>$(MSBuildProjectName)</ProjectName>
+		<ProjectFile>$(MSBuildProjectFullPath)</ProjectFile>
+		<ProjectFolder>$(MSBuildProjectDirectory)</ProjectFolder>
+		<ProjectProps>$(MSBuildProjectFullPath.Replace('$(MSBuildProjectExtension)','.props'))</ProjectProps>
+		<ProjectTargets>$(MSBuildProjectFullPath.Replace('$(MSBuildProjectExtension)','.targets'))</ProjectTargets>
+	</PropertyGroup>
+
+	<!-- Core Kernel Project Properties -->
+	<PropertyGroup Label="CoreKernelProjectProperties">
+		<CoreKernelProjectTargets>Olympus.Core.Kernel</CoreKernelProjectTargets>
+		<CoreKernelProjectFolder>$(CoreFolder)\$(CoreKernelProjectTargets)</CoreKernelProjectFolder>
+		<CoreKernelProjectFile>$(CoreKernelProjectFolder)\$(CoreKernelProjectTargets).csproj</CoreKernelProjectFile>
+		<CoreKernelProjectProps>$(CoreKernelProjectFolder)\$(CoreKernelProjectTargets).props</CoreKernelProjectProps>
+		<CoreKernelProjectTargets>$(CoreKernelProjectFolder)\$(CoreKernelProjectTargets).targets</CoreKernelProjectTargets>
+	</PropertyGroup>
+
+	<!-- Core Archend Project Properties -->
+	<PropertyGroup Label="CoreArchendProjectProperties">
+		<CoreArchendProjectName>Olympus.Core.Archend</CoreArchendProjectName>
+		<CoreArchendProjectFolder>$(CoreFolder)\$(CoreArchendProjectName)</CoreArchendProjectFolder>
+		<CoreArchendProjectFile>$(CoreArchendProjectFolder)\$(CoreArchendProjectName).csproj</CoreArchendProjectFile>
+		<CoreArchendProjectProps>$(CoreArchendProjectFolder)\$(CoreArchendProjectName).props</CoreArchendProjectProps>
+		<CoreArchendProjectTargets>$(CoreArchendProjectFolder)\$(CoreArchendProjectName).targets</CoreArchendProjectTargets>
+	</PropertyGroup>
+
+	<!-- Core Backend Project Properties -->
+	<PropertyGroup Label="CoreBackendProjectProperties">
+		<CoreBackendProjectName>Olympus.Core.Backend</CoreBackendProjectName>
+		<CoreBackendProjectFolder>$(CoreFolder)\$(CoreBackendProjectName)</CoreBackendProjectFolder>
+		<CoreBackendProjectFile>$(CoreBackendProjectFolder)\$(CoreBackendProjectName).csproj</CoreBackendProjectFile>
+		<CoreBackendProjectProps>$(CoreBackendProjectFolder)\$(CoreBackendProjectName).props</CoreBackendProjectProps>
+		<CoreBackendProjectTargets>$(CoreBackendProjectFolder)\$(CoreBackendProjectName).targets</CoreBackendProjectTargets>
+	</PropertyGroup>
+
+	<!-- Core Frontend Project Properties -->
+	<PropertyGroup Label="CoreFrontendProjectProperties">
+		<CoreFrontendProjectName>Olympus.Core.Frontend</CoreFrontendProjectName>
+		<CoreFrontendProjectFolder>$(CoreFolder)\$(CoreFrontendProjectName)</CoreFrontendProjectFolder>
+		<CoreFrontendProjectFile>$(CoreFrontendProjectFolder)\$(CoreFrontendProjectName).csproj</CoreFrontendProjectFile>
+		<CoreFrontendProjectProps>$(CoreFrontendProjectFolder)\$(CoreFrontendProjectName).props</CoreFrontendProjectProps>
+		<CoreFrontendProjectTargets>$(CoreFrontendProjectFolder)\$(CoreFrontendProjectName).targets</CoreFrontendProjectTargets>
+	</PropertyGroup>
+
+	<!-- Api Project Properties -->
+	<PropertyGroup Label="ApiProjectProperties">
+		<ApiProjectName>Olympus.Api</ApiProjectName>
+		<ApiProjectFolder>$(AppsFolder)\$(ApiProjectName)</ApiProjectFolder>
+		<ApiProjectFile>$(ApiProjectFolder)\$(ApiProjectName).csproj</ApiProjectFile>
+		<ApiProjectProps>$(ApiProjectFolder)\$(ApiProjectName).props</ApiProjectProps>
+		<ApiProjectTargets>$(ApiProjectFolder)\$(ApiProjectName).targets</ApiProjectTargets>
+	</PropertyGroup>
+
+	<!-- Api Host Project Properties -->
+	<PropertyGroup Label="ApiHostProjectProperties">
+		<ApiHostProjectName>Olympus.Api.Host</ApiHostProjectName>
+		<ApiHostProjectFolder>$(AppsFolder)\$(ApiHostProjectName)</ApiHostProjectFolder>
+		<ApiHostProjectFile>$(ApiHostProjectFolder)\$(ApiHostProjectName).csproj</ApiHostProjectFile>
+		<ApiHostProjectProps>$(ApiHostProjectFolder)\$(ApiHostProjectName).props</ApiHostProjectProps>
+		<ApiHostProjectTargets>$(ApiHostProjectFolder)\$(ApiHostProjectName).targets</ApiHostProjectTargets>
+	</PropertyGroup>
+
+	<!-- Web Project Properties -->
+	<PropertyGroup Label="WebProjectProperties">
+		<WebProjectName>Olympus.Web</WebProjectName>
+		<WebProjectFolder>$(AppsFolder)\$(WebProjectName)</WebProjectFolder>
+		<WebProjectFile>$(WebProjectFolder)\$(WebProjectName).csproj</WebProjectFile>
+		<WebProjectProps>$(WebProjectFolder)\$(WebProjectName).props</WebProjectProps>
+		<WebProjectTargets>$(WebProjectFolder)\$(WebProjectName).targets</WebProjectTargets>
+	</PropertyGroup>
+
+	<!-- Web Host Project Properties -->
+	<PropertyGroup Label="WebHostProjectProperties">
+		<WebHostProjectName>Olympus.Web.Host</WebHostProjectName>
+		<WebHostProjectFolder>$(AppsFolder)\$(WebHostProjectName)</WebHostProjectFolder>
+		<WebHostProjectFile>$(WebHostProjectFolder)\$(WebHostProjectName).csproj</WebHostProjectFile>
+		<WebHostProjectProps>$(WebHostProjectFolder)\$(WebHostProjectName).props</WebHostProjectProps>
+		<WebHostProjectTargets>$(WebHostProjectFolder)\$(WebHostProjectName).targets</WebHostProjectTargets>
+	</PropertyGroup>
+
+	<!-- Modular Project Properties -->
+	<PropertyGroup Label="ModularProjectProperties" Condition="$(ProjectName.EndsWith('Backend')) Or $(ProjectName.EndsWith('Frontend'))">
+		<BaseArchendProjectName>$(ProjectName.Replace('Backend','Archend').Replace('Frontend','Archend'))</BaseArchendProjectName>
+		<BaseArchendProjectFile>$(ProjectFile.Replace('Backend','Archend').Replace('Frontend','Archend'))</BaseArchendProjectFile>
+		<BaseArchendProjectFolder>$(ProjectFolder.Replace('Backend','Archend').Replace('Frontend','Archend'))</BaseArchendProjectFolder>
+		<BaseArchendProjectProps>$(ProjectProps.Replace('Backend','Archend').Replace('Frontend','Archend'))</BaseArchendProjectProps>
+		<BaseArchendProjectTargets>$(ProjectTargets.Replace('Backend','Archend').Replace('Frontend','Archend'))</BaseArchendProjectTargets>
+	</PropertyGroup>
+
+	<!-- Tests Project Properties -->
+	<PropertyGroup Label="TestsProjectProperties" Condition="$(ProjectName.EndsWith('Tests'))">
+		<BaseProjectName>$(ProjectName.Replace('.Tests',''))</BaseProjectName>
+		<BaseProjectFile>$(ProjectFile.Replace('.Tests',''))</BaseProjectFile>
+		<BaseProjectFolder>$(ProjectFolder.Replace('.Tests',''))</BaseProjectFolder>
+		<BaseProjectProps>$(ProjectProps.Replace('.Tests',''))</BaseProjectProps>
+		<BaseProjectTargets>$(ProjectTargets.Replace('.Tests',''))</BaseProjectTargets>
+	</PropertyGroup>
+
+</Project>

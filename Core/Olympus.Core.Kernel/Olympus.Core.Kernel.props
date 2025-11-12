@@ -1,0 +1,22 @@
+<Project>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings">
+		<Using Include="Olympus.Core.Kernel.Exceptions" />
+		<Using Include="Olympus.Core.Kernel.General" />
+		<Using Include="Olympus.Core.Kernel.Localization" />
+		<Using Include="Olympus.Core.Kernel.Modularization" />
+		<Using Include="Olympus.Core.Kernel.Primitives" />
+		<Using Include="Olympus.Core.Kernel.Settings" />
+		<Using Include="Olympus.Core.Kernel.Users" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+		<Using Include="Humanizer" />
+		<Using Include="Microsoft.Extensions.DependencyInjection" />
+		<Using Include="Microsoft.Extensions.Options" />
+		<Using Include="ServiceScan.SourceGenerator" />
+	</ItemGroup>
+
+</Project>

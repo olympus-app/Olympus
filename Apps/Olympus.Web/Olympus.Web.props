@@ -1,0 +1,22 @@
+<Project>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(CoreFrontendProjectProps)" />
+	</ImportGroup>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings">
+		<Using Include="Olympus.Web" />
+		<Using Include="Olympus.Web.Radzen" />
+		<Using Include="Olympus.Web.Services" />
+		<Using Include="Olympus.Web.Settings" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+		<Using Include="Microsoft.AspNetCore.Components.Web" />
+		<Using Include="Microsoft.AspNetCore.Components.WebAssembly.Hosting" />
+	</ItemGroup>
+
+</Project>

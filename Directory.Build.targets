@@ -1,0 +1,49 @@
+<Project>
+
+	<!-- Validation Project Properties -->
+	<PropertyGroup Label="ValidationProjectProperties">
+		<ProjectTypes>;CorePackage;ModulePackage;ApplicationPackage;ApplicationHost;UnitTests;IntegrationTests;</ProjectTypes>
+		<ProjectLayers>;Kernel;Archend;Backend;Frontend;</ProjectLayers>
+		<ModularProjectTypes>;CorePackage;ModulePackage;</ModularProjectTypes>
+		<PackableProjectTypes>;CorePackage;ModulePackage;ApplicationPackage;</PackableProjectTypes>
+		<ApplicationProjectTypes>;ApplicationPackage;ApplicationHost;</ApplicationProjectTypes>
+		<ApplicationTypes>;API;Web;</ApplicationTypes>
+		<ClientApplicationTypes>;Web;</ClientApplicationTypes>
+	</PropertyGroup>
+
+	<!-- Validate Project Properties -->
+	<Target Name="ValidateProjectProperties" BeforeTargets="Build">
+		<Error Condition="$(ProjectType)==''" Text="Property ProjectType is required." />
+		<Error Condition="$(ProjectLayer)==''" Text="Property ProjectLayer is required." />
+		<Error Condition="!$(ProjectTypes.Contains(';$(ProjectType);'))" Text="Property ProjectType must be one of: $(ProjectTypes.Trim(';').Replace(';',', '))." />
+		<Error Condition="!$(ProjectLayers.Contains(';$(ProjectLayer);'))" Text="Property ProjectLayer must be one of: $(ProjectLayers.Trim(';').Replace(';',', '))." />
+		<Error Condition="$(ModuleName)=='' And $(ModularProjectTypes.Contains(';$(ProjectType);'))" Text="Property ModuleName is required when ProjectType is one of: $(ModularProjectTypes.Trim(';').Replace(';',', '))." />
+		<Error Condition="$(ApplicationType)=='' And $(ApplicationProjectTypes.Contains(';$(ProjectType);'))" Text="Property ApplicationType is required when ProjectType is one of: $(ApplicationProjectTypes.Trim(';').Replace(';',', '))." />
+		<Error Condition="$(ApplicationType)!='' And !$(ApplicationTypes.Contains(';$(ApplicationType);'))" Text="Property 'ApplicationType' must be one of: $(ApplicationTypes.Trim(';').Replace(';',', '))." />
+	</Target>
+
+	<!-- Solution Imports -->
+	<ImportGroup Label="SolutionImports">
+		<Import Project="$(PropertiesFolder)\Assets.props" />
+		<Import Project="$(PropertiesFolder)\Compilation.props" />
+		<Import Project="$(PropertiesFolder)\Configuration.props" />
+		<Import Project="$(PropertiesFolder)\Documentation.props" />
+		<Import Project="$(PropertiesFolder)\Localization.props" />
+		<Import Project="$(PropertiesFolder)\Metadata.props" />
+		<Import Project="$(PropertiesFolder)\Packing.props" />
+		<Import Project="$(PropertiesFolder)\Settings.props" />
+	</ImportGroup>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(ProjectProps)" />
+		<Import Project="$(ProjectTargets)" />
+	</ImportGroup>
+
+	<!-- Debug Project Properties -->
+	<Target Name="DebugProjectProperties" AfterTargets="PrepareForBuild">
+		<!-- <Message Importance="High" Text="ProjectName resolved as: '$(ProjectName)'" /> -->
+		<!-- <Message Importance="High" Text="Compilation resolved as: '$(Compilation)'" /> -->
+	</Target>
+
+</Project>

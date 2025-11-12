@@ -1,0 +1,23 @@
+<Project>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(CoreKernelProjectProps)" />
+	</ImportGroup>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings">
+		<Using Include="Olympus.Core.Archend" />
+		<Using Include="Olympus.Core.Archend.Entities" />
+		<Using Include="Olympus.Core.Archend.Mappers" />
+		<Using Include="Olympus.Core.Archend.Models" />
+		<Using Include="Olympus.Core.Archend.Results" />
+		<Using Include="Olympus.Core.Archend.Users" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+		<Using Include="Riok.Mapperly.Abstractions" />
+	</ItemGroup>
+
+</Project>

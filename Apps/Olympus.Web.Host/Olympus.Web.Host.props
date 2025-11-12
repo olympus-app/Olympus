@@ -1,0 +1,18 @@
+<Project>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(WebProjectProps)" />
+	</ImportGroup>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings">
+		<Using Include="Olympus.Web.Host" />
+		<Using Include="Olympus.Web.Host.Modularization" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+	</ItemGroup>
+
+</Project>

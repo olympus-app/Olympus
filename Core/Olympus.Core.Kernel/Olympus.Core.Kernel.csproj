@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<ProjectType>CorePackage</ProjectType>
+		<ProjectLayer>Kernel</ProjectLayer>
+		<ModuleName>Core</ModuleName>
+	</PropertyGroup>
+
+	<!-- Packages References -->
+	<ItemGroup Label="PackagesReferences">
+		<PackageReference Include="Humanizer" Version="2.14.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.0" />
+		<PackageReference Include="ResxSourceGenerator" Version="1.0.10" PrivateAssets="runtime" />
+		<PackageReference Include="ServiceScan.SourceGenerator" Version="2.4.1" PrivateAssets="runtime" />
+		<PackageReference Include="Slugify.Core" Version="5.1.1" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,34 @@
+<Project>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(CoreArchendProjectProps)" />
+	</ImportGroup>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings">
+		<Using Include="Olympus.Core.Backend" />
+		<Using Include="Olympus.Core.Backend.Attributes" />
+		<Using Include="Olympus.Core.Backend.Controllers" />
+		<Using Include="Olympus.Core.Backend.Databases" />
+		<Using Include="Olympus.Core.Backend.Exceptions" />
+		<Using Include="Olympus.Core.Backend.Models" />
+		<Using Include="Olympus.Core.Backend.Services" />
+		<Using Include="Olympus.Core.Backend.Tables" />
+		<Using Include="Olympus.Core.Backend.Users" />
+		<Using Include="Olympus.Core.Backend.Versioning" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+		<Using Include="Asp.Versioning" />
+		<Using Include="EFCoreSecondLevelCacheInterceptor" />
+		<Using Include="Microsoft.AspNetCore.Builder" />
+		<Using Include="Microsoft.AspNetCore.Routing" />
+		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
+		<Using Include="Microsoft.EntityFrameworkCore" />
+		<Using Include="Microsoft.OData.Edm" />
+		<Using Include="Microsoft.OData.ModelBuilder" />
+	</ItemGroup>
+
+</Project>

@@ -1,40 +1,14 @@
 <Solution>
-
-	<!-- Apps -->
 	<Folder Name="/Apps/">
-		<Project Path="Apps/Api/Api.csproj" />
-		<Project Path="Apps/Native/Native.csproj" />
-		<Project Path="Apps/Web/Web.csproj" />
+		<Project Path="Apps/Olympus.Api/Olympus.Api.csproj" />
+		<Project Path="Apps/Olympus.Api.Host/Olympus.Api.Host.csproj" />
+		<Project Path="Apps/Olympus.Web/Olympus.Web.csproj" />
+		<Project Path="Apps/Olympus.Web.Host/Olympus.Web.Host.csproj" />
 	</Folder>
-
-	<!-- Hosts -->
-	<Folder Name="/Hosts/">
-		<Project Path="Hosts/Api/Api.Host.csproj" />
-		<Project Path="Hosts/Native/Native.Host.csproj" />
-		<Project Path="Hosts/Web/Web.Host.csproj" />
+	<Folder Name="/Core/">
+		<Project Path="Core/Olympus.Core.Kernel/Olympus.Core.Kernel.csproj" />
+		<Project Path="Core/Olympus.Core.Archend/Olympus.Core.Archend.csproj" />
+		<Project Path="Core/Olympus.Core.Backend/Olympus.Core.Backend.csproj" />
+		<Project Path="Core/Olympus.Core.Frontend/Olympus.Core.Frontend.csproj" />
 	</Folder>
-
-	<!-- Libraries -->
-	<Folder Name="/Libraries/">
-		<Project Path="Libraries/Kernel/Kernel.csproj" />
-		<Project Path="Libraries/Shared/Shared.csproj" />
-	</Folder>
-
-	<!-- Modules -->
-	<Folder Name="/Modules/" />
-
-	<!-- Core Module -->
-	<Folder Name="/Modules/Core/">
-		<Project Path="Modules/Core/Archend/Core.Archend.csproj" />
-		<Project Path="Modules/Core/Backend/Core.Backend.csproj" />
-		<Project Path="Modules/Core/Frontend/Core.Frontend.csproj" />
-	</Folder>
-
-	<!-- Zeus Module -->
-	<Folder Name="/Modules/Zeus/">
-		<Project Path="Modules/Zeus/Archend/Zeus.Archend.csproj" />
-		<Project Path="Modules/Zeus/Backend/Zeus.Backend.csproj" />
-		<!-- <Project Path="Modules/Zeus/Frontend/Zeus.Frontend.csproj" /> -->
-	</Folder>
-
 </Solution>

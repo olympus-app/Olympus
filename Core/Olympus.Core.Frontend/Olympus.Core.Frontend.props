@@ -1,0 +1,22 @@
+<Project>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(CoreArchendProjectProps)" />
+	</ImportGroup>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings">
+		<Using Include="Olympus.Core.Frontend" />
+		<Using Include="Olympus.Core.Frontend.Layout" />
+		<Using Include="Olympus.Core.Frontend.Pages" />
+		<Using Include="Olympus.Core.Frontend.Services" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+		<Using Include="Radzen" />
+		<Using Include="Radzen.Blazor" />
+	</ItemGroup>
+
+</Project>
