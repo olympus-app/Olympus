@@ -1,0 +1,481 @@
+root = true
+
+[**/Generated/**.cs]
+generated_code = true
+
+[*.{cs,razor}]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+
+# Usings
+file_header_template = unset
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+csharp_using_directive_placement = outside_namespace : warning
+
+# Namespaces
+dotnet_style_namespace_match_folder = false : none
+csharp_style_namespace_declarations = file_scoped : suggestion
+
+# Contructors
+csharp_style_prefer_primary_constructors = true : suggestion
+
+# Symbol Search
+dotnet_search_reference_assemblies = true
+
+# Type Members
+dotnet_hide_advanced_members = false
+dotnet_member_insertion_location = with_other_members_of_the_same_kind
+dotnet_property_generation_behavior = prefer_throwing_properties
+
+# Accessibility Modifiers
+csharp_style_prefer_readonly_struct = true : suggestion
+csharp_prefer_static_local_function = true : suggestion
+csharp_prefer_static_anonymous_function = true : suggestion
+csharp_style_prefer_readonly_struct_member = true : suggestion
+dotnet_style_require_accessibility_modifiers = always : suggestion
+csharp_preferred_modifier_order = public,private,protected,internal,file,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,required,volatile,async : suggestion
+
+# Primitives Style
+dotnet_style_predefined_type_for_locals_parameters_members = true : suggestion
+dotnet_style_predefined_type_for_member_access = true : suggestion
+
+# Fields Style
+dotnet_style_readonly_field = true : suggestion
+
+# Parameters Style
+dotnet_code_quality_unused_parameters = all : suggestion
+
+# Variables Style
+csharp_style_var_for_built_in_types = true : suggestion
+csharp_style_var_when_type_is_apparent = true : suggestion
+csharp_style_var_elsewhere = true : suggestion
+
+# Member qualification
+dotnet_style_qualification_for_field = false : suggestion
+dotnet_style_qualification_for_property = false : suggestion
+dotnet_style_qualification_for_method = false : suggestion
+dotnet_style_qualification_for_event = false : suggestion
+
+# Code Blocks Style
+csharp_prefer_braces = when_multiline : suggestion
+csharp_prefer_simple_using_statement = true : suggestion
+csharp_prefer_system_threading_lock = true : suggestion
+csharp_style_prefer_method_group_conversion = true : suggestion
+csharp_style_prefer_simple_property_accessors = true : suggestion
+csharp_style_prefer_top_level_statements = false : suggestion
+
+# New Lines Style
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_else = false
+csharp_new_line_before_catch = false
+csharp_new_line_before_finally = false
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_between_query_expression_clauses = true
+dotnet_style_allow_multiple_blank_lines_experimental = false
+dotnet_style_allow_statement_immediately_after_block_experimental = false : suggestion
+csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = false
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = false
+csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = false
+csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true : suggestion
+csharp_style_allow_embedded_statements_on_same_line_experimental = true
+csharp_preserve_single_line_blocks = true
+csharp_preserve_single_line_statements = true
+
+# Ident Style
+csharp_indent_block_contents = true
+csharp_indent_braces = false
+csharp_indent_case_contents = true
+csharp_indent_case_contents_when_block = true
+csharp_indent_labels = one_less_than_current
+csharp_indent_switch_labels = true
+
+# Spaces Style
+csharp_space_after_dot = false
+csharp_space_before_dot = false
+csharp_space_after_comma = true
+csharp_space_before_comma = false
+csharp_space_after_cast = false
+csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_after_semicolon_in_for_statement = true
+csharp_space_before_semicolon_in_for_statement = false
+csharp_space_around_binary_operators = before_and_after
+csharp_space_around_declaration_statements = do_not_ignore
+csharp_space_before_open_square_brackets = false
+csharp_space_between_empty_square_brackets = false
+csharp_space_between_method_call_empty_parameter_list_parentheses = false
+csharp_space_between_method_call_name_and_opening_parenthesis = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
+csharp_space_between_method_declaration_name_and_open_parenthesis = false
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_parentheses = false
+csharp_space_between_square_brackets = false
+
+# Parentheses Style
+dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary : suggestion
+dotnet_style_parentheses_in_other_binary_operators = never_if_unnecessary : suggestion
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary : suggestion
+dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary : suggestion
+
+# Expressions Style
+csharp_prefer_simple_default_expression = true : suggestion
+csharp_style_deconstructed_variable_declaration = true : suggestion
+csharp_style_implicit_object_creation_when_type_is_apparent = true : suggestion
+csharp_style_inlined_variable_declaration = true : suggestion
+csharp_style_prefer_implicitly_typed_lambda_expression = true : suggestion
+csharp_style_prefer_index_operator = true : suggestion
+csharp_style_prefer_local_over_anonymous_function = true : suggestion
+csharp_style_prefer_null_check_over_type_check = true : suggestion
+csharp_style_prefer_range_operator = true : silent
+csharp_style_prefer_tuple_swap = true : suggestion
+csharp_style_prefer_unbound_generic_type_in_nameof = true : suggestion
+csharp_style_prefer_utf8_string_literals = true : suggestion
+csharp_style_throw_expression = true : suggestion
+csharp_style_unused_value_assignment_preference = discard_variable : none
+csharp_style_unused_value_expression_statement_preference = discard_variable : none
+dotnet_prefer_system_hash_code = true : suggestion
+dotnet_style_coalesce_expression = true : suggestion
+dotnet_style_collection_initializer = true : suggestion
+dotnet_style_explicit_tuple_names = true : suggestion
+dotnet_style_null_propagation = true : suggestion
+dotnet_style_object_initializer = true : suggestion
+dotnet_style_operator_placement_when_wrapping = beginning_of_line : suggestion
+dotnet_style_prefer_auto_properties = true : suggestion
+dotnet_style_prefer_collection_expression = when_types_loosely_match : suggestion
+dotnet_style_prefer_compound_assignment = true : suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true : suggestion
+dotnet_style_prefer_conditional_expression_over_return = true : silent
+dotnet_style_prefer_foreach_explicit_cast_in_source = when_strongly_typed : suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true : suggestion
+dotnet_style_prefer_inferred_tuple_names = true : suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true : suggestion
+dotnet_style_prefer_simplified_boolean_expressions = true : suggestion
+dotnet_style_prefer_simplified_interpolation = true : suggestion
+
+# Expression Bodied Style
+csharp_style_expression_bodied_accessors = when_on_single_line : silent
+csharp_style_expression_bodied_constructors = when_on_single_line : silent
+csharp_style_expression_bodied_indexers = when_on_single_line : silent
+csharp_style_expression_bodied_lambdas = when_on_single_line : silent
+csharp_style_expression_bodied_local_functions = when_on_single_line : silent
+csharp_style_expression_bodied_methods = when_on_single_line : silent
+csharp_style_expression_bodied_operators = when_on_single_line : silent
+csharp_style_expression_bodied_properties = when_on_single_line : silent
+
+# Pattern Matching Style
+csharp_style_pattern_matching_over_as_with_null_check = true : suggestion
+csharp_style_pattern_matching_over_is_with_cast_check = true : suggestion
+csharp_style_prefer_extended_property_pattern = true : suggestion
+csharp_style_prefer_not_pattern = true : suggestion
+csharp_style_prefer_pattern_matching = true : suggestion
+csharp_style_prefer_switch_expression = true : suggestion
+
+# Null Check Style
+csharp_style_conditional_delegate_call = true : suggestion
+
+# Upper Case Naming Style
+dotnet_naming_style.upper_case_style.capitalization = all_upper
+
+# Lower Case Naming Style
+dotnet_naming_style.lower_case_style.capitalization = all_lower
+
+# Pascal Case Naming Style
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+# Camel Case Naming Style
+dotnet_naming_style.camel_case.capitalization = camel_case
+
+# Snake Case Naming Style
+dotnet_naming_style.snake_case.capitalization = all_lower
+dotnet_naming_style.snake_case.word_separator = _
+
+# Interfaces Naming Style
+dotnet_naming_style.interfaces.required_prefix = I
+dotnet_naming_style.interfaces.capitalization = pascal_case
+
+# Interfaces Naming Symbols
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_symbols.interfaces.applicable_accessibilities = *
+
+# Interfaces Naming Rule
+dotnet_naming_rule.interface_should_be_interfaces.style = interfaces
+dotnet_naming_rule.interface_should_be_interfaces.symbols = interfaces
+dotnet_naming_rule.interface_should_be_interfaces.severity = warning
+
+# Types Naming Symbols
+dotnet_naming_symbols.types.applicable_kinds = class, record, struct, enum, delegate
+dotnet_naming_symbols.types.applicable_accessibilities = *
+
+# Types Naming Rule
+dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.types_should_be_pascal_case.symbols = types
+dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
+
+# Constants Naming Symbols
+dotnet_naming_symbols.constants.applicable_kinds = constant
+dotnet_naming_symbols.constants.applicable_accessibilities = *
+
+# Constants Naming Rule
+dotnet_naming_rule.constants_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.constants_should_be_pascal_case.symbols = constants
+dotnet_naming_rule.constants_should_be_pascal_case.severity = suggestion
+
+# Fields Naming Symbols
+dotnet_naming_symbols.fields.applicable_kinds = field
+dotnet_naming_symbols.fields.applicable_accessibilities = *
+
+# Fields Naming Rule
+dotnet_naming_rule.fields_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.fields_should_be_pascal_case.symbols = fields
+dotnet_naming_rule.fields_should_be_pascal_case.severity = suggestion
+
+# Non Field Members Naming Symbols
+dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, method
+dotnet_naming_symbols.non_field_members.applicable_accessibilities = *
+
+# Non Field Members Naming Rule
+dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
+dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
+
+# Async Methods Naming Style
+dotnet_naming_style.async_methods.required_suffix = Async
+dotnet_naming_style.async_methods.capitalization = pascal_case
+
+# Async Methods Naming Symbols
+dotnet_naming_symbols.async_methods.applicable_kinds = method
+dotnet_naming_symbols.async_methods.required_modifiers = async
+dotnet_naming_symbols.async_methods.applicable_accessibilities = *
+
+# Async Methods Naming Rule
+dotnet_naming_rule.async_methods_must_end_with_async.style = async_methods
+dotnet_naming_rule.async_methods_must_end_with_async.symbols = async_methods
+dotnet_naming_rule.async_methods_must_end_with_async.severity = warning
+
+# Parameters Naming Symbols
+dotnet_naming_symbols.parameters.applicable_kinds = parameter
+dotnet_naming_symbols.parameters.applicable_accessibilities = *
+
+# Parameters Naming Rule
+dotnet_naming_rule.parameters_must_be_camel_case.style = camel_case
+dotnet_naming_rule.parameters_must_be_camel_case.symbols = parameters
+dotnet_naming_rule.parameters_must_be_camel_case.severity = suggestion
+
+# Variables Naming Symbols
+dotnet_naming_symbols.locals.applicable_kinds = local
+dotnet_naming_symbols.locals.applicable_accessibilities = *
+
+# Variables Naming Rule
+dotnet_naming_rule.locals_must_be_snake_case.style = camel_case
+dotnet_naming_rule.locals_must_be_snake_case.symbols = locals
+dotnet_naming_rule.locals_must_be_snake_case.severity = suggestion
+
+# Aspire Proxied Endpoints
+dotnet_diagnostic.ASPIREPROXYENDPOINTS001.severity = none
+
+# Roslynator Global Configs
+dotnet_analyzer_diagnostic.category-roslynator.severity = none
+roslynator_compiler_diagnostic_fixes.enabled = false
+
+# CA1711: Identifiers should not have incorrect suffix
+dotnet_diagnostic.CA1711.severity = warning
+dotnet_code_quality.ca1711.allowed_suffixes = Exception|Permission
+
+# CA1716: Identifiers should not match keywords
+dotnet_diagnostic.CA1716.severity = none
+
+# CA1725: Parameter names should match base declaration
+dotnet_diagnostic.CA1725.severity = none
+
+# DI0005: No matching types for the search criteria
+dotnet_diagnostic.DI0005.severity = none
+
+# IDE0005: Remove unnecessary using directives
+dotnet_diagnostic.IDE0005.severity = suggestion
+
+# IDE0305: Use collection expression for fluent
+dotnet_diagnostic.IDE0305.severity = silent
+
+# OL0003: Initializer Spacing
+dotnet_diagnostic.OL0003.severity = none
+
+# OL0007: Suffix Naming
+dotnet_diagnostic.OL0007.severity = suggestion
+olympus_suffix_naming_targets = Model, Request, Response, Result, Mapper, Endpoint
+
+# ROS0003: Roslynator required Options not set
+dotnet_diagnostic.ROS0003.severity = warning
+
+# RCS0010: Add blank line between declarations
+dotnet_diagnostic.RCS0010.severity = suggestion
+
+# RCS0012: Add blank line between single-line declarations
+dotnet_diagnostic.RCS0012.severity = suggestion
+
+# RCS0057: Normalize whitespace at the beginning of a file
+dotnet_diagnostic.RCS0057.severity = suggestion
+
+# RCS0058: Normalize whitespace at the end of a file
+dotnet_diagnostic.RCS0058.severity = silent
+roslynator_new_line_at_end_of_file = true
+
+# RCS1046: Asynchronous method name should end with 'Async'
+dotnet_diagnostic.RCS1046.severity = suggestion
+
+# RCS1047: Non-asynchronous method name should not end with 'Async'
+dotnet_diagnostic.RCS1047.severity = suggestion
+
+# RCS1055: Unnecessary semicolon at the end of declaration
+dotnet_diagnostic.RCS1055.severity = suggestion
+
+# RCS1084: Use coalesce expression instead of conditional expression
+dotnet_diagnostic.RCS1084.severity = suggestion
+
+# RCS1097: Remove redundant 'ToString' call
+dotnet_diagnostic.RCS1097.severity = suggestion
+
+# RCS1104: Simplify conditional expression
+dotnet_diagnostic.RCS1104.severity = suggestion
+
+# RCS1105: Unnecessary interpolation
+dotnet_diagnostic.RCS1105.severity = suggestion
+
+# RCS1112: Combine 'Enumerable.Where' method chain
+dotnet_diagnostic.RCS1112.severity = suggestion
+
+# RCS1113: Use 'string.IsNullOrEmpty' method
+dotnet_diagnostic.RCS1113.severity = suggestion
+
+# RCS1114: Remove redundant delegate creation
+dotnet_diagnostic.RCS1114.severity = suggestion
+
+# RCS1124: Inline local variable
+dotnet_diagnostic.RCS1124.severity = silent
+
+# RCS1129: Remove redundant field initialization
+dotnet_diagnostic.RCS1129.severity = silent
+
+# RCS1130: Bitwise operation on enum without Flags attribute
+dotnet_diagnostic.RCS1130.severity = warning
+
+# RCS1132: Remove redundant overriding member
+dotnet_diagnostic.RCS1132.severity = suggestion
+
+# RCS1135: Declare enum member with zero value (when enum has FlagsAttribute)
+dotnet_diagnostic.RCS1135.severity = suggestion
+
+# RCS1154: Sort enum members
+dotnet_diagnostic.RCS1154.severity = suggestion
+
+# RCS1157: Composite enum value contains undefined flag
+dotnet_diagnostic.RCS1157.severity = warning
+
+# RCS1161: Enum should declare explicit values
+dotnet_diagnostic.RCS1161.severity = warning
+
+# RCS1173: Use coalesce expression instead of 'if'
+dotnet_diagnostic.RCS1173.severity = suggestion
+
+# RCS1174: Remove redundant async/await
+dotnet_diagnostic.RCS1174.severity = warning
+
+# RCS1078: Use "" or 'string.Empty'
+dotnet_diagnostic.RCS1078.severity = suggestion
+
+# RCS1179: Unnecessary assignment
+dotnet_diagnostic.RCS1179.severity = suggestion
+
+# RCS1188: Remove redundant auto-property initialization
+dotnet_diagnostic.RCS1188.severity = silent
+
+# RCS1191: Declare enum value as combination of names
+dotnet_diagnostic.RCS1191.severity = suggestion
+
+# RCS1192: Unnecessary usage of verbatim string literal
+dotnet_diagnostic.RCS1192.severity = suggestion
+
+# RCS1199: Unnecessary null check
+dotnet_diagnostic.RCS1199.severity = suggestion
+
+# RCS1200: Call 'Enumerable.ThenBy' instead of 'Enumerable.OrderBy'
+dotnet_diagnostic.RCS1200.severity = warning
+
+# RCS1209: Order type parameter constraints
+dotnet_diagnostic.RCS1209.severity = suggestion
+
+# RCS1211: Remove unnecessary 'else'
+dotnet_diagnostic.RCS1211.severity = suggestion
+
+# RCS1212: Remove redundant assignment
+dotnet_diagnostic.RCS1212.severity = suggestion
+
+# RCS1214: Unnecessary interpolated string
+dotnet_diagnostic.RCS1214.severity = suggestion
+
+# RCS1218: Simplify code branching
+dotnet_diagnostic.RCS1218.severity = suggestion
+
+# RCS1220: Use pattern matching instead of combination of 'is' operator and cast operator
+dotnet_diagnostic.RCS1220.severity = suggestion
+
+# RCS1221: Use pattern matching instead of combination of 'as' operator and null check
+dotnet_diagnostic.RCS1221.severity = suggestion
+
+# RCS1128: Use coalesce expression
+dotnet_diagnostic.RCS1128.severity = suggestion
+
+# RCS1229: Use async/await when necessary
+dotnet_diagnostic.RCS1229.severity = warning
+
+# RCS1240: Operator is unnecessary
+dotnet_diagnostic.RCS1240.severity = suggestion
+
+# RCS1248: Normalize null check
+dotnet_diagnostic.RCS1248.severity = suggestion
+roslynator_null_check_style = pattern_matching
+
+# RCS1249: Unnecessary null-forgiving operator
+dotnet_diagnostic.RCS1249.severity = suggestion
+
+# RCS1254: Normalize format of enum flag value
+dotnet_diagnostic.RCS1254.severity = suggestion
+roslynator_enum_flag_value_style = decimal_number
+
+# RCS1258: Unnecessary enum flag
+dotnet_diagnostic.RCS1258.severity = suggestion
+
+# RCS1260: Add/remove trailing comma
+dotnet_diagnostic.RCS1260.severity = suggestion
+roslynator_trailing_comma_style = omit_when_single_line
+
+# RCS1261: Resource can be disposed asynchronously
+dotnet_diagnostic.RCS1261.severity = warning
+
+# RCS1262: Unnecessary raw string literal
+dotnet_diagnostic.RCS1262.severity = suggestion
+
+# RCS1265: Remove redundant catch block
+dotnet_diagnostic.RCS1265.severity = suggestion
+
+# RCS1267: Use string interpolation instead of 'string.Concat'
+dotnet_diagnostic.RCS1267.severity = suggestion
+
+# RCS1268: Simplify numeric comparison
+dotnet_diagnostic.RCS1268.severity = suggestion
+
+# RMG012: Source member was not found for target member
+dotnet_diagnostic.RMG012.severity = silent
+
+# RMG020: Source member is not mapped to any target member
+dotnet_diagnostic.RMG020.severity = silent
+
+# RMG089: Mapping nullable source to non-nullable target member
+dotnet_diagnostic.RMG089.severity = silent
+
+# RS1038: Compiler extensions should be implemented in assemblies with compiler-provided references
+dotnet_diagnostic.RS1038.severity = none

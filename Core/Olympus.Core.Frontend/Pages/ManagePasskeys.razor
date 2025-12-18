@@ -1,0 +1,139 @@
+@page "/account/passkeys"
+@using Microsoft.AspNetCore.Authorization
+@using Olympus.Core.Frontend.Authentication
+
+@attribute [Authorize]
+@inject PasskeyService PasskeyService
+@inject IJSRuntime JS
+
+<h3>Minhas Chaves de Acesso (Passkeys)</h3>
+
+<p>Passkeys permitem que você faça login de forma segura usando sua impressão digital, rosto ou PIN do dispositivo.</p>
+
+@if (isLoading)
+{
+	<p><em>Carregando...</em></p>
+}
+else
+{
+	<div class="mb-3">
+		<button class="btn btn-primary" @onclick="CreatePasskey" disabled="@isCreating">
+			@if (isCreating)
+			{
+				<span>Criando...</span>
+			}
+			else
+			{
+
+				<span>+ Nova Passkey</span>
+			}
+		</button>
+	</div>
+
+	@if (!string.IsNullOrEmpty(message))
+	{
+		<div class="alert alert-info">@message</div>
+	}
+
+	@if (passkeys.Count == 0)
+	{
+		<p>Você ainda não tem passkeys configuradas.</p>
+	}
+	else
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var key in passkeys)
+				{
+					<tr>
+						<td>@key.Name</td>
+						<td>
+							<button class="btn btn-danger btn-sm" @onclick="() => DeletePasskey(key)">Excluir</button>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
+
+@code {
+	private List<PasskeyListResponse> passkeys = [];
+	private bool isLoading = true;
+	private bool isCreating = false;
+	private string? message;
+
+	protected override Task OnInitializedAsync() => LoadPasskeys();
+
+	private async Task LoadPasskeys()
+	{
+		isLoading = true;
+		try
+		{
+			passkeys = await PasskeyService.GetPasskeysAsync();
+		}
+		finally
+		{
+			isLoading = false;
+		}
+	}
+
+	private async Task CreatePasskey()
+	{
+		isCreating = true;
+		message = null;
+		try
+		{
+			// Verifica se o navegador suporta
+			if (!await PasskeyService.IsSupportedAsync())
+			{
+				message = "Seu dispositivo ou navegador não suporta Passkeys.";
+				return;
+			}
+
+			// 1. Inicia o fluxo de registro (Chama API -> JS -> API)
+			var error = await PasskeyService.RegisterPasskeyAsync();
+
+			if (error is null)
+			{
+				message = "Passkey criada com sucesso!";
+				await LoadPasskeys(); // Atualiza a lista
+			}
+			else
+			{
+				message = $"Erro: {error}";
+			}
+		}
+		catch (Exception ex)
+		{
+			message = $"Ocorreu um erro inesperado: {ex.Message}";
+		}
+		finally
+		{
+			isCreating = false;
+		}
+	}
+
+	private async Task DeletePasskey(PasskeyListResponse key)
+	{
+		if (!await JS.InvokeAsync<bool>("confirm", $"Tem certeza que deseja excluir a chave '{key.Name}'?"))
+			return;
+
+		try
+		{
+			await PasskeyService.DeletePasskeyAsync(key.Id);
+			passkeys.Remove(key);
+			message = "Passkey removida.";
+		}
+		catch (Exception)
+		{
+			message = "Erro ao remover passkey.";
+		}
+	}
+}

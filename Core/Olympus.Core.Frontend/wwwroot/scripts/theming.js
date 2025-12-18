@@ -96,7 +96,7 @@ window.themeManager = {
 	addListener: function () {
 
 		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-		mediaQuery.addEventListener('change', e => this.applySchema());
+		mediaQuery.addEventListener('change', event => this.applySchema());
 
 	},
 

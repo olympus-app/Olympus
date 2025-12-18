@@ -1,0 +1,19 @@
+<Project>
+
+	<!-- No Packing -->
+	<PropertyGroup Label="Packing" Condition="$(UseNuGetPacking)=='false' Or !$(PackableProjectTypes.Contains(';$(ProjectType);'))">
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<!-- NuGet Packing -->
+	<PropertyGroup Label="Packing" Condition="$(UseNuGetPacking)=='true' Or $(PackableProjectTypes.Contains(';$(ProjectType);'))">
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<!-- NuGet Packing Properties -->
+	<ItemGroup Label="PackingProperties" Condition="$(UseNuGetPacking)=='true' Or $(PackableProjectTypes.Contains(';$(ProjectType);'))">
+		<None Include="$(ProjectProps)" Pack="true" PackagePath="build\;buildTransitive\" Condition="Exists($(ProjectProps))" />
+		<None Include="$(ProjectTargets)" Pack="true" PackagePath="build\;buildTransitive\" Condition="Exists($(ProjectTargets))" />
+	</ItemGroup>
+
+</Project>

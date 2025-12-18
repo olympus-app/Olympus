@@ -8,21 +8,21 @@ It's designed to unify and integrate various corporate processes such as infrast
 
 ## Project Architecture
 The project is built on the .NET ecosystem and has three main solution folders:
-- **Apps**: contains main application projects such as ASP.NET Core Web API and Blazor WebAssembly App.
-- **Core**: contains foundational & utility code, contracts and abstractions used by all applications and modules projects.
+- **Core**: contains foundational & utility code, contracts and abstractions used by all projects.
+- **Hosts**: contains main application projects such as ASP.NET Core Web API and Blazor WebAssembly App.
 - **Modules**: contains projects for each capability of the system, such as administrative, operational, and technical support processes.
 
-The **Apps** solution folder contains the following projects:
+The **Core** solution folder contains the following projects:
+- **Olympus.Core**: utility code and base functionalities shared across all projects.
+- **Olympus.Core.Archend**: models (DTOs), shared with backend and frontend layers.
+- **Olympus.Core.Backend**: data access and processing such as entities, services and controllers.
+- **Olympus.Core.Frontend**: user interface such as pages, components and assets.
+
+The **Hosts** solution folder contains the following projects:
 - **Olympus.Api**: ASP.NET Core Web API (Application Package).
 - **Olympus.Api.Host**: ASP.NET Core Web API (Application Host).
 - **Olympus.Web**: Blazor WebAssembly App (Application Package).
 - **Olympus.Web.Host**: Blazor WebAssembly App (Application Host).
-
-The **Core** solution folder contains the following projects:
-- **Olympus.Core.Kernel**: utility code and base functionalities shared across all projects.
-- **Olympus.Core.Archend**: models and entities, shared with backend and frontend layers.
-- **Olympus.Core.Backend**: data access and processing such as entity services and controllers.
-- **Olympus.Core.Frontend**: user interface elements such as pages, components and assets.
 
 Each module in the **Modules** solution folder is subdivided into three layers:
 - **Archend**: conventional name representing the architectural layer.
@@ -61,10 +61,10 @@ Each module in the **Modules** solution folder is subdivided into three layers:
 
 ## Technology Stack
 - **Language**: mainly C# and some JavaScript in Frontend projects.
-- **Backend**: ASP.NET Core Web API with Entity Framework and OData support.
-- **Frontend**: Blazor Hybrid and Blazor WebAssembly with Radzen Component Library.
-- **Database**: support for SQL Server, PostgreSQL, and SQLite with in-memory caching service.
-- **Authentication**: JSON Web Token with support for Microsoft 365 OAuth.
+- **Backend**: ASP.NET Core Web API with Entity Framework Core.
+- **Frontend**: Blazor WebAssembly with Radzen Component Library.
+- **Database**: PostgreSQL with HybridCache through EF Core Second Level Interceptor and Redis.
+- **Authentication**: Microsoft Identity Platform with support for Microsoft 365 OIDC.
 
 ## Modular Strategy and Workflow
 - The Core and each module follows a three-layer structure: `Archend` → `Backend` → `Frontend`.
@@ -86,13 +86,6 @@ Each module in the **Modules** solution folder is subdivided into three layers:
 - Avoid magic values, implicit behavior, and hidden side effects.
 - Always add a parameterless constructor for entities and value objects if required by EF Core.
 - Avoid comments unless strictly necessary; keep the code self-explanatory.
+- For lambda expressions, prefer descriptive parameter names like `item` over single-letter ones like `i`.
 - Write comments and string messages in English; keep text short, simple, and direct.
 - Always use UTC for any type of date/time value.
-
-## Configuration Structure
-- The `Settings` directory contains configuration files for each environment (Common, Development, Production).
-- The `Settings/GlobalSettings.json` file contains settings shared among all application types.
-- The `Settings/{ApiSettings|WebSettings}.Common.json` file contain settings shared across environments for the corresponding application.
-- The `Settings/{ApiSettings|WebSettings}.{Environment}.json` contain settings specific to an environment for the corresponding application.
-- Local development utilizes Docker containers to provide mechanisms such as PostgreSQL and Redis via Docker Compose file (`compose.yml`).
-- The project uses Entity Framework Core for database migration and management.

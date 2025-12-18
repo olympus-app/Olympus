@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<ProjectType>CorePackage</ProjectType>
+		<ProjectLayer>None</ProjectLayer>
+	</PropertyGroup>
+
+	<!-- Analyzers References -->
+	<ItemGroup Label="AnalyzersReferences">
+		<PackageReference Include="Olympus.Analyzers" PrivateAssets="runtime" />
+	</ItemGroup>
+
+	<!-- Packages References -->
+	<ItemGroup Label="PackagesReferences">
+		<PackageReference Include="FastEnum" />
+		<PackageReference Include="Humanizer" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" />
+		<PackageReference Include="Microsoft.Extensions.Localization" />
+		<PackageReference Include="ResxSourceGenerator" PrivateAssets="runtime" />
+		<PackageReference Include="ServiceScan.SourceGenerator" PrivateAssets="runtime" />
+		<PackageReference Include="Slugify.Core" />
+	</ItemGroup>
+
+</Project>

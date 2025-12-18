@@ -1,31 +1,45 @@
 {
 	"configurations": [
 		{
+			"name": "Aspire Host",
+			"type": "dotnet",
+			"request": "launch",
+			"projectPath": "${workspaceFolder}\\Aspire\\Olympus.Aspire.Host\\Olympus.Aspire.Host.csproj",
+			"launchConfigurationId": "TargetFramework=;Aspire",
+			"internalConsoleOptions": "openOnSessionStart",
+			"serverReadyAction": {
+				"killOnServerStop": true,
+				"action": "debugWithChrome",
+				"pattern": "Login to the dashboard at (https?://\\S+)",
+				"uriFormat": "%s"
+			}
+		},
+		{
 			"name": "API Host",
 			"type": "dotnet",
 			"request": "launch",
-			"projectPath": "${workspaceFolder}\\Apps\\Olympus.Api.Host\\Olympus.Api.Host.csproj",
+			"projectPath": "${workspaceFolder}\\Hosts\\Olympus.Api.Host\\Olympus.Api.Host.csproj",
 			"launchConfigurationId": "TargetFramework=;API",
 			"internalConsoleOptions": "openOnSessionStart",
 			"serverReadyAction": {
+				"killOnServerStop": true,
 				"action": "debugWithChrome",
-				"uriFormat": "https://localhost:3333",
-				"pattern": "\\bNow listening on:\\s+https?://\\S+",
-				"killOnServerStop": true
+				"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+				"uriFormat": "%s"
 			}
 		},
 		{
 			"name": "Web Host",
 			"type": "dotnet",
 			"request": "launch",
-			"projectPath": "${workspaceFolder}\\Apps\\Olympus.Web.Host\\Olympus.Web.Host.csproj",
+			"projectPath": "${workspaceFolder}\\Hosts\\Olympus.Web.Host\\Olympus.Web.Host.csproj",
 			"launchConfigurationId": "TargetFramework=;Web",
 			"internalConsoleOptions": "openOnSessionStart",
 			"serverReadyAction": {
+				"killOnServerStop": true,
 				"action": "debugWithChrome",
-				"uriFormat": "https://localhost:3333",
-				"pattern": "\\bNow listening on:\\s+https?://\\S+",
-				"killOnServerStop": true
+				"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+				"uriFormat": "%s"
 			}
 		}
 	]

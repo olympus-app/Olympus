@@ -5,6 +5,7 @@
 		<LangVersion>14</LangVersion>
 		<TargetFramework>net10.0</TargetFramework>
 		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	</PropertyGroup>
 
 	<!-- Solution Properties -->
@@ -12,28 +13,49 @@
 		<SolutionName>Olympus</SolutionName>
 		<SolutionDescription>Olympus Monolith</SolutionDescription>
 		<SolutionFolder>$(MSBuildThisFileDirectory)</SolutionFolder>
-		<AppsFolder>$(MSBuildThisFileDirectory)\Apps</AppsFolder>
+		<AssetsFolder>$(MSBuildThisFileDirectory)\.assets</AssetsFolder>
+		<AspireFolder>$(MSBuildThisFileDirectory)\Aspire</AspireFolder>
 		<CoreFolder>$(MSBuildThisFileDirectory)\Core</CoreFolder>
+		<HostsFolder>$(MSBuildThisFileDirectory)\Hosts</HostsFolder>
 		<ModulesFolder>$(MSBuildThisFileDirectory)\Modules</ModulesFolder>
-		<PropertiesFolder>$(MSBuildThisFileDirectory)\Properties</PropertiesFolder>
-		<ResourcesFolder>$(MSBuildThisFileDirectory)\Resources</ResourcesFolder>
-		<SettingsFolder>$(MSBuildThisFileDirectory)\Settings</SettingsFolder>
-		<TestsFolder>$(MSBuildThisFileDirectory)\Tests</TestsFolder>
+		<ServicesFolder>$(MSBuildThisFileDirectory)\Services</ServicesFolder>
 	</PropertyGroup>
 
 	<!-- Solution Metadata -->
 	<PropertyGroup Label="SolutionMetadata">
 		<Company>Olympus</Company>
 		<Product>Olympus</Product>
-		<Version>0.4.0.0-alpha</Version>
-		<Copyright>©2025 Éwerton Ferreira</Copyright>
-		<ApplicationIcon>$(ResourcesFolder)\Icons\AppIcon.ico</ApplicationIcon>
+		<Version>0.5.0.0-alpha</Version>
+		<BuildNumber>5</BuildNumber>
+		<BuildNumberForced>5</BuildNumberForced>
+		<Copyright>© 2025 Éwerton Ferreira</Copyright>
+		<ApplicationIcon>$(AssetsFolder)\Icons\AppIcon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<!-- Solution Attributes -->
+	<ItemGroup Label="SolutionAttributes">
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>BuildNumber</_Parameter1>
+			<_Parameter2>$(BuildNumber)</_Parameter2>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>BuildNumberForced</_Parameter1>
+			<_Parameter2>$(BuildNumberForced)</_Parameter2>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<!-- Solution Analysers -->
+	<PropertyGroup Label="SolutionAnalysers">
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
 	</PropertyGroup>
 
 	<!-- Project Properties -->
 	<PropertyGroup Label="ProjectProperties">
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<OlympusImplicitUsings>enable</OlympusImplicitUsings>
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>$(MSBuildProjectName)</RootNamespace>
 		<ProjectName>$(MSBuildProjectName)</ProjectName>
@@ -43,13 +65,31 @@
 		<ProjectTargets>$(MSBuildProjectFullPath.Replace('$(MSBuildProjectExtension)','.targets'))</ProjectTargets>
 	</PropertyGroup>
 
-	<!-- Core Kernel Project Properties -->
-	<PropertyGroup Label="CoreKernelProjectProperties">
-		<CoreKernelProjectTargets>Olympus.Core.Kernel</CoreKernelProjectTargets>
-		<CoreKernelProjectFolder>$(CoreFolder)\$(CoreKernelProjectTargets)</CoreKernelProjectFolder>
-		<CoreKernelProjectFile>$(CoreKernelProjectFolder)\$(CoreKernelProjectTargets).csproj</CoreKernelProjectFile>
-		<CoreKernelProjectProps>$(CoreKernelProjectFolder)\$(CoreKernelProjectTargets).props</CoreKernelProjectProps>
-		<CoreKernelProjectTargets>$(CoreKernelProjectFolder)\$(CoreKernelProjectTargets).targets</CoreKernelProjectTargets>
+	<!-- Aspire Project Properties -->
+	<PropertyGroup Label="AspireProjectProperties">
+		<AspireProjectName>Olympus.Aspire</AspireProjectName>
+		<AspireProjectFolder>$(AspireFolder)\$(AspireProjectName)</AspireProjectFolder>
+		<AspireProjectFile>$(AspireProjectFolder)\$(AspireProjectName).csproj</AspireProjectFile>
+		<AspireProjectProps>$(AspireProjectFolder)\$(AspireProjectName).props</AspireProjectProps>
+		<AspireProjectTargets>$(AspireProjectFolder)\$(AspireProjectName).targets</AspireProjectTargets>
+	</PropertyGroup>
+
+	<!-- Aspire Host Project Properties -->
+	<PropertyGroup Label="AspireHostProjectProperties">
+		<AspireHostProjectName>Olympus.Aspire.Host</AspireHostProjectName>
+		<AspireHostProjectFolder>$(AspireFolder)\$(AspireHostProjectName)</AspireHostProjectFolder>
+		<AspireHostProjectFile>$(AspireHostProjectFolder)\$(AspireHostProjectName).csproj</AspireHostProjectFile>
+		<AspireHostProjectProps>$(AspireHostProjectFolder)\$(AspireHostProjectName).props</AspireHostProjectProps>
+		<AspireHostProjectTargets>$(AspireHostProjectFolder)\$(AspireHostProjectName).targets</AspireHostProjectTargets>
+	</PropertyGroup>
+
+	<!-- Core Project Properties -->
+	<PropertyGroup Label="CoreProjectProperties">
+		<CoreProjectName>Olympus.Core</CoreProjectName>
+		<CoreProjectFolder>$(CoreFolder)\$(CoreProjectName)</CoreProjectFolder>
+		<CoreProjectFile>$(CoreProjectFolder)\$(CoreProjectName).csproj</CoreProjectFile>
+		<CoreProjectProps>$(CoreProjectFolder)\$(CoreProjectName).props</CoreProjectProps>
+		<CoreProjectTargets>$(CoreProjectFolder)\$(CoreProjectName).targets</CoreProjectTargets>
 	</PropertyGroup>
 
 	<!-- Core Archend Project Properties -->
@@ -82,7 +122,7 @@
 	<!-- Api Project Properties -->
 	<PropertyGroup Label="ApiProjectProperties">
 		<ApiProjectName>Olympus.Api</ApiProjectName>
-		<ApiProjectFolder>$(AppsFolder)\$(ApiProjectName)</ApiProjectFolder>
+		<ApiProjectFolder>$(HostsFolder)\$(ApiProjectName)</ApiProjectFolder>
 		<ApiProjectFile>$(ApiProjectFolder)\$(ApiProjectName).csproj</ApiProjectFile>
 		<ApiProjectProps>$(ApiProjectFolder)\$(ApiProjectName).props</ApiProjectProps>
 		<ApiProjectTargets>$(ApiProjectFolder)\$(ApiProjectName).targets</ApiProjectTargets>
@@ -91,7 +131,7 @@
 	<!-- Api Host Project Properties -->
 	<PropertyGroup Label="ApiHostProjectProperties">
 		<ApiHostProjectName>Olympus.Api.Host</ApiHostProjectName>
-		<ApiHostProjectFolder>$(AppsFolder)\$(ApiHostProjectName)</ApiHostProjectFolder>
+		<ApiHostProjectFolder>$(HostsFolder)\$(ApiHostProjectName)</ApiHostProjectFolder>
 		<ApiHostProjectFile>$(ApiHostProjectFolder)\$(ApiHostProjectName).csproj</ApiHostProjectFile>
 		<ApiHostProjectProps>$(ApiHostProjectFolder)\$(ApiHostProjectName).props</ApiHostProjectProps>
 		<ApiHostProjectTargets>$(ApiHostProjectFolder)\$(ApiHostProjectName).targets</ApiHostProjectTargets>
@@ -100,7 +140,7 @@
 	<!-- Web Project Properties -->
 	<PropertyGroup Label="WebProjectProperties">
 		<WebProjectName>Olympus.Web</WebProjectName>
-		<WebProjectFolder>$(AppsFolder)\$(WebProjectName)</WebProjectFolder>
+		<WebProjectFolder>$(HostsFolder)\$(WebProjectName)</WebProjectFolder>
 		<WebProjectFile>$(WebProjectFolder)\$(WebProjectName).csproj</WebProjectFile>
 		<WebProjectProps>$(WebProjectFolder)\$(WebProjectName).props</WebProjectProps>
 		<WebProjectTargets>$(WebProjectFolder)\$(WebProjectName).targets</WebProjectTargets>
@@ -109,10 +149,19 @@
 	<!-- Web Host Project Properties -->
 	<PropertyGroup Label="WebHostProjectProperties">
 		<WebHostProjectName>Olympus.Web.Host</WebHostProjectName>
-		<WebHostProjectFolder>$(AppsFolder)\$(WebHostProjectName)</WebHostProjectFolder>
+		<WebHostProjectFolder>$(HostsFolder)\$(WebHostProjectName)</WebHostProjectFolder>
 		<WebHostProjectFile>$(WebHostProjectFolder)\$(WebHostProjectName).csproj</WebHostProjectFile>
 		<WebHostProjectProps>$(WebHostProjectFolder)\$(WebHostProjectName).props</WebHostProjectProps>
 		<WebHostProjectTargets>$(WebHostProjectFolder)\$(WebHostProjectName).targets</WebHostProjectTargets>
+	</PropertyGroup>
+
+	<!-- Analyzers Project Properties -->
+	<PropertyGroup Label="AnalyzersProjectProperties">
+		<AnalyzersProjectName>Olympus.Analyzers</AnalyzersProjectName>
+		<AnalyzersProjectFolder>$(ServicesFolder)\$(AnalyzersProjectName)</AnalyzersProjectFolder>
+		<AnalyzersProjectFile>$(AnalyzersProjectFolder)\$(AnalyzersProjectName).csproj</AnalyzersProjectFile>
+		<AnalyzersProjectProps>$(AnalyzersProjectFolder)\$(AnalyzersProjectName).props</AnalyzersProjectProps>
+		<AnalyzersProjectTargets>$(AnalyzersProjectFolder)\$(AnalyzersProjectName).targets</AnalyzersProjectTargets>
 	</PropertyGroup>
 
 	<!-- Modular Project Properties -->

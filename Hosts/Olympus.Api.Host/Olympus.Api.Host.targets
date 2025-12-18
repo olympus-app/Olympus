@@ -1,0 +1,9 @@
+<Project>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(ApiProjectTargets)" Condition="Exists($(ApiProjectTargets))" />
+		<Import Project="$(AspireProjectTargets)" Condition="Exists($(AspireProjectTargets))" />
+	</ImportGroup>
+
+</Project>

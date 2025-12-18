@@ -1,0 +1,179 @@
+@page "/login"
+@using System.ComponentModel.DataAnnotations
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Authorization
+@using Olympus.Core.Frontend.Authentication
+
+@inject AuthClient Client
+@inject AuthenticationService AuthStateProvider
+@inject NavigationManager Navigation
+@inject PasskeyService PasskeyService
+
+<h3 style="margin-top: 20px;">Acesso ao Olympus</h3>
+
+<div style="max-width: 400px; border: 1px solid #ccc; padding: 20px; border-radius: 8px;">
+	<EditForm Model="@Input" OnValidSubmit="ExecuteLogin">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+
+		<div style="margin-bottom: 15px;">
+			<label style="display:block">Email</label>
+			<InputText @bind-Value="Input.Email" style="width: 100%; padding: 5px;" />
+		</div>
+
+		<div style="margin-bottom: 15px;">
+			<label style="display:block">Senha</label>
+			<InputText @bind-Value="Input.Password" type="password" style="width: 100%; padding: 5px;" />
+		</div>
+
+		<button type="submit" disabled="@isLoading" style="width: 100%; padding: 10px; cursor: pointer;">
+			@if (isLoading)
+			{
+				<span>Entrando...</span>
+			}
+			else
+			{
+
+				<span>Entrar</span>
+			}
+		</button>
+
+		@if (!string.IsNullOrEmpty(errorMessage))
+		{
+			<div style="margin-top: 15px; color: red; text-align: center;">
+				@errorMessage
+			</div>
+		}
+	</EditForm>
+</div>
+
+<div style="margin-top: 20px; text-align: center;">
+	<hr />
+	<p>Ou</p>
+
+	<button @onclick="LoginWithMicrosoft" style="padding: 10px; cursor: pointer;">
+		Entrar com a Microsoft
+	</button>
+
+	<button type="button" @onclick="LoginWithPasskey" class="btn btn-secondary w-100 mt-2">
+		Entrar com Chave de Acesso
+	</button>
+
+</div>
+
+@code {
+	private UserLoginRequest Input { get; set; } = new();
+	private bool isLoading = false;
+	private string? errorMessage;
+
+	// Modelo simples apenas para este formulário
+	public class LoginModel
+	{
+		[Required, EmailAddress]
+		public string Email { get; set; } = "";
+
+		[Required]
+		public string Password { get; set; } = "";
+	}
+
+	private async Task ExecuteLogin()
+	{
+		isLoading = true;
+		errorMessage = null;
+
+		try
+		{
+			// 1. Envia as credenciais para o endpoint nativo do Identity
+			// O parâmetro ?useCookies=true é FUNDAMENTAL aqui
+			var response = await Client.LoginAsync(Input);
+
+			if (response.IsSuccessStatusCode)
+			{
+				// 2. O servidor respondeu 200 OK e enviou o cabeçalho Set-Cookie.
+				// O navegador captura esse cookie automaticamente.
+
+				// 3. Forçamos o Blazor a verificar o estado de autenticação novamente
+				// (Isso vai chamar o /auth/identity internamente usando o novo cookie)
+				var bffProvider = (AuthenticationService)AuthStateProvider;
+				await bffProvider.NotifyLoginSuccessAsync();
+
+				// 4. Redireciona para a Home
+				Navigation.NavigateTo("/");
+			}
+			else
+			{
+				errorMessage = "Email ou senha inválidos.";
+			}
+		}
+		catch (Exception ex)
+		{
+			errorMessage = $"Erro de conexão: {ex.Message}";
+		}
+		finally
+		{
+			isLoading = false;
+		}
+	}
+
+	private void LoginWithMicrosoft()
+	{
+		// 1. Define o esquema do provedor externo que configuramos no Backend
+		var provider = "MicrosoftBusiness";
+
+		// 2. Define a URL de retorno após a Microsoft autenticar (Geralmente a home)
+		var returnUrl = "/";
+
+		// 3. Constrói a URL do Identity que inicia o fluxo de Challenge
+		// O ASP.NET Core (Server) intercepta esta requisição e redireciona para a Microsoft.
+		var challengeUrl = $"/auth/external-login?provider={provider}&returnUrl={returnUrl}";
+
+		Navigation.NavigateTo(challengeUrl, forceLoad: true);
+	}
+
+	private async Task LoginWithPasskey()
+	{
+		// Passkey Login geralmente precisa saber quem é o usuário para buscar o Challenge correto
+		// (a menos que usemos "Discoverable Credentials" / Resident Keys, que é mais avançado).
+		// Por enquanto, vamos exigir que o usuário digite o email primeiro no campo Input.Email.
+
+		// Não verificamos mais se Input.Email está preenchido!
+		// O "Modo Descoberta" vai funcionar sem ele.
+		@* if (string.IsNullOrEmpty(Input.Email))
+		{
+			errorMessage = "Por favor, digite seu e-mail para localizar sua chave.";
+			return;
+		} *@
+
+		// Passamos string.Empty ou null se o email estiver vazio
+		var emailToUse = string.IsNullOrEmpty(Input.Email) ? null : Input.Email;
+
+		isLoading = true;
+		errorMessage = null;
+
+		try
+		{
+			var error = await PasskeyService.LoginWithPasskeyAsync(emailToUse ?? "");
+
+			if (error is null)
+			{
+				// Sucesso! Atualiza estado e redireciona
+				var bffProvider = (AuthenticationService)AuthStateProvider;
+				await bffProvider.NotifyLoginSuccessAsync();
+				Navigation.NavigateTo("/");
+			}
+			else
+			{
+				errorMessage = error;
+			}
+		}
+		catch (Exception ex)
+		{
+			errorMessage = $"Erro: {ex.Message}";
+		}
+		finally
+		{
+			isLoading = false;
+		}
+	}
+
+}

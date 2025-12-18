@@ -10,25 +10,25 @@ Olympus is a modular monolithic software system inspired by Greco-Roman mytholog
 The core of Olympus is a collection of NuGet packages, where each package represents a specific business capability or foundational service. The applications themselves (hosts) are minimal "shells" that consume these packages. This strategy allows for maximum flexibility: a client can build a highly customized application by simply creating a host project and selecting which Olympus modules to include as dependencies.
 
 The project is built on the .NET ecosystem and is organized into three main solution folders:
-- **Apps**: Contains the main application host projects.
+- **Core**: Contains foundational code, contracts, and abstractions used by all projects.
+  - `Olympus.Core`: Base functionalities shared across all projects.
+  - `Olympus.Core.Archend`: Shared models (DTOs).
+  - `Olympus.Core.Backend`: Data access and processing logic.
+  - `Olympus.Core.Frontend`: User interface and components.
+- **Hosts**: Contains the main application host projects.
   - `Olympus.Api`: ASP.NET Core Web API (Application Package).
   - `Olympus.Api.Host`: ASP.NET Core Web API (Application Host).
   - `Olympus.Web`: Blazor WebAssembly App (Application Package).
   - `Olympus.Web.Host`: Blazor WebAssembly App (Application Host).
-- **Core**: Contains foundational code, contracts, and abstractions used by all other projects.
-  - `Olympus.Core.Kernel`: Base functionalities shared across all projects.
-  - `Olympus.Core.Archend`: Shared models and entities.
-  - `Olympus.Core.Backend`: Shared data access and processing logic.
-  - `Olympus.Core.Frontend`: Shared UI elements and assets.
 - **Modules**: Contains the projects for each business capability of the system.
 
 ## Technology Stack
 - **Platform**: Olympus is built entirely on the .NET ecosystem.
 - **Language**: Mainly C# with some JavaScript in Frontend projects.
-- **Backend**: ASP.NET Core Web API with Entity Framework Core and OData support.
+- **Backend**: ASP.NET Core Web API with Entity Framework Core.
 - **Frontend**: Blazor WebAssembly with the Radzen Component Library.
-- **Database**: Support for SQL Server, PostgreSQL, and SQLite, with an in-memory caching service.
-- **Authentication**: JSON Web Tokens (JWT) with support for Microsoft 365 OAuth.
+- **Database**: PostgreSQL with HybridCache through EF Core Second Level Interceptor and Redis.
+- **Authentication**: Microsoft Identity Platform with support for Microsoft 365 OIDC.
 
 ## Modules Definitions
 - The system is divided into four distinct categories of modules, each representing a core area of corporate management.

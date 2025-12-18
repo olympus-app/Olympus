@@ -1,21 +1,17 @@
 namespace Olympus.Core.Backend;
 
-public partial class CoreModuleBackendLayer : AppModuleLayer {
+public partial class CoreModuleBackendLayer : AppModuleBackendLayer {
 
-	[GenerateServiceRegistrations(AssignableTo = typeof(IEntityTable), Lifetime = ServiceLifetime.Transient)]
+	[GenerateServiceRegistrations(AssignableTo = typeof(IEntityTable), Lifetime = ServiceLifetime.Transient, AsImplementedInterfaces = false, AsSelf = false)]
 	private static partial void AddEntityTables(IServiceCollection services);
 
-	[GenerateServiceRegistrations(AssignableTo = typeof(IEntityModel), Lifetime = ServiceLifetime.Transient)]
-	private static partial void AddEntityModels(IServiceCollection services);
-
-	[GenerateServiceRegistrations(AssignableTo = typeof(IEntityService<>), Lifetime = ServiceLifetime.Scoped)]
-	private static partial void AddEntityServices(IServiceCollection services);
+	[GenerateServiceRegistrations(AssignableTo = typeof(IEntityQueryMapper<>), Lifetime = ServiceLifetime.Singleton, AsImplementedInterfaces = false, AsSelf = false)]
+	private static partial void AddEntityQueryMappers(IServiceCollection services);
 
 	public override void AddLayerServices(IServiceCollection services) {
 
 		AddEntityTables(services);
-		AddEntityModels(services);
-		AddEntityServices(services);
+		AddEntityQueryMappers(services);
 
 	}
 

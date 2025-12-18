@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<ProjectType>ApplicationPackage</ProjectType>
+		<ProjectLayer>Backend</ProjectLayer>
+		<ApplicationType>API</ApplicationType>
+	</PropertyGroup>
+
+	<!-- Project References -->
+	<ItemGroup Label="ProjectReferences">
+		<ProjectReference Include="$(CoreBackendProjectFile)" />
+	</ItemGroup>
+
+	<!-- Package References -->
+	<ItemGroup Label="PackageReferences">
+		<PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+		<PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
+		<PackageReference Include="CommunityToolkit.Aspire.Minio.Client" />
+		<PackageReference Include="EFCoreSecondLevelCacheInterceptor.HybridCache" />
+		<PackageReference Include="EntityFrameworkCore.Exceptions.PostgreSQL" />
+		<PackageReference Include="MessagePack" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" />
+		<PackageReference Include="SixLabors.ImageSharp" />
+	</ItemGroup>
+
+</Project>

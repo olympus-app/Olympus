@@ -1,0 +1,18 @@
+{
+	"$schema": "https://www.schemastore.org/launchsettings.json",
+	"profiles": {
+		"Web": {
+			"commandName": "Project",
+			"nativeDebugging": true,
+			"dotnetRunMessages": true,
+			"hotReloadEnabled": true,
+			"launchBrowser": false,
+			"inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
+			"applicationUrl": "https://localhost:3333",
+			"environmentVariables": {
+				"DOTNET_ENVIRONMENT": "Development",
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			}
+		}
+	}
+}

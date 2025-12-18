@@ -1,0 +1,23 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<ProjectType>AspireHost</ProjectType>
+		<ProjectLayer>None</ProjectLayer>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<!-- Project References -->
+	<ItemGroup Label="ProjectReferences">
+		<ProjectReference Include="$(CoreProjectFile)" IsAspireProjectResource="false" />
+		<ProjectReference Include="$(ApiHostProjectFile)" IsAspireProjectResource="true" />
+	</ItemGroup>
+
+	<!-- Packages References -->
+	<ItemGroup Label="PackagesReferences">
+		<PackageReference Include="Aspire.Hosting.PostgreSQL" />
+		<PackageReference Include="Aspire.Hosting.Redis" />
+		<PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
+	</ItemGroup>
+
+</Project>

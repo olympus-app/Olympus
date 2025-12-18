@@ -13,8 +13,18 @@
 		},
 		{
 			"type": "shell",
+			"label": ".NET Build: Aspire Host",
+			"command": "dotnet build Aspire/Olympus.Aspire.Host",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
 			"label": ".NET Build: API Host",
-			"command": "dotnet build Apps/Olympus.Api.Host",
+			"command": "dotnet build Hosts/Olympus.Api.Host",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "package",
@@ -24,7 +34,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Build: Web Host",
-			"command": "dotnet build Apps/Olympus.Web.Host",
+			"command": "dotnet build Hosts/Olympus.Web.Host",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "package",
@@ -43,8 +53,18 @@
 		},
 		{
 			"type": "shell",
+			"label": ".NET Clean: Aspire Host",
+			"command": "dotnet clean Aspire/Olympus.Aspire.Host && Remove-Item ${workspaceFolder}/Hosts/Olympus.Aspire.Host/bin -Recurse -Force",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "trash",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
 			"label": ".NET Clean: API Host",
-			"command": "dotnet clean Apps/Olympus.Api.Host && Remove-Item ${workspaceFolder}/Apps/Olympus.Api.Host/bin -Recurse -Force",
+			"command": "dotnet clean Hosts/Olympus.Api.Host && Remove-Item ${workspaceFolder}/Hosts/Olympus.Api.Host/bin -Recurse -Force",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "trash",
@@ -54,7 +74,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Clean: Web Host",
-			"command": "dotnet clean Apps/Olympus.Web.Host && Remove-Item ${workspaceFolder}/Apps/Olympus.Web.Host/bin -Recurse -Force",
+			"command": "dotnet clean Hosts/Olympus.Web.Host && Remove-Item ${workspaceFolder}/Hosts/Olympus.Web.Host/bin -Recurse -Force",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "trash",
@@ -64,7 +84,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Watch: API Host",
-			"command": "dotnet watch --project Apps/Olympus.Api.Host",
+			"command": "dotnet watch --project Hosts/Olympus.Api.Host",
 			"problemMatcher": [],
 			"icon": {
 				"id": "eye",
@@ -74,7 +94,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Watch: Web Host",
-			"command": "dotnet watch --project Apps/Olympus.Web.Host",
+			"command": "dotnet watch --project Hosts/Olympus.Web.Host",
 			"problemMatcher": [],
 			"icon": {
 				"id": "eye",
@@ -84,7 +104,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Publish: API Host",
-			"command": "dotnet publish Apps/Olympus.Api.Host -c Release",
+			"command": "dotnet publish Hosts/Olympus.Api.Host -c Release",
 			"problemMatcher": [],
 			"icon": {
 				"id": "server-process",
@@ -94,7 +114,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Publish: Web Host",
-			"command": "dotnet publish Apps/Olympus.Web.Host -c Release",
+			"command": "dotnet publish Hosts/Olympus.Web.Host -c Release",
 			"problemMatcher": [],
 			"icon": {
 				"id": "server-process",
@@ -107,7 +127,7 @@
 			"command": "dotnet Olympus.Api.Host.dll --urls=https://0.0.0.0:3333",
 			"dependsOn": ".NET Publish: API Host",
 			"options": {
-				"cwd": "${workspaceFolder}/Apps/Olympus.Api.Host/bin/Release/net10.0/publish"
+				"cwd": "${workspaceFolder}/Hosts/Olympus.Api.Host/bin/Release/net10.0/publish"
 			},
 			"icon": {
 				"id": "server-process",
@@ -143,11 +163,100 @@
 		{
 			"type": "shell",
 			"label": ".NET Outdated: Update Packages",
-			"command": "dotnet outdated --upgrade",
+			"command": "dotnet outdated --upgrade:prompt",
 			"problemMatcher": [],
 			"icon": {
 				"id": "package",
 				"color": "terminal.ansiBlue"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Check: Analyzers",
+			"command": "dotnet format analyzers --verify-no-changes --severity info",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "file-code",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Check: Code Style",
+			"command": "dotnet format style --verify-no-changes --severity info",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "file-code",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Check: Whitespaces",
+			"command": "dotnet format whitespace --verify-no-changes",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "file-code",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Kill: All Processes",
+			"command": "Get-Process dotnet | Stop-Process -Force",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "stop",
+				"color": "terminal.ansiRed"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Rebuild Database",
+			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated' -Recurse -Force }; dotnet build Hosts/Olympus.Api.Host/Olympus.Api.Host.csproj --configuration Migrations && dotnet ef database drop --project Hosts/Olympus.Api.Host --force --configuration Migrations --no-build && dotnet ef migrations add ${input:migration} --output-dir Generated/Migrations --project Hosts/Olympus.Api.Host --configuration Migrations --no-build && dotnet ef dbcontext optimize --output-dir Generated/Database --namespace Olympus.Api.Host.Database --project Hosts/Olympus.Api.Host --configuration Migrations --no-build && dotnet ef database update --project Hosts/Olympus.Api.Host --configuration Migrations",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiRed"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Aspirate: Build Projects",
+			"command": "aspirate build",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host"
+			},
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Aspirate: Generate Manifest for Docker",
+			"command": "aspirate generate --output-format compose",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host"
+			},
+			"icon": {
+				"id": "file-text",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Aspirate: Generate Manifest for Kubernetes",
+			"command": "aspirate generate --output-format compose",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host"
+			},
+			"icon": {
+				"id": "file-text",
+				"color": "terminal.ansiCyan"
 			}
 		},
 		{
@@ -179,6 +288,16 @@
 			"icon": {
 				"id": "github-inverted",
 				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Git: View Commits",
+			"command": "git --no-pager log --oneline",
+			"problemMatcher": [],
+			"icon": {
+				"id": "github-inverted",
+				"color": "terminal.ansiWhite"
 			}
 		},
 		{
@@ -234,7 +353,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Add Migration",
-			"command": "dotnet ef migrations add ${input:migration} --project Apps/Olympus.Api.Host",
+			"command": "dotnet ef migrations add ${input:migration} --output-dir Generated/Migrations --project Hosts/Olympus.Api.Host --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -244,7 +363,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Remove Last Migration",
-			"command": "${input:confirm}dotnet ef migrations remove --project Apps/Olympus.Api.Host",
+			"command": "${input:confirm}dotnet ef migrations remove --project Hosts/Olympus.Api.Host --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -253,8 +372,18 @@
 		},
 		{
 			"type": "shell",
+			"label": "EF Core: Generate Database",
+			"command": "${input:confirm}dotnet ef dbcontext optimize --output-dir Generated/Database --namespace Olympus.Api.Host.Database --project Hosts/Olympus.Api.Host --configuration Migrations",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
 			"label": "EF Core: Update Database",
-			"command": "${input:confirm}dotnet ef database update --project Apps/Olympus.Api.Host",
+			"command": "${input:confirm}dotnet ef database update --project Hosts/Olympus.Api.Host --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -264,7 +393,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Rollback Database",
-			"command": "${input:confirm}dotnet ef database update ${input:migration} --project Apps/Olympus.Api.Host",
+			"command": "${input:confirm}dotnet ef database update ${input:migration} --project Hosts/Olympus.Api.Host --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -274,7 +403,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Drop Database",
-			"command": "${input:confirm}${input:confirm2}dotnet ef database drop --project Apps/Olympus.Api.Host --force",
+			"command": "${input:confirm}${input:confirm2}dotnet ef database drop --project Hosts/Olympus.Api.Host --force --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -284,7 +413,17 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Clear Migrations",
-			"command": "${input:confirm}${input:confirm2}Remove-Item -Path '${workspaceFolder}/Apps/Olympus.Api.Host/Migrations' -Recurse -Force",
+			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated/Migrations') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated/Migrations' -Recurse -Force }",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiRed"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Clear Database",
+			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated/Database') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated/Database' -Recurse -Force }",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",

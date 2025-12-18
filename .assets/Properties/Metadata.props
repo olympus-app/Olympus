@@ -1,0 +1,73 @@
+<Project>
+
+	<!-- Default Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' '))</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' '))</Description>
+	</PropertyGroup>
+
+	<!-- Core Package Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='CorePackage'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ').Replace(' Core','')) Core Package</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ').Replace(' Core','')) Core Package</Description>
+	</PropertyGroup>
+
+	<!-- Service Package Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='ServicePackage'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ')) Service Package</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ')) Service Package</Description>
+	</PropertyGroup>
+
+	<!-- Module Package Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='ModulePackage'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ')) Module Package</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ')) Module Package</Description>
+	</PropertyGroup>
+
+	<!-- Application Package Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='ApplicationPackage'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ')) Application Package</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ')) Application Package</Description>
+	</PropertyGroup>
+
+	<!-- Application Host Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='ApplicationHost'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ').Replace(' Host','')) Application Host</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ').Replace(' Host','')) Application Host</Description>
+	</PropertyGroup>
+
+	<!-- Aspire Service Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='AspireService'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ')) Service Package</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ')) Service Package</Description>
+	</PropertyGroup>
+
+	<!-- Aspire Host Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='AspireHost'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ').Replace(' Host','')) Application Host</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ').Replace(' Host','')) Application Host</Description>
+	</PropertyGroup>
+
+	<!-- Unit Tests Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='UnitTests'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ').Replace(' Tests','')) Unit Tests</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ').Replace(' Tests','')) Unit Tests</Description>
+	</PropertyGroup>
+
+	<!-- Integration Tests Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='IntegrationTests'">
+		<Product>$(ProjectName.Replace('.',' '))</Product>
+		<AssemblyTitle>$(ProjectName.Replace('.',' ').Replace(' Tests','')) Integration Tests</AssemblyTitle>
+		<Description>$(ProjectName.Replace('.',' ').Replace(' Tests','')) Integration Tests</Description>
+	</PropertyGroup>
+
+</Project>

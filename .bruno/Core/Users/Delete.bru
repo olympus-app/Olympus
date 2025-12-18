@@ -1,0 +1,25 @@
+meta {
+  name: Delete
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{BasePath}}/api/v1/core/users/:id?force=true
+  body: none
+  auth: none
+}
+
+params:query {
+  force: true
+  ~RowVersion: 019b246b-bfff-7f57-8066-5d3385b16bfe
+}
+
+params:path {
+  id: {{TestId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

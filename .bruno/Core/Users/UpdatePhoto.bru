@@ -1,0 +1,19 @@
+meta {
+  name: Photo
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{BasePath}}/api/v1/core/users/:id/photo
+  body: multipartForm
+  auth: none
+}
+
+params:path {
+  id: {{UserId}}
+}
+
+body:multipart-form {
+  file: @file(C:\Sandbox\Icon.png)
+}

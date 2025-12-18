@@ -4,7 +4,10 @@
 
 # DotNet Settings files
 appsettings*.json
-**/Settings/*.json
+**/Settings/**/*.json
+
+# Generated Folder
+**/Generated
 
 # DotEnv files
 .env

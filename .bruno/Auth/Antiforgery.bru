@@ -1,0 +1,16 @@
+meta {
+  name: Antiforgery
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{BasePath}}/auth/antiforgery
+  body: none
+  auth: none
+}
+
+script:post-response {
+  const body = res.getBody();
+  bru.setVar(body.Header, body.Token);
+}

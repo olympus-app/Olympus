@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<ProjectType>ServicePackage</ProjectType>
+		<ProjectLayer>None</ProjectLayer>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<NoWarn>$(NoWarn);RS2000;RS2007;NU5128</NoWarn>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<NeutralLanguage>en</NeutralLanguage>
+	</PropertyGroup>
+
+	<!-- Packages References -->
+	<ItemGroup Label="PackagesReferences">
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" PrivateAssets="all" />
+		<PackageReference Include="Roslynator.Analyzers" />
+		<PackageReference Include="Roslynator.CodeFixes" />
+		<PackageReference Include="Roslynator.Formatting.Analyzers" />
+	</ItemGroup>
+
+	<!-- Embedded Resources -->
+	<ItemGroup Label="EmbeddedResources">
+		<EmbeddedResource Include="$(ProjectFolder)\Localization\*.resx" />
+		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+		<None Include="$(OutputPath)\pt\$(AssemblyName).resources.dll" Pack="true" PackagePath="analyzers/dotnet/cs/pt" Visible="false" />
+		<None Include="$(OutputPath)\es\$(AssemblyName).resources.dll" Pack="true" PackagePath="analyzers/dotnet/cs/es" Visible="false" />
+	</ItemGroup>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings">
+		<Using Include="Olympus.Analyzers.Localization" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+		<Using Include="Microsoft.CodeAnalysis" />
+		<Using Include="Microsoft.CodeAnalysis.CSharp" />
+		<Using Include="Microsoft.CodeAnalysis.CSharp.Syntax" />
+		<Using Include="Microsoft.CodeAnalysis.CodeActions" />
+		<Using Include="Microsoft.CodeAnalysis.CodeFixes" />
+		<Using Include="Microsoft.CodeAnalysis.Diagnostics" />
+		<Using Include="Microsoft.CodeAnalysis.Rename" />
+		<Using Include="System.Collections.Immutable" />
+		<Using Include="System.Composition" />
+	</ItemGroup>
+
+</Project>

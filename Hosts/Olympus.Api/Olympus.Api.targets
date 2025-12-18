@@ -1,0 +1,8 @@
+<Project>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(CoreBackendProjectTargets)" Condition="Exists($(CoreBackendProjectTargets))" />
+	</ImportGroup>
+
+</Project>

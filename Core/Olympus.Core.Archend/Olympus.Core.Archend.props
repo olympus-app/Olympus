@@ -2,22 +2,23 @@
 
 	<!-- Project Imports -->
 	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreKernelProjectProps)" />
+		<Import Project="$(CoreProjectProps)" Condition="Exists('$(CoreProjectProps)')" />
 	</ImportGroup>
 
 	<!-- Project Usings -->
-	<ItemGroup Label="ProjectUsings">
+	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Core.Archend" />
+		<Using Include="Olympus.Core.Archend.Endpoints" />
 		<Using Include="Olympus.Core.Archend.Entities" />
-		<Using Include="Olympus.Core.Archend.Mappers" />
-		<Using Include="Olympus.Core.Archend.Models" />
-		<Using Include="Olympus.Core.Archend.Results" />
-		<Using Include="Olympus.Core.Archend.Users" />
+		<Using Include="Olympus.Core.Archend.Identity" />
+		<Using Include="Olympus.Core.Archend.Modules" />
+		<Using Include="Olympus.Core.Archend.Storage" />
 	</ItemGroup>
 
 	<!-- Package Usings -->
-	<ItemGroup Label="PackageUsings">
-		<Using Include="Riok.Mapperly.Abstractions" />
+	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="FastEndpoints" />
+		<Using Include="System.Text.Json.Serialization" />
 	</ItemGroup>
 
 </Project>

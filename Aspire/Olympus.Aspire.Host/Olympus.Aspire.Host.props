@@ -1,0 +1,13 @@
+<Project>
+
+	<!-- Project Imports -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(CoreProjectProps)" Condition="Exists('$(CoreProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="Olympus.Aspire.Host" />
+	</ItemGroup>
+
+</Project>

@@ -4,17 +4,18 @@
 	<PropertyGroup Label="ProjectProperties">
 		<ProjectType>CorePackage</ProjectType>
 		<ProjectLayer>Archend</ProjectLayer>
-		<ModuleName>Core</ModuleName>
 	</PropertyGroup>
 
 	<!-- Project References -->
 	<ItemGroup Label="ProjectReferences">
-		<ProjectReference Include="$(CoreKernelProjectFile)" />
+		<ProjectReference Include="$(CoreProjectFile)" />
 	</ItemGroup>
 
 	<!-- Package References -->
 	<ItemGroup Label="PackageReferences">
-		<PackageReference Include="Riok.Mapperly" Version="4.3.0" />
+		<PackageReference Include="FastEndpoints.Attributes" />
+		<PackageReference Include="Microsoft.Extensions.Http" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Stores" />
 	</ItemGroup>
 
 </Project>

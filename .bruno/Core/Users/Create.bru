@@ -1,0 +1,25 @@
+meta {
+  name: Create
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BasePath}}/api/v1/core/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{TestId}}",
+    "name": "Éwerton Ferreira",
+    "email": "ewerton2@gcgestao.com.br",
+    "password": "Password123!"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

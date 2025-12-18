@@ -1,6 +1,6 @@
 namespace Olympus.Core.Frontend;
 
-public partial class CoreModuleFrontendLayer : AppModuleLayer {
+public class CoreModuleFrontendLayer : AppModuleFrontendLayer {
 
 	public override void AddLayerServices(IServiceCollection services) { }
 

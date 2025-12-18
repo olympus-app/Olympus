@@ -1,14 +1,26 @@
 <Solution>
-	<Folder Name="/Apps/">
-		<Project Path="Apps/Olympus.Api/Olympus.Api.csproj" />
-		<Project Path="Apps/Olympus.Api.Host/Olympus.Api.Host.csproj" />
-		<Project Path="Apps/Olympus.Web/Olympus.Web.csproj" />
-		<Project Path="Apps/Olympus.Web.Host/Olympus.Web.Host.csproj" />
+	<BuildConfigurations>
+		<Configuration Name="Debug" />
+		<Configuration Name="Release" />
+		<Configuration Name="Migrations" />
+	</BuildConfigurations>
+	<Folder Name="/Aspire/">
+		<Project Path="Aspire/Olympus.Aspire.Host/Olympus.Aspire.Host.csproj" />
+		<Project Path="Aspire/Olympus.Aspire/Olympus.Aspire.csproj" />
 	</Folder>
 	<Folder Name="/Core/">
-		<Project Path="Core/Olympus.Core.Kernel/Olympus.Core.Kernel.csproj" />
+		<Project Path="Core/Olympus.Core/Olympus.Core.csproj" />
 		<Project Path="Core/Olympus.Core.Archend/Olympus.Core.Archend.csproj" />
 		<Project Path="Core/Olympus.Core.Backend/Olympus.Core.Backend.csproj" />
 		<Project Path="Core/Olympus.Core.Frontend/Olympus.Core.Frontend.csproj" />
+	</Folder>
+	<Folder Name="/Hosts/">
+		<Project Path="Hosts/Olympus.Api/Olympus.Api.csproj" />
+		<Project Path="Hosts/Olympus.Api.Host/Olympus.Api.Host.csproj" />
+		<Project Path="Hosts/Olympus.Web/Olympus.Web.csproj" />
+		<Project Path="Hosts/Olympus.Web.Host/Olympus.Web.Host.csproj" />
+	</Folder>
+	<Folder Name="/Services/">
+		<Project Path="Services/Olympus.Analyzers/Olympus.Analyzers.csproj" />
 	</Folder>
 </Solution>

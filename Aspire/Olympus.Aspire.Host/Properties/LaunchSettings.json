@@ -1,0 +1,20 @@
+{
+	"$schema": "https://www.schemastore.org/launchsettings.json",
+	"profiles": {
+		"Aspire": {
+			"commandName": "Project",
+			"nativeDebugging": true,
+			"dotnetRunMessages": true,
+			"hotReloadEnabled": true,
+			"launchBrowser": false,
+			"applicationUrl": "https://localhost:4444",
+			"environmentVariables": {
+				"DOTNET_ENVIRONMENT": "Development",
+				"ASPNETCORE_ENVIRONMENT": "Development",
+				"ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:21053",
+				"ASPIRE_DASHBOARD_MCP_ENDPOINT_URL": "https://localhost:23177",
+				"ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22017"
+			}
+		}
+	}
+}

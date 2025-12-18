@@ -2,33 +2,33 @@
 
 	<!-- Project Imports -->
 	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreArchendProjectProps)" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="Exists('$(CoreArchendProjectProps)')" />
 	</ImportGroup>
 
 	<!-- Project Usings -->
-	<ItemGroup Label="ProjectUsings">
+	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Core.Backend" />
-		<Using Include="Olympus.Core.Backend.Attributes" />
-		<Using Include="Olympus.Core.Backend.Controllers" />
-		<Using Include="Olympus.Core.Backend.Databases" />
-		<Using Include="Olympus.Core.Backend.Exceptions" />
-		<Using Include="Olympus.Core.Backend.Models" />
-		<Using Include="Olympus.Core.Backend.Services" />
-		<Using Include="Olympus.Core.Backend.Tables" />
-		<Using Include="Olympus.Core.Backend.Users" />
-		<Using Include="Olympus.Core.Backend.Versioning" />
+		<Using Include="Olympus.Core.Backend.Database" />
+		<Using Include="Olympus.Core.Backend.Entities" />
+		<Using Include="Olympus.Core.Backend.Identity" />
+		<Using Include="Olympus.Core.Backend.Modules" />
+		<Using Include="Olympus.Core.Backend.Storage" />
 	</ItemGroup>
 
 	<!-- Package Usings -->
-	<ItemGroup Label="PackageUsings">
-		<Using Include="Asp.Versioning" />
+	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="EFCoreSecondLevelCacheInterceptor" />
-		<Using Include="Microsoft.AspNetCore.Builder" />
-		<Using Include="Microsoft.AspNetCore.Routing" />
-		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
+		<Using Include="FastEndpoints" />
+		<Using Include="FastEndpoints.Swagger" />
+		<Using Include="FastEndpoints.Void" Alias="Void" />
+		<Using Include="Gridify" />
+		<Using Include="Gridify.EntityFramework" />
+		<Using Include="Microsoft.AspNetCore.Http" />
+		<Using Include="Microsoft.AspNetCore.Mvc" />
 		<Using Include="Microsoft.EntityFrameworkCore" />
-		<Using Include="Microsoft.OData.Edm" />
-		<Using Include="Microsoft.OData.ModelBuilder" />
+		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
+		<Using Include="Riok.Mapperly.Abstractions" />
+		<Using Include="System.Net" />
 	</ItemGroup>
 
 </Project>

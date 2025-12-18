@@ -2,7 +2,7 @@
 
 	<!-- Project Imports -->
 	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreArchendProjectTargets)" />
+		<Import Project="$(CoreArchendProjectTargets)" Condition="Exists($(CoreArchendProjectTargets))" />
 	</ImportGroup>
 
 </Project>

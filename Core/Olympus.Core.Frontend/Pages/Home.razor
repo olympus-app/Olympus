@@ -1,8 +1,9 @@
 ﻿@namespace Olympus.Core.Frontend.Pages
 
 @page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Olympus.Core.Frontend.Authorization
 
-@* @using Olympus.Archend.Kernel *@
 @* @using Olympus.Frontend.Interface.Services *@
 @* @using Olympus.Frontend.Interface.Theming *@
 
@@ -18,6 +19,69 @@
 
 <br />
 <br />
+
+<AuthorizeView>
+	<Authorized>
+		<div style="color: green; font-weight: bold;">
+			Olá, @context.User.Identity?.Name!
+			<button @onclick="Logout">Sair</button>
+		</div>
+		@if (context.User.CheckPermissions(CorePermissions.Users.Read))
+		{
+			<div class="alert alert-info">Você TEM CorePermissions.Users.Read</div>
+		}
+		else
+		{
+			<div class="alert alert-info">Você NÃO tem CorePermissions.Users.Read</div>
+		}
+		@if (context.User.CheckPermissions(CorePermissions.Users.Write))
+		{
+			<div class="alert alert-info">Você TEM CorePermissions.Users.Write</div>
+		}
+		else
+		{
+			<div class="alert alert-info">Você NÃO tem CorePermissions.Users.Write</div>
+		}
+	</Authorized>
+	<NotAuthorized>
+		<div style="color: red;">
+			Você não está logado.
+			<a href="login">Ir para Login</a>
+		</div>
+	</NotAuthorized>
+</AuthorizeView>
+
+<br />
+<br />
+
+<CheckPermissions One="CorePermissions.Users.Read">
+	<Authorized>
+		<div class="alert alert-success">
+			Você TEM CorePermissions.Users.Read
+		</div>
+	</Authorized>
+	<NotAuthorized>
+		<div class="alert alert-warning">
+			Você NÃO tem CorePermissions.Users.Read
+		</div>
+	</NotAuthorized>
+</CheckPermissions>
+
+<br />
+<br />
+
+<CheckPermissions One="CorePermissions.Users.Write">
+	<Authorized>
+		<div class="alert alert-success">
+			Você TEM CorePermissions.Users.Write
+		</div>
+	</Authorized>
+	<NotAuthorized>
+		<div class="alert alert-warning">
+			Você NÃO tem CorePermissions.Users.Write
+		</div>
+	</NotAuthorized>
+</CheckPermissions>
 
 @* <RadzenButton Text="Default" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.Default))" />
 <RadzenButton Text="Bootstrap" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.Bootstrap))" />
@@ -40,6 +104,10 @@
 <RadzenButton Icon="dark_mode" Click="@(async () => await ThemingService.ApplySchema(ThemingSchemas.Dark))" /> *@
 
 @code {
+
+	[Inject] AuthenticationService AuthProvider { get; set; } = default!;
+
+	async Task Logout() => await AuthProvider.LogoutAsync();
 
 	@* private string factor => FormFactor.GetFormFactor(); *@
 	@* private string platform => FormFactor.GetPlatform(); *@

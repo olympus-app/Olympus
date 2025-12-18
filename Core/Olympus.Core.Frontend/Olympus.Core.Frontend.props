@@ -2,19 +2,22 @@
 
 	<!-- Project Imports -->
 	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreArchendProjectProps)" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="Exists('$(CoreArchendProjectProps)')" />
 	</ImportGroup>
 
 	<!-- Project Usings -->
-	<ItemGroup Label="ProjectUsings">
+	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Core.Frontend" />
+		<Using Include="Olympus.Core.Frontend.Authentication" />
+		<Using Include="Olympus.Core.Frontend.Authorization" />
 		<Using Include="Olympus.Core.Frontend.Layout" />
+		<Using Include="Olympus.Core.Frontend.Modules" />
 		<Using Include="Olympus.Core.Frontend.Pages" />
 		<Using Include="Olympus.Core.Frontend.Services" />
 	</ItemGroup>
 
 	<!-- Package Usings -->
-	<ItemGroup Label="PackageUsings">
+	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Radzen" />
 		<Using Include="Radzen.Blazor" />
 	</ItemGroup>
