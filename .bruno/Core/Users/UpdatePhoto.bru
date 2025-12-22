@@ -4,7 +4,7 @@ meta {
   seq: 7
 }
 
-put {
+post {
   url: {{BasePath}}/api/v1/core/users/:id/photo
   body: multipartForm
   auth: none
@@ -16,4 +16,9 @@ params:path {
 
 body:multipart-form {
   file: @file(C:\Sandbox\Icon.png)
+}
+
+script:post-response {
+  const etag = res.getHeader("etag");
+  if (etag) bru.setVar("PhotoEtag", etag);
 }

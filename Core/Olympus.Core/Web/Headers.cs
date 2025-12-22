@@ -20,6 +20,8 @@ public static class Headers {
 
 	public const string ApiSupportedVersions = "Api-Supported-Versions";
 
+	public const string ETag = "ETag";
+
 	public const string IfMatch = "If-Match";
 
 	public const string IfNoneMatch = "If-None-Match";

@@ -8,7 +8,6 @@
 	<!-- Project Usings -->
 	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Core.Backend" />
-		<Using Include="Olympus.Core.Backend.Database" />
 		<Using Include="Olympus.Core.Backend.Entities" />
 		<Using Include="Olympus.Core.Backend.Identity" />
 		<Using Include="Olympus.Core.Backend.Modules" />

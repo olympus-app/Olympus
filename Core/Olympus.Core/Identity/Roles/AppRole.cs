@@ -6,4 +6,6 @@ public class AppRole {
 
 	public string Name { get; internal init; } = string.Empty;
 
+	public string Description { get; internal init; } = string.Empty;
+
 }

@@ -6,8 +6,6 @@ public record UserLinkResponse : EntityLinkResponse {
 
 	public string? Email { get; init; } = AppUsers.Unknown.Email;
 
-	public string? JobTitle { get; init; }
-
-	public string? Department { get; init; }
+	public string? Title { get; init; } = AppUsers.Unknown.Title;
 
 }

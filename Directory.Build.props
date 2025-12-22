@@ -25,11 +25,14 @@
 	<PropertyGroup Label="SolutionMetadata">
 		<Company>Olympus</Company>
 		<Product>Olympus</Product>
-		<Version>0.5.0.0-alpha</Version>
-		<BuildNumber>5</BuildNumber>
-		<BuildNumberForced>5</BuildNumberForced>
+		<Version>0.6.0-alpha</Version>
+		<BuildNumber>6</BuildNumber>
+		<BuildNumberForced>6</BuildNumberForced>
+		<Authors>Éwerton Ferreira</Authors>
 		<Copyright>© 2025 Éwerton Ferreira</Copyright>
 		<ApplicationIcon>$(AssetsFolder)\Icons\AppIcon.ico</ApplicationIcon>
+		<RepositoryUrl>https://github.com/olympus-app/Olympus</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	</PropertyGroup>
 
 	<!-- Solution Attributes -->
@@ -59,6 +62,7 @@
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>$(MSBuildProjectName)</RootNamespace>
 		<ProjectName>$(MSBuildProjectName)</ProjectName>
+		<ProjectTitle>$(MSBuildProjectName.Replace('.',' '))</ProjectTitle>
 		<ProjectFile>$(MSBuildProjectFullPath)</ProjectFile>
 		<ProjectFolder>$(MSBuildProjectDirectory)</ProjectFolder>
 		<ProjectProps>$(MSBuildProjectFullPath.Replace('$(MSBuildProjectExtension)','.props'))</ProjectProps>

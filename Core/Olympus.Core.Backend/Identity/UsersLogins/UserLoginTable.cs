@@ -8,7 +8,7 @@ public class UserLoginTable : EntityTable<UserLogin> {
 
 	public override void Configure(EntityTypeBuilder<UserLogin> builder) {
 
-		builder.ToTable(TableName, SchemaName);
+		builder.Prepare(TableName, SchemaName);
 
 		builder.HasKey(ulogin => new { ulogin.LoginProvider, ulogin.ProviderKey });
 		builder.Property(ulogin => ulogin.LoginProvider).HasMaxLength(64);

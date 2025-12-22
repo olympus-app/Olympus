@@ -12,11 +12,19 @@ delete {
 
 params:query {
   force: true
-  ~RowVersion: 019b246b-bfff-7f57-8066-5d3385b16bfe
 }
 
 params:path {
   id: {{TestId}}
+}
+
+headers {
+  If-Match: {{TestEtag}}
+}
+
+script:post-response {
+  const etag = res.getHeader("etag");
+  if (etag) bru.setVar("TestEtag", etag);
 }
 
 settings {

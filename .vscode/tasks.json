@@ -103,8 +103,18 @@
 		},
 		{
 			"type": "shell",
+			"label": ".NET Publish: All Projects",
+			"command": "dotnet publish --configuration Release",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server-process",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
 			"label": ".NET Publish: API Host",
-			"command": "dotnet publish Hosts/Olympus.Api.Host -c Release",
+			"command": "dotnet publish Hosts/Olympus.Api.Host --configuration Release",
 			"problemMatcher": [],
 			"icon": {
 				"id": "server-process",
@@ -114,7 +124,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Publish: Web Host",
-			"command": "dotnet publish Hosts/Olympus.Web.Host -c Release",
+			"command": "dotnet publish Hosts/Olympus.Web.Host --configuration Release",
 			"problemMatcher": [],
 			"icon": {
 				"id": "server-process",
@@ -123,31 +133,12 @@
 		},
 		{
 			"type": "shell",
-			"label": ".NET Serve: API Host",
-			"command": "dotnet Olympus.Api.Host.dll --urls=https://0.0.0.0:3333",
-			"dependsOn": ".NET Publish: API Host",
-			"options": {
-				"cwd": "${workspaceFolder}/Hosts/Olympus.Api.Host/bin/Release/net10.0/publish"
-			},
+			"label": ".NET Pack: All Projects",
+			"command": " dotnet pack --configuration Release --output .nuget",
+			"problemMatcher": [],
 			"icon": {
-				"id": "server-process",
-				"color": "terminal.ansiCyan"
-			},
-			"isBackground": true,
-			"problemMatcher": {
-				"pattern": [
-					{
-						"regexp": ".",
-						"file": 1,
-						"location": 2,
-						"message": 3
-					}
-				],
-				"background": {
-					"activeOnStart": true,
-					"beginsPattern": "info: Microsoft.Hosting.Lifetime",
-					"endsPattern": "Application started."
-				}
+				"id": "package",
+				"color": "terminal.ansiGreen"
 			}
 		},
 		{
@@ -222,12 +213,9 @@
 		},
 		{
 			"type": "shell",
-			"label": "Aspirate: Build Projects",
-			"command": "aspirate build",
+			"label": "Aspire: Update",
+			"command": "aspire update",
 			"problemMatcher": "$msCompile",
-			"options": {
-				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host"
-			},
 			"icon": {
 				"id": "package",
 				"color": "terminal.ansiCyan"
@@ -235,38 +223,11 @@
 		},
 		{
 			"type": "shell",
-			"label": "Aspirate: Generate Manifest for Docker",
-			"command": "aspirate generate --output-format compose",
+			"label": "Aspire: Publish",
+			"command": "aspire publish --output-path Aspire/Olympus.Aspire.Host/Publish",
 			"problemMatcher": "$msCompile",
-			"options": {
-				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host"
-			},
 			"icon": {
 				"id": "file-text",
-				"color": "terminal.ansiCyan"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "Aspirate: Generate Manifest for Kubernetes",
-			"command": "aspirate generate --output-format compose",
-			"problemMatcher": "$msCompile",
-			"options": {
-				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host"
-			},
-			"icon": {
-				"id": "file-text",
-				"color": "terminal.ansiCyan"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "Cloudflared: Launch Tunnel",
-			"command": "cloudflared tunnel --url https://localhost:3333 run olympus-dev",
-			"problemMatcher": [],
-			"dependsOn": ".NET Serve: API Host",
-			"icon": {
-				"id": "globe",
 				"color": "terminal.ansiCyan"
 			}
 		},
@@ -292,8 +253,18 @@
 		},
 		{
 			"type": "shell",
-			"label": "Git: View Commits",
+			"label": "Git: All Commits",
 			"command": "git --no-pager log --oneline",
+			"problemMatcher": [],
+			"icon": {
+				"id": "github-inverted",
+				"color": "terminal.ansiWhite"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Git: Unmerged Commits",
+			"command": "git --no-pager log --oneline origin/main..HEAD",
 			"problemMatcher": [],
 			"icon": {
 				"id": "github-inverted",
@@ -313,8 +284,11 @@
 		{
 			"type": "shell",
 			"label": "Docker: Compose Up",
-			"command": "docker compose up -d",
+			"command": "docker compose --env-file .env.Test up --detach",
 			"problemMatcher": [],
+			"options": {
+				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host/Publish"
+			},
 			"icon": {
 				"id": "server",
 				"color": "terminal.ansiCyan"
@@ -323,8 +297,11 @@
 		{
 			"type": "shell",
 			"label": "Docker: Compose Down",
-			"command": "${input:confirm}${input:confirm2}docker compose down",
+			"command": "docker compose --env-file .env.Test down",
 			"problemMatcher": [],
+			"options": {
+				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host/Publish"
+			},
 			"icon": {
 				"id": "server",
 				"color": "terminal.ansiMagenta"
@@ -332,22 +309,12 @@
 		},
 		{
 			"type": "shell",
-			"label": "Docker: Compose Start",
-			"command": "docker compose start",
+			"label": "Docker: Push Images",
+			"command": "${input:confirm}docker images --format '{{.Repository}}' | ? { $_ -like 'ghcr.io/olympus-app/olympus-*' } | sort -u | % { docker push $_ --all-tags }",
 			"problemMatcher": [],
 			"icon": {
 				"id": "server",
-				"color": "terminal.ansiCyan"
-			}
-		},
-		{
-			"type": "shell",
-			"label": "Docker: Compose Stop",
-			"command": "${input:confirm}docker compose stop",
-			"problemMatcher": [],
-			"icon": {
-				"id": "server",
-				"color": "terminal.ansiYellow"
+				"color": "terminal.ansiMagenta"
 			}
 		},
 		{

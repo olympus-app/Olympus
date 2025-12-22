@@ -4,6 +4,18 @@ public static class ResponseSenderExtensions {
 
 	extension(IResponseSender sender) {
 
+		public Task<Void> ProblemAsync(string detail, CancellationToken cancellationToken = default) {
+
+			var result = new ProblemResult() {
+				Status = HttpStatusCode.Conflict.Value,
+				Message = HttpStatusCode.Conflict.Humanized,
+				Detail = detail,
+			};
+
+			return sender.HttpContext.Response.SendAsync(result, result.Status, null, cancellationToken);
+
+		}
+
 		public Task<Void> CreatedAsync(CancellationToken cancellationToken = default) {
 
 			return sender.HttpContext.Response.SendStatusCodeAsync(HttpStatusCode.Created.Value, cancellationToken);
@@ -42,7 +54,13 @@ public static class ResponseSenderExtensions {
 
 		public Task<Void> ConflictAsync(CancellationToken cancellationToken = default) {
 
-			return sender.HttpContext.Response.SendStatusCodeAsync(HttpStatusCode.Conflict.Value, cancellationToken);
+			return sender.ProblemAsync(ErrorsStrings.Values.ConcurrencyConflict, cancellationToken);
+
+		}
+
+		public Task<Void> ConflictAsync(string detail, CancellationToken cancellationToken = default) {
+
+			return sender.ProblemAsync(detail, cancellationToken);
 
 		}
 

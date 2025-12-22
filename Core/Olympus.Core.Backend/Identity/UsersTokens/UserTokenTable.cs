@@ -8,7 +8,7 @@ public class UserTokenTable : EntityTable<UserToken> {
 
 	public override void Configure(EntityTypeBuilder<UserToken> builder) {
 
-		builder.ToTable(TableName, SchemaName);
+		builder.Prepare(TableName, SchemaName);
 
 		builder.HasKey(utoken => new { utoken.UserId, utoken.LoginProvider, utoken.Name });
 		builder.Property(utoken => utoken.Name).HasMaxLength(64);

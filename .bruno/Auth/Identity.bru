@@ -1,11 +1,16 @@
 meta {
   name: Identity
   type: http
-  seq: 5
+  seq: 4
 }
 
 get {
   url: {{BasePath}}/auth/identity
   body: none
   auth: none
+}
+
+script:post-response {
+  const id = res.getBody().Id;
+  if (id) bru.setVar("UserId", id);
 }

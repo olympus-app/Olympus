@@ -18,6 +18,8 @@ public static class Api {
 
 		builder.AddRoutingServices();
 
+		builder.AddCacheServices();
+
 		builder.AddDatabaseServices();
 
 		builder.AddStorageServices();
@@ -41,6 +43,8 @@ public static class Api {
 	public static void BuildAndRun(this WebApplicationBuilder builder) {
 
 		var app = builder.Build();
+
+		app.UpdateDatabase();
 
 		app.UseGlobalExceptionHandlerMiddleware();
 

@@ -4,9 +4,7 @@ public class CacheSettings {
 
 	public const string SectionName = "Cache";
 
-	public const string ServiceName = "Cache";
-
-	public string ConnectionString { get; set; } = string.Empty;
+	public const string ServiceName = "Redis";
 
 	public string Host { get; set; } = string.Empty;
 
@@ -14,6 +12,9 @@ public class CacheSettings {
 
 	public int Port { get; set; }
 
-	public Uri? Uri { get; set; }
+	public string ConnectionString {
+		get => field ?? $"{Host}:{Port},password={Password}";
+		set => field = value;
+	}
 
 }

@@ -76,7 +76,9 @@ public class ImageProcessor : IImageProcessor {
 
 		foreach (var size in FastEnum.GetValues<ThumbnailSize>()) {
 
-			var targetSize = size.Value;
+			var scale = Math.Min(1.0, Math.Min((double)image.Width / size.Value, (double)image.Height / size.Value));
+
+			var targetSize = (int)(size.Value * scale);
 
 			using var thumbImage = image.Clone(context => context.Resize(
 				new ResizeOptions() {

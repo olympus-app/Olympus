@@ -10,7 +10,7 @@ public class UserPhotoTable : EntityTable<UserPhoto> {
 
 		builder.Prepare(TableName, SchemaName);
 
-		builder.HasOne(uphoto => uphoto.Entity).WithOne(user => user.UserPhoto).HasForeignKey<UserPhoto>(uphoto => uphoto.EntityId).OnDelete(DeleteBehavior.Cascade);
+		builder.HasOne(uphoto => uphoto.Entity).WithOne(user => user.Photo).HasForeignKey<UserPhoto>(uphoto => uphoto.EntityId).OnDelete(DeleteBehavior.Cascade);
 		builder.HasOne(uphoto => uphoto.File).WithOne().HasForeignKey<UserPhoto>(uphoto => uphoto.FileId).OnDelete(DeleteBehavior.Cascade);
 
 	}

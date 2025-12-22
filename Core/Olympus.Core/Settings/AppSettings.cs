@@ -6,8 +6,6 @@ public class AppSettings {
 
 	public const string SectionName = "";
 
-	public const string ServiceName = "Application";
-
 	public const string AppBaseName = "Olympus";
 
 	public const string ApiBaseName = "Olympus API";
@@ -37,6 +35,8 @@ public class AppSettings {
 	public string WebName { get; set; } = WebBaseName;
 
 	public HostSettings Host { get; } = new();
+
+	public AdminSettings Admin { get; } = new();
 
 	public AuthorSettings Author { get; } = new();
 

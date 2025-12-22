@@ -44,8 +44,6 @@ public abstract class FileUploadEndpoint<TEntity, TFile, TEntityWithFile, TUploa
 
 	protected virtual TEntityWithFile Initialize(IFormFile upload, TUploadRequest request) {
 
-		var id = Guid.CreateVersion7();
-
 		var fileName = !string.IsNullOrEmpty(Configuration.FileName) ? Configuration.FileName : upload.FileName;
 		var folderName = !string.IsNullOrEmpty(Configuration.FolderName) ? Configuration.FolderName : typeof(TEntityWithFile).Name;
 		var contentType = !string.IsNullOrEmpty(Configuration.ContentType) ? Configuration.ContentType : upload.ContentType;
@@ -55,14 +53,12 @@ public abstract class FileUploadEndpoint<TEntity, TFile, TEntityWithFile, TUploa
 		return new TEntityWithFile() {
 			EntityId = request.Id,
 			File = new TFile() {
-				Id = id,
 				Name = fileName,
 				BaseName = baseName,
 				Extension = extension,
 				ContentType = contentType,
-				ContentHash = string.Empty,
 				StorageBucket = Configuration.Bucket.GetLabel()!,
-				StoragePath = $"{folderName.ToLower()}/{request.Id.NormalizeLower()}/{id.NormalizeLower()}{extension}",
+				StoragePath = $"{folderName.ToLower()}/{request.Id.NormalizeLower()}/{fileName}",
 				Size = upload.Length,
 			},
 		};
@@ -71,30 +67,35 @@ public abstract class FileUploadEndpoint<TEntity, TFile, TEntityWithFile, TUploa
 
 	protected virtual async Task UploadAsync(TEntityWithFile? entity, IFormFile upload, TUploadRequest request, CancellationToken cancellationToken = default) {
 
-		if (entity is not null && entity.File is not null) {
-
-			await Storage.DeleteAsync(entity.File.StorageBucket, entity.File.StoragePath, cancellationToken);
-
-		}
-
-		if (entity is null || entity.File is null) {
+		if (entity is null) {
 
 			entity = Initialize(upload, request);
 
 			Database.Set<TEntityWithFile>().Add(entity);
 
+		} else {
+
+			Database.Set<TEntityWithFile>().Update(entity);
+
+			Database.Entry(entity.File).State = EntityState.Modified;
+
+			await Storage.DeleteAsync(entity.File.StorageBucket, entity.File.StoragePath, cancellationToken);
+
 		}
 
 		var stream = upload.OpenReadStream();
 
-		await using var hashStream = new HashProxyStream(stream);
+		await Storage.UploadAsync(stream, entity.File.StorageBucket, entity.File.StoragePath, entity.File.ContentType, cancellationToken);
 
-		await Storage.UploadAsync(hashStream, entity.File.StorageBucket, entity.File.StoragePath, entity.File.ContentType, cancellationToken);
-
-		entity.File.Size = hashStream.TotalBytesRead;
-		entity.File.ContentHash = hashStream.GetHashString();
+		entity.File.Size = stream.Length;
 
 		await Database.SaveChangesAsync(cancellationToken);
+
+	}
+
+	protected virtual void PrepareResponse(TUploadRequest request, TEntityWithFile? entity) {
+
+		if (entity?.File.ETag is not null) HttpContext.Response.Headers.ETag = EntityTag.From(entity?.File.ETag);
 
 	}
 
@@ -107,6 +108,8 @@ public abstract class FileUploadEndpoint<TEntity, TFile, TEntityWithFile, TUploa
 		var entity = await ReadAsync(query, request, cancellationToken);
 
 		await UploadAsync(entity, upload, request, cancellationToken);
+
+		PrepareResponse(request, entity);
 
 		return await Send.UpdatedAsync(cancellationToken);
 

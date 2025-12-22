@@ -4,7 +4,7 @@ public class UserListEndpoint : EntityListEndpoint<User, UserListRequest, UserLi
 
 	public override void Configure() {
 
-		Get(CoreRoutes.Users.List);
+		Get(CoreRoutes.Users.Query + "list");
 
 	}
 

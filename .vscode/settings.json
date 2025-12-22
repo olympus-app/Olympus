@@ -30,6 +30,7 @@
 		"**/*.config": false,
 		"**/*.md": false,
 		"**/*.txt": false,
+		"**/.aspire": false,
 		"**/.assets": false,
 		"**/.bruno": false,
 		"**/.config": false,

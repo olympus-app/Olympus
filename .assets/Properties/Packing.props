@@ -12,8 +12,8 @@
 
 	<!-- NuGet Packing Properties -->
 	<ItemGroup Label="PackingProperties" Condition="$(UseNuGetPacking)=='true' Or $(PackableProjectTypes.Contains(';$(ProjectType);'))">
-		<None Include="$(ProjectProps)" Pack="true" PackagePath="build\;buildTransitive\" Condition="Exists($(ProjectProps))" />
-		<None Include="$(ProjectTargets)" Pack="true" PackagePath="build\;buildTransitive\" Condition="Exists($(ProjectTargets))" />
+		<None Include="$(ProjectProps)" Pack="true" PackagePath="build\;buildTransitive\;buildMultiTargeting\" Condition="Exists($(ProjectProps))" />
+		<None Include="$(ProjectTargets)" Pack="true" PackagePath="build\;buildTransitive\;buildMultiTargeting\" Condition="Exists($(ProjectTargets))" />
 	</ItemGroup>
 
 </Project>

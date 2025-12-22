@@ -18,9 +18,9 @@
 
 	<!-- Migrations Localization Configuration -->
 	<PropertyGroup Label="LocalizationConfiguration" Condition="$(ServerApplicationTypes.Contains(';$(ApplicationType);')) And $(Configuration)=='Migrations'">
-		<NoWarn>$(NoWarn);CA1304;CA1305;CA1311</NoWarn>
 		<InvariantTimezone>true</InvariantTimezone>
 		<InvariantGlobalization>false</InvariantGlobalization>
+		<NoWarn>$(NoWarn);CA1304;CA1305;CA1310;CA1311</NoWarn>
 	</PropertyGroup>
 
 	<!-- Default Embedded Resources -->

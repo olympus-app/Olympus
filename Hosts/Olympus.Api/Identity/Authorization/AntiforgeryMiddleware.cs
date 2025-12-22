@@ -35,7 +35,7 @@ public class AntiforgeryMiddleware(RequestDelegate next, IAntiforgery antiforger
 				await context.Response.WriteAsJsonAsync(new ProblemResult() {
 					Status = HttpStatusCode.BadRequest.Value,
 					Message = HttpStatusCode.BadRequest.Humanized,
-					Details = "Anti-forgery validation failed.",
+					Detail = "Anti-forgery validation failed.",
 				});
 
 				return;

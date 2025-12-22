@@ -8,4 +8,7 @@ public abstract record FileLinkResponse : EntityLinkResponse, IFileLinkResponse 
 	[JsonPropertyOrder(-9997)]
 	public string ContentType { get; init; } = string.Empty;
 
+	[JsonPropertyOrder(9999)]
+	public DateTimeOffset? UpdatedAt { get; init; }
+
 }

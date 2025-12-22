@@ -8,7 +8,7 @@ public class UserPasskeyTable : EntityTable<UserPasskey> {
 
 	public override void Configure(EntityTypeBuilder<UserPasskey> builder) {
 
-		builder.ToTable(TableName, SchemaName);
+		builder.Prepare(TableName, SchemaName);
 
 		builder.HasKey(upass => upass.CredentialId);
 		builder.Property(upass => upass.CredentialId).HasMaxLength(128);

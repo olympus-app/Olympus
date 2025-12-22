@@ -8,6 +8,7 @@
 	<!-- Project Usings -->
 	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Api" />
+		<Using Include="Olympus.Api.Cache" />
 		<Using Include="Olympus.Api.Database" />
 		<Using Include="Olympus.Api.Documentation" />
 		<Using Include="Olympus.Api.Endpoints" />

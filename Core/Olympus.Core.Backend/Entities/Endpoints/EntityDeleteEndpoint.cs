@@ -14,17 +14,21 @@ public abstract class EntityDeleteEndpoint<TEntity, TDeleteRequest> : EntityEndp
 
 	}
 
-	protected virtual bool ConflictCheck(TEntity entity, TDeleteRequest request) {
+	protected virtual bool ConflictCheck(TDeleteRequest request, TEntity entity) {
 
-		return EntityTag.NotMatch(entity?.RowVersion, request?.RowVersion);
+		return !EntityTag.IfMatch(request.ETag, entity.ETag);
 
 	}
 
-	protected virtual async Task SoftDeleteAsync(TEntity entity, CancellationToken cancellationToken = default) {
+	protected virtual async Task<TEntity> SoftDeleteAsync(TEntity entity, CancellationToken cancellationToken = default) {
 
 		entity.IsDeleted = true;
 
+		Database.Set<TEntity>().Update(entity);
+
 		await Database.SaveChangesAsync(cancellationToken);
+
+		return entity;
 
 	}
 
@@ -36,6 +40,12 @@ public abstract class EntityDeleteEndpoint<TEntity, TDeleteRequest> : EntityEndp
 
 	}
 
+	protected virtual void PrepareResponse(TDeleteRequest request, TEntity entity) {
+
+		if (entity.ETag is not null && !request.Force) HttpContext.Response.Headers.ETag = EntityTag.From(entity.ETag);
+
+	}
+
 	public override async Task<Void> HandleAsync(TDeleteRequest request, CancellationToken cancellationToken) {
 
 		var query = Query(request);
@@ -44,7 +54,7 @@ public abstract class EntityDeleteEndpoint<TEntity, TDeleteRequest> : EntityEndp
 
 		if (entity is null) return await Send.NotFoundAsync(cancellationToken);
 
-		var conflict = ConflictCheck(entity, request);
+		var conflict = ConflictCheck(request, entity);
 
 		if (conflict) return await Send.ConflictAsync(cancellationToken);
 
@@ -54,9 +64,11 @@ public abstract class EntityDeleteEndpoint<TEntity, TDeleteRequest> : EntityEndp
 
 		} else {
 
-			await SoftDeleteAsync(entity, cancellationToken);
+			entity = await SoftDeleteAsync(entity, cancellationToken);
 
 		}
+
+		PrepareResponse(request, entity);
 
 		return await Send.DeletedAsync(cancellationToken);
 

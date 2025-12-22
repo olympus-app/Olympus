@@ -10,12 +10,12 @@ put {
   auth: none
 }
 
-params:query {
-  ~RowVersion: 019b2469-8d0f-7a7e-bf97-dc71e677fd79
-}
-
 params:path {
   id: {{TestId}}
+}
+
+headers {
+  If-Match: {{TestEtag}}
 }
 
 body:json {
@@ -24,6 +24,11 @@ body:json {
     "name": "Éwerton Ferreira",
     "email": "ewerton2@gcgestao.com.br"
   }
+}
+
+script:post-response {
+  const etag = res.getHeader("etag");
+  if (etag) bru.setVar("TestEtag", etag);
 }
 
 settings {

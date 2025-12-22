@@ -1,6 +1,7 @@
+#pragma warning disable OL0007
+
 namespace Olympus.Core.Archend.Endpoints;
 
-#pragma warning disable OL0007
 public class ProblemResult : IResponse {
 
 	[JsonPropertyOrder(0)]
@@ -12,7 +13,7 @@ public class ProblemResult : IResponse {
 
 	[JsonPropertyOrder(3)]
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public string? Details { get; set; }
+	public string? Detail { get; set; }
 
 	[JsonPropertyOrder(4)]
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -20,7 +21,7 @@ public class ProblemResult : IResponse {
 
 	[JsonPropertyOrder(5)]
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public IEnumerable<ErrorResult>? Errors { get; set; }
+	public IEnumerable<ProblemResultDetail>? Details { get; set; }
 
 }
 

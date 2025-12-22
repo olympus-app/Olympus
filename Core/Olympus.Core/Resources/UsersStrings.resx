@@ -123,11 +123,17 @@
   <data name="UnknownEmail" xml:space="preserve">
     <value>unknown@user.com</value>
   </data>
+  <data name="UnknownTitle" xml:space="preserve">
+    <value>Unknown User</value>
+  </data>
   <data name="ExternalName" xml:space="preserve">
     <value>External User</value>
   </data>
   <data name="ExternalEmail" xml:space="preserve">
     <value>external@user.com</value>
+  </data>
+  <data name="ExternalTitle" xml:space="preserve">
+    <value>External User</value>
   </data>
   <data name="ServiceName" xml:space="preserve">
     <value>Service User</value>
@@ -135,16 +141,34 @@
   <data name="ServiceEmail" xml:space="preserve">
     <value>service@user.com</value>
   </data>
+  <data name="ServiceTitle" xml:space="preserve">
+    <value>Service User</value>
+  </data>
   <data name="AgentsName" xml:space="preserve">
     <value>Agents User</value>
   </data>
   <data name="AgentsEmail" xml:space="preserve">
     <value>agents@user.com</value>
   </data>
+  <data name="AgentsTitle" xml:space="preserve">
+    <value>System Agents</value>
+  </data>
   <data name="SystemName" xml:space="preserve">
     <value>System User</value>
   </data>
   <data name="SystemEmail" xml:space="preserve">
     <value>system@user.com</value>
+  </data>
+  <data name="SystemTitle" xml:space="preserve">
+    <value>System User</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AdminEmail" xml:space="preserve">
+    <value>admin@user.com</value>
+  </data>
+  <data name="AdminTitle" xml:space="preserve">
+    <value>System Administrator</value>
   </data>
 </root>

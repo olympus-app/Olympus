@@ -1,30 +1,48 @@
+using System.Collections.Concurrent;
+
 namespace Olympus.Core.Backend.Entities;
 
-public abstract class EntityListEndpoint<TEntity, TListRequest, TListResponse, TMapper> : EntityEndpoint<TEntity, TListRequest, PageResult<TListResponse>, TMapper> where TEntity : class, IEntity where TListRequest : class, IEntityListRequest where TListResponse : class, IEntityListResponse where TMapper : class, IEntityListMapper<TEntity, TListResponse> {
+public abstract class EntityListEndpoint<TEntity, TListRequest, TListResponse, TMapper> : EntityEndpoint<TEntity, TListRequest, ListResult<TListResponse>, TMapper> where TEntity : class, IEntity where TListRequest : class, IEntityListRequest where TListResponse : class, IEntityListResponse where TMapper : class, IEntityListMapper<TEntity, TListResponse> {
 
-	protected virtual IQueryable<TEntity> Query(TListRequest request) {
+	private string ETag = string.Empty;
 
-		return Database.Set<TEntity>().AsNoTracking().DefaultFilter().DefaultOrderBy();
+	private static readonly ConcurrentDictionary<Type, EntityListConfiguration> Configurations = new();
+
+	protected EntityListConfiguration Configuration => field ?? Configurations.GetOrAdd(GetType(), static _ => new());
+
+	protected virtual void CacheControl(CachePolicy location, TimeSpan duration, bool immutable = false) {
+
+		Configuration.CacheControl = Web.ResponseCache.From(location, duration, immutable);
 
 	}
 
-	protected virtual async Task<PageResult<TListResponse>> ListAsync(IQueryable<TListResponse> projection, TListRequest request, CancellationToken cancellationToken = default) {
+	protected virtual IQueryable<TEntity> Query(TListRequest request) {
 
-		var config = TryResolve<IEntityQueryMapper<TListResponse>>();
+		return Database.Set<TEntity>().AsNoTracking().DefaultFilter().DefaultOrderBy().Cacheable(CacheExpirationMode.Absolute, 24.Hours());
 
-		var options = new GridifyQuery(request.Page, request.PageSize, request.Filter, request.OrderBy);
+	}
 
-		if (!options.IsValid(config)) ThrowError(ErrorsStrings.Values.InvalidQuery);
+	protected virtual async Task<ListResult<TListResponse>> ListAsync(IQueryable<TListResponse> projection, TListRequest request, CancellationToken cancellationToken = default) {
 
-		var response = await projection.GridifyAsync(options, cancellationToken, config);
+		var items = await projection.ToListAsync(cancellationToken);
 
-		var page = options.Page;
-		var items = response.Data;
-		var count = items.Count();
-		var totalCount = response.Count;
-		var totalPages = (int)Math.Ceiling((double)totalCount / (options.PageSize > 0 ? options.PageSize : 1));
+		return new ListResult<TListResponse>(items.Count, items);
 
-		return new PageResult<TListResponse>(page, count, totalPages, totalCount, items);
+	}
+
+	protected virtual void PrepareResponse(TListRequest request, ListResult<TListResponse> response) {
+
+		ETag = EntityTag.From(response);
+
+		if (!string.IsNullOrEmpty(ETag)) HttpContext.Response.Headers.ETag = ETag;
+
+		if (!string.IsNullOrEmpty(Configuration.CacheControl)) HttpContext.Response.Headers.CacheControl = Configuration.CacheControl;
+
+	}
+
+	protected virtual bool NotModifiedCheck(TListRequest request, ListResult<TListResponse> response) {
+
+		return EntityTag.IfNoneMatch(request.ETag, ETag);
 
 	}
 
@@ -35,6 +53,12 @@ public abstract class EntityListEndpoint<TEntity, TListRequest, TListResponse, T
 		var projection = Map.FromEntity(query);
 
 		var response = await ListAsync(projection, request, cancellationToken);
+
+		PrepareResponse(request, response);
+
+		var notModified = NotModifiedCheck(request, response);
+
+		if (notModified) return await Send.NotModifiedAsync(cancellationToken);
 
 		return await Send.OkAsync(response, cancellationToken);
 

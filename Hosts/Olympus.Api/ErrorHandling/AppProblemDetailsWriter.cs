@@ -16,7 +16,7 @@ public class AppProblemDetailsWriter : IProblemDetailsWriter {
 		var response = new ProblemResult() {
 			Status = problemDetails.Status ?? httpContext.Response.StatusCode,
 			Message = problemDetails.Title ?? ErrorsStrings.Values.UnknownError,
-			Details = problemDetails.Detail,
+			Detail = problemDetails.Detail,
 		};
 
 		httpContext.Response.StatusCode = response.Status;

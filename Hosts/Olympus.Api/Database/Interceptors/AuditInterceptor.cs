@@ -31,29 +31,29 @@ public class AuditInterceptor(IHttpContextAccessor accessor) : SaveChangesInterc
 
 			if (entry.State == EntityState.Added) {
 
+				entry.Property(entity => entity.ETag).CurrentValue = Guid.NewGuidV7();
 				entry.Property(entity => entity.CreatedById).CurrentValue = User?.Id ?? AppUsers.Unknown.Id;
 				entry.Property(entity => entity.UpdatedById).CurrentValue = User?.Id ?? AppUsers.Unknown.Id;
 				entry.Property(entity => entity.CreatedAt).CurrentValue = DateTimeOffset.UtcNow;
 				entry.Property(entity => entity.UpdatedAt).CurrentValue = DateTimeOffset.UtcNow;
-				entry.Property(entity => entity.RowVersion).CurrentValue = Guid.NewGuidV7();
 
 			} else if (entry.State == EntityState.Modified) {
 
 				if (entry.Property(entity => entity.IsDeleted).CurrentValue && !entry.Property(entity => entity.IsDeleted).OriginalValue) {
 
+					entry.Property(entity => entity.ETag).CurrentValue = Guid.NewGuidV7();
 					entry.Property(entity => entity.UpdatedById).CurrentValue = User?.Id ?? AppUsers.Unknown.Id;
 					entry.Property(entity => entity.DeletedById).CurrentValue = User?.Id ?? AppUsers.Unknown.Id;
 					entry.Property(entity => entity.UpdatedAt).CurrentValue = DateTimeOffset.UtcNow;
 					entry.Property(entity => entity.DeletedAt).CurrentValue = DateTimeOffset.UtcNow;
-					entry.Property(entity => entity.RowVersion).CurrentValue = Guid.NewGuidV7();
 
 				} else {
 
+					entry.Property(entity => entity.ETag).CurrentValue = Guid.NewGuidV7();
 					entry.Property(entity => entity.CreatedById).CurrentValue ??= User?.Id ?? AppUsers.Unknown.Id;
 					entry.Property(entity => entity.UpdatedById).CurrentValue = User?.Id ?? AppUsers.Unknown.Id;
 					entry.Property(entity => entity.CreatedAt).CurrentValue ??= DateTimeOffset.UtcNow;
 					entry.Property(entity => entity.UpdatedAt).CurrentValue = DateTimeOffset.UtcNow;
-					entry.Property(entity => entity.RowVersion).CurrentValue = Guid.NewGuidV7();
 
 				}
 

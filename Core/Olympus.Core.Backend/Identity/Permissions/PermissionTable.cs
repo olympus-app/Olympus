@@ -25,9 +25,23 @@ public class PermissionTable(IEnumerable<IAppModuleOptions> modules) : EntityTab
 
 	}
 
-	private static List<Permission> GetSeed(IEnumerable<IAppModuleOptions> modules) {
+	public static List<Permission> GetSeed(IAppModuleOptions module) {
 
-		var permissionsToSeed = new List<Permission>();
+		var permissions = new List<Permission>();
+
+		if (module.Permissions is null) return permissions;
+
+		var extracted = ExtractPermissions(module.Permissions, module.Name);
+
+		permissions.AddRange(extracted);
+
+		return permissions;
+
+	}
+
+	public static List<Permission> GetSeed(IEnumerable<IAppModuleOptions> modules) {
+
+		var permissions = new List<Permission>();
 
 		foreach (var module in modules) {
 
@@ -35,17 +49,17 @@ public class PermissionTable(IEnumerable<IAppModuleOptions> modules) : EntityTab
 
 			var extracted = ExtractPermissions(module.Permissions, module.Name);
 
-			permissionsToSeed.AddRange(extracted);
+			permissions.AddRange(extracted);
 
 		}
 
-		return permissionsToSeed;
+		return permissions;
 
 	}
 
 	private static List<Permission> ExtractPermissions(Type permissionsType, string moduleName) {
 
-		var results = new List<Permission>();
+		var permissions = new List<Permission>();
 
 		foreach (var featureType in permissionsType.GetNestedTypes(BindingFlags.Public | BindingFlags.Static)) {
 
@@ -62,23 +76,23 @@ public class PermissionTable(IEnumerable<IAppModuleOptions> modules) : EntityTab
 
 				var permission = PrepareSeed(
 					new Permission() {
-						Id = Guid.Parse($"00000000-0000-0000-0000-{value:X12}"),
+						Id = Guid.From(value),
 						Value = value,
 						Name = fullName,
 						Description = fullName,
 						Module = moduleName,
 						Feature = featureName,
 						Action = actionName,
-					}
+					}, true, false, true, true
 				);
 
-				results.Add(permission);
+				permissions.Add(permission);
 
 			}
 
 		}
 
-		return results;
+		return permissions;
 
 	}
 

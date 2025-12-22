@@ -1,7 +1,7 @@
 meta {
   name: Antiforgery
   type: http
-  seq: 4
+  seq: 3
 }
 
 get {
@@ -11,6 +11,6 @@ get {
 }
 
 script:post-response {
-  const body = res.getBody();
-  bru.setVar(body.Header, body.Token);
+  const token = res.getBody().Token;
+  if (token) bru.setVar("Antiforgery", token);
 }

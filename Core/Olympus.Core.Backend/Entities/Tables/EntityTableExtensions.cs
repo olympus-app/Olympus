@@ -10,8 +10,8 @@ public static class EntityTableExtensions {
 
 			builder.HasKey(entity => entity.Id);
 
-			builder.Property(entity => entity.Id).ValueGeneratedNever();
-			builder.Property(entity => entity.RowVersion).IsConcurrencyToken();
+			builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
+			builder.Property(entity => entity.ETag).IsConcurrencyToken();
 
 			builder.HasOne(entity => entity.CreatedBy).WithMany().HasForeignKey(entity => entity.CreatedById).OnDelete(DeleteBehavior.NoAction);
 			builder.HasOne(entity => entity.UpdatedBy).WithMany().HasForeignKey(entity => entity.UpdatedById).OnDelete(DeleteBehavior.NoAction);
@@ -25,7 +25,7 @@ public static class EntityTableExtensions {
 
 		public IndexBuilder<TEntity> IsUniqueWhenNotSoftDeleted() {
 
-			return builder.IsUnique().HasAnnotation(IDatabaseContext.SoftDeleteIndexAnnotation, true);
+			return builder.IsUnique().HasAnnotation(IEntityDatabase.SoftDeleteIndexAnnotation, true);
 
 		}
 

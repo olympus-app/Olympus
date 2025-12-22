@@ -17,56 +17,56 @@ public class GlobalExceptionHandler(IWebHostEnvironment environment) : IExceptio
 			case BadHttpRequestException:
 				response.Status = HttpStatusCode.BadRequest.Value;
 				response.Message = HttpStatusCode.BadRequest.Humanized;
-				response.Details = ErrorsStrings.Values.InvalidOrMalformedRequest;
+				response.Detail = ErrorsStrings.Values.InvalidOrMalformedRequest;
 				response.Debug = GetDebugDetails(exception);
 				break;
 
 			case UniqueConstraintException ex:
 				response.Status = HttpStatusCode.Conflict.Value;
 				response.Message = HttpStatusCode.Conflict.Humanized;
-				response.Details = string.Format(ErrorsStrings.Values.UniqueConstraintViolation, ex.ConstraintName);
+				response.Detail = string.Format(ErrorsStrings.Values.UniqueConstraintViolation, ex.ConstraintName);
 				response.Debug = GetDebugDetails(exception);
 				break;
 
 			case ReferenceConstraintException ex:
 				response.Status = HttpStatusCode.Conflict.Value;
 				response.Message = HttpStatusCode.Conflict.Humanized;
-				response.Details = string.Format(ErrorsStrings.Values.ReferenceConstraintViolation, ex.ConstraintName);
+				response.Detail = string.Format(ErrorsStrings.Values.ReferenceConstraintViolation, ex.ConstraintName);
 				response.Debug = GetDebugDetails(exception);
 				break;
 
 			case CannotInsertNullException:
 				response.Status = HttpStatusCode.BadRequest.Value;
 				response.Message = HttpStatusCode.BadRequest.Humanized;
-				response.Details = ErrorsStrings.Values.CannotInsertNull;
+				response.Detail = ErrorsStrings.Values.CannotInsertNull;
 				response.Debug = GetDebugDetails(exception);
 				break;
 
 			case MaxLengthExceededException:
 				response.Status = HttpStatusCode.BadRequest.Value;
 				response.Message = HttpStatusCode.BadRequest.Humanized;
-				response.Details = ErrorsStrings.Values.MaxLengthExceeded;
+				response.Detail = ErrorsStrings.Values.MaxLengthExceeded;
 				response.Debug = GetDebugDetails(exception);
 				break;
 
 			case NumericOverflowException:
 				response.Status = HttpStatusCode.BadRequest.Value;
 				response.Message = HttpStatusCode.BadRequest.Humanized;
-				response.Details = ErrorsStrings.Values.NumericOverflow;
+				response.Detail = ErrorsStrings.Values.NumericOverflow;
 				response.Debug = GetDebugDetails(exception);
 				break;
 
 			case DbUpdateConcurrencyException:
 				response.Status = HttpStatusCode.Conflict.Value;
 				response.Message = HttpStatusCode.Conflict.Humanized;
-				response.Details = ErrorsStrings.Values.ConcurrencyConflict;
+				response.Detail = ErrorsStrings.Values.ConcurrencyConflict;
 				response.Debug = GetDebugDetails(exception);
 				break;
 
 			case DbUpdateException ex:
 				response.Status = HttpStatusCode.BadRequest.Value;
 				response.Message = HttpStatusCode.BadRequest.Humanized;
-				response.Details = ex.Message;
+				response.Detail = ex.Message;
 				response.Debug = GetDebugDetails(exception)?.Crop("\r\nThe statement has been terminated.");
 				break;
 

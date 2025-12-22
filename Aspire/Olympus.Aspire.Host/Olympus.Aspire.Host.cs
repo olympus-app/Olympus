@@ -10,28 +10,32 @@ public static class AspireHost {
 
 		builder.Configuration.LoadSettings();
 
+		var production = builder.AddDockerComposeEnvironment("Production");
+
 		var databaseUsername = builder.AddParameter(Database.UsernameKey, true);
 		var databasePassword = builder.AddParameter(Database.PasswordKey, true);
 		var storageUsername = builder.AddParameter(Storage.UsernameKey, true);
 		var storagePassword = builder.AddParameter(Storage.PasswordKey, true);
 		var cachePassword = builder.AddParameter(Cache.PasswordKey, true);
+		var tunnelToken = builder.AddParameter(Tunnel.TokenKey, true);
 
-		var database = builder.AddPostgres(Database.ServiceName, databaseUsername, databasePassword, Database.Port)
-			.WithEndpointProxySupport(false)
-			.WithContainerName(Database.DisplayName)
+		var postgres = builder.AddPostgres(Database.ServiceName, databaseUsername, databasePassword, Database.Port)
+			.WithContainerName(Database.ContainerName.ToLower())
+			.WithDataVolume(Database.VolumeName.ToLower())
 			.WithLifetime(Database.Lifetime)
 			.WithImageTag(Database.ImageTag)
-			.WithIconName(Database.IconName)
-			.WithDataVolume(Database.VolumeName)
-			.AddDatabase(Database.Name);
-
-		var storage = builder.AddMinioContainer(Storage.ServiceName, storageUsername, storagePassword, Storage.Port)
+			.WithIconName(Database.ServiceIconName)
+			.WithComputeEnvironment(production)
 			.WithEndpointProxySupport(false)
-			.WithContainerName(Storage.DisplayName)
+			.AddDatabase(Database.Name)
+			.WithIconName(Database.IconName);
+
+		var minio = builder.AddMinioContainer(Storage.ServiceName, storageUsername, storagePassword, Storage.Port)
+			.WithContainerName(Storage.ContainerName.ToLower())
+			.WithDataVolume(Storage.VolumeName.ToLower())
 			.WithLifetime(Storage.Lifetime)
 			.WithImageTag(Storage.ImageTag)
 			.WithIconName(Storage.IconName)
-			.WithDataVolume(Storage.VolumeName)
 			.WithUrlForEndpoint(Storage.Service.Name, static url => {
 				url.DisplayText = Storage.Service.DisplayText;
 				url.DisplayOrder = Storage.Service.DisplayOrder;
@@ -41,21 +45,25 @@ public static class AspireHost {
 				url.DisplayText = Storage.Console.DisplayText;
 				url.DisplayOrder = Storage.Console.DisplayOrder;
 				url.DisplayLocation = Storage.Console.DisplayLocation;
-			});
+			})
+			.WithComputeEnvironment(production)
+			.WithEndpointProxySupport(false);
 
-		var cache = builder.AddRedis(Cache.ServiceName, Cache.Port, cachePassword)
-			.WithEndpointProxySupport(false)
-			.WithContainerName(Cache.DisplayName)
+		var redis = builder.AddRedis(Cache.ServiceName, Cache.Port, cachePassword)
+			.WithContainerName(Cache.ContainerName.ToLower())
+			.WithDataVolume(Cache.VolumeName.ToLower())
 			.WithLifetime(Cache.Lifetime)
 			.WithImageTag(Cache.ImageTag)
 			.WithIconName(Cache.IconName)
-			.WithDataVolume(Cache.VolumeName);
+			.WithComputeEnvironment(production)
+			.WithEndpointProxySupport(false);
 
 		var api = builder.AddProject<Projects.Olympus_Api_Host>(App.ServiceName, App.ServiceProfile)
 			.WithIconName(App.IconName)
-			.WithReference(database).WaitFor(database)
-			.WithReference(storage).WaitFor(storage)
-			.WithReference(cache).WaitFor(cache)
+			.WithReference(postgres).WaitFor(postgres)
+			.WithReference(minio).WaitFor(minio)
+			.WithReference(redis).WaitFor(redis)
+			.WithComputeEnvironment(production)
 			.WithUrlForEndpoint(App.Endpoint.Name, static url => {
 				url.DisplayText = App.Endpoint.DisplayText;
 				url.DisplayLocation = App.Endpoint.DisplayLocation;
@@ -75,7 +83,19 @@ public static class AspireHost {
 					DisplayLocation = App.Routes.DisplayLocation,
 					DisplayOrder = App.Routes.DisplayOrder,
 				});
-			});
+			})
+			.WithExternalHttpEndpoints();
+
+		var cloudflare = builder.AddContainer(Tunnel.ServiceName, Tunnel.ImageName)
+			.WithReference(api).WaitFor(api)
+			.WithEnvironment(Tunnel.TokenEnvKey, tunnelToken)
+			.WithContainerName(Tunnel.ContainerName.ToLower())
+			.WithLifetime(Tunnel.Lifetime)
+			.WithImageTag(Tunnel.ImageTag)
+			.WithIconName(Tunnel.IconName)
+			.WithArgs(Tunnel.CommandArgs)
+			.WithComputeEnvironment(production)
+			.WithExternalHttpEndpoints();
 
 		builder.Build().Run();
 

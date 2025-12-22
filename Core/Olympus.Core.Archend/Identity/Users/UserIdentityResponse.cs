@@ -6,17 +6,13 @@ public record UserIdentityResponse {
 
 	public string Name { get; init; } = AppUsers.Unknown.Name;
 
-	public string? Email { get; init; }
-
 	public string? UserName { get; init; }
 
-	public string? JobTitle { get; init; }
+	public string? Email { get; init; }
 
-	public string? Department { get; init; }
+	public string? Title { get; init; }
 
-	public string? OfficeLocation { get; init; }
-
-	public string? Country { get; init; }
+	public string? Photo { get; init; }
 
 	public List<string> Roles { get; init; } = [];
 

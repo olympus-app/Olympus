@@ -4,25 +4,19 @@ namespace Olympus.Core.Backend.Identity;
 
 public class User : IdentityUser<Guid>, IEntity {
 
-	public override Guid Id { get; set; } = Guid.NewGuidV7();
+	public override Guid Id { get; set; }
 
-	public string Name { get; set; } = default!;
+	public string Name { get; set; } = string.Empty;
 
-	public string? JobTitle { get; set; }
+	public string? Title { get; set; }
 
-	public string? Department { get; set; }
+	public virtual UserPhoto? Photo { get; set; }
 
-	public string? OfficeLocation { get; set; }
+	public virtual ICollection<UserClaim> Claims { get; set; } = [];
 
-	public string? Country { get; set; }
+	public virtual ICollection<UserRole> Roles { get; set; } = [];
 
-	public virtual UserPhoto? UserPhoto { get; set; }
-
-	public virtual ICollection<UserClaim> UserClaims { get; set; } = [];
-
-	public virtual ICollection<UserRole> UserRoles { get; set; } = [];
-
-	public virtual ICollection<UserPermission> UserPermissions { get; set; } = [];
+	public virtual ICollection<UserPermission> Permissions { get; set; } = [];
 
 	public Guid? CreatedById { get; set; }
 
@@ -42,11 +36,6 @@ public class User : IdentityUser<Guid>, IEntity {
 
 	public DateTimeOffset? DeletedAt { get; set; }
 
-	public Guid? RowVersion {
-		get => string.IsNullOrEmpty(ConcurrencyStamp) || !Guid.TryParse(ConcurrencyStamp, out var guid) ? Guid.Empty : guid;
-		set => ConcurrencyStamp = value.ToString();
-	}
-
 	public bool IsActive { get; set; } = true;
 
 	public bool IsDeleted { get; set; }
@@ -56,5 +45,10 @@ public class User : IdentityUser<Guid>, IEntity {
 	public bool IsLocked { get; set; }
 
 	public bool IsSystem { get; set; }
+
+	public Guid? ETag {
+		get => string.IsNullOrEmpty(ConcurrencyStamp) || !Guid.TryParse(ConcurrencyStamp, out var guid) ? Guid.Empty : guid;
+		set => ConcurrencyStamp = value.ToString();
+	}
 
 }

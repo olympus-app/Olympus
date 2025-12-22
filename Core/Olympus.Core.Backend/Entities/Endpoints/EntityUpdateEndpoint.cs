@@ -14,13 +14,15 @@ public abstract class EntityUpdateEndpoint<TEntity, TUpdateRequest, TReadRespons
 
 	}
 
-	protected virtual bool ConflictCheck(TEntity entity, TUpdateRequest request) {
+	protected virtual bool ConflictCheck(TUpdateRequest request, TEntity entity) {
 
-		return EntityTag.NotMatch(entity?.RowVersion, request?.RowVersion);
+		return !EntityTag.IfMatch(request.ETag, entity.ETag);
 
 	}
 
 	protected virtual async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default) {
+
+		Database.Set<TEntity>().Update(entity);
 
 		await Database.SaveChangesAsync(cancellationToken);
 
@@ -28,6 +30,12 @@ public abstract class EntityUpdateEndpoint<TEntity, TUpdateRequest, TReadRespons
 		entity.CreatedBy ??= entity.UpdatedBy;
 
 		return entity;
+
+	}
+
+	protected virtual void PrepareResponse(TUpdateRequest request, TReadResponse response) {
+
+		if (response.ETag is not null) HttpContext.Response.Headers.ETag = EntityTag.From(response.ETag);
 
 	}
 
@@ -39,7 +47,7 @@ public abstract class EntityUpdateEndpoint<TEntity, TUpdateRequest, TReadRespons
 
 		if (entity is null) return await Send.NotFoundAsync(cancellationToken);
 
-		var conflict = ConflictCheck(entity, request);
+		var conflict = ConflictCheck(request, entity);
 
 		if (conflict) return await Send.ConflictAsync(cancellationToken);
 
@@ -48,6 +56,8 @@ public abstract class EntityUpdateEndpoint<TEntity, TUpdateRequest, TReadRespons
 		entity = await UpdateAsync(entity, cancellationToken);
 
 		var response = Map.FromEntity(entity);
+
+		PrepareResponse(request, response);
 
 		return await Send.UpdatedAsync(response, cancellationToken);
 

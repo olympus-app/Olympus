@@ -12,17 +12,11 @@ public static class ClaimsPrincipalExtensions {
 
 		public string Name => principal.GetValue(AppClaimsTypes.Name) ?? AppUsers.Unknown.Name;
 
-		public string? Email => principal.GetValue(AppClaimsTypes.Email);
-
 		public string? UserName => principal.GetValue(AppClaimsTypes.UserName);
 
-		public string? JobTitle => principal.GetValue(AppClaimsTypes.JobTitle);
+		public string? Email => principal.GetValue(AppClaimsTypes.Email);
 
-		public string? Department => principal.GetValue(AppClaimsTypes.Department);
-
-		public string? OfficeLocation => principal.GetValue(AppClaimsTypes.OfficeLocation);
-
-		public string? Country => principal.GetValue(AppClaimsTypes.Country);
+		public string? Title => principal.GetValue(AppClaimsTypes.Title);
 
 		public bool IsAuthenticated => principal.Identity?.IsAuthenticated ?? false;
 

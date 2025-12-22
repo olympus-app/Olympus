@@ -30,6 +30,7 @@
 		<Import Project="$(AssetsFolder)\Properties\Assets.props" />
 		<Import Project="$(AssetsFolder)\Properties\Compilation.props" />
 		<Import Project="$(AssetsFolder)\Properties\Configuration.props" />
+		<Import Project="$(AssetsFolder)\Properties\Containerization.props" />
 		<Import Project="$(AssetsFolder)\Properties\Documentation.props" />
 		<Import Project="$(AssetsFolder)\Properties\Localization.props" />
 		<Import Project="$(AssetsFolder)\Properties\Metadata.props" />

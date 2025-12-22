@@ -4,15 +4,19 @@ namespace Olympus.Core.Backend.Identity;
 
 public class Role : IdentityRole<Guid>, IEntity {
 
-	public override Guid Id { get; set; } = Guid.NewGuidV7();
+	public override Guid Id { get; set; }
+
+	public override string? Name { get; set; }
+
+	public override string? NormalizedName { get; set; }
 
 	public string? Description { get; set; }
 
-	public virtual ICollection<UserRole> RoleUsers { get; set; } = [];
+	public virtual ICollection<UserRole> Users { get; set; } = [];
 
-	public virtual ICollection<RoleClaim> RoleClaims { get; set; } = [];
+	public virtual ICollection<RoleClaim> Claims { get; set; } = [];
 
-	public virtual ICollection<RolePermission> RolePermissions { get; set; } = [];
+	public virtual ICollection<RolePermission> Permissions { get; set; } = [];
 
 	public Guid? CreatedById { get; set; }
 
@@ -32,11 +36,6 @@ public class Role : IdentityRole<Guid>, IEntity {
 
 	public DateTimeOffset? DeletedAt { get; set; }
 
-	public Guid? RowVersion {
-		get => string.IsNullOrEmpty(ConcurrencyStamp) || !Guid.TryParse(ConcurrencyStamp, out var guid) ? Guid.Empty : guid;
-		set => ConcurrencyStamp = value.ToString();
-	}
-
 	public bool IsActive { get; set; } = true;
 
 	public bool IsDeleted { get; set; }
@@ -46,5 +45,10 @@ public class Role : IdentityRole<Guid>, IEntity {
 	public bool IsLocked { get; set; }
 
 	public bool IsSystem { get; set; }
+
+	public Guid? ETag {
+		get => string.IsNullOrEmpty(ConcurrencyStamp) || !Guid.TryParse(ConcurrencyStamp, out var guid) ? Guid.Empty : guid;
+		set => ConcurrencyStamp = value.ToString();
+	}
 
 }

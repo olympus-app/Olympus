@@ -4,6 +4,8 @@ public interface IEntity {
 
 	public Guid Id { get; set; }
 
+	public Guid? ETag { get; set; }
+
 	public User? CreatedBy { get; set; }
 
 	public Guid? CreatedById { get; set; }
@@ -21,8 +23,6 @@ public interface IEntity {
 	public Guid? DeletedById { get; set; }
 
 	public DateTimeOffset? DeletedAt { get; set; }
-
-	public Guid? RowVersion { get; set; }
 
 	public bool IsActive { get; set; }
 

@@ -1,6 +1,6 @@
 namespace Olympus.Core.Archend.Storage;
 
-public abstract record FileListResponse : EntityListResponse, IFileListResponse {
+public abstract record FileQueryResponse : EntityQueryResponse, IFileQueryResponse {
 
 	[JsonPropertyOrder(-9998)]
 	public string Name { get; init; } = string.Empty;

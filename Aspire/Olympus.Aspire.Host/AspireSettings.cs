@@ -6,11 +6,11 @@ public static class AspireSettings {
 
 	public static class App {
 
-		public const string ServiceName = AppSettings.ServiceName;
+		public const string ServiceName = "API";
 
 		public const string ServiceProfile = "API";
 
-		public const string IconName = "Apps";
+		public const string IconName = "WindowApps";
 
 		public const int Port = 3333;
 
@@ -64,17 +64,19 @@ public static class AspireSettings {
 
 		public const string IconName = "Database";
 
+		public const string ServiceIconName = "DatabaseMultiple";
+
 		public const string ServiceName = DatabaseSettings.ServiceName;
 
-		public const string DisplayName = "Olympus-Database";
+		public const string ContainerName = "Postgres";
 
 		public const ContainerLifetime Lifetime = ContainerLifetime.Persistent;
 
-		public const string UsernameKey = "DatabaseUsername";
+		public const string UsernameKey = "Postgres-Username";
 
-		public const string PasswordKey = "DatabasePassword";
+		public const string PasswordKey = "Postgres-Password";
 
-		public const string VolumeName = "olympus_database";
+		public const string VolumeName = "postgres";
 
 		public const int Port = 5432;
 
@@ -82,21 +84,21 @@ public static class AspireSettings {
 
 	public static class Storage {
 
-		public const string ImageTag = "latest";
+		public const string ImageTag = "RELEASE.2025-09-07T16-13-09Z";
 
-		public const string IconName = "DocumentFolder";
+		public const string IconName = "Folder";
 
 		public const string ServiceName = StorageSettings.ServiceName;
 
-		public const string DisplayName = "Olympus-Storage";
+		public const string ContainerName = "Minio";
 
 		public const ContainerLifetime Lifetime = ContainerLifetime.Persistent;
 
-		public const string UsernameKey = "StorageUsername";
+		public const string UsernameKey = "Minio-Username";
 
-		public const string PasswordKey = "StoragePassword";
+		public const string PasswordKey = "Minio-Password";
 
-		public const string VolumeName = "olympus_storage";
+		public const string VolumeName = "minio";
 
 		public const int Port = 9000;
 
@@ -130,19 +132,41 @@ public static class AspireSettings {
 
 		public const string ImageTag = "8";
 
-		public const string IconName = "BookDatabase";
+		public const string IconName = "Notebook";
 
 		public const string ServiceName = CacheSettings.ServiceName;
 
-		public const string DisplayName = "Olympus-Cache";
+		public const string ContainerName = "Redis";
 
 		public const ContainerLifetime Lifetime = ContainerLifetime.Persistent;
 
-		public const string PasswordKey = "CachePassword";
+		public const string PasswordKey = "Redis-Password";
 
-		public const string VolumeName = "olympus_cache";
+		public const string VolumeName = "redis";
 
 		public const int Port = 6379;
+
+	}
+
+	public static class Tunnel {
+
+		public const string ImageName = "cloudflare/cloudflared";
+
+		public const string ImageTag = "2025.11.1";
+
+		public const string IconName = "CloudLink";
+
+		public const string ServiceName = "Cloudflared";
+
+		public const string ContainerName = "Cloudflared";
+
+		public const ContainerLifetime Lifetime = ContainerLifetime.Session;
+
+		public const string TokenKey = "Cloudflared-Token";
+
+		public static string[] CommandArgs => ["tunnel", "run"];
+
+		public const string TokenEnvKey = "TUNNEL_TOKEN";
 
 	}
 

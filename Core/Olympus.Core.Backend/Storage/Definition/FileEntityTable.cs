@@ -15,7 +15,6 @@ public class FileEntityTable : EntityTable<FileEntity> {
 		builder.Property(file => file.ContentType).HasMaxLength(128).IsRequired();
 		builder.Property(file => file.StorageBucket).HasMaxLength(64).IsRequired();
 		builder.Property(file => file.StoragePath).HasMaxLength(512).IsRequired();
-		builder.Property(file => file.ContentHash).HasMaxLength(64).IsRequired();
 		builder.Property(file => file.Size).IsRequired();
 
 		builder.HasDiscriminator<string>("FileType")
@@ -24,7 +23,6 @@ public class FileEntityTable : EntityTable<FileEntity> {
 		builder.Property("FileType").HasMaxLength(64);
 
 		builder.HasIndex(file => file.StoragePath).IsUnique();
-		builder.HasIndex(file => file.ContentHash);
 
 	}
 

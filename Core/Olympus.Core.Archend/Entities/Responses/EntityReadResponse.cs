@@ -6,19 +6,20 @@ public abstract record EntityReadResponse : IEntityReadResponse {
 	public Guid Id { get; init; }
 
 	[JsonPropertyOrder(9992)]
-	public UserLinkResponse? CreatedBy { get; init; }
+	[JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+	public Guid? ETag { get; init; }
 
 	[JsonPropertyOrder(9993)]
-	public DateTimeOffset? CreatedAt { get; init; }
+	public UserLinkResponse? CreatedBy { get; init; }
 
 	[JsonPropertyOrder(9994)]
-	public UserLinkResponse? UpdatedBy { get; init; }
+	public DateTimeOffset? CreatedAt { get; init; }
 
 	[JsonPropertyOrder(9995)]
-	public DateTimeOffset? UpdatedAt { get; init; }
+	public UserLinkResponse? UpdatedBy { get; init; }
 
 	[JsonPropertyOrder(9996)]
-	public Guid? RowVersion { get; init; }
+	public DateTimeOffset? UpdatedAt { get; init; }
 
 	[JsonPropertyOrder(9997)]
 	public bool IsActive { get; init; }

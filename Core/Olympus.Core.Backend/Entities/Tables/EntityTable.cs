@@ -12,9 +12,7 @@ public abstract class EntityTable<TEntity> : IEntityTable<TEntity> where TEntity
 
 	}
 
-	protected static T PrepareSeed<T>(T entity, bool active = true, bool hidden = false, bool locked = true, bool system = true) where T : IEntity {
-
-		entity.RowVersion = Guid.Empty;
+	protected static TSeed PrepareSeed<TSeed>(TSeed entity, bool active = true, bool hidden = false, bool locked = true, bool system = true) where TSeed : IEntity {
 
 		entity.CreatedById ??= AppUsers.System.Id;
 		entity.CreatedAt ??= SeedDate;
@@ -27,6 +25,8 @@ public abstract class EntityTable<TEntity> : IEntityTable<TEntity> where TEntity
 		entity.IsHidden = hidden;
 		entity.IsLocked = locked;
 		entity.IsSystem = system;
+
+		entity.ETag = Guid.Empty;
 
 		return entity;
 

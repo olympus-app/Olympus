@@ -15,6 +15,12 @@ public abstract class EntityCreateEndpoint<TEntity, TCreateRequest, TReadRespons
 
 	}
 
+	protected virtual void PrepareResponse(TCreateRequest request, TReadResponse response) {
+
+		if (response.ETag is not null) HttpContext.Response.Headers.ETag = EntityTag.From(response.ETag);
+
+	}
+
 	public override async Task<Void> HandleAsync(TCreateRequest request, CancellationToken cancellationToken) {
 
 		var entity = Map.ToEntity(request);
@@ -22,6 +28,8 @@ public abstract class EntityCreateEndpoint<TEntity, TCreateRequest, TReadRespons
 		entity = await CreateAsync(entity, cancellationToken);
 
 		var response = Map.FromEntity(entity);
+
+		PrepareResponse(request, response);
 
 		return await Send.CreatedAsync(response, cancellationToken);
 

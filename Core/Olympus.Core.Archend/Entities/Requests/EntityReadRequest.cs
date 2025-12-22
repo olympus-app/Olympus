@@ -6,8 +6,9 @@ public abstract record EntityReadRequest : IEntityReadRequest {
 	[RouteParam(IsRequired = true)]
 	public Guid Id { get; init; }
 
+	[HideFromDocs]
 	[JsonPropertyOrder(9999)]
-	[QueryParam(IsRequired = false)]
-	public Guid? RowVersion { get; init; }
+	[FromHeader(HeaderName = Headers.IfNoneMatch, IsRequired = false)]
+	public string? ETag { get; init; }
 
 }

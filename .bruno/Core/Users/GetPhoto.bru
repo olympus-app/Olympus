@@ -19,5 +19,10 @@ params:path {
 }
 
 headers {
-  ~ETag: "30BA902131064C10FF37583A1ADEDB9AB8F8257ADF8321E0022832E5279EE78C"
+  ~If-None-Match: {{PhotoEtag}}
+}
+
+script:post-response {
+  const etag = res.getHeader("etag");
+  if (etag) bru.setVar("PhotoEtag", etag);
 }

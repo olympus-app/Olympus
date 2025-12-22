@@ -10,8 +10,6 @@ public interface IFileEntity : IEntity {
 
 	public string ContentType { get; set; }
 
-	public string ContentHash { get; set; }
-
 	public string StorageBucket { get; set; }
 
 	public string StoragePath { get; set; }

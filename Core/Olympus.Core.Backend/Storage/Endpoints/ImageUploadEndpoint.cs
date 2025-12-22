@@ -21,31 +21,41 @@ public abstract class ImageUploadEndpoint<TEntity, TEntityWithFile> : FileUpload
 
 	protected override async Task UploadAsync(TEntityWithFile? entity, IFormFile upload, ImageUploadRequest request, CancellationToken cancellationToken = default) {
 
-		if (entity is null || entity.File is null) {
+		if (entity is null) {
 
 			entity = Initialize(upload, request);
 
 			Database.Set<TEntityWithFile>().Add(entity);
 
-		}
+		} else {
 
-		entity.File.Name = entity.File.BaseName + FileExtensions.Jpeg;
-		entity.File.Extension = FileExtensions.Jpeg;
-		entity.File.ContentType = ContentTypes.ImageJpeg;
-		entity.File.StoragePath = Path.ChangeExtension(entity.File.StoragePath, FileExtensions.Jpeg);
+			Database.Set<TEntityWithFile>().Update(entity);
+
+			Database.Entry(entity.File).State = EntityState.Modified;
+
+			await Storage.DeleteAsync(entity.File.StorageBucket, entity.File.StoragePath, cancellationToken);
+
+			foreach (var size in FastEnum.GetValues<ThumbnailSize>()) {
+
+				var path = ImageFile.GetThumbnailPath(entity.File.StoragePath, size);
+
+				await Storage.DeleteAsync(entity.File.StorageBucket, path, cancellationToken);
+
+			}
+
+		}
 
 		var stream = upload.OpenReadStream();
 
 		await using var mainStream = await Processor.ResizeAsync(stream, Configuration.ImageSize.Value, Configuration.ImageSize.Value, Configuration.ResizeMode, Configuration.CompressionQuality, cancellationToken);
 
-		await using (var hashStream = new HashProxyStream(mainStream)) {
+		await Storage.UploadAsync(mainStream, entity.File.StorageBucket, entity.File.StoragePath, entity.File.ContentType, cancellationToken);
 
-			await Storage.UploadAsync(hashStream, entity.File.StorageBucket, entity.File.StoragePath, entity.File.ContentType, cancellationToken);
-
-			entity.File.Size = hashStream.TotalBytesRead;
-			entity.File.ContentHash = hashStream.GetHashString();
-
-		}
+		entity.File.Size = mainStream.Length;
+		entity.File.Name = entity.File.BaseName + FileExtensions.Jpeg;
+		entity.File.Extension = FileExtensions.Jpeg;
+		entity.File.ContentType = ContentTypes.ImageJpeg;
+		entity.File.StoragePath = Path.ChangeExtension(entity.File.StoragePath, FileExtensions.Jpeg);
 
 		if (!Configuration.GenerateThumbnails) return;
 

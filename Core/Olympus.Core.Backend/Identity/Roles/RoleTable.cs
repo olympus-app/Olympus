@@ -22,23 +22,22 @@ public class RoleTable : EntityTable<Role> {
 
 	}
 
-	private static IEnumerable<Role> GetSeed() {
+	public static List<Role> GetSeed() {
 
 		return typeof(AppRoles).GetProperties(BindingFlags.Public | BindingFlags.Static)
 			.Where(info => info.PropertyType == typeof(AppRole))
 			.Select(info => (AppRole)info.GetValue(null)!)
-			.Select(CreateSeed);
-
-	}
-
-	private static Role CreateSeed(AppRole appRole) {
-
-		return PrepareSeed(
-			new Role() {
-				Id = appRole.Id,
-				Name = appRole.Name,
-			}
-		);
+			.Select(role => {
+				return PrepareSeed(
+					new Role() {
+						Id = role.Id,
+						Name = role.Name,
+						NormalizedName = role.Name.ToUpper(),
+						Description = role.Description,
+					}
+				);
+			})
+			.ToList();
 
 	}
 

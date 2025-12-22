@@ -6,17 +6,13 @@ public static class AppClaimsTypes {
 
 	public const string Name = "name";
 
-	public const string Email = "email";
-
 	public const string UserName = "uname";
 
-	public const string JobTitle = "title";
+	public const string Email = "email";
 
-	public const string Department = "dept";
+	public const string Title = "title";
 
-	public const string OfficeLocation = "office";
-
-	public const string Country = "country";
+	public const string Photo = "photo";
 
 	public const string ObjectId = "oid";
 

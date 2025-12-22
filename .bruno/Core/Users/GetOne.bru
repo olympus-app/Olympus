@@ -10,10 +10,15 @@ get {
   auth: none
 }
 
-params:query {
-  ~RowVersion: 019b233a-31ad-7425-a762-5e7f60969623
-}
-
 params:path {
   id: {{UserId}}
+}
+
+headers {
+  ~If-None-Match: {{UserEtag}}
+}
+
+script:post-response {
+  const etag = res.getHeader("etag");
+  if (etag) bru.setVar("UserEtag", etag);
 }

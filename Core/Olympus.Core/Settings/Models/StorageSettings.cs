@@ -4,9 +4,9 @@ public class StorageSettings {
 
 	public const string SectionName = "Storage";
 
-	public const string ServiceName = "Storage";
+	public const string ServiceName = "Minio";
 
-	public string ConnectionString { get; set; } = string.Empty;
+	public string Protocol { get; set; } = "http";
 
 	public string Host { get; set; } = string.Empty;
 
@@ -16,10 +16,13 @@ public class StorageSettings {
 
 	public string Region { get; set; } = string.Empty;
 
-	public bool UseSSL { get; set; }
-
 	public int Port { get; set; }
 
-	public Uri? Uri { get; set; }
+	public bool UseSSL { get; set; }
+
+	public string ConnectionString {
+		get => field ?? $"Endpoint={Protocol}://{Host}:{Port};AccessKey={AccessKey};SecretKey={SecretKey}";
+		set => field = value;
+	}
 
 }

@@ -24,17 +24,9 @@ public abstract class FileDownloadEndpoint<TEntity, TFile, TEntityWithFile, TDow
 
 	protected TConfiguration Configuration => field ?? Configurations.GetOrAdd(GetType(), static _ => new());
 
-	protected virtual void CacheControl(int durationSeconds, ResponseCacheLocation location = ResponseCacheLocation.None, bool immutable = false) {
+	protected virtual void CacheControl(CachePolicy location, TimeSpan duration, bool immutable = false) {
 
-		var locationValue = location switch {
-			ResponseCacheLocation.Any => "public",
-			ResponseCacheLocation.Client => "private",
-			_ => "no-cache",
-		};
-
-		var immutableValue = immutable && location != ResponseCacheLocation.None ? ", immutable" : string.Empty;
-
-		Configuration.CacheControl = $"{locationValue}, max-age={durationSeconds}{immutableValue}";
+		Configuration.CacheControl = Web.ResponseCache.From(location, duration, immutable);
 
 	}
 
@@ -50,11 +42,17 @@ public abstract class FileDownloadEndpoint<TEntity, TFile, TEntityWithFile, TDow
 
 	}
 
-	protected virtual bool NotModifiedCheck(TEntityWithFile entity, TDownloadRequest request) {
+	protected virtual void PrepareResponse(TDownloadRequest request, TEntityWithFile entity) {
 
-		HttpContext.Response.Headers.ETag = $"\"{entity.File.ContentHash}\"";
+		if (entity.File.ETag is not null) HttpContext.Response.Headers.ETag = EntityTag.From(entity.File.ETag);
 
-		return EntityTag.Match(HttpContext.Request.Headers.ETag, HttpContext.Response.Headers.ETag);
+		if (!string.IsNullOrEmpty(Configuration.CacheControl)) HttpContext.Response.Headers.CacheControl = Configuration.CacheControl;
+
+	}
+
+	protected virtual bool NotModifiedCheck(TDownloadRequest request, TEntityWithFile entity) {
+
+		return EntityTag.IfNoneMatch(request.ETag, entity.File.ETag);
 
 	}
 
@@ -83,11 +81,11 @@ public abstract class FileDownloadEndpoint<TEntity, TFile, TEntityWithFile, TDow
 
 		if (entity is null) return await Send.NotFoundAsync(cancellationToken);
 
-		var notModified = NotModifiedCheck(entity, request);
+		PrepareResponse(request, entity);
+
+		var notModified = NotModifiedCheck(request, entity);
 
 		if (notModified) return await Send.NotModifiedAsync(cancellationToken);
-
-		if (!string.IsNullOrEmpty(Configuration.CacheControl)) HttpContext.Response.Headers.CacheControl = Configuration.CacheControl;
 
 		var info = PrepareDownload(entity.File, request);
 

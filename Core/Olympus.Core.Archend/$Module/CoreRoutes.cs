@@ -8,7 +8,7 @@ public static class CoreRoutes {
 
 		public const string Base = CoreRoutes.Base + "/users";
 
-		public const string List = Base + Routes.List;
+		public const string Query = Base + Routes.Query;
 
 		public const string Create = Base + Routes.Create;
 
@@ -26,7 +26,7 @@ public static class CoreRoutes {
 
 		public const string Base = CoreRoutes.Base + "/roles";
 
-		public const string List = Base + Routes.List;
+		public const string Query = Base + Routes.Query;
 
 		public const string Read = Base + Routes.Read;
 
@@ -36,7 +36,7 @@ public static class CoreRoutes {
 
 		public const string Base = CoreRoutes.Base + "/permissions";
 
-		public const string List = Base + Routes.List;
+		public const string List = Base + Routes.Query;
 
 	}
 

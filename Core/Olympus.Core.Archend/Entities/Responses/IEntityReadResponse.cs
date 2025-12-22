@@ -4,6 +4,8 @@ public interface IEntityReadResponse : IEntityResponse {
 
 	public Guid Id { get; init; }
 
+	public Guid? ETag { get; init; }
+
 	public UserLinkResponse? CreatedBy { get; init; }
 
 	public DateTimeOffset? CreatedAt { get; init; }
@@ -11,8 +13,6 @@ public interface IEntityReadResponse : IEntityResponse {
 	public UserLinkResponse? UpdatedBy { get; init; }
 
 	public DateTimeOffset? UpdatedAt { get; init; }
-
-	public Guid? RowVersion { get; init; }
 
 	public bool IsActive { get; init; }
 

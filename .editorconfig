@@ -317,6 +317,9 @@ dotnet_diagnostic.RCS0010.severity = suggestion
 # RCS0012: Add blank line between single-line declarations
 dotnet_diagnostic.RCS0012.severity = suggestion
 
+# RCS1021: Use expression-bodied lambda
+dotnet_diagnostic.RCS1021.severity = suggestion
+
 # RCS0057: Normalize whitespace at the beginning of a file
 dotnet_diagnostic.RCS0057.severity = suggestion
 
@@ -329,6 +332,9 @@ dotnet_diagnostic.RCS1046.severity = suggestion
 
 # RCS1047: Non-asynchronous method name should not end with 'Async'
 dotnet_diagnostic.RCS1047.severity = suggestion
+
+# RCS1049: Simplify boolean comparison
+dotnet_diagnostic.RCS1049.severity = suggestion
 
 # RCS1055: Unnecessary semicolon at the end of declaration
 dotnet_diagnostic.RCS1055.severity = suggestion
@@ -416,6 +422,9 @@ dotnet_diagnostic.RCS1212.severity = suggestion
 
 # RCS1214: Unnecessary interpolated string
 dotnet_diagnostic.RCS1214.severity = suggestion
+
+# RCS1217: Convert interpolated string to concatenation
+dotnet_diagnostic.RCS1217.severity = suggestion
 
 # RCS1218: Simplify code branching
 dotnet_diagnostic.RCS1218.severity = suggestion

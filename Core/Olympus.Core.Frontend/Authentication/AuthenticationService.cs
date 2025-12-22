@@ -37,12 +37,9 @@ public class AuthenticationService(AuthClient client, StorageService storage) : 
 
 		identity.AddClaim(AppClaimsTypes.Id, user.Id);
 		identity.AddClaim(AppClaimsTypes.Name, user.Name);
-		identity.AddClaim(AppClaimsTypes.Email, user.Email);
 		identity.AddClaim(AppClaimsTypes.UserName, user.UserName);
-		identity.AddClaim(AppClaimsTypes.JobTitle, user.JobTitle);
-		identity.AddClaim(AppClaimsTypes.Department, user.Department);
-		identity.AddClaim(AppClaimsTypes.OfficeLocation, user.OfficeLocation);
-		identity.AddClaim(AppClaimsTypes.Country, user.Country);
+		identity.AddClaim(AppClaimsTypes.Email, user.Email);
+		identity.AddClaim(AppClaimsTypes.Title, user.Title);
 		identity.AddClaim(AppClaimsTypes.Permissions, user.Permissions);
 		identity.AddClaims(AppClaimsTypes.Role, user.Roles);
 

@@ -49,29 +49,54 @@ public static class AppSettingsHelper {
 
 		services.AddOptions<AppSettings>().BindConfiguration(AppSettings.SectionName).Configure<IConfiguration>(static (settings, configuration) => {
 
-			settings.Database.Uri = configuration.GetValue("OLYMPUS_URI", settings.Database.Uri);
-			settings.Database.Host = configuration.GetValue("OLYMPUS_HOST", settings.Database.Host);
-			settings.Database.Port = configuration.GetValue("OLYMPUS_PORT", settings.Database.Port);
-			settings.Database.Username = configuration.GetValue("OLYMPUS_USERNAME", settings.Database.Username);
-			settings.Database.Password = configuration.GetValue("OLYMPUS_PASSWORD", settings.Database.Password);
-			settings.Database.ConnectionString = configuration.GetValue("ConnectionStrings:Olympus", settings.Database.ConnectionString);
+			settings.Database.Host = configuration.GetValueFromEnvironment(settings.Database.Host, $"{DatabaseSettings.DatabaseName}_{nameof(DatabaseSettings.Host)}");
+			settings.Database.Port = configuration.GetValueFromEnvironment(settings.Database.Port, $"{DatabaseSettings.DatabaseName}_{nameof(DatabaseSettings.Port)}");
+			settings.Database.Username = configuration.GetValueFromEnvironment(settings.Database.Username, $"{DatabaseSettings.DatabaseName}_{nameof(DatabaseSettings.Username)}");
+			settings.Database.Password = configuration.GetValueFromEnvironment(settings.Database.Password, $"{DatabaseSettings.DatabaseName}_{nameof(DatabaseSettings.Password)}");
+			settings.Database.ConnectionString = configuration.GetConnectionStringFromEnvironment(settings.Database.ConnectionString, DatabaseSettings.DatabaseName);
 
-			settings.Storage.Uri = configuration.GetValue("STORAGE_URI", settings.Storage.Uri);
-			settings.Storage.Host = configuration.GetValue("STORAGE_HOST", settings.Storage.Host);
-			settings.Storage.Port = configuration.GetValue("STORAGE_PORT", settings.Storage.Port);
-			settings.Storage.AccessKey = configuration.GetValue("STORAGE_ACCESSKEY", settings.Storage.AccessKey);
-			settings.Storage.SecretKey = configuration.GetValue("STORAGE_SECRETKEY", settings.Storage.SecretKey);
-			settings.Storage.ConnectionString = configuration.GetValue("ConnectionStrings:Storage", settings.Storage.ConnectionString);
+			settings.Storage.Host = configuration.GetValueFromEnvironment(settings.Storage.Host, $"{StorageSettings.ServiceName}_{nameof(StorageSettings.Host)}");
+			settings.Storage.Port = configuration.GetValueFromEnvironment(settings.Storage.Port, $"{StorageSettings.ServiceName}_{nameof(StorageSettings.Port)}");
+			settings.Storage.AccessKey = configuration.GetValueFromEnvironment(settings.Storage.AccessKey, $"{StorageSettings.ServiceName}_{nameof(StorageSettings.AccessKey)}");
+			settings.Storage.SecretKey = configuration.GetValueFromEnvironment(settings.Storage.SecretKey, $"{StorageSettings.ServiceName}_{nameof(StorageSettings.SecretKey)}");
+			settings.Storage.ConnectionString = configuration.GetConnectionStringFromEnvironment(settings.Storage.ConnectionString, StorageSettings.ServiceName);
 
-			settings.Cache.Uri = configuration.GetValue("CACHE_URI", settings.Cache.Uri);
-			settings.Cache.Host = configuration.GetValue("CACHE_HOST", settings.Cache.Host);
-			settings.Cache.Port = configuration.GetValue("CACHE_PORT", settings.Cache.Port);
-			settings.Cache.Password = configuration.GetValue("CACHE_PASSWORD", settings.Cache.Password);
-			settings.Cache.ConnectionString = configuration.GetValue("ConnectionStrings:Cache", settings.Cache.ConnectionString);
+			settings.Cache.Host = configuration.GetValueFromEnvironment(settings.Cache.Host, $"{CacheSettings.ServiceName}_{nameof(CacheSettings.Host)}");
+			settings.Cache.Port = configuration.GetValueFromEnvironment(settings.Cache.Port, $"{CacheSettings.ServiceName}_{nameof(CacheSettings.Port)}");
+			settings.Cache.Password = configuration.GetValueFromEnvironment(settings.Cache.Password, $"{CacheSettings.ServiceName}_{nameof(CacheSettings.Password)}");
+			settings.Cache.ConnectionString = configuration.GetConnectionStringFromEnvironment(settings.Cache.ConnectionString, CacheSettings.ServiceName);
 
 		});
 
 		services.AddSingleton(static provider => provider.GetRequiredService<IOptions<AppSettings>>().Value);
+
+	}
+
+	private static string FormatEnvironmentVariable(string variable) {
+
+		return variable.Replace("-", "_").Replace(".", "_").ToUpper();
+
+	}
+
+	private static string GetConnectionStringFromEnvironment(this IConfiguration configuration, string value, string name) {
+
+		return configuration.GetValue($"ConnectionStrings:{name}", value);
+
+	}
+
+	private static string GetValueFromEnvironment(this IConfiguration configuration, string value, string variable) {
+
+		variable = FormatEnvironmentVariable(variable);
+
+		return configuration.GetValue(variable, value);
+
+	}
+
+	private static int GetValueFromEnvironment(this IConfiguration configuration, int value, string variable) {
+
+		variable = FormatEnvironmentVariable(variable);
+
+		return configuration.GetValue(variable, value);
 
 	}
 

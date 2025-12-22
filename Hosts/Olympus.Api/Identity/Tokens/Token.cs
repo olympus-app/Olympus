@@ -16,6 +16,8 @@ public class Token : IEntity {
 
 	public bool IsExpired => ExpiresAt < DateTimeOffset.UtcNow;
 
+	public Guid? ETag { get; set; }
+
 	public Guid? CreatedById { get; set; }
 
 	public virtual User? CreatedBy { get; set; }
@@ -43,7 +45,5 @@ public class Token : IEntity {
 	public bool IsLocked { get; set; }
 
 	public bool IsSystem { get; set; }
-
-	public Guid? RowVersion { get; set; }
 
 }

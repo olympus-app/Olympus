@@ -14,7 +14,7 @@ public class RoleClaimTable : EntityTable<RoleClaim> {
 		builder.Property(rclaim => rclaim.ClaimType).HasMaxLength(32);
 		builder.Property(rclaim => rclaim.ClaimValue).HasMaxLength(64);
 
-		builder.HasOne(rclaim => rclaim.Role).WithMany(role => role.RoleClaims).HasForeignKey(rclaim => rclaim.RoleId).OnDelete(DeleteBehavior.Cascade);
+		builder.HasOne(rclaim => rclaim.Role).WithMany(role => role.Claims).HasForeignKey(rclaim => rclaim.RoleId).OnDelete(DeleteBehavior.Cascade);
 
 	}
 

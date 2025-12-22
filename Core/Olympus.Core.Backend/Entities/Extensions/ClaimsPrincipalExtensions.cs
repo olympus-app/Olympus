@@ -10,8 +10,7 @@ public static class ClaimsPrincipalExtensions {
 			Id = principal.Id,
 			Name = principal.Name,
 			Email = principal.Email,
-			JobTitle = principal.JobTitle,
-			Department = principal.Department,
+			Title = principal.Title,
 		};
 
 	}

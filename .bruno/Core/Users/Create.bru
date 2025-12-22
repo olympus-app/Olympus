@@ -12,11 +12,17 @@ post {
 
 body:json {
   {
-    "id": "{{TestId}}",
     "name": "Éwerton Ferreira",
-    "email": "ewerton2@gcgestao.com.br",
+    "email": "test@olympus.com",
     "password": "Password123!"
   }
+}
+
+script:post-response {
+  const id = res.getBody().Id;
+  const etag = res.getHeader("etag");
+  if (id) bru.setVar("TestId", id);
+  if (etag) bru.setVar("TestEtag", etag);
 }
 
 settings {

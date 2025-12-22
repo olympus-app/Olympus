@@ -6,9 +6,10 @@ public abstract record EntityDeleteRequest : IEntityDeleteRequest {
 	[RouteParam(IsRequired = true)]
 	public Guid Id { get; init; }
 
+	[HideFromDocs]
 	[JsonPropertyOrder(9998)]
-	[QueryParam(IsRequired = false)]
-	public Guid? RowVersion { get; init; }
+	[FromHeader(HeaderName = Headers.IfMatch, IsRequired = false)]
+	public string ETag { get; init; } = "*";
 
 	[JsonPropertyOrder(9999)]
 	[QueryParam(IsRequired = false)]

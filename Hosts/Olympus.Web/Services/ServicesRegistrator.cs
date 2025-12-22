@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace Olympus.Web.Services;
 
@@ -38,6 +39,8 @@ public static class ServicesRegistrator {
 		});
 
 		builder.Services.AddCascadingAuthenticationState();
+
+		builder.Logging.SetMinimumLevel(LogLevel.Warning);
 
 	}
 

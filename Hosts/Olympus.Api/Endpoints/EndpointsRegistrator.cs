@@ -28,15 +28,19 @@ public static class EndpointsRegistrator {
 			options.Errors.ContentType = ContentTypes.Json;
 			options.Errors.ProducesMetadataType = typeof(ProblemResult);
 			options.Errors.ResponseBuilder = static (failures, context, statusCode) => {
+
+				var check = failures.Count == 1 && string.IsNullOrEmpty(failures[0].PropertyName);
+
 				return new ProblemResult() {
 					Status = statusCode,
 					Message = ((HttpStatusCode)statusCode).Humanized,
-					Details = failures.Count == 1 ? failures[0].ErrorMessage : null,
-					Errors = failures.Count > 1 ? failures.Select(static failure => new Core.Archend.Endpoints.ErrorResult() {
+					Detail = check ? failures[0].ErrorMessage : null,
+					Details = !check ? failures.Select(static failure => new ProblemResultDetail() {
 						Origin = failure.PropertyName,
 						Message = failure.ErrorMessage,
 					}) : null,
 				};
+
 			};
 
 		});

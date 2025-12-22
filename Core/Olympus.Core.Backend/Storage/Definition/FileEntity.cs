@@ -10,8 +10,6 @@ public abstract class FileEntity : Entity, IFileEntity {
 
 	public string ContentType { get; set; } = string.Empty;
 
-	public string ContentHash { get; set; } = string.Empty;
-
 	public string StorageBucket { get; set; } = string.Empty;
 
 	public string StoragePath { get; set; } = string.Empty;

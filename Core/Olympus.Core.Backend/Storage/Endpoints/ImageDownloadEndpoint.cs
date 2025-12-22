@@ -2,9 +2,9 @@ namespace Olympus.Core.Backend.Storage;
 
 public abstract class ImageDownloadEndpoint<TEntity, TEntityWithFile> : FileDownloadEndpoint<TEntity, ImageFile, TEntityWithFile, ImageDownloadRequest, ImageDownloadConfiguration> where TEntity : class, IEntity where TEntityWithFile : class, IEntityWithFile<TEntity, ImageFile> {
 
-	protected override void CacheControl(int durationSeconds = 3600, ResponseCacheLocation location = ResponseCacheLocation.Client, bool immutable = false) {
+	protected override void CacheControl(CachePolicy location, TimeSpan duration, bool immutable = false) {
 
-		base.CacheControl(durationSeconds, location, immutable);
+		Configuration.CacheControl = Web.ResponseCache.From(location, duration, immutable);
 
 	}
 

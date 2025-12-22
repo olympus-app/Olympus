@@ -6,12 +6,11 @@ public record UserReadResponse : EntityReadResponse {
 
 	public string? Email { get; init; }
 
-	public string? JobTitle { get; init; }
+	public string? Title { get; init; }
 
-	public string? Department { get; init; }
+	[JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+	public UserPhotoLinkResponse? UserPhoto { get; set; }
 
-	public string? OfficeLocation { get; init; }
-
-	public string? Country { get; init; }
+	public string? Photo => UserPhoto?.GetPhotoUrl();
 
 }

@@ -15,11 +15,8 @@ public class MicrosoftBusinessProvider(AppSettings settings) : IConfigureNamedOp
 	public record MicrosoftBusinessUserModel {
 
 		public string? DisplayName { get; set; }
-		public string? Mail { get; set; }
 		public string? JobTitle { get; set; }
-		public string? Department { get; set; }
-		public string? OfficeLocation { get; set; }
-		public string? Country { get; set; }
+		public string? Mail { get; set; }
 
 	}
 
@@ -102,15 +99,12 @@ public class MicrosoftBusinessProvider(AppSettings settings) : IConfigureNamedOp
 
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-				var userInfo = await client.GetFromJsonAsync<MicrosoftBusinessUserModel>("https://graph.microsoft.com/v1.0/me?$select=displayName,mail,jobTitle,department,officeLocation,country");
+				var userInfo = await client.GetFromJsonAsync<MicrosoftBusinessUserModel>("https://graph.microsoft.com/v1.0/me?$select=displayName,jobTitle,mail");
 
 				if (userInfo is not null) {
 
 					user.Name = userInfo.DisplayName ?? AppUsers.Unknown.Name;
-					user.JobTitle = userInfo.JobTitle;
-					user.Department = userInfo.Department;
-					user.OfficeLocation = userInfo.OfficeLocation;
-					user.Country = userInfo.Country;
+					user.Title = userInfo.JobTitle;
 
 				}
 

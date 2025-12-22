@@ -6,7 +6,7 @@ public class UserPhotoDownloadEndpoint : ImageDownloadEndpoint<User, UserPhoto> 
 
 		Get(CoreRoutes.Users.Photo);
 
-		CacheControl(31536000, ResponseCacheLocation.Any, true);
+		CacheControl(CachePolicy.Private, 365.Days(), true);
 
 	}
 

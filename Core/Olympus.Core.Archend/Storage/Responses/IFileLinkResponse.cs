@@ -6,4 +6,6 @@ public interface IFileLinkResponse : IEntityLinkResponse {
 
 	public string ContentType { get; init; }
 
+	public DateTimeOffset? UpdatedAt { get; init; }
+
 }

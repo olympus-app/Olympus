@@ -3,20 +3,9 @@ meta {
 }
 
 headers {
-  Cache-Control: no-cache
   Accept: */*
-  Accept-Encoding: gzip, deflate, br
+  Accept-Encoding: br, gzip, deflate
+  Cache-Control: no-cache
   Connention: keep-alive
   Antiforgery: {{Antiforgery}}
-}
-
-auth {
-  mode: none
-}
-
-vars:pre-request {
-  LoginUsername: ewerton@gcgestao.com.br
-  LoginPassword: Password123!
-  UserId: 019b3312-c4c6-71a8-bbf1-70b52ba524c3
-  TestId: 019b0f50-ca56-7f83-af33-709fa869336b
 }

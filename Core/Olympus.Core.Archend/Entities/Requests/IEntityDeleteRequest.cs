@@ -4,8 +4,8 @@ public interface IEntityDeleteRequest : IEntityRequest {
 
 	public Guid Id { get; init; }
 
-	public Guid? RowVersion { get; init; }
-
 	public bool Force { get; init; }
+
+	public string ETag { get; init; }
 
 }

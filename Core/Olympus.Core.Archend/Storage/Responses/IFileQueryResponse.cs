@@ -1,6 +1,6 @@
 namespace Olympus.Core.Archend.Storage;
 
-public interface IFileListResponse : IEntityListResponse {
+public interface IFileQueryResponse : IEntityQueryResponse {
 
 	public string Extension { get; init; }
 

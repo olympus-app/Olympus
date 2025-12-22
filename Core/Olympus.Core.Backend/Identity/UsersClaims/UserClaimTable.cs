@@ -14,7 +14,7 @@ public class UserClaimTable : EntityTable<UserClaim> {
 		builder.Property(uclaim => uclaim.ClaimType).HasMaxLength(32);
 		builder.Property(uclaim => uclaim.ClaimValue).HasMaxLength(64);
 
-		builder.HasOne(uclaim => uclaim.User).WithMany(user => user.UserClaims).HasForeignKey(uclaim => uclaim.UserId).OnDelete(DeleteBehavior.Cascade);
+		builder.HasOne(uclaim => uclaim.User).WithMany(user => user.Claims).HasForeignKey(uclaim => uclaim.UserId).OnDelete(DeleteBehavior.Cascade);
 
 	}
 

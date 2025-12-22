@@ -1,9 +1,10 @@
+#pragma warning disable OL0007
+
 namespace Olympus.Core.Archend.Endpoints;
 
-#pragma warning disable OL0007
-public class PageResult<T>(int page, int count, int totalPages, int totalCount, IEnumerable<T> items) : IEntityResponse where T : class {
+public class QueryResult<T>(int page, int count, int totalPages, int totalCount, IEnumerable<T> items) : IEntityResponse where T : class {
 
-	public PageResult() : this(0, 0, 0, 0, []) { }
+	public QueryResult() : this(0, 0, 0, 0, []) { }
 
 	[JsonPropertyOrder(0)]
 	public int Page { get; init; } = page;

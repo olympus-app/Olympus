@@ -14,8 +14,8 @@ public class Permission : Entity {
 
 	public required string Action { get; set; }
 
-	public virtual ICollection<UserPermission> PermissionUsers { get; set; } = [];
+	public virtual ICollection<UserPermission> Users { get; set; } = [];
 
-	public virtual ICollection<RolePermission> PermissionRoles { get; set; } = [];
+	public virtual ICollection<RolePermission> Roles { get; set; } = [];
 
 }

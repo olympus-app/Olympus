@@ -14,9 +14,15 @@ public abstract class EntityReadEndpoint<TEntity, TReadRequest, TReadResponse, T
 
 	}
 
-	protected virtual bool NotModifiedCheck(TReadResponse result, TReadRequest request) {
+	protected virtual void PrepareResponse(TReadRequest request, TReadResponse response) {
 
-		return EntityTag.Match(result?.RowVersion, request?.RowVersion);
+		if (response.ETag is not null) HttpContext.Response.Headers.ETag = EntityTag.From(response.ETag);
+
+	}
+
+	protected virtual bool NotModifiedCheck(TReadRequest request, TReadResponse response) {
+
+		return EntityTag.IfNoneMatch(request.ETag, response.ETag);
 
 	}
 
@@ -30,7 +36,9 @@ public abstract class EntityReadEndpoint<TEntity, TReadRequest, TReadResponse, T
 
 		if (response is null) return await Send.NotFoundAsync(cancellationToken);
 
-		var notModified = NotModifiedCheck(response, request);
+		PrepareResponse(request, response);
+
+		var notModified = NotModifiedCheck(request, response);
 
 		if (notModified) return await Send.NotModifiedAsync(cancellationToken);
 

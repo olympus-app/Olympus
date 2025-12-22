@@ -1,7 +1,8 @@
+#pragma warning disable OL0007
+
 namespace Olympus.Core.Archend.Endpoints;
 
-#pragma warning disable OL0007
-public class ErrorResult : IResponse {
+public class ProblemResultDetail : IResponse {
 
 	[JsonPropertyOrder(0)]
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

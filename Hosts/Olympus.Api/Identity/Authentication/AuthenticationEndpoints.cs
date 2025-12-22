@@ -23,14 +23,6 @@ public static class AuthenticationEndpoints {
 		   .DisableAntiforgery()
 		   .RequireAuthorization();
 
-		app.MapPost(IdentitySettings.Endpoints.Register, AuthenticationService.RegisterAsync)
-		   .WithGroupName(IdentitySettings.GroupName.ToLower()).WithTags(TagName)
-		   .Accepts<UserRegisterRequest>(ContentTypes.Json)
-		   .Produces(HttpStatusCode.OK.Value)
-		   .Produces<ProblemResult>(HttpStatusCode.BadRequest.Value)
-		   .DisableAntiforgery()
-		   .AllowAnonymous();
-
 		app.MapGet(IdentitySettings.Endpoints.Identity, AuthenticationService.Identity)
 		   .WithGroupName(IdentitySettings.GroupName.ToLower()).WithTags(TagName)
 		   .Produces<UserIdentityResponse>(HttpStatusCode.OK.Value)
