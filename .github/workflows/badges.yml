@@ -20,11 +20,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Fetch Tags
+        run: git fetch --tags --force
+
       - name: Get Repository Name
         run: echo "REPO_NAME=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_ENV
 
       - name: Generate Badges
-        uses: thewerthon/RepoBadges@v1.0.1
+        uses: thewerthon/RepoBadges@v1.0.2
         with:
           directory: ./
           patterns: "**/*.cs|**/*.cshtml|**/*.css|**/*.html|**/*.js|**/*.json|**/*.razor|**/*.xaml|**/*.xml|**/*.yaml|**/*.yml"
