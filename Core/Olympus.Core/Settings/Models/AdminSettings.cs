@@ -1,8 +1,6 @@
 namespace Olympus.Core.Settings;
 
-public class AdminSettings {
-
-	public const string SectionName = "Admin";
+public class AdminSettings : Settings {
 
 	public Guid Id { get; } = AppUsers.Admin.Id;
 
@@ -15,5 +13,11 @@ public class AdminSettings {
 	public string Title { get; set; } = AppUsers.Admin.Title;
 
 	public string Password { get; set; } = string.Empty;
+
+	public override void Configure(IConfiguration configuration) {
+
+		configuration.Bind("Admin", this);
+
+	}
 
 }

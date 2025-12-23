@@ -2,7 +2,7 @@
 
 namespace Olympus.Api.Database;
 
-public class DatabaseContext(AppSettings settings, DbContextOptions<DatabaseContext> options, IEnumerable<IEntityTable> tables) : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken, UserPasskey>(options), IEntityDatabase {
+public class EntityDatabase(DbContextOptions<EntityDatabase> options, IEnumerable<IEntityTable> tables, CultureSettings settings) : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken, UserPasskey>(options), IEntityDatabase {
 
 	protected override void OnModelCreating(ModelBuilder builder) {
 

@@ -8,9 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Olympus.Api.Identity;
 
-public class MicrosoftBusinessProvider(AppSettings settings) : IConfigureNamedOptions<OpenIdConnectOptions> {
-
-	private readonly MicrosoftBusinessSettings Settings = settings.Identity.Providers.MicrosoftBusiness;
+public class MicrosoftBusinessProviderOptions(MicrosoftBusinessSettings settings) : IConfigureNamedOptions<OpenIdConnectOptions> {
 
 	public record MicrosoftBusinessUserModel {
 
@@ -26,18 +24,18 @@ public class MicrosoftBusinessProvider(AppSettings settings) : IConfigureNamedOp
 
 		if (name != IdentityProviderType.MicrosoftBusiness.Name) return;
 
-		ArgumentException.ThrowIfNullOrEmpty(Settings.Domain);
-		ArgumentException.ThrowIfNullOrEmpty(Settings.TenantId);
-		ArgumentException.ThrowIfNullOrEmpty(Settings.ClientId);
-		ArgumentException.ThrowIfNullOrEmpty(Settings.ClientSecret);
-		ArgumentException.ThrowIfNullOrEmpty(Settings.CallbackPath);
+		ArgumentException.ThrowIfNullOrEmpty(settings.Domain);
+		ArgumentException.ThrowIfNullOrEmpty(settings.TenantId);
+		ArgumentException.ThrowIfNullOrEmpty(settings.ClientId);
+		ArgumentException.ThrowIfNullOrEmpty(settings.ClientSecret);
+		ArgumentException.ThrowIfNullOrEmpty(settings.CallbackPath);
 
-		options.ClientId = Settings.ClientId;
-		options.ClientSecret = Settings.ClientSecret;
+		options.ClientId = settings.ClientId;
+		options.ClientSecret = settings.ClientSecret;
 		options.SignInScheme = IdentityConstants.ExternalScheme;
-		options.Authority = $"https://login.microsoftonline.com/{Settings.TenantId}/v2.0";
-		options.MetadataAddress = $"https://login.microsoftonline.com/{Settings.TenantId}/v2.0/.well-known/openid-configuration";
-		options.CallbackPath = Settings.CallbackPath;
+		options.Authority = $"https://login.microsoftonline.com/{settings.TenantId}/v2.0";
+		options.MetadataAddress = $"https://login.microsoftonline.com/{settings.TenantId}/v2.0/.well-known/openid-configuration";
+		options.CallbackPath = settings.CallbackPath;
 		options.ResponseType = "code";
 		options.Scope.Add("User.Read");
 		options.Scope.Add("profile");

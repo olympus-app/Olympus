@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 
 namespace Olympus.Api.Identity;

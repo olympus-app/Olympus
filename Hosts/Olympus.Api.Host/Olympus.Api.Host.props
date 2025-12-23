@@ -12,4 +12,9 @@
 		<Using Include="Olympus.Api.Host.Services" />
 	</ItemGroup>
 
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="System.Reflection" />
+	</ItemGroup>
+
 </Project>

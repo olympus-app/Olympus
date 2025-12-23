@@ -1,14 +1,13 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Olympus.Api.Host.Services;
 
 public static partial class DatabaseRegistrator {
 
-	[GenerateServiceRegistrations(AssignableTo = typeof(IModel), CustomHandler = nameof(RegisterCompiledModel), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
-	public static partial void AddDatabase(this IServiceCollection services);
+	[GenerateServiceRegistrations(AssignableTo = typeof(IModel), CustomHandler = nameof(AddDatabaseModel), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddDatabaseModels(this WebApplicationBuilder builder);
 
-	public static void RegisterCompiledModel<TModel>(this IServiceCollection services) where TModel : class, IModel {
+	private static void AddDatabaseModel<TModel>(this WebApplicationBuilder builder) where TModel : class, IModel {
 
 		var instanceProperty = typeof(TModel).GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
 
@@ -16,13 +15,13 @@ public static partial class DatabaseRegistrator {
 
 		var modelInstance = instanceProperty.GetValue(null) as IModel;
 
-		if (modelInstance is not null) services.AddSingleton(modelInstance);
+		if (modelInstance is not null) builder.Services.AddSingleton(modelInstance);
 
 	}
 
 	public static void AddDatabase(this WebApplicationBuilder builder) {
 
-		builder.Services.AddDatabase();
+		builder.AddDatabaseModels();
 
 	}
 

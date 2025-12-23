@@ -8,8 +8,12 @@
 	<!-- Project Usings -->
 	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Web.Host" />
-		<Using Include="Olympus.Web.Host.Modularization" />
 		<Using Include="Olympus.Web.Host.Services" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="System.Reflection" />
 	</ItemGroup>
 
 </Project>

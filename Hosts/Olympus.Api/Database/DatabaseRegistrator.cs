@@ -1,7 +1,6 @@
 using EntityFramework.Exceptions.PostgreSQL;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
 
@@ -23,11 +22,11 @@ public static class DatabaseRegistrator {
 
 		builder.Services.AddSingleton<AuditInterceptor>();
 
-		builder.Services.AddSingleton<IEFCacheServiceProvider, DatabaseCache>();
+		builder.Services.AddSingleton<IEFCacheServiceProvider, CacheProvider>();
 
-		builder.Services.AddScoped<IEntityDatabase>(static provider => provider.GetRequiredService<IDbContextFactory<DatabaseContext>>().CreateDbContext());
+		builder.Services.AddScoped<IEntityDatabase>(static provider => provider.GetRequiredService<IDbContextFactory<EntityDatabase>>().CreateDbContext());
 
-		builder.Services.AddPooledDbContextFactory<DatabaseContext>((services, options) => {
+		builder.Services.AddPooledDbContextFactory<EntityDatabase>((services, options) => {
 			var model = services.GetService<IModel>();
 			if (model is not null) options.UseModel(model);
 			options.UseExceptionProcessor();
@@ -41,10 +40,10 @@ public static class DatabaseRegistrator {
 			});
 		});
 
-		builder.EnrichNpgsqlDbContext<DatabaseContext>();
+		builder.EnrichNpgsqlDbContext<EntityDatabase>();
 
 		builder.Services.AddEFSecondLevelCache(static options => {
-			options.UseCustomCacheProvider<DatabaseCache>(CacheExpirationMode.Sliding, 1.Hours());
+			options.UseCustomCacheProvider<CacheProvider>(CacheExpirationMode.Sliding, 1.Hours());
 			options.UseDbCallsIfCachingProviderIsDown(5.Minutes());
 			options.ConfigureLogging(false);
 		});
@@ -54,7 +53,7 @@ public static class DatabaseRegistrator {
 	public static void UpdateDatabase(this WebApplication app) {
 
 		using var scope = app.Services.CreateScope();
-		var database = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+		var database = scope.ServiceProvider.GetRequiredService<EntityDatabase>();
 
 		database.Database.Migrate();
 

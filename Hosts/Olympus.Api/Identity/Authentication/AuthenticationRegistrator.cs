@@ -29,7 +29,7 @@ public static class AuthenticationRegistrator {
 
 			options.Stores.SchemaVersion = IdentitySchemaVersions.Version3;
 
-		}).AddDefaultTokenProviders().AddClaimsPrincipalFactory<ClaimsPrincipalFactory>().AddEntityFrameworkStores<DatabaseContext>();
+		}).AddDefaultTokenProviders().AddClaimsPrincipalFactory<ClaimsPrincipalFactory>().AddEntityFrameworkStores<EntityDatabase>();
 
 		builder.Services.ConfigureApplicationCookie(static options => {
 
@@ -53,17 +53,13 @@ public static class AuthenticationRegistrator {
 
 		});
 
-		builder.Services.Configure<SecurityStampValidatorOptions>(static options => {
-
-			options.ValidationInterval = TimeSpan.FromMinutes(30);
-
-		});
+		builder.Services.Configure<SecurityStampValidatorOptions>(static options => options.ValidationInterval = TimeSpan.FromMinutes(30));
 
 		builder.Services.AddAuthentication()
 			.AddOpenIdConnect(IdentityProviderType.MicrosoftBusiness.Name, IdentityProviderType.MicrosoftBusiness.Humanize(LetterCasing.Title), static options => { })
-			.AddScheme<AuthenticationSchemeOptions, TokenAuthenticationHandler>(TokenSetting.SchemeName, static options => { });
+			.AddScheme<AuthenticationSchemeOptions, TokenAuthenticationHandler>(TokenSettings.SchemeName, static options => { });
 
-		builder.Services.ConfigureOptions<MicrosoftBusinessProvider>();
+		builder.Services.ConfigureOptions<MicrosoftBusinessProviderOptions>();
 
 		builder.Services.AddTransient<IEntityTable, TokenTable>();
 

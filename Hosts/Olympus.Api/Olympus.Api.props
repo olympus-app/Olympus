@@ -18,7 +18,6 @@
 		<Using Include="Olympus.Api.Json" />
 		<Using Include="Olympus.Api.Localization" />
 		<Using Include="Olympus.Api.Metadata" />
-		<Using Include="Olympus.Api.Options" />
 		<Using Include="Olympus.Api.Queries" />
 		<Using Include="Olympus.Api.Routing" />
 		<Using Include="Olympus.Api.Storage" />

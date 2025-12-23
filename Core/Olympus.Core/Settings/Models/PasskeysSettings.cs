@@ -1,6 +1,6 @@
 namespace Olympus.Core.Settings;
 
-public static class PasskeysSettings {
+public class PasskeysSettings : Settings {
 
 	public const string ApiPath = IdentitySettings.ApiPath + "/passkeys";
 
@@ -17,6 +17,12 @@ public static class PasskeysSettings {
 		public const string RegisterOptions = ApiPath + "/registeroptions";
 
 		public const string LoginOptions = ApiPath + "/loginoptions";
+
+	}
+
+	public override void Configure(IConfiguration configuration) {
+
+		configuration.Bind("Passkeys", this);
 
 	}
 

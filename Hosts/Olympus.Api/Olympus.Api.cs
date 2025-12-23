@@ -2,9 +2,7 @@ namespace Olympus.Api;
 
 public static class Api {
 
-	public static void AddServices(this WebApplicationBuilder builder, ApiOptions options) {
-
-		builder.Services.AddSingleton(options);
+	public static void AddServices(this WebApplicationBuilder builder, AppModulesInfo modules) {
 
 		builder.AddGlobalExceptionHandlerServices();
 
@@ -36,7 +34,7 @@ public static class Api {
 
 		builder.AddEndpointsServices();
 
-		builder.AddDocumentationServices(options);
+		builder.AddDocumentationServices(modules);
 
 	}
 

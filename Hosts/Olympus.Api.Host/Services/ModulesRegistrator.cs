@@ -2,33 +2,112 @@ namespace Olympus.Api.Host.Services;
 
 public static partial class ModulesRegistrator {
 
-	[GenerateServiceRegistrations(AssignableTo = typeof(IAppModuleLayer), CustomHandler = nameof(AddModuleLayer), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
-	private static partial void AddModulesLayers(IServiceCollection services);
+	[GenerateServiceRegistrations(AssignableTo = typeof(IAppModule), ExcludeAssignableTo = typeof(IAppModuleOptions), CustomHandler = nameof(AddModuleBase), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddModulesBase(this WebApplicationBuilder builder, AppModulesInfo info);
 
-	private static void AddModuleLayer<TModule>(IServiceCollection services) where TModule : class, IAppModuleLayer, new() {
+	[GenerateServiceRegistrations(AssignableTo = typeof(IAppModuleLayer), CustomHandler = nameof(AddModuleLayers), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddModulesLayers(this WebApplicationBuilder builder, AppModulesInfo info);
+
+	[GenerateServiceRegistrations(AssignableTo = typeof(IAppModuleOptions), CustomHandler = nameof(AddModuleOptions), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddModulesOptions(this WebApplicationBuilder builder, AppModulesInfo info);
+
+	[GenerateServiceRegistrations(AssignableTo = typeof(IAppModuleRoutes), CustomHandler = nameof(AddModuleRoutes), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddModulesRoutes(this WebApplicationBuilder builder, AppModulesInfo info);
+
+	[GenerateServiceRegistrations(AssignableTo = typeof(IAppModulePermissions), CustomHandler = nameof(AddModulePermissions), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddModulesPermissions(this WebApplicationBuilder builder, AppModulesInfo info);
+
+	[GenerateServiceRegistrations(AssignableTo = typeof(IEntityTable), Lifetime = ServiceLifetime.Transient, AsImplementedInterfaces = false, AsSelf = false, AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddEntityTables(this IServiceCollection services);
+
+	[GenerateServiceRegistrations(AssignableTo = typeof(IEntityQueryConfiguration<>), Lifetime = ServiceLifetime.Singleton, AsImplementedInterfaces = false, AsSelf = false, AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddEntityQueries(this IServiceCollection services);
+
+	private static void AddModuleBase<TModule>(this WebApplicationBuilder builder, AppModulesInfo info) where TModule : class, IAppModule, new() {
 
 		var module = new TModule();
 
-		module.AddLayerServices(services);
+		info.Modules.Add(module);
+
+		builder.Services.AddSingleton<IAppModule>(module);
 
 	}
 
-	[GenerateServiceRegistrations(AssignableTo = typeof(IAppModuleOptions), CustomHandler = nameof(AddModuleOptions), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
-	private static partial void AddModulesOptions(ApiOptions options);
+	private static void AddModuleLayers<TLayer>(this WebApplicationBuilder builder, AppModulesInfo info) where TLayer : class, IAppModuleLayer, new() {
 
-	private static void AddModuleOptions<TOptions>(ApiOptions options) where TOptions : class, IAppModuleOptions, new() {
+		var layer = new TLayer();
+		var assembly = typeof(TLayer).Assembly;
 
-		var module = new TOptions();
+		if (typeof(IAppModuleArchendLayer).IsAssignableFrom(typeof(TLayer))) {
 
-		options.ModulesOptions.Add(module);
+			info.Layers.Archend.Add(layer);
+
+			if (!info.Assemblies.Archend.Contains(assembly)) info.Assemblies.Archend.Add(typeof(TLayer).Assembly);
+
+			builder.Services.AddSingleton((IAppModuleArchendLayer)layer);
+
+			builder.Services.AddSingleton<IAppModuleLayer>(layer);
+
+			layer.AddLayerServices(builder.Services);
+
+		}
+
+		if (typeof(IAppModuleBackendLayer).IsAssignableFrom(typeof(TLayer))) {
+
+			info.Layers.Current.Add(layer);
+
+			if (!info.Assemblies.Current.Contains(assembly)) info.Assemblies.Current.Add(typeof(TLayer).Assembly);
+
+			builder.Services.AddSingleton((IAppModuleBackendLayer)layer);
+
+			builder.Services.AddSingleton<IAppModuleLayer>(layer);
+
+			layer.AddLayerServices(builder.Services);
+
+		}
 
 	}
 
-	public static void AddModules(this WebApplicationBuilder builder, ApiOptions options) {
+	private static void AddModuleOptions<TOption>(this WebApplicationBuilder builder, AppModulesInfo info) where TOption : class, IAppModuleOptions, new() {
 
-		AddModulesLayers(builder.Services);
+		var options = new TOption();
 
-		AddModulesOptions(options);
+		info.Options.Add(options);
+
+		AppModuleOptions.AddOption<TOption>(builder.Services);
+
+	}
+
+	private static void AddModuleRoutes<TRoutes>(this WebApplicationBuilder builder, AppModulesInfo info) where TRoutes : class, IAppModuleRoutes, new() {
+
+		var routes = new TRoutes();
+
+		info.Routes.Add(routes);
+
+		builder.Services.AddSingleton<IAppModuleRoutes>(routes);
+
+	}
+
+	private static void AddModulePermissions<TPermissions>(this WebApplicationBuilder builder, AppModulesInfo info) where TPermissions : class, IAppModulePermissions, new() {
+
+		var permissions = new TPermissions();
+
+		info.Permissions.Add(permissions);
+
+		builder.Services.AddSingleton<IAppModulePermissions>(permissions);
+
+	}
+
+	public static void AddModules(this WebApplicationBuilder builder, AppModulesInfo info) {
+
+		builder.AddModulesBase(info);
+		builder.AddModulesLayers(info);
+		builder.AddModulesOptions(info);
+		builder.AddModulesRoutes(info);
+		builder.AddModulesPermissions(info);
+
+		builder.Services.AddEntityTables();
+		builder.Services.AddEntityQueries();
 
 	}
 

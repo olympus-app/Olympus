@@ -4,7 +4,7 @@ using Microsoft.Extensions.Caching.Hybrid;
 
 namespace Olympus.Api.Database;
 
-public class DatabaseCache(HybridCache hybridCache) : IEFCacheServiceProvider {
+public class CacheProvider(HybridCache hybridCache) : IEFCacheServiceProvider {
 
 	private readonly HybridCache HybridCache = hybridCache;
 

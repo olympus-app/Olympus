@@ -306,7 +306,7 @@ dotnet_diagnostic.OL0003.severity = none
 
 # OL0007: Suffix Naming
 dotnet_diagnostic.OL0007.severity = suggestion
-olympus_suffix_naming_targets = Model, Request, Response, Result, Mapper, Endpoint
+olympus_suffix_naming_targets = Settings, Options, Model, Request, Response, Result, Mapper, Endpoint
 
 # ROS0003: Roslynator required Options not set
 dotnet_diagnostic.ROS0003.severity = warning

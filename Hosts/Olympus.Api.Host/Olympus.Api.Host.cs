@@ -4,9 +4,9 @@ public static class ApiHost {
 
 	public static void Main(string[] args) {
 
-		var options = new ApiOptions();
-
 		var builder = WebApplication.CreateBuilder(args);
+
+		var modules = new AppModulesInfo();
 
 		builder.AddAspire();
 
@@ -14,9 +14,9 @@ public static class ApiHost {
 
 		builder.AddDatabase();
 
-		builder.AddModules(options);
+		builder.AddModules(modules);
 
-		builder.AddServices(options);
+		builder.AddServices(modules);
 
 		builder.BuildAndRun();
 

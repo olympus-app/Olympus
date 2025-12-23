@@ -1,12 +1,19 @@
 namespace Olympus.Api.Host.Services;
 
-public static class SettingsRegistrator {
+public static partial class SettingsRegistrator {
+
+	[GenerateServiceRegistrations(AssignableTo = typeof(ISettings), CustomHandler = nameof(AddSettingsModel), AssemblyNameFilter = $"{AppSettings.AppBaseName}.*")]
+	private static partial void AddSettingsModels(this WebApplicationBuilder builder);
+
+	private static void AddSettingsModel<TSetting>(this WebApplicationBuilder builder) where TSetting : class, ISettings {
+
+		Settings.AddSetting<TSetting>(builder.Services, builder.Configuration, typeof(SettingsRegistrator).Assembly);
+
+	}
 
 	public static void AddSettings(this WebApplicationBuilder builder) {
 
-		builder.Configuration.LoadSettings();
-
-		builder.Services.AddSettings();
+		builder.AddSettingsModels();
 
 	}
 

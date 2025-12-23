@@ -6,7 +6,7 @@ public static class TokenEndpoints {
 
 	public static void MapTokensEndpoints(this WebApplication app) {
 
-		app.MapGet(TokenSetting.Endpoints.List, TokenService.ListAsync)
+		app.MapGet(TokenSettings.Endpoints.List, TokenService.ListAsync)
 		   .WithGroupName(IdentitySettings.GroupName.ToLower()).WithTags(TagName)
 		   .Produces<IEnumerable<TokenListResponse>>(HttpStatusCode.OK.Value)
 		   .Produces<ProblemResult>(HttpStatusCode.BadRequest.Value)
@@ -14,7 +14,7 @@ public static class TokenEndpoints {
 		   .Produces<ProblemResult>(HttpStatusCode.Forbidden.Value)
 		   .RequireAuthorization();
 
-		app.MapPost(TokenSetting.Endpoints.Create, TokenService.CreateAsync)
+		app.MapPost(TokenSettings.Endpoints.Create, TokenService.CreateAsync)
 			.WithGroupName(IdentitySettings.GroupName.ToLower()).WithTags(TagName)
 		   .Produces(HttpStatusCode.OK.Value)
 		   .Produces<ProblemResult>(HttpStatusCode.BadRequest.Value)
@@ -22,7 +22,7 @@ public static class TokenEndpoints {
 		   .Produces<ProblemResult>(HttpStatusCode.Forbidden.Value)
 			.RequireAuthorization();
 
-		app.MapDelete(TokenSetting.Endpoints.Delete + "/{key}", TokenService.DeleteAsync)
+		app.MapDelete(TokenSettings.Endpoints.Delete + "/{key}", TokenService.DeleteAsync)
 		   .WithGroupName(IdentitySettings.GroupName.ToLower()).WithTags(TagName)
 		   .Produces(HttpStatusCode.OK.Value)
 		   .Produces<ProblemResult>(HttpStatusCode.BadRequest.Value)

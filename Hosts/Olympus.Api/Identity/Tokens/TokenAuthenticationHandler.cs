@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Olympus.Api.Identity;
 
-public class TokenAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, DatabaseContext database, IUserClaimsPrincipalFactory<User> principalFactory) : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder) {
+public class TokenAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, EntityDatabase database, IUserClaimsPrincipalFactory<User> principalFactory) : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder) {
 
 	protected override async Task<AuthenticateResult> HandleAuthenticateAsync() {
 
@@ -28,7 +28,7 @@ public class TokenAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOpti
 		var principal = await principalFactory.CreateAsync(user);
 		if (principal.Identity is ClaimsIdentity identity) identity.AddClaim(new Claim(AppClaimsTypes.TokenId, apiToken.Id.ToString()));
 
-		var ticket = new AuthenticationTicket(principal, TokenSetting.SchemeName);
+		var ticket = new AuthenticationTicket(principal, TokenSettings.SchemeName);
 
 		return AuthenticateResult.Success(ticket);
 

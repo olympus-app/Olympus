@@ -1,8 +1,8 @@
 namespace Olympus.Core.Archend;
 
-public static class CorePermissions {
+public class CorePermissions() : AppModulePermissions(AppModuleType.Core, AppModuleCategory.Infrastructure) {
 
-	public const int Base = PermissionsScheme.ModuleOffset * CoreModule.ModuleId;
+	public const int Base = PermissionsScheme.ModuleOffset * CoreModule.Id;
 
 	public static class Users {
 

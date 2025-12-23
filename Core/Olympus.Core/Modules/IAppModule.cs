@@ -1,6 +1,6 @@
 namespace Olympus.Core.Modules;
 
-public interface IAppModuleLayer {
+public interface IAppModule {
 
 	public int ModuleId { get; }
 
@@ -10,6 +10,8 @@ public interface IAppModuleLayer {
 
 	public AppModuleCategory ModuleCategory { get; }
 
-	public void AddLayerServices(IServiceCollection services);
+	public string ModuleRoute { get; }
+
+	public int[] ApiVersions { get; }
 
 }

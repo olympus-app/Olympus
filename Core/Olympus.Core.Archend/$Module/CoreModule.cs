@@ -1,19 +1,15 @@
 ﻿namespace Olympus.Core.Archend;
 
-public static class CoreModule {
+public class CoreModule() : AppModule(AppModuleType.Core, AppModuleCategory.Infrastructure) {
 
-	public const string CodeName = "Core";
+	public const int Id = (int)AppModuleType.Core;
 
-	public const string FriendlyName = "System";
+	public const string Name = nameof(AppModuleType.Core);
 
-	public const string RoutesPath = "/core";
+	public const AppModuleType Type = AppModuleType.Core;
 
-	public const int ModuleId = (int)AppModuleType.Core;
+	public const AppModuleCategory Category = AppModuleCategory.Infrastructure;
 
-	public const AppModuleType ModuleType = AppModuleType.Core;
-
-	public const AppModuleCategory ModuleCategory = AppModuleCategory.Infrastructure;
-
-	public const string SettingsPath = $"{nameof(AppSettings.Modules)}:{CodeName}";
+	public const string Route = "/core";
 
 }

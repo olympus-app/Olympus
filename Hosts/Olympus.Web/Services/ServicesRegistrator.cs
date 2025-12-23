@@ -25,9 +25,9 @@ public static class ServicesRegistrator {
 
 		builder.Services.AddScoped(static provider => (AuthenticationService)provider.GetRequiredService<AuthenticationStateProvider>());
 
-		builder.Services.AddHttpClient<AuthClient>(client => { client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress); });
+		builder.Services.AddHttpClient<AuthClient>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 
-		builder.Services.AddHttpClient("Auth", options => { options.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress); });
+		builder.Services.AddHttpClient("Auth", options => options.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 
 		builder.Services.AddHttpClient("API", options => options.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)).AddHttpMessageHandler<AntiforgeryHandler>();
 

@@ -1,6 +1,6 @@
 namespace Olympus.Core.Modules;
 
-public abstract class AppModuleLayer(AppModuleType type, AppModuleCategory category) : IAppModuleLayer {
+public abstract class AppModule(AppModuleType type, AppModuleCategory category) : IAppModule {
 
 	public virtual int ModuleId { get; } = (int)type;
 
@@ -10,6 +10,8 @@ public abstract class AppModuleLayer(AppModuleType type, AppModuleCategory categ
 
 	public AppModuleCategory ModuleCategory { get; } = category;
 
-	public virtual void AddLayerServices(IServiceCollection services) { }
+	public virtual string ModuleRoute { get; } = "/" + type.Name.ToLower();
+
+	public virtual int[] ApiVersions { get; } = [1];
 
 }

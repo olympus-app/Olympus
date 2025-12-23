@@ -6,9 +6,7 @@ public static class TransportCompressionRegistrator {
 
 	public static void AddTransportCompressionServices(this WebApplicationBuilder builder) {
 
-		builder.Services.AddResponseCompression(static options => {
-			options.EnableForHttps = true;
-		});
+		builder.Services.AddResponseCompression(static options => options.EnableForHttps = true);
 
 	}
 
