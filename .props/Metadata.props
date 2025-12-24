@@ -7,18 +7,18 @@
 		<Description>$(ProjectTitle)</Description>
 	</PropertyGroup>
 
+	<!-- Package Project Metadata -->
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='Package'">
+		<Product>$(ProjectTitle)</Product>
+		<AssemblyTitle>$(ProjectTitle) Package</AssemblyTitle>
+		<Description>$(ProjectTitle) Package</Description>
+	</PropertyGroup>
+
 	<!-- Core Package Project Metadata -->
 	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='CorePackage'">
 		<Product>$(ProjectTitle)</Product>
 		<AssemblyTitle>$(ProjectTitle.Replace(' Core','')) Core Package</AssemblyTitle>
 		<Description>$(ProjectTitle.Replace(' Core','')) Core Package</Description>
-	</PropertyGroup>
-
-	<!-- Service Package Project Metadata -->
-	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='ServicePackage'">
-		<Product>$(ProjectTitle)</Product>
-		<AssemblyTitle>$(ProjectTitle) Service Package</AssemblyTitle>
-		<Description>$(ProjectTitle) Service Package</Description>
 	</PropertyGroup>
 
 	<!-- Module Package Project Metadata -->
@@ -42,11 +42,11 @@
 		<Description>$(ProjectTitle.Replace(' Host','')) Application Host</Description>
 	</PropertyGroup>
 
-	<!-- Aspire Service Project Metadata -->
+	<!-- Aspire Package Project Metadata -->
 	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='AspirePackage'">
 		<Product>$(ProjectTitle)</Product>
-		<AssemblyTitle>$(ProjectTitle) Service Package</AssemblyTitle>
-		<Description>$(ProjectTitle) Service Package</Description>
+		<AssemblyTitle>$(ProjectTitle) Package</AssemblyTitle>
+		<Description>$(ProjectTitle) Package</Description>
 	</PropertyGroup>
 
 	<!-- Aspire Host Project Metadata -->
