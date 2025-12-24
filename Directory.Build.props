@@ -14,6 +14,8 @@
 		<SolutionDescription>Olympus Monolith</SolutionDescription>
 		<SolutionFolder>$(MSBuildThisFileDirectory)</SolutionFolder>
 		<AssetsFolder>$(MSBuildThisFileDirectory)\.assets</AssetsFolder>
+		<PropertiesFolder>$(MSBuildThisFileDirectory)\.props</PropertiesFolder>
+		<SettingsFolder>$(MSBuildThisFileDirectory)\.settings</SettingsFolder>
 		<AspireFolder>$(MSBuildThisFileDirectory)\Aspire</AspireFolder>
 		<CoreFolder>$(MSBuildThisFileDirectory)\Core</CoreFolder>
 		<HostsFolder>$(MSBuildThisFileDirectory)\Hosts</HostsFolder>
@@ -30,7 +32,7 @@
 		<BuildNumberForced>6</BuildNumberForced>
 		<Authors>Éwerton Ferreira</Authors>
 		<Copyright>© 2025 Éwerton Ferreira</Copyright>
-		<ApplicationIcon>$(AssetsFolder)\Icons\AppIcon.ico</ApplicationIcon>
+		<ApplicationIcon>$(AssetsFolder)\Application\AppIcon.ico</ApplicationIcon>
 		<RepositoryUrl>https://github.com/olympus-app/Olympus</RepositoryUrl>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	</PropertyGroup>

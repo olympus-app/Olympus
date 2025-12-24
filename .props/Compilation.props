@@ -2,8 +2,6 @@
 
 	<!-- General Compilation -->
 	<PropertyGroup Label="Compilation">
-		<IsAotCompatible>false</IsAotCompatible>
-		<RunAOTCompilation>false</RunAOTCompilation>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>

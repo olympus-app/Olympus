@@ -43,7 +43,7 @@
 	</PropertyGroup>
 
 	<!-- Aspire Service Project Metadata -->
-	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='AspireService'">
+	<PropertyGroup Label="ProjectMetadata" Condition="$(ProjectType)=='AspirePackage'">
 		<Product>$(ProjectTitle)</Product>
 		<AssemblyTitle>$(ProjectTitle) Service Package</AssemblyTitle>
 		<Description>$(ProjectTitle) Service Package</Description>

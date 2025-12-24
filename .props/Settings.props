@@ -1,0 +1,27 @@
+<Project>
+
+	<!-- Embedded Settings -->
+	<ItemGroup Label="EmbeddedSettings" Condition="$(ProjectType)=='AspireHost'">
+		<EmbeddedResource Include="$(SettingsFolder)\Global.json" Link="Settings\Global.json" LogicalName="Settings.Global.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Aspire\Common.json" Link="Settings\Common.json" LogicalName="Settings.Common.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Aspire\Development.json" Link="Settings\Development.json" LogicalName="Settings.Development.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Aspire\Production.json" Link="Settings\Production.json" LogicalName="Settings.Production.json" CopyToOutputDirectory="Never" />
+	</ItemGroup>
+
+	<!-- Embedded Settings -->
+	<ItemGroup Label="EmbeddedSettings" Condition="$(ProjectType)=='ApplicationHost' And $(ApplicationType)=='Api'">
+		<EmbeddedResource Include="$(SettingsFolder)\Global.json" Link="Settings\Global.json" LogicalName="Settings.Global.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Api\Common.json" Link="Settings\Common.json" LogicalName="Settings.Common.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Api\Development.json" Link="Settings\Development.json" LogicalName="Settings.Development.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Api\Production.json" Link="Settings\Production.json" LogicalName="Settings.Production.json" CopyToOutputDirectory="Never" />
+	</ItemGroup>
+
+	<!-- Embedded Settings -->
+	<ItemGroup Label="EmbeddedSettings" Condition="$(ProjectType)=='ApplicationHost' And $(ApplicationType)=='Web'">
+		<EmbeddedResource Include="$(SettingsFolder)\Global.json" Link="Settings\Global.json" LogicalName="Settings.Global.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Web\Common.json" Link="Settings\Common.json" LogicalName="Settings.Common.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Web\Development.json" Link="Settings\Development.json" LogicalName="Settings.Development.json" CopyToOutputDirectory="Never" />
+		<EmbeddedResource Include="$(SettingsFolder)\Web\Production.json" Link="Settings\Production.json" LogicalName="Settings.Production.json" CopyToOutputDirectory="Never" />
+	</ItemGroup>
+
+</Project>

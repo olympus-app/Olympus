@@ -134,7 +134,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Pack: All Projects",
-			"command": " dotnet pack --configuration Release --output .nuget",
+			"command": " dotnet pack --configuration Release --output C:\\Development\\NuGet",
 			"problemMatcher": [],
 			"icon": {
 				"id": "package",

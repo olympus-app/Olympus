@@ -2,7 +2,7 @@
 
 	<!-- Project Properties -->
 	<PropertyGroup Label="ProjectProperties">
-		<ProjectType>AspireService</ProjectType>
+		<ProjectType>AspirePackage</ProjectType>
 		<ProjectLayer>None</ProjectLayer>
 		<IsAspireSharedProject>true</IsAspireSharedProject>
 	</PropertyGroup>

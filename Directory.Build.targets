@@ -2,10 +2,10 @@
 
 	<!-- Validation Project Properties -->
 	<PropertyGroup Label="ValidationProjectProperties">
-		<ProjectTypes>;CorePackage;ServicePackage;ModulePackage;ApplicationPackage;ApplicationHost;AspireService;AspireHost;UnitTests;IntegrationTests;</ProjectTypes>
+		<ProjectTypes>;CorePackage;ServicePackage;ModulePackage;ApplicationPackage;ApplicationHost;AspirePackage;AspireHost;UnitTests;IntegrationTests;</ProjectTypes>
 		<ProjectLayers>;None;Archend;Backend;Frontend;</ProjectLayers>
 		<ModularProjectTypes>;CorePackage;ModulePackage;</ModularProjectTypes>
-		<PackableProjectTypes>;CorePackage;ServicePackage;ModulePackage;ApplicationPackage;</PackableProjectTypes>
+		<PackableProjectTypes>;CorePackage;ServicePackage;ModulePackage;ApplicationPackage;AspirePackage;</PackableProjectTypes>
 		<ApplicationProjectTypes>;ApplicationPackage;ApplicationHost;</ApplicationProjectTypes>
 		<ApplicationTypes>;API;Web;</ApplicationTypes>
 		<ServerApplicationTypes>;API;</ServerApplicationTypes>
@@ -27,15 +27,15 @@
 
 	<!-- Solution Imports -->
 	<ImportGroup Label="SolutionImports">
-		<Import Project="$(AssetsFolder)\Properties\Assets.props" />
-		<Import Project="$(AssetsFolder)\Properties\Compilation.props" />
-		<Import Project="$(AssetsFolder)\Properties\Configuration.props" />
-		<Import Project="$(AssetsFolder)\Properties\Containerization.props" />
-		<Import Project="$(AssetsFolder)\Properties\Documentation.props" />
-		<Import Project="$(AssetsFolder)\Properties\Localization.props" />
-		<Import Project="$(AssetsFolder)\Properties\Metadata.props" />
-		<Import Project="$(AssetsFolder)\Properties\Packing.props" />
-		<Import Project="$(AssetsFolder)\Properties\Settings.props" />
+		<Import Project="$(PropertiesFolder)\Assets.props" />
+		<Import Project="$(PropertiesFolder)\Compilation.props" />
+		<Import Project="$(PropertiesFolder)\Configuration.props" />
+		<Import Project="$(PropertiesFolder)\Containerization.props" />
+		<Import Project="$(PropertiesFolder)\Documentation.props" />
+		<Import Project="$(PropertiesFolder)\Localization.props" />
+		<Import Project="$(PropertiesFolder)\Metadata.props" />
+		<Import Project="$(PropertiesFolder)\Packing.props" />
+		<Import Project="$(PropertiesFolder)\Settings.props" />
 	</ImportGroup>
 
 	<!-- Project Imports -->
