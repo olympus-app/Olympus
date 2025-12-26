@@ -133,6 +133,36 @@
 		},
 		{
 			"type": "shell",
+			"label": ".NET Containerize: All Projects",
+			"command": "dotnet publish --configuration Release /t:PublishContainer",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Containerize: API Host",
+			"command": "dotnet publish Hosts/Olympus.Api.Host --configuration Release /t:PublishContainer",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Containerize: Web Host",
+			"command": "dotnet publish Hosts/Olympus.Web.Host --configuration Release /t:PublishContainer",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
 			"label": ".NET Pack: All Projects",
 			"command": "dotnet pack --configuration Release --output C:/Development/NuGet",
 			"problemMatcher": [],

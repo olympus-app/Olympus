@@ -1,12 +1,12 @@
 <Project>
 
 	<!-- Packing Properties for Packable Projects -->
-	<PropertyGroup Label="PackingProperties" Condition="$(UsePacking)=='' Or $(UsePacking)=='true' Or $(IsPackableProject)">
+	<PropertyGroup Label="PackingProperties" Condition="$(UsePacking)=='' Or $(UsePacking)=='true' Or $(IsPackableProject)=='true'">
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
 	<!-- Packing Properties for Not Packable Projects -->
-	<PropertyGroup Label="PackingProperties" Condition="$(UsePacking)=='false' Or !$(IsPackableProject)">
+	<PropertyGroup Label="PackingProperties" Condition="$(UsePacking)=='false' Or $(IsPackableProject)=='false'">
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 

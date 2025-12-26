@@ -1,9 +1,1 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly;Olympus.Sdk">
-
-	<!-- Package References -->
-	<ItemGroup Label="PackageReferences">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
-	</ItemGroup>
-
-</Project>
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly;Olympus.Sdk" />

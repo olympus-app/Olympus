@@ -2,28 +2,33 @@
 
 	<!-- Solution Properties -->
 	<PropertyGroup Label="SolutionProperties">
-		<SolutionName>Olympus</SolutionName>
-		<SolutionFolder>$(MSBuildStartupDirectory)</SolutionFolder>
-		<AssetsFolder>$(SolutionFolder)\.assets</AssetsFolder>
-		<SettingsFolder>$(SolutionFolder)\.settings</SettingsFolder>
+		<SolutionName>$(SolutionName.Trim())</SolutionName>
+		<SolutionTitle>$(SolutionTitle.Trim())</SolutionTitle>
+		<SolutionAuthors>$(SolutionAuthors.Trim())</SolutionAuthors>
+		<SolutionCustomer>$(SolutionCustomer.Trim())</SolutionCustomer>
+		<SolutionFolder>$(SolutionFolder.TrimEnd('\').TrimEnd('/'))</SolutionFolder>
 	</PropertyGroup>
 
-	<!-- Solution Variables Initialization -->
-	<PropertyGroup Label="SolutionVariables">
-		<IsMainSolution>false</IsMainSolution>
+	<!-- Solution Properties Initialization -->
+	<PropertyGroup Label="SolutionProperties">
+		<AssetsFolder>$(SolutionFolder)</AssetsFolder>
+		<SettingsFolder>$(SolutionFolder)</SettingsFolder>
 		<AspireFolder>$(SolutionFolder)</AspireFolder>
 		<CoreFolder>$(SolutionFolder)</CoreFolder>
 		<HostsFolder>$(SolutionFolder)</HostsFolder>
 		<ModulesFolder>$(SolutionFolder)</ModulesFolder>
+		<IsMainSolution>false</IsMainSolution>
 	</PropertyGroup>
 
-	<!-- Project Variables Evaluation -->
-	<PropertyGroup Label="ProjectVariables">
-		<IsMainSolution Condition="$(SolutionFolder.StartsWith('C:\Development\Olympus'))">true</IsMainSolution>
+	<!-- Solution Properties Evaluation -->
+	<PropertyGroup Label="SolutionProperties">
+		<AssetsFolder Condition="Exists('$(SolutionFolder)\.assets')">$(SolutionFolder)\.assets</AssetsFolder>
+		<SettingsFolder Condition="Exists('$(SolutionFolder)\.settings')">$(SolutionFolder)\.settings</SettingsFolder>
 		<AspireFolder Condition="Exists('$(SolutionFolder)\Aspire')">$(SolutionFolder)\Aspire</AspireFolder>
 		<CoreFolder Condition="Exists('$(SolutionFolder)\Core')">$(SolutionFolder)\Core</CoreFolder>
 		<HostsFolder Condition="Exists('$(SolutionFolder)\Hosts')">$(SolutionFolder)\Hosts</HostsFolder>
 		<ModulesFolder Condition="Exists('$(SolutionFolder)\Modules')">$(SolutionFolder)\Modules</ModulesFolder>
+		<IsMainSolution Condition="$(SolutionName)=='Olympus'">true</IsMainSolution>
 	</PropertyGroup>
 
 	<!-- Aspire Project Properties -->

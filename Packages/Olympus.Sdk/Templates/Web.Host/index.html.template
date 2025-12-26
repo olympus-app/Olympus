@@ -3,15 +3,13 @@
 
 <head>
 	<base href="/" />
-	<title>Olympus</title>
+	<title>{{APPNAME}}</title>
 	<meta charset="utf-8" />
 	<meta name="theme-color" content="#ffffff">
 	<meta name="color-scheme" content="light dark" />
-	<meta name="application-name" content="Olympus">
-	<meta name="author" content="Éwerton Ferreira" />
-	<meta name="creator" content="Éwerton Ferreira">
-	<meta name="publisher" content="Éwerton Ferreira">
-	<meta name="description" content="All-in-One Control System.">
+	<meta name="application-name" content="{{APPNAME}}">
+	<meta name="author" content="{{AUTHORS}}" />
+	<meta name="description" content="{{DESCRIPTION}}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="manifest" href="manifest.webmanifest" />
 	<link rel="icon" href="icons/icon-16-any.png" type="image/png" sizes="16x16">

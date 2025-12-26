@@ -2,8 +2,10 @@
 
 	<!-- Targets Imports -->
 	<ImportGroup Label="TargetsImports">
-		<Import Project="..\Targets\Imports.targets" />
+		<Import Project="..\Targets\Solution.targets" />
 		<Import Project="..\Targets\Version.targets" />
+		<Import Project="..\Targets\GitHub.targets" />
+		<Import Project="..\Targets\Imports.targets" />
 		<Import Project="..\Targets\Configuration.targets" />
 		<Import Project="..\Targets\Containerization.targets" />
 		<Import Project="..\Targets\Documentation.targets" />
@@ -12,6 +14,9 @@
 		<Import Project="..\Targets\Packages.targets" />
 		<Import Project="..\Targets\Packing.targets" />
 		<Import Project="..\Targets\Usings.targets" />
+		<Import Project="..\Targets\Tasks.targets" />
+		<Import Project="..\Targets\Assets.targets" />
+		<Import Project="..\Targets\Templates.targets" />
 	</ImportGroup>
 
 </Project>

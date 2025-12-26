@@ -1,0 +1,27 @@
+<Project>
+
+	<!-- Web Application Host Assets  -->
+	<Target Name="CopyWebHostAssets" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup>
+			<WebHostAssetFiles Include="service-worker.js;service-worker.published.js" />
+		</ItemGroup>
+
+		<Copy
+			SourceFiles="@(WebHostAssetFiles->'$(MSBuildThisFileDirectory)..\Assets\Web.Host\%(Identity)')"
+			DestinationFiles="@(WebHostAssetFiles->'$(IntermediateOutputPath)wwwroot\%(Identity)')"
+			SkipUnchangedFiles="true"
+		/>
+
+		<ItemGroup>
+			<Content Remove="@(WebHostAssetFiles->'wwwroot\%(Identity)')" />
+			<Content Include="@(WebHostAssetFiles->'$(IntermediateOutputPath)wwwroot\%(Identity)')">
+				<Link>wwwroot\%(Identity)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</Content>
+		</ItemGroup>
+
+	</Target>
+
+</Project>

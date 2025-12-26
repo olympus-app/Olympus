@@ -1,13 +1,18 @@
 <Project>
 
-	<!-- Application Properties -->
-	<PropertyGroup Label="ApplicationProperties">
-		<AppName>Olympus</AppName>
-		<Company>Olympus</Company>
-		<Product>Olympus</Product>
-		<Authors>Éwerton Ferreira</Authors>
-		<Description>Olympus Monolith</Description>
-		<Copyright>© 2026 Éwerton Ferreira</Copyright>
+	<!-- Solution Properties -->
+	<PropertyGroup Label="SolutionProperties">
+		<SolutionName>Olympus</SolutionName>
+		<SolutionTitle>Olympus Application</SolutionTitle>
+		<SolutionAuthors>Éwerton Ferreira</SolutionAuthors>
+		<SolutionCustomer>Olympus Application</SolutionCustomer>
+		<SolutionFolder>$(MSBuildThisFileDirectory)</SolutionFolder>
+	</PropertyGroup>
+
+	<!-- GitHub Properties -->
+	<PropertyGroup Label="GitHubProperties">
+		<GitHubLocation>olympus-app</GitHubLocation>
+		<GitHubRepository>olympus</GitHubRepository>
 	</PropertyGroup>
 
 	<!-- Version Properties -->

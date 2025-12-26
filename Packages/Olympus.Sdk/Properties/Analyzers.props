@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<!-- Analyzers References -->
-	<ItemGroup Label="AnalyzersReferences" Condition="!$(IsAnalyzer)">
+	<ItemGroup Label="AnalyzersReferences" Condition="$(IsAnalyzer)=='false'">
 		<PackageReference Include="Olympus.Analyzers" PrivateAssets="all" />
 		<PackageReference Include="Roslynator.Analyzers" PrivateAssets="all" />
 		<PackageReference Include="Roslynator.CodeFixes" PrivateAssets="all" />

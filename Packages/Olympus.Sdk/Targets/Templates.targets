@@ -1,0 +1,83 @@
+<Project>
+
+	<!-- Api Application Host Service Registrations -->
+	<Target Name="GenerateApiHostServiceRegistrations" BeforeTargets="BeforeCompile;CoreCompile" Condition="$(IsApiApplicationHost)=='true'">
+
+		<ItemGroup>
+			<ApiHostTemplates Include="SettingsRegistrator;ModulesRegistrator;DatabaseRegistrator" />
+		</ItemGroup>
+
+		<ProcessTemplate
+			InputFile="$(MSBuildThisFileDirectory)..\Templates\Api.Host\%(ApiHostTemplates.Identity).cs.template"
+			OutputFile="$(IntermediateOutputPath)$(RootNamespace).%(ApiHostTemplates.Identity).g.cs"
+			Replacements="{{NAMESPACE}},$(RootNamespace)"
+		/>
+
+		<ItemGroup>
+			<Compile Include="$(IntermediateOutputPath)$(RootNamespace).%(ApiHostTemplates.Identity).g.cs" />
+			<FileWrites Include="$(IntermediateOutputPath)$(RootNamespace).%(ApiHostTemplates.Identity).g.cs" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Web Application Host Service Registrations -->
+	<Target Name="GenerateWebHostServiceRegistrations" BeforeTargets="BeforeCompile;CoreCompile" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup>
+			<WebHostTemplates Include="SettingsRegistrator;ModulesRegistrator" />
+		</ItemGroup>
+
+		<ProcessTemplate
+			InputFile="$(MSBuildThisFileDirectory)..\Templates\Web.Host\%(WebHostTemplates.Identity).cs.template"
+			OutputFile="$(IntermediateOutputPath)$(RootNamespace).%(WebHostTemplates.Identity).g.cs"
+			Replacements="{{NAMESPACE}},$(RootNamespace)"
+		/>
+
+		<ItemGroup>
+			<Compile Include="$(IntermediateOutputPath)$(RootNamespace).%(WebHostTemplates.Identity).g.cs" />
+			<FileWrites Include="$(IntermediateOutputPath)$(RootNamespace).%(WebHostTemplates.Identity).g.cs" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Web Application Host Manifest File  -->
+	<Target Name="GenerateWebHostManifestFile" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ProcessTemplate
+			InputFile="$(MSBuildThisFileDirectory)..\Templates\Web.Host\manifest.webmanifest.template"
+			OutputFile="$(IntermediateOutputPath)wwwroot\manifest.webmanifest"
+			Replacements="{{APPNAME}},$(SolutionName);{{DESCRIPTION}},$(SolutionTitle);{{AUTHORS}},$(SolutionAuthors)"
+		/>
+
+		<ItemGroup>
+			<Content Remove="wwwroot\manifest.webmanifest" />
+			<Content Include="$(IntermediateOutputPath)wwwroot\manifest.webmanifest">
+				<Link>wwwroot\manifest.webmanifest</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</Content>
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Web Application Host Index File  -->
+	<Target Name="GenerateWebHostIndexFile" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ProcessTemplate
+			InputFile="$(MSBuildThisFileDirectory)..\Templates\Web.Host\index.html.template"
+			OutputFile="$(IntermediateOutputPath)wwwroot\index.html"
+			Replacements="{{APPNAME}},$(SolutionName);{{DESCRIPTION}},$(SolutionTitle);{{AUTHORS}},$(SolutionAuthors)"
+		/>
+
+		<ItemGroup>
+			<Content Remove="wwwroot\index.html" />
+			<Content Include="$(IntermediateOutputPath)wwwroot\index.html">
+				<Link>wwwroot\index.html</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</Content>
+		</ItemGroup>
+
+	</Target>
+
+</Project>

@@ -1,0 +1,13 @@
+<Project>
+
+	<!-- Solution Properties Validation -->
+	<Target Name="SolutionPropertiesValidation" BeforeTargets="Build">
+		<Error Condition="$(SolutionName)==''" Text="Property 'SolutionName' is not set." />
+		<Error Condition="$(SolutionTitle)==''" Text="Property 'SolutionTitle' is not set." />
+		<Error Condition="$(SolutionAuthors)==''" Text="Property 'SolutionAuthors' is not set." />
+		<Error Condition="$(SolutionCustomer)==''" Text="Property 'SolutionCustomer' is not set." />
+		<Error Condition="$(SolutionFolder)==''" Text="Property 'SolutionFolder' is not set." />
+		<Error Condition="!Exists('$(SolutionFolder)')" Text="The path in 'SolutionFolder' does not exist." />
+	</Target>
+
+</Project>

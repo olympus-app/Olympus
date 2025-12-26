@@ -1,12 +1,12 @@
 {
 	"id": "./",
 	"start_url": "./",
-	"name": "Olympus",
-	"short_name": "Olympus",
+	"name": "{{APPNAME}}",
+	"short_name": "{{APPNAME}}",
 	"theme_color": "#ffffff",
 	"background_color": "#ffffff",
 	"prefer_related_applications": false,
-	"description": "All-in-One Control System.",
+	"description": "{{DESCRIPTION}}",
 	"display": "standalone",
 	"display_override": [
 		"window-controls-overlay",

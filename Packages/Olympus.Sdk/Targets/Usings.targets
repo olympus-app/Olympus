@@ -1,8 +1,24 @@
 <Project>
 
-	<!-- Packages Usings for Hosts -->
-	<ItemGroup Label="PackagesUsings" Condition="$(OlympusImplicitUsings)=='enable' And $(IsApplicationHost)">
+	<!-- Packages Usings for Application Hosts -->
+	<ItemGroup Label="PackagesUsings" Condition="$(OlympusImplicitUsings)=='enable' And $(IsApplicationHost)=='true'">
 		<Using Include="ServiceScan.SourceGenerator" />
+		<Using Include="System.Reflection" />
+	</ItemGroup>
+
+	<!-- Packages Usings for Api Application Host -->
+	<ItemGroup Label="PackagesUsings" Condition="$(OlympusImplicitUsings)=='enable' And $(IsAspireApplicationHost)=='true'">
+		<Using Include="Olympus.Aspire.Host" />
+	</ItemGroup>
+
+	<!-- Packages Usings for Api Application Host -->
+	<ItemGroup Label="PackagesUsings" Condition="$(OlympusImplicitUsings)=='enable' And $(IsApiApplicationHost)=='true'">
+		<Using Include="Olympus.Api.Host" />
+	</ItemGroup>
+
+	<!-- Packages Usings for Web Application Host -->
+	<ItemGroup Label="PackagesUsings" Condition="$(OlympusImplicitUsings)=='enable' And $(IsWebApplicationHost)=='true'">
+		<Using Include="Olympus.Web.Host" />
 	</ItemGroup>
 
 </Project>

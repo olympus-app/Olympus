@@ -2,12 +2,12 @@
 
 	<!-- Application Properties -->
 	<PropertyGroup Label="ApplicationProperties">
-		<AppName>Olympus</AppName>
-		<Company>Olympus</Company>
-		<Product>Olympus</Product>
-		<Authors>Éwerton Ferreira</Authors>
-		<Description>Olympus Monolith</Description>
-		<Copyright>© 2026 Éwerton Ferreira</Copyright>
+		<AppName>$(SolutionName)</AppName>
+		<Company>$(SolutionCustomer)</Company>
+		<Product>$(SolutionTitle)</Product>
+		<Authors>$(SolutionAuthors)</Authors>
+		<Description>$(SolutionTitle)</Description>
+		<Copyright>© $([System.DateTime]::Now.Year) - Éwerton Ferreira</Copyright>
 	</PropertyGroup>
 
 </Project>

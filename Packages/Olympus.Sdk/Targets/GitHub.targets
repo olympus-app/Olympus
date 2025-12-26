@@ -1,0 +1,10 @@
+<Project>
+
+	<!-- GitHub Properties Validation -->
+	<Target Name="GitHubPropertiesValidation" BeforeTargets="Build">
+		<Error Condition="$(GitHubLocation)==''" Text="Property 'GitHubLocation' is not set." />
+		<Error Condition="$(GitHubRepository)==''" Text="Property 'GitHubRepository' is not set." />
+		<Error Condition="$(GitHubRepository.Contains('/'))" Text="Property 'GitHubRepository' should be the repository name and not a URL or path." />
+	</Target>
+
+</Project>

@@ -2,9 +2,9 @@
 
 	<!-- Compilation Properties -->
 	<PropertyGroup Label="CompilationProperties">
-		<RootNamespace>$(ProjectName)</RootNamespace>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>$(ProjectName)</RootNamespace>
 		<OlympusImplicitUsings>enable</OlympusImplicitUsings>
 		<OlympusImplicitReferences>enable</OlympusImplicitReferences>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
@@ -13,6 +13,16 @@
 		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
 		<InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.Extensions.Configuration.Binder.SourceGeneration</InterceptorsNamespaces>
+	</PropertyGroup>
+
+	<!-- Compilation Properties for Aspire Application Package -->
+	<PropertyGroup Label="CompilationProperties" Condition="$(IsAspireApplicationPackage)">
+		<IsAspireSharedProject>true</IsAspireSharedProject>
+	</PropertyGroup>
+
+	<!-- Compilation Properties for Aspire Application Host -->
+	<PropertyGroup Label="CompilationProperties" Condition="$(IsAspireApplicationHost)">
+		<OutputType>Exe</OutputType>
 	</PropertyGroup>
 
 </Project>

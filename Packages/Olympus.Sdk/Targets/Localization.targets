@@ -16,21 +16,21 @@
 	</PropertyGroup>
 
 	<!-- Api Localization Properties -->
-	<PropertyGroup Label="LocalizationProperties" Condition="$(IsApiApplication) And $(Configuration)=='Migrations'">
+	<PropertyGroup Label="LocalizationProperties" Condition="$(IsApiApplication)=='true' And $(Configuration)=='Migrations'">
 		<InvariantTimezone>true</InvariantTimezone>
 		<InvariantGlobalization>false</InvariantGlobalization>
 		<NoWarn>$(NoWarn);CA1304;CA1305;CA1310;CA1311</NoWarn>
 	</PropertyGroup>
 
 	<!-- Web Localization Properties -->
-	<PropertyGroup Label="LocalizationProperties" Condition="$(IsWebApplication)">
+	<PropertyGroup Label="LocalizationProperties" Condition="$(IsWebApplication)=='true'">
 		<InvariantTimezone>false</InvariantTimezone>
 		<InvariantGlobalization>false</InvariantGlobalization>
 		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 	</PropertyGroup>
 
 	<!-- Hosts and Tests Embedded Resources -->
-	<ItemGroup Label="LocalizationEmbeddedResources" Condition="$(IsApplicationHost) Or $(IsTestsProject)">
+	<ItemGroup Label="LocalizationEmbeddedResources" Condition="$(IsApplicationHost)=='true' Or $(IsTestsProject)=='true'">
 		<EmbeddedResource Include="$(ProjectFolder)\Resources\*.resx">
 			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
 			<GenerateSource>false</GenerateSource>
@@ -38,7 +38,7 @@
 	</ItemGroup>
 
 	<!-- General Embedded Resources -->
-	<ItemGroup Label="LocalizationEmbeddedResources" Condition="!($(IsApplicationHost) Or $(IsTestsProject))">
+	<ItemGroup Label="LocalizationEmbeddedResources" Condition="!($(IsApplicationHost)=='true' Or $(IsTestsProject)=='true')">
 		<EmbeddedResource Include="$(ProjectFolder)\Resources\*.resx">
 			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
 			<CustomNamespace>$(RootNamespace.Replace('.Localization','')).Localization</CustomNamespace>

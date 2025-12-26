@@ -17,11 +17,12 @@ public abstract class Settings : ISettings {
 	private static void AddSource(IConfigurationBuilder builder, Assembly assembly, AppSettingsType type) {
 
 		var name = type.Name ?? string.Empty;
-		var stream = assembly.GetManifestResourceStream($"Settings.{name}.json");
+		var file = $"{name}Settings.json";
+		var stream = assembly.GetManifestResourceStream(file);
 		if (stream is not null) builder.AddJsonStream(stream);
 
-		var file = Path.Combine("Settings", $"{name}.json");
-		builder.AddJsonFile(file, true, true);
+		var path = Path.Combine("Properties", file);
+		builder.AddJsonFile(path, true, true);
 
 	}
 

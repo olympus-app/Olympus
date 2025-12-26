@@ -1,113 +1,66 @@
 <Project>
 
 	<!-- Project References for Core Archend Layer -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage) And $(IsArchendLayer)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsArchendLayer)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Core Backend Layer -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage) And $(IsBackendLayer)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsBackendLayer)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreArchendProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Core Frontend Layer -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage) And $(IsFrontendLayer)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsFrontendLayer)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreArchendProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Regular Archend Layer -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage) And $(IsArchendLayer)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsArchendLayer)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreArchendProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Regular Backend Layer -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage) And $(IsBackendLayer)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreBackendProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Backend" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsBackendLayer)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreBackendProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Regular Frontend Layer -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage) And $(IsFrontendLayer)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreFrontendProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Frontend" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsFrontendLayer)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreFrontendProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Aspire Application Package -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsAspireApplicationPackage)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsAspireApplicationPackage)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Aspire Application Host -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsAspireApplicationHost)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(UseApiHosting)" Include="$(ApiHostProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsAspireApplicationHost)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreProjectFile)" IsAspireProjectResource="false" />
+		<ProjectReference Condition="$(UseApiHosting)" Include="$(ApiHostProjectFile)" IsAspireProjectResource="true" />
 	</ItemGroup>
 
 	<!-- Project References for Api Application Package -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsApiApplicationPackage)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreBackendProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Backend" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsApiApplicationPackage)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreBackendProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Api Application Host -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsApiApplicationHost)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreBackendProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(ApiProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(AspireProjectFile)" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsApiApplicationHost)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(ApiProjectFile)" />
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(AspireProjectFile)" />
 		<ProjectReference Condition="$(UseWebHosting)" Include="$(WebHostProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Backend" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Api" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Aspire" />
 	</ItemGroup>
 
 	<!-- Project References for Web Application Package -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsWebApplicationPackage)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreFrontendProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Frontend" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsWebApplicationPackage)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(CoreFrontendProjectFile)" />
 	</ItemGroup>
 
 	<!-- Project References for Web Application Host -->
-	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsWebApplicationHost)">
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreArchendProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(CoreFrontendProjectFile)" />
-		<ProjectReference Condition="$(IsMainSolution)" Include="$(WebProjectFile)" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Archend" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Core.Frontend" />
-		<PackageReference Condition="!$(IsMainSolution)" Include="Olympus.Web" />
+	<ItemGroup Label="ProjectReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsWebApplicationHost)=='true'">
+		<ProjectReference Condition="$(IsMainSolution)=='true'" Include="$(WebProjectFile)" />
 	</ItemGroup>
 
 </Project>
