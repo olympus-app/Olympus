@@ -1,0 +1,17 @@
+<Project>
+
+	<!-- Targets Imports -->
+	<ImportGroup Label="TargetsImports">
+		<Import Project="..\Targets\Imports.targets" />
+		<Import Project="..\Targets\Version.targets" />
+		<Import Project="..\Targets\Configuration.targets" />
+		<Import Project="..\Targets\Containerization.targets" />
+		<Import Project="..\Targets\Documentation.targets" />
+		<Import Project="..\Targets\Localization.targets" />
+		<Import Project="..\Targets\References.targets" />
+		<Import Project="..\Targets\Packages.targets" />
+		<Import Project="..\Targets\Packing.targets" />
+		<Import Project="..\Targets\Usings.targets" />
+	</ImportGroup>
+
+</Project>

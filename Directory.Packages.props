@@ -1,13 +1,13 @@
 <Project>
 
-	<!-- Package Properties -->
-	<PropertyGroup Label="PackageProperties">
+	<!-- Packages Properties -->
+	<PropertyGroup Label="PackagesProperties">
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
 	</PropertyGroup>
 
-	<!-- Analyzers Versions -->
-	<ItemGroup Label="AnalyzersVersions">
+	<!-- Packages Versions -->
+	<ItemGroup Label="PackagesVersions">
 		<PackageVersion Include="Olympus.Analyzers" Version="*-*" />
 	</ItemGroup>
 

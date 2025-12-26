@@ -1,0 +1,9 @@
+<Project>
+
+	<!-- GitHub Properties -->
+	<PropertyGroup Label="GitHubProperties">
+		<GitHubOrganization>olympus-app</GitHubOrganization>
+		<GitHubRepository>olympus</GitHubRepository>
+	</PropertyGroup>
+
+</Project>

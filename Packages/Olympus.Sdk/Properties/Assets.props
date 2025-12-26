@@ -1,0 +1,20 @@
+<Project>
+
+	<!-- Assets Properties for Web Assembly -->
+	<PropertyGroup Label="AssetsProperties" Condition="$(IsWebApplicationHost)">
+		<WasmFingerprintAssets>false</WasmFingerprintAssets>
+	</PropertyGroup>
+
+	<!-- Service Worker Properties -->
+	<PropertyGroup Label="ServiceWorkerProperties" Condition="$(IsWebApplicationHost)">
+		<ServiceWorkerEnabled>true</ServiceWorkerEnabled>
+		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+		<ErrorOnDuplicatePublishAssets>true</ErrorOnDuplicatePublishAssets>
+	</PropertyGroup>
+
+	<!-- Service Worker Definitions -->
+	<ItemGroup Label="ServiceWorkerDefinitions" Condition="$(IsWebApplicationHost)">
+		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+	</ItemGroup>
+
+</Project>

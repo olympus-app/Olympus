@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Application Host Container Properties -->
+	<PropertyGroup Label="ContainerProperties" Condition="$(UseContainerization)=='true' Or $(IsApplicationHost)">
+		<LocalRegistry>Docker</LocalRegistry>
+		<PublishProfile>DefaultContainer</PublishProfile>
+		<PrivateRepositoryUrl>$(RepositoryUrl)</PrivateRepositoryUrl>
+		<ContainerTitle>$(ProjectTitle.Replace(' Host',''))</ContainerTitle>
+		<ContainerVersion>$(Version.ToLower())</ContainerVersion>
+		<ContainerImageTags>$(ContainerVersion);latest</ContainerImageTags>
+		<ContainerRepository>ghcr.io/$(GitHubOrganization)/$(ContainerTitle.Replace(' ','-').ToLower())</ContainerRepository>
+		<ContainerRuntimeIdentifier>linux-x64</ContainerRuntimeIdentifier>
+	</PropertyGroup>
+
+</Project>

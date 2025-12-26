@@ -1,0 +1,20 @@
+<Project>
+
+	<!-- Properties Imports -->
+	<ImportGroup Label="PropertiesImports">
+		<Import Project="..\Properties\Solution.props" />
+		<Import Project="..\Properties\Project.props" />
+		<Import Project="..\Properties\Framework.props" />
+		<Import Project="..\Properties\Application.props" />
+		<Import Project="..\Properties\Compilation.props" />
+		<Import Project="..\Properties\Version.props" />
+		<Import Project="..\Properties\GitHub.props" />
+		<Import Project="..\Properties\Metadata.props" />
+		<Import Project="..\Properties\Analyzers.props" />
+		<Import Project="..\Properties\References.props" />
+		<Import Project="..\Properties\Settings.props" />
+		<Import Project="..\Properties\Assets.props" />
+		<Import Project="..\Properties\Imports.props" />
+	</ImportGroup>
+
+</Project>

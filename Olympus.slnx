@@ -22,5 +22,6 @@
 	</Folder>
 	<Folder Name="/Packages/">
 		<Project Path="Packages/Olympus.Analyzers/Olympus.Analyzers.csproj" />
+		<Project Path="Packages/Olympus.Sdk/Olympus.Sdk.csproj" />
 	</Folder>
 </Solution>

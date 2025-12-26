@@ -1,0 +1,18 @@
+<Project>
+
+	<!-- Analyzers Properties -->
+	<PropertyGroup Label="AnalyzersProperties">
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+	</PropertyGroup>
+
+	<!-- Analyzers References -->
+	<ItemGroup Label="AnalyzersReferences" Condition="!$(IsAnalyzer)">
+		<PackageReference Include="Olympus.Analyzers" PrivateAssets="all" />
+		<PackageReference Include="Roslynator.Analyzers" PrivateAssets="all" />
+		<PackageReference Include="Roslynator.CodeFixes" PrivateAssets="all" />
+		<PackageReference Include="Roslynator.Formatting.Analyzers" PrivateAssets="all" />
+	</ItemGroup>
+
+</Project>

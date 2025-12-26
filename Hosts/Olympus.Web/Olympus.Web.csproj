@@ -1,16 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
-
-	<!-- Project Properties -->
-	<PropertyGroup Label="ProjectProperties">
-		<ProjectType>ApplicationPackage</ProjectType>
-		<ProjectLayer>Frontend</ProjectLayer>
-		<ApplicationType>Web</ApplicationType>
-	</PropertyGroup>
-
-	<!-- Project References -->
-	<ItemGroup Label="ProjectReferences">
-		<ProjectReference Include="$(CoreFrontendProjectFile)" />
-	</ItemGroup>
+<Project Sdk="Microsoft.NET.Sdk.Razor;Olympus.Sdk">
 
 	<!-- Package References -->
 	<ItemGroup Label="PackageReferences">

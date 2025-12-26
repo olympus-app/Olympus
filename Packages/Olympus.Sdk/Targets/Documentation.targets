@@ -1,0 +1,10 @@
+<Project>
+
+	<!-- Documentation Configuration -->
+	<PropertyGroup Label="Documentation">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateDependencyFile>true</GenerateDependencyFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
+
+</Project>

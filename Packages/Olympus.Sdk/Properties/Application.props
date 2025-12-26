@@ -1,0 +1,13 @@
+<Project>
+
+	<!-- Application Properties -->
+	<PropertyGroup Label="ApplicationProperties">
+		<AppName>Olympus</AppName>
+		<Company>Olympus</Company>
+		<Product>Olympus</Product>
+		<Authors>Éwerton Ferreira</Authors>
+		<Description>Olympus Monolith</Description>
+		<Copyright>© 2026 Éwerton Ferreira</Copyright>
+	</PropertyGroup>
+
+</Project>

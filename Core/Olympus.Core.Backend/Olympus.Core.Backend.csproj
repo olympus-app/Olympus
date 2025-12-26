@@ -1,15 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<!-- Project Properties -->
-	<PropertyGroup Label="ProjectProperties">
-		<ProjectType>CorePackage</ProjectType>
-		<ProjectLayer>Backend</ProjectLayer>
-	</PropertyGroup>
-
-	<!-- Project References -->
-	<ItemGroup Label="ProjectReferences">
-		<ProjectReference Include="$(CoreArchendProjectFile)" />
-	</ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk;Olympus.Sdk">
 
 	<!-- Package References -->
 	<ItemGroup Label="PackageReferences">

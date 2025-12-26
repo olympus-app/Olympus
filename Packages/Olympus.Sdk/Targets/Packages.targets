@@ -1,0 +1,18 @@
+<Project>
+
+	<!-- Packages Properties -->
+	<PropertyGroup Label="PackagesProperties">
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+
+	<!-- Packages References -->
+	<ItemGroup Label="PackagesReferences">
+		<PackageReference Include="ResxSourceGenerator" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Packages References for Hosts -->
+	<ItemGroup Label="PackagesReferences" Condition="$(IsApplicationHost)">
+		<PackageReference Include="ServiceScan.SourceGenerator" PrivateAssets="all" />
+	</ItemGroup>
+
+</Project>

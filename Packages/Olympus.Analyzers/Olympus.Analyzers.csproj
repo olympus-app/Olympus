@@ -1,14 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk;Olympus.Sdk">
 
 	<!-- Project Properties -->
 	<PropertyGroup Label="ProjectProperties">
-		<ProjectType>Package</ProjectType>
-		<ProjectLayer>None</ProjectLayer>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-		<DevelopmentDependency>true</DevelopmentDependency>
-		<NoWarn>$(NoWarn);RS2000;RS2007;NU5128</NoWarn>
+		<PackageType>Dependency</PackageType>
+		<IsRoslynComponent>true</IsRoslynComponent>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+		<NoWarn>$(NoWarn);CS8604;RS2000;RS2007;NU5128</NoWarn>
 		<NeutralLanguage>en</NeutralLanguage>
 	</PropertyGroup>
 
@@ -24,15 +25,8 @@
 
 	<!-- Embedded Resources -->
 	<ItemGroup Label="EmbeddedResources">
-		<EmbeddedResource Include="$(ProjectFolder)\Localization\*.resx" />
-		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-		<None Include="$(OutputPath)\pt\$(AssemblyName).resources.dll" Pack="true" PackagePath="analyzers/dotnet/cs/pt" Visible="false" />
-		<None Include="$(OutputPath)\es\$(AssemblyName).resources.dll" Pack="true" PackagePath="analyzers/dotnet/cs/es" Visible="false" />
-	</ItemGroup>
-
-	<!-- Project Usings -->
-	<ItemGroup Label="ProjectUsings">
-		<Using Include="Olympus.Analyzers.Localization" />
+		<None Include="$(OutputPath)\$(AssemblyName).dll" PackagePath="analyzers\dotnet\cs" Visible="false" Pack="true" />
+		<None Include="$(OutputPath)\**\$(AssemblyName).resources.dll" PackagePath="analyzers\dotnet\cs\" Visible="false" Pack="true" />
 	</ItemGroup>
 
 	<!-- Package Usings -->

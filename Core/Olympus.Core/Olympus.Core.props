@@ -19,7 +19,6 @@
 		<Using Include="Microsoft.Extensions.DependencyInjection" />
 		<Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
 		<Using Include="Microsoft.Extensions.Options" />
-		<Using Include="ServiceScan.SourceGenerator" />
 	</ItemGroup>
 
 </Project>

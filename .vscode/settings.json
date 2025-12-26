@@ -30,8 +30,6 @@
 		"**/*.config": false,
 		"**/*.csproj": false,
 		"**/*.md": false,
-		"**/*.props": false,
-		"**/*.targets": false,
 		"**/*.txt": false,
 		"**/.aspire": false,
 		"**/.assets": false,
@@ -44,7 +42,8 @@
 		".editorconfig": false,
 		".gitattributes": false,
 		".github": false,
-		".gitignore": false
+		".gitignore": false,
+		"global.json": false
 	},
 	"search.exclude": {
 		"**/Generated/**": true

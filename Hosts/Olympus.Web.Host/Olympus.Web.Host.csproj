@@ -1,16 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
-	<!-- Project Properties -->
-	<PropertyGroup Label="ProjectProperties">
-		<ProjectType>ApplicationHost</ProjectType>
-		<ProjectLayer>Frontend</ProjectLayer>
-		<ApplicationType>Web</ApplicationType>
-	</PropertyGroup>
-
-	<!-- Project References -->
-	<ItemGroup Label="ProjectReferences">
-		<ProjectReference Include="$(WebProjectFile)" />
-	</ItemGroup>
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly;Olympus.Sdk">
 
 	<!-- Package References -->
 	<ItemGroup Label="PackageReferences">

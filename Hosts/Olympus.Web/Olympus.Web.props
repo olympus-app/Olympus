@@ -1,10 +1,5 @@
 <Project>
 
-	<!-- Project Imports -->
-	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreFrontendProjectProps)" Condition="Exists('$(CoreFrontendProjectProps)')" />
-	</ImportGroup>
-
 	<!-- Project Usings -->
 	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Web" />
