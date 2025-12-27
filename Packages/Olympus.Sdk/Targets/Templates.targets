@@ -1,6 +1,6 @@
 <Project>
 
-	<!-- Api Application Host Service Registrations -->
+	<!-- Generate Api Application Host Service Registrations -->
 	<Target Name="GenerateApiHostServiceRegistrations" BeforeTargets="BeforeCompile;CoreCompile" Condition="$(IsApiApplicationHost)=='true'">
 
 		<ItemGroup>
@@ -20,7 +20,7 @@
 
 	</Target>
 
-	<!-- Web Application Host Service Registrations -->
+	<!-- Generate Web Application Host Service Registrations -->
 	<Target Name="GenerateWebHostServiceRegistrations" BeforeTargets="BeforeCompile;CoreCompile" Condition="$(IsWebApplicationHost)=='true'">
 
 		<ItemGroup>
@@ -40,7 +40,7 @@
 
 	</Target>
 
-	<!-- Web Application Host Manifest File  -->
+	<!-- Generate Web Application Host Manifest File  -->
 	<Target Name="GenerateWebHostManifestFile" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
 
 		<ProcessTemplate
@@ -60,7 +60,7 @@
 
 	</Target>
 
-	<!-- Web Application Host Index File  -->
+	<!-- Generate Web Application Host Index File  -->
 	<Target Name="GenerateWebHostIndexFile" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
 
 		<ProcessTemplate

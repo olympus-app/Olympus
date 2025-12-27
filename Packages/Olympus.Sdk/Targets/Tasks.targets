@@ -1,35 +1,17 @@
 <Project>
 
-	<!-- Process Template Task -->
-	<UsingTask TaskName="ProcessTemplate" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+	<!-- Assembly Properties -->
+	<PropertyGroup Label="AssemblyProperties">
+		<OlympusSdkAssembly>$(MSBuildThisFileDirectory)..\tasks\Olympus.Sdk.dll</OlympusSdkAssembly>
+	</PropertyGroup>
 
-		<ParameterGroup>
-			<InputFile ParameterType="System.String" Required="true" />
-			<OutputFile ParameterType="System.String" Required="true" />
-			<Replacements ParameterType="System.String[]" Required="false" />
-		</ParameterGroup>
+	<!-- ProcessTemplate Task -->
+	<UsingTask TaskName="Olympus.Sdk.Tasks.ProcessTemplate" AssemblyFile="$(OlympusSdkAssembly)" />
 
-		<Task>
-			<Using Namespace="System.IO" />
-			<Code Type="Fragment" Language="cs">
-        <![CDATA[
-          if (!File.Exists(InputFile)) {
-						Log.LogError("Template file not found: " + InputFile);
-						return false;
-          }
-          string content = File.ReadAllText(InputFile);
-          if (Replacements is not null) {
-            foreach (var item in Replacements) {
-							var parts = item.Split(new char[] { ',' }, 2);
-							if (parts.Length == 2) content = content.Replace(parts[0].Trim(), parts[1].Trim());
-            }
-          }
-          Directory.CreateDirectory(Path.GetDirectoryName(OutputFile));
-          File.WriteAllText(OutputFile, content);
-        ]]>
-      </Code>
-		</Task>
+	<!-- GenerateIco Task -->
+	<UsingTask TaskName="Olympus.Sdk.Tasks.GenerateIco" AssemblyFile="$(OlympusSdkAssembly)" />
 
-	</UsingTask>
+	<!-- GeneratePng Task -->
+	<UsingTask TaskName="Olympus.Sdk.Tasks.GeneratePng" AssemblyFile="$(OlympusSdkAssembly)" />
 
 </Project>

@@ -1,6 +1,126 @@
 <Project>
 
-	<!-- Web Application Host Assets  -->
+	<!-- AppIcon Properties for Application Hosts -->
+	<PropertyGroup Label="AppIconProperties" Condition="$(IsApplicationHost)=='true'">
+		<AppIconSourceFile>$(AssetsFolder)\Application\Icon (Base).svg</AppIconSourceFile>
+		<AppIconDestinationFile>$(IntermediateOutputPath)AppIcon.ico</AppIconDestinationFile>
+	</PropertyGroup>
+
+	<!-- AppIcon Properties for Web Application Host -->
+	<PropertyGroup Label="AppIconProperties" Condition="$(IsWebApplicationHost)=='true'">
+		<AppIconsOutputLocation>$(IntermediateOutputPath)wwwroot\icons\</AppIconsOutputLocation>
+		<AppLogosOutputLocation>$(IntermediateOutputPath)wwwroot\logos\</AppLogosOutputLocation>
+	</PropertyGroup>
+
+	<!-- AppIcon Definitions -->
+	<ItemGroup Label="AppIconDefinitions" Condition="$(IsWebApplicationHost)=='true'">
+		<AppIconAnySizes Include="16;24;32;44;48;64;128;180;192;256;512" />
+		<AppIconMaskSizes Include="128;180;192;256;512" />
+		<GeneratedIcons Include="$(AppIconsOutputLocation)icon-any.ico" />
+		<GeneratedIcons Include="@(AppIconAnySizes->'$(AppIconsOutputLocation)icon-%(Identity)-any.png')" />
+		<GeneratedIcons Include="@(AppIconMaskSizes->'$(AppIconsOutputLocation)icon-%(Identity)-maskable.png')" />
+	</ItemGroup>
+
+	<!-- Generate Application Icon -->
+	<Target Name="GenerateApplicationIcon" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsApplicationHost)=='true'" Inputs="$(AppIconSourceFile)" Outputs="$(AppIconDestinationFile)">
+
+		<GenerateIco
+			Condition="Exists('$(AppIconSourceFile)')"
+			InputFile="$(AppIconSourceFile)"
+			OutputFile="$(AppIconDestinationFile)"
+			Sizes="256;128;64;48;32;16"
+		/>
+
+		<PropertyGroup Condition="Exists('$(AppIconDestinationFile)')">
+			<ApplicationIcon>$(AppIconDestinationFile)</ApplicationIcon>
+		</PropertyGroup>
+
+	</Target>
+
+	<!-- Generate Web Application Host Icons -->
+	<Target Name="GenerateWebHostIcons" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'" Inputs="$(AppIconSourceFile)" Outputs="@(GeneratedIcons)">
+
+		<GenerateIco
+			Condition="Exists('$(AppIconSourceFile)')"
+			InputFile="$(AppIconSourceFile)"
+			OutputFile="$(AppIconsOutputLocation)icon-any.ico"
+			Sizes="48;32;16"
+		/>
+
+		<GeneratePng
+			Condition="Exists('$(AppIconSourceFile)')"
+			InputFile="$(AppIconSourceFile)"
+			OutputFile="$(AppIconsOutputLocation)icon-%(AppIconAnySizes.Identity)-any.png"
+			Width="%(AppIconAnySizes.Identity)"
+			Height="%(AppIconAnySizes.Identity)"
+			Scale="1.0"
+		/>
+
+		<GeneratePng
+			Condition="Exists('$(AppIconSourceFile)')"
+			InputFile="$(AppIconSourceFile)"
+			OutputFile="$(AppIconsOutputLocation)icon-%(AppIconMaskSizes.Identity)-maskable.png"
+			Width="%(AppIconMaskSizes.Identity)"
+			Height="%(AppIconMaskSizes.Identity)"
+			Scale="0.7"
+		/>
+
+		<ItemGroup>
+			<Content Include="@(GeneratedIcons)">
+				<Link>wwwroot\icons\%(Filename)%(Extension)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</Content>
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Copy Web Application Host Icons  -->
+	<Target Name="CopyWebHostIcons" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup>
+			<WebHostIconToCopy Include="$(AssetsFolder)\Application\Icon (Base).svg">
+				<DestPath>icons\icon-any.svg</DestPath>
+			</WebHostIconToCopy>
+			<WebHostIconToCopy Include="$(AssetsFolder)\Application\Icon (Dark).svg">
+				<DestPath>icons\icon-any-dark.svg</DestPath>
+			</WebHostIconToCopy>
+			<WebHostIconToCopy Include="$(AssetsFolder)\Application\Icon (Light).svg">
+				<DestPath>icons\icon-any-light.svg</DestPath>
+			</WebHostIconToCopy>
+			<WebHostIconToCopy Include="$(AssetsFolder)\Application\Logo Landscape (Dark).svg">
+				<DestPath>logos\logo-landscape-dark.svg</DestPath>
+			</WebHostIconToCopy>
+			<WebHostIconToCopy Include="$(AssetsFolder)\Application\Logo Landscape (Light).svg">
+				<DestPath>logos\logo-landscape-light.svg</DestPath>
+			</WebHostIconToCopy>
+			<WebHostIconToCopy Include="$(AssetsFolder)\Application\Logo Portrait (Dark).svg">
+				<DestPath>logos\logo-portrait-dark.svg</DestPath>
+			</WebHostIconToCopy>
+			<WebHostIconToCopy Include="$(AssetsFolder)\Application\Logo Portrait (Light).svg">
+				<DestPath>logos\logo-portrait-light.svg</DestPath>
+			</WebHostIconToCopy>
+		</ItemGroup>
+
+		<Copy
+			SourceFiles="@(WebHostIconToCopy)"
+			DestinationFiles="@(WebHostIconToCopy->'$(IntermediateOutputPath)wwwroot\%(DestPath)')"
+			SkipUnchangedFiles="true"
+		/>
+
+		<ItemGroup>
+			<Content Remove="@(WebHostIconToCopy->'wwwroot\%(DestPath)')" />
+			<_TempWebHostIcon Include="@(WebHostIconToCopy->'$(IntermediateOutputPath)wwwroot\%(DestPath)')">
+				<Link>wwwroot\%(DestPath)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</_TempWebHostIcon>
+			<Content Include="@(_TempWebHostIcon)" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Copy Web Application Host Assets  -->
 	<Target Name="CopyWebHostAssets" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
 
 		<ItemGroup>
