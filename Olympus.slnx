@@ -20,7 +20,8 @@
 		<Project Path="Hosts/Olympus.Web/Olympus.Web.csproj" />
 		<Project Path="Hosts/Olympus.Web.Host/Olympus.Web.Host.csproj" />
 	</Folder>
-	<Folder Name="/Services/">
-		<Project Path="Services/Olympus.Analyzers/Olympus.Analyzers.csproj" />
+	<Folder Name="/Packages/">
+		<Project Path="Packages/Olympus.Analyzers/Olympus.Analyzers.csproj" />
+		<Project Path="Packages/Olympus.Sdk/Olympus.Sdk.csproj" />
 	</Folder>
 </Solution>

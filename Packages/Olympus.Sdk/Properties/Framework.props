@@ -1,0 +1,14 @@
+<Project>
+
+	<!-- Framework Properties -->
+	<PropertyGroup Label="FrameworkProperties">
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<!-- Framework References for Aspire Application Package -->
+	<ItemGroup Label="FrameworkReferences" Condition="$(IsAspireApplicationPackage)">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+</Project>

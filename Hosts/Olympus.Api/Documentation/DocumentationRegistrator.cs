@@ -4,17 +4,17 @@ namespace Olympus.Api.Documentation;
 
 public static class DocumentationRegistrator {
 
-	public static void AddDocumentationServices(this WebApplicationBuilder builder, ApiOptions options) {
+	public static void AddDocumentationServices(this WebApplicationBuilder builder, AppHostInfo info) {
 
-		foreach (var module in options.ModulesOptions) {
+		foreach (var module in info.Modules) {
 
 			foreach (var version in module.ApiVersions) {
 
 				builder.Services.SwaggerDocument(options => {
 
 					options.DocumentSettings = settings => {
-						settings.DocumentName = $"{module.Name} - v{version}";
-						settings.Title = $"Olympus {module.Name} API";
+						settings.DocumentName = $"{module.ModuleName} - v{version}";
+						settings.Title = $"Olympus {module.ModuleName} API";
 						settings.Version = $"v{version}";
 					};
 
@@ -31,7 +31,7 @@ public static class DocumentationRegistrator {
 
 						var endpointModuleName = definition.EndpointType.GetModuleName();
 
-						if (!string.Equals(endpointModuleName, module.Name, StringComparison.OrdinalIgnoreCase)) return false;
+						if (!string.Equals(endpointModuleName, module.ModuleName, StringComparison.OrdinalIgnoreCase)) return false;
 
 						return definition.Version.Current == version;
 
@@ -48,9 +48,7 @@ public static class DocumentationRegistrator {
 	public static void MapDocumentation(this WebApplication app) {
 
 		app.UseSwaggerGen(
-			static options => {
-				options.Path = $"/{ApiDocs}/{ApiDocsTemplate}";
-			},
+			static options => options.Path = $"/{ApiDocs}/{ApiDocsTemplate}",
 			static options => {
 				options.Path = $"/{ApiDocs}";
 				options.DocumentPath = $"/{ApiDocs}/{ApiDocsTemplate}";

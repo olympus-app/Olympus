@@ -1,0 +1,185 @@
+<Project>
+
+	<!-- Assets Folders -->
+	<PropertyGroup Label="AssetsFolders" Condition="$(IsApplicationHost)=='true'">
+		<BaseAssetsFolder>$(MSBuildThisFileDirectory)..\assets</BaseAssetsFolder>
+		<LocalAssetsFolder Condition="$(AssetsFolder)!=''">$(AssetsFolder)</LocalAssetsFolder>
+		<LocalAssetsFolder Condition="$(AssetsFolder)==''">$(SolutionFolder)\.assets</LocalAssetsFolder>
+	</PropertyGroup>
+
+	<!-- AppIcon Resolution -->
+	<PropertyGroup Label="AppIconResolution" Condition="$(IsApplicationHost)=='true'">
+		<AppIconSourceFile Condition="Exists('$(BaseAssetsFolder)\icons\icon.svg')">$(BaseAssetsFolder)\icons\icon.svg</AppIconSourceFile>
+		<AppIconSourceFile Condition="Exists('$(LocalAssetsFolder)\icons\icon.svg')">$(LocalAssetsFolder)\icons\icon.svg</AppIconSourceFile>
+		<AppIconDestinationFile>$(IntermediateOutputPath)AppIcon.ico</AppIconDestinationFile>
+		<ApplicationIcon>$(AppIconDestinationFile)</ApplicationIcon>
+	</PropertyGroup>
+
+	<!-- AppIcon Definitions -->
+	<ItemGroup Label="AppIconDefinitions" Condition="$(IsWebApplicationHost)=='true'">
+
+		<AppIconAnySizes Include="16;24;32;44;48;64;128;180;192;256;512" />
+		<AppIconMaskableSizes Include="128;180;192;256;512" />
+
+		<GeneratedIcons Include="@(AppIconAnySizes->'$(IntermediateOutputPath)wwwroot\icons\icon-%(Identity)-any.png')" />
+		<GeneratedIcons Include="@(AppIconMaskableSizes->'$(IntermediateOutputPath)wwwroot\icons\icon-%(Identity)-maskable.png')" />
+
+	</ItemGroup>
+
+	<!-- Themes Definitions -->
+	<ItemGroup Label="ThemesDefinitions" Condition="$(IsWebApplicationHost)=='true'">
+
+		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\light-base.css" />
+		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\light-custom.css" />
+		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\common.css" />
+		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\global.css" />
+		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\web.css" />
+
+		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\dark-base.css" />
+		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\dark-custom.css" />
+		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\common.css" />
+		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\global.css" />
+		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\web.css" />
+
+		<GeneratedThemes Include="$(IntermediateOutputPath)wwwroot\styles\light.css" />
+		<GeneratedThemes Include="$(IntermediateOutputPath)wwwroot\styles\dark.css" />
+
+	</ItemGroup>
+
+	<!-- Scripts Definitions -->
+	<ItemGroup Label="ScriptsDefinitions" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ScriptsInputs Include="$(BaseAssetsFolder)\scripts\*.js" />
+		<GeneratedScripts Include="$(IntermediateOutputPath)wwwroot\scripts.js" />
+
+	</ItemGroup>
+
+	<!-- Generate Application Host Icon -->
+	<Target Name="GenerateApplicationIcon" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="$(AppIconSourceFile)" Outputs="$(AppIconDestinationFile)" Condition="$(IsApplicationHost)=='true'">
+
+		<GenerateIco InputFile="$(AppIconSourceFile)" OutputFile="$(AppIconDestinationFile)" Sizes="256;128;64;48;32;16" />
+
+	</Target>
+
+	<!-- Register Application Host Icon -->
+	<Target Name="RegisterApplicationIcon" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateApplicationIcon" Condition="$(IsApplicationHost)=='true'">
+
+		<ItemGroup Label="ApplicationIcon">
+			<FileWrites Include="$(AppIconDestinationFile)" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Generate Web Application Host Icons -->
+	<Target Name="GenerateWebHostIcons" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="$(AppIconSourceFile)" Outputs="@(GeneratedIcons)" Condition="$(IsWebApplicationHost)=='true'">
+
+		<GeneratePng InputFile="$(AppIconSourceFile)" OutputFile="$(IntermediateOutputPath)wwwroot\icons\icon-%(AppIconAnySizes.Identity)-any.png" Width="%(AppIconAnySizes.Identity)" Height="%(AppIconAnySizes.Identity)" BackgroundColor="$(WebAppIconAnyBackgroundColor)" Scale="$(WebAppIconAnyScale)" />
+		<GeneratePng InputFile="$(AppIconSourceFile)" OutputFile="$(IntermediateOutputPath)wwwroot\icons\icon-%(AppIconMaskableSizes.Identity)-maskable.png" Width="%(AppIconMaskableSizes.Identity)" Height="%(AppIconMaskableSizes.Identity)" BackgroundColor="$(WebAppIconMaskableBackgroundColor)" Scale="$(WebAppIconMaskableScale)" />
+
+	</Target>
+
+	<!-- Register Web Application Host Icons -->
+	<Target Name="RegisterWebHostIcons" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateWebHostIcons" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup Label="WebHostIcons">
+			<Content Include="@(GeneratedIcons)">
+				<Link>wwwroot\icons\%(Filename)%(Extension)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</Content>
+			<FileWrites Include="@(GeneratedIcons)" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Generate Web Application Host Themes -->
+	<Target Name="GenerateWebHostThemes" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="@(LightThemeInputs);@(DarkThemeInputs)" Outputs="@(GeneratedThemes)" Condition="$(IsWebApplicationHost)=='true'">
+
+		<BundleCss InputFiles="@(LightThemeInputs)" OutputFile="$(IntermediateOutputPath)wwwroot\styles\light.css" />
+		<BundleCss InputFiles="@(DarkThemeInputs)" OutputFile="$(IntermediateOutputPath)wwwroot\styles\dark.css" />
+
+	</Target>
+
+	<!-- Register Web Application Host Themes -->
+	<Target Name="RegisterWebHostThemes" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateWebHostThemes" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup>
+			<Content Include="@(GeneratedThemes)">
+				<Link>wwwroot\styles\%(Filename)%(Extension)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</Content>
+			<FileWrites Include="@(GeneratedThemes)" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Generate Web Application Host Scripts -->
+	<Target Name="GenerateWebHostScripts" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="@(ScriptsInputs)" Outputs="@(GeneratedScripts)" Condition="$(IsWebApplicationHost)=='true'">
+
+		<BundleJs InputFiles="@(ScriptsInputs)" OutputFile="$(IntermediateOutputPath)wwwroot\scripts.js" />
+
+	</Target>
+
+	<!-- Register Web Application Host Scripts -->
+	<Target Name="RegisterWebHostScripts" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateWebHostScripts" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup>
+			<Content Include="@(GeneratedScripts)">
+				<Link>wwwroot\%(Filename)%(Extension)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</Content>
+			<FileWrites Include="@(GeneratedScripts)" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Link Web Application Host Assets -->
+	<Target Name="LinkWebHostAssets" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup Label="WebHostBaseAssets">
+			<WebHostBaseAssets Include="$(BaseAssetsFolder)\**\*" Exclude="$(BaseAssetsFolder)\modules\**\*;$(BaseAssetsFolder)\styles\**\*;$(BaseAssetsFolder)\scripts\**\*" />
+			<WebHostBaseAssets Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\**\*" Condition="@(OlympusModule)!=''" />
+		</ItemGroup>
+
+		<ItemGroup Label="WebHostBaseAssetsRelativeLinkPath">
+			<WebHostBaseAssets Update="@(WebHostBaseAssets)">
+				<RelativeLinkPath>$([MSBuild]::MakeRelative($(BaseAssetsFolder), %(Identity)))</RelativeLinkPath>
+			</WebHostBaseAssets>
+		</ItemGroup>
+
+		<ItemGroup Label="WebHostBaseAssetsExclusions">
+			<WebHostBaseAssets Remove="@(WebHostBaseAssets)" Condition="Exists('$(LocalAssetsFolder)\%(RelativeLinkPath)')" />
+		</ItemGroup>
+
+		<ItemGroup Label="WebHostLocalAssets">
+			<WebHostLocalAssets Include="$(LocalAssetsFolder)\**\*" Exclude="$(LocalAssetsFolder)\modules\**\*" />
+			<WebHostLocalAssets Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\**\*" Condition="@(OlympusModule)!=''" />
+		</ItemGroup>
+
+		<ItemGroup Label="WebHostLocalAssetsRelativeLinkPath">
+			<WebHostLocalAssets Update="@(WebHostLocalAssets)">
+				<RelativeLinkPath>$([MSBuild]::MakeRelative($(LocalAssetsFolder), %(Identity)))</RelativeLinkPath>
+			</WebHostLocalAssets>
+		</ItemGroup>
+
+		<ItemGroup Label="WebHostAssetsBundle">
+			<WebHostAssetsBundle Include="@(WebHostBaseAssets);@(WebHostLocalAssets)" />
+		</ItemGroup>
+
+		<ItemGroup Label="WebHostAssetsBundleToLink">
+			<WebHostAssetsBundleToLink Include="@(WebHostAssetsBundle)">
+				<Link>wwwroot\%(RelativeLinkPath)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</WebHostAssetsBundleToLink>
+		</ItemGroup>
+
+		<ItemGroup Label="WebHostAssetsBundleContent">
+			<Content Include="@(WebHostAssetsBundleToLink)" />
+		</ItemGroup>
+
+	</Target>
+
+</Project>

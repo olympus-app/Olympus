@@ -1,0 +1,86 @@
+<Project>
+
+	<!-- Project Imports for Core Archend Layer -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsArchendLayer)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Core Backend Layer -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsBackendLayer)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Core Frontend Layer -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsFrontendLayer)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Regular Archend Layer -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsArchendLayer)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Regular Backend Layer -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsBackendLayer)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+		<Import Project="$(CoreBackendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreBackendProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Regular Frontend Layer -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsFrontendLayer)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+		<Import Project="$(CoreFrontendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreFrontendProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Aspire Application Package -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsAspireApplicationPackage)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Aspire Application Host -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsAspireApplicationHost)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Api Application Package -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsApiApplicationPackage)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+		<Import Project="$(CoreBackendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreBackendProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Api Application Host -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsApiApplicationHost)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+		<Import Project="$(CoreBackendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreBackendProjectProps)')" />
+		<Import Project="$(ApiProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(ApiProjectProps)')" />
+		<Import Project="$(AspireProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(AspireProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Web Application Package -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsWebApplicationPackage)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+		<Import Project="$(CoreFrontendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreFrontendProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Project Imports for Web Application Host -->
+	<ImportGroup Label="ProjectImports" Condition="$(OlympusImplicitReferences)=='enable' And $(IsWebApplicationHost)=='true'">
+		<Import Project="$(CoreProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreProjectProps)')" />
+		<Import Project="$(CoreArchendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreArchendProjectProps)')" />
+		<Import Project="$(CoreFrontendProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(CoreFrontendProjectProps)')" />
+		<Import Project="$(WebProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(WebProjectProps)')" />
+	</ImportGroup>
+
+	<!-- Import Group -->
+	<ImportGroup Label="ProjectImports">
+		<Import Project="$(ProjectProps)" Condition="$(IsMainSolution)=='true' And Exists('$(ProjectProps)')" />
+	</ImportGroup>
+
+</Project>

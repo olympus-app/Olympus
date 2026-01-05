@@ -1,0 +1,9 @@
+<Project>
+
+	<!-- Packages Usings for Application Hosts -->
+	<ItemGroup Label="PackagesUsings" Condition="$(OlympusImplicitUsings)=='enable' And $(IsApplicationHost)=='true'">
+		<Using Include="ServiceScan.SourceGenerator" />
+		<Using Include="System.Reflection" />
+	</ItemGroup>
+
+</Project>

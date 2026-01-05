@@ -6,9 +6,11 @@ public sealed class WebHost {
 
 		var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
+		var info = new AppHostInfo(typeof(WebHost).Assembly);
+
 		builder.AddSettings();
 
-		builder.AddModules();
+		builder.AddModules(info);
 
 		builder.AddServices();
 

@@ -8,7 +8,7 @@ public static class AppModuleOptionsExtensions {
 
 		public IAppModuleOptions? GetByName(string name) {
 
-			return options.FirstOrDefault(options => string.Equals(name, options.Name, StringComparison.OrdinalIgnoreCase));
+			return options.FirstOrDefault(options => string.Equals(name, options.ModuleName, StringComparison.OrdinalIgnoreCase));
 
 		}
 

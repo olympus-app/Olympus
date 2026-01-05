@@ -67,7 +67,7 @@ public class StorageService(IMinioClient client) : IStorageService {
 
 			try {
 
-				var args = new GetObjectArgs().WithBucket(storageBucket).WithObject(storagePath).WithCallbackStream(async (minioStream, token) => { await minioStream.CopyToAsync(pipe.Writer.AsStream(), token); });
+				var args = new GetObjectArgs().WithBucket(storageBucket).WithObject(storagePath).WithCallbackStream(async (minioStream, token) => await minioStream.CopyToAsync(pipe.Writer.AsStream(), token));
 
 				await client.GetObjectAsync(args, cancellationToken);
 

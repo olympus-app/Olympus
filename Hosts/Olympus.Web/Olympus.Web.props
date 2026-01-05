@@ -1,21 +1,2 @@
 <Project>
-
-	<!-- Project Imports -->
-	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreFrontendProjectProps)" Condition="Exists('$(CoreFrontendProjectProps)')" />
-	</ImportGroup>
-
-	<!-- Project Usings -->
-	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
-		<Using Include="Olympus.Web" />
-		<Using Include="Olympus.Web.Radzen" />
-		<Using Include="Olympus.Web.Services" />
-	</ItemGroup>
-
-	<!-- Package Usings -->
-	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
-		<Using Include="Microsoft.AspNetCore.Components.Web" />
-		<Using Include="Microsoft.AspNetCore.Components.WebAssembly.Hosting" />
-	</ItemGroup>
-
 </Project>

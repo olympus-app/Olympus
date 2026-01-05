@@ -1,8 +1,8 @@
 namespace Olympus.Core.Archend;
 
-public static class CoreRoutes {
+public class CoreRoutes() : AppModuleRoutes(AppModuleType.Core, AppModuleCategory.Infrastructure) {
 
-	public const string Base = CoreModule.RoutesPath;
+	public const string Base = CoreModule.Route;
 
 	public static class Users {
 

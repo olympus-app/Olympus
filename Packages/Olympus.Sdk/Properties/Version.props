@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Version Attributes -->
+	<ItemGroup Label="VersionAttributes">
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>BuildNumber</_Parameter1>
+			<_Parameter2>$(BuildNumber)</_Parameter2>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>BuildNumberForced</_Parameter1>
+			<_Parameter2>$(BuildNumberForced)</_Parameter2>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+</Project>

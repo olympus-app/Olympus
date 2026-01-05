@@ -1,3 +1,3 @@
 namespace Olympus.Core.Frontend.Modules;
 
-public abstract class AppModuleFrontendLayer : AppModuleLayer, IAppModuleFrontendLayer { }
+public abstract class AppModuleFrontendLayer(AppModuleType type, AppModuleCategory category) : AppModuleLayer(type, category), IAppModuleFrontendLayer { }

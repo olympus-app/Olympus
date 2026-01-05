@@ -1,0 +1,90 @@
+<Project>
+
+	<!-- Packages References -->
+	<ItemGroup Label="PackagesReferences">
+		<PackageReference Include="ResxSourceGenerator" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Packages References for Core Archend Layer -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsArchendLayer)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core" />
+	</ItemGroup>
+
+	<!-- Packages References for Core Backend Layer -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsBackendLayer)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core.Archend" />
+	</ItemGroup>
+
+	<!-- Packages References for Core Frontend Layer -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsFrontendLayer)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core.Archend" />
+	</ItemGroup>
+
+	<!-- Packages References for Regular Archend Layer -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsArchendLayer)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core.Archend" />
+	</ItemGroup>
+
+	<!-- Packages References for Regular Backend Layer -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsBackendLayer)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core.Backend" />
+	</ItemGroup>
+
+	<!-- Packages References for Regular Frontend Layer -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsRegularModulePackage)=='true' And $(IsFrontendLayer)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core.Frontend" />
+	</ItemGroup>
+
+	<!-- Packages References for Aspire Application Package -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsAspireApplicationPackage)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core" />
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" />
+		<PackageReference Include="Microsoft.Extensions.ServiceDiscovery" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+		<PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" />
+	</ItemGroup>
+
+	<!-- Packages References for Aspire Application Host -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsAspireApplicationHost)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core" />
+		<PackageReference Include="Aspire.Hosting.Docker" />
+		<PackageReference Include="Aspire.Hosting.PostgreSQL" />
+		<PackageReference Include="Aspire.Hosting.Redis" />
+		<PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
+	</ItemGroup>
+
+	<!-- Packages References for Api Application Package -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsApiApplicationPackage)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core.Backend" />
+	</ItemGroup>
+
+	<!-- Packages References for Api Application Host -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsApiApplicationHost)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Api" />
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Aspire" />
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="@(OlympusModule->'Olympus.%(Identity).Backend')" />
+		<PackageReference Condition="$(Configuration)=='Migrations'" Include="Microsoft.EntityFrameworkCore.Design" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
+		<PackageReference Condition="$(Configuration)=='Migrations'" Include="Microsoft.EntityFrameworkCore.Tools" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
+		<PackageReference Include="ServiceScan.SourceGenerator" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Packages References for Web Application Package -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsWebApplicationPackage)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core.Frontend" />
+	</ItemGroup>
+
+	<!-- Packages References for Web Application Host -->
+	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsWebApplicationHost)=='true'">
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Web" />
+		<PackageReference Condition="$(IsMainSolution)=='false'" Include="@(OlympusModule->'Olympus.%(Identity).Frontend')" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
+		<PackageReference Include="ServiceScan.SourceGenerator" PrivateAssets="all" />
+	</ItemGroup>
+
+</Project>

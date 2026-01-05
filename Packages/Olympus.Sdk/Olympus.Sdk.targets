@@ -1,0 +1,24 @@
+<Project>
+
+	<!-- Targets Imports -->
+	<ImportGroup Label="TargetsImports">
+		<Import Project="..\targets\Solution.targets" />
+		<Import Project="..\targets\Application.targets" />
+		<Import Project="..\targets\Version.targets" />
+		<Import Project="..\targets\GitHub.targets" />
+		<Import Project="..\targets\Imports.targets" />
+		<Import Project="..\targets\Configuration.targets" />
+		<Import Project="..\targets\Containerization.targets" />
+		<Import Project="..\targets\Documentation.targets" />
+		<Import Project="..\targets\Localization.targets" />
+		<Import Project="..\targets\References.targets" />
+		<Import Project="..\targets\Packages.targets" />
+		<Import Project="..\targets\Packing.targets" />
+		<Import Project="..\targets\Usings.targets" />
+		<Import Project="..\targets\Tasks.targets" />
+		<Import Project="..\targets\Assets.targets" />
+		<Import Project="..\targets\Templates.targets" />
+		<Import Project="..\targets\Settings.targets" />
+	</ImportGroup>
+
+</Project>

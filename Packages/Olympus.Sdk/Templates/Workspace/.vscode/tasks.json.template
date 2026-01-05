@@ -1,0 +1,123 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Containerize",
+			"command": "dotnet publish \"{{APIHOSTPATH}}\" --configuration Release /t:PublishContainer",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Aspire: Publish",
+			"command": "aspire publish \"{{ASPIREHOSTPATH}}\" --output-path \"{{ASPIREHOSTDIR}}/Publish\"",
+			"problemMatcher": "$msCompile",
+			"icon": {
+				"id": "file-text",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Docker: Compose Up",
+			"command": "docker compose --env-file .env.Test up --detach",
+			"problemMatcher": [],
+			"options": {
+				"cwd": "{{ASPIREHOSTDIR}}/Publish"
+			},
+			"icon": {
+				"id": "server",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Docker: Compose Down",
+			"command": "docker compose --env-file .env.Test down",
+			"problemMatcher": [],
+			"options": {
+				"cwd": "{{ASPIREHOSTDIR}}/Publish"
+			},
+			"icon": {
+				"id": "server",
+				"color": "terminal.ansiMagenta"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Docker: Push Images",
+			"command": "${input:confirm}docker images --format '{{.Repository}}' | ? { $_ -like 'ghcr.io/olympus-app/olympus-*' } | sort -u | % { docker push $_ --all-tags }",
+			"problemMatcher": [],
+			"icon": {
+				"id": "server",
+				"color": "terminal.ansiMagenta"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Add Migration",
+			"command": "dotnet ef migrations add ${input:migration} --output-dir Migrations --project \"{{APIHOSTPATH}}\" --configuration Migrations",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Remove Last Migration",
+			"command": "${input:confirm}dotnet ef migrations remove --project \"{{APIHOSTPATH}}\" --configuration Migrations",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Generate Database",
+			"command": "${input:confirm}dotnet ef dbcontext optimize --output-dir Database --namespace {{APIHOSTNAME}}.Database --project \"{{APIHOSTPATH}}\" --configuration Migrations",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Update Database",
+			"command": "${input:confirm}dotnet ef database update --project \"{{APIHOSTPATH}}\" --configuration Migrations",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "EF Core: Rollback Database",
+			"command": "${input:confirm}dotnet ef database update ${input:migration} --project \"{{APIHOSTPATH}}\" --configuration Migrations",
+			"problemMatcher": [],
+			"icon": {
+				"id": "database",
+				"color": "terminal.ansiMagenta"
+			}
+		}
+	],
+	"inputs": [
+		{
+			"id": "migration",
+			"type": "promptString",
+			"description": "Enter migration name:"
+		},
+		{
+			"id": "confirm",
+			"type": "promptString",
+			"description": "Confirm action?"
+		}
+	]
+}

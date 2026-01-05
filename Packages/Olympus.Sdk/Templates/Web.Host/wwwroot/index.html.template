@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<base href="/" />
+	<title>{{APPNAME}}</title>
+	<meta charset="utf-8" />
+	<meta name="theme-color" content="{{THEMECOLOR}}">
+	<meta name="color-scheme" content="light dark" />
+	<meta name="application-name" content="{{APPNAME}}">
+	<meta name="author" content="{{AUTHORS}}" />
+	<meta name="description" content="{{DESCRIPTION}}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="manifest" href="manifest.webmanifest" />
+	<link rel="icon" href="icons/icon.svg" type="image/svg+xml" sizes="any">
+	<link rel="icon" href="icons/icon-16-any.png" type="image/png" sizes="16x16">
+	<link rel="icon" href="icons/icon-24-any.png" type="image/png" sizes="24x24">
+	<link rel="icon" href="icons/icon-32-any.png" type="image/png" sizes="32x32">
+	<link rel="icon" href="icons/icon-44-any.png" type="image/png" sizes="44x44">
+	<link rel="icon" href="icons/icon-48-any.png" type="image/png" sizes="48x48">
+	<link rel="icon" href="icons/icon-64-any.png" type="image/png" sizes="64x64">
+	<link rel="icon" href="icons/icon-128-any.png" type="image/png" sizes="128x128">
+	<link rel="icon" href="icons/icon-192-any.png" type="image/png" sizes="192x192">
+	<link rel="apple-touch-icon" href="icons/icon-180-maskable.png" sizes="180x180" />
+	<link rel="apple-touch-icon" href="icons/icon-192-maskable.png" sizes="192x192" />
+	<link rel="apple-touch-icon" href="icons/icon-512-maskable.png" sizes="512x512" />
+	<link rel="stylesheet" href="styles/light.css" id="theme-light" />
+	<link rel="stylesheet" href="styles/dark.css" id="theme-dark" disabled />
+</head>
+
+<body>
+	<div id="app">
+		<svg class="loading-progress">
+			<circle r="40%" cx="50%" cy="50%" />
+			<circle r="40%" cx="50%" cy="50%" />
+		</svg>
+	</div>
+	<div id="blazor-error-ui">
+		An unhandled error has occurred.
+		<a href="." class="reload">Reload</a>
+		<span class="dismiss">🗙</span>
+	</div>
+	<script src="_framework/blazor.webassembly.js"></script>
+	<script>navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none' });</script>
+	<script src="scripts.js"></script>
+</body>
+
+</html>

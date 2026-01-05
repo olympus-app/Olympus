@@ -22,9 +22,7 @@ public static class WebClientRegistrator {
 			&& !context.Request.Path.StartsWithSegments(apiPath, StringComparison.OrdinalIgnoreCase),
 			static clientBranch => {
 				clientBranch.UseRouting();
-				clientBranch.UseEndpoints(static endpoints => {
-					endpoints.MapFallbackToFile(Routes.Index);
-				});
+				clientBranch.UseEndpoints(static endpoints => endpoints.MapFallbackToFile(Routes.Index));
 			}
 		);
 

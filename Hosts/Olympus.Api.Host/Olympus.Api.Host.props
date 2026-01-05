@@ -1,15 +1,2 @@
 <Project>
-
-	<!-- Project Imports -->
-	<ImportGroup Label="ProjectImports">
-		<Import Project="$(ApiProjectProps)" Condition="Exists('$(ApiProjectProps)')" />
-		<Import Project="$(AspireProjectProps)" Condition="Exists('$(AspireProjectProps)')" />
-	</ImportGroup>
-
-	<!-- Project Usings -->
-	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
-		<Using Include="Olympus.Api.Host" />
-		<Using Include="Olympus.Api.Host.Services" />
-	</ItemGroup>
-
 </Project>

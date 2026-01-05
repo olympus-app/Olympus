@@ -1,0 +1,12 @@
+{
+	"AllowedHosts": "*",
+	"Logging": {
+		"LogLevel": {
+			"Default": "Warning",
+			"System": "Warning",
+			"Microsoft": "Warning",
+			"System.Net.Http": "Warning",
+			"System.Net.Http.HttpClient": "Warning"
+		}
+	}
+}

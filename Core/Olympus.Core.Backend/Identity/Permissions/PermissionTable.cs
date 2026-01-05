@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace Olympus.Core.Backend.Identity;
 
-public class PermissionTable(IEnumerable<IAppModuleOptions> modules) : EntityTable<Permission> {
+public class PermissionTable(IEnumerable<IAppModulePermissions> modules) : EntityTable<Permission> {
 
 	public const string TableName = "Permissions";
 
@@ -25,13 +25,11 @@ public class PermissionTable(IEnumerable<IAppModuleOptions> modules) : EntityTab
 
 	}
 
-	public static List<Permission> GetSeed(IAppModuleOptions module) {
+	public static List<Permission> GetSeed(IAppModulePermissions module) {
 
 		var permissions = new List<Permission>();
 
-		if (module.Permissions is null) return permissions;
-
-		var extracted = ExtractPermissions(module.Permissions, module.Name);
+		var extracted = ExtractPermissions(module.GetType(), module.ModuleName);
 
 		permissions.AddRange(extracted);
 
@@ -39,15 +37,13 @@ public class PermissionTable(IEnumerable<IAppModuleOptions> modules) : EntityTab
 
 	}
 
-	public static List<Permission> GetSeed(IEnumerable<IAppModuleOptions> modules) {
+	public static List<Permission> GetSeed(IEnumerable<IAppModulePermissions> modules) {
 
 		var permissions = new List<Permission>();
 
 		foreach (var module in modules) {
 
-			if (module.Permissions is null) continue;
-
-			var extracted = ExtractPermissions(module.Permissions, module.Name);
+			var extracted = ExtractPermissions(module.GetType(), module.ModuleName);
 
 			permissions.AddRange(extracted);
 

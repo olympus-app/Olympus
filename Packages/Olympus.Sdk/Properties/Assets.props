@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Assets Properties for Web Application Host -->
+	<PropertyGroup Label="AssetsProperties" Condition="$(IsWebApplicationHost)=='true'">
+		<WasmFingerprintAssets>true</WasmFingerprintAssets>
+		<ErrorOnDuplicatePublishAssets>true</ErrorOnDuplicatePublishAssets>
+	</PropertyGroup>
+
+	<!-- Service Worker Properties for Web Application Host -->
+	<PropertyGroup Label="ServiceWorkerProperties" Condition="$(IsWebApplicationHost)=='true'">
+		<ServiceWorkerEnabled>true</ServiceWorkerEnabled>
+		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+	</PropertyGroup>
+
+</Project>

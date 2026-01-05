@@ -6,7 +6,7 @@ public static class ModelBuilderExtensions {
 
 	extension(ModelBuilder builder) {
 
-		public void ApplyEntityConfigurations(DatabaseFacade database, IEnumerable<IEntityTable> tables, AppSettings settings) {
+		public void ApplyEntityConfigurations(DatabaseFacade database, IEnumerable<IEntityTable> tables, CultureSettings settings) {
 
 			using (new AppLocalizationScope(settings)) {
 

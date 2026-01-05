@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<PackageType>Dependency</PackageType>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsRoslynComponent>true</IsRoslynComponent>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+		<NoWarn>$(NoWarn);CS8604;RS2000;RS2007;NU5128</NoWarn>
+		<NeutralLanguage>en</NeutralLanguage>
+	</PropertyGroup>
+
+	<!-- Editor Configuration -->
+	<ItemGroup Label="EditorConfiguration">
+		<EditorConfigFiles Include="..\Olympus.Sdk\Configuration\Olympus.globalconfig" />
+	</ItemGroup>
+
+	<!-- Embbeded Resources -->
+	<ItemGroup Label="EmbbededResources">
+		<EmbeddedResource Include="Localization\*.resx" />
+	</ItemGroup>
+
+	<!-- Packages References -->
+	<ItemGroup Label="PackagesReferences">
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" PrivateAssets="all" />
+		<PackageReference Include="Roslynator.Analyzers" />
+		<PackageReference Include="Roslynator.CodeFixes" />
+		<PackageReference Include="Roslynator.Formatting.Analyzers" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+		<Using Include="Microsoft.CodeAnalysis" />
+		<Using Include="Microsoft.CodeAnalysis.CSharp" />
+		<Using Include="Microsoft.CodeAnalysis.CSharp.Syntax" />
+		<Using Include="Microsoft.CodeAnalysis.CodeActions" />
+		<Using Include="Microsoft.CodeAnalysis.CodeFixes" />
+		<Using Include="Microsoft.CodeAnalysis.Diagnostics" />
+		<Using Include="Microsoft.CodeAnalysis.Rename" />
+		<Using Include="System.Collections.Immutable" />
+		<Using Include="System.Composition" />
+	</ItemGroup>
+
+	<!-- Add Package Files -->
+	<Target Name="AddPackageFiles" BeforeTargets="GenerateNuspec">
+		<ItemGroup>
+			<_PackageFiles Include="$(OutputPath)$(AssemblyName).dll" PackagePath="analyzers\dotnet\cs" Visible="false" />
+			<_PackageFiles Include="$(OutputPath)\*\$(AssemblyName).resources.dll" PackagePath="analyzers\dotnet\cs" Visible="false" />
+		</ItemGroup>
+	</Target>
+
+</Project>

@@ -1,0 +1,9 @@
+<Project>
+
+	<!-- References Properties -->
+	<PropertyGroup Label="ReferencesProperties">
+		<UseApiHosting>true</UseApiHosting>
+		<UseWebHosting>true</UseWebHosting>
+	</PropertyGroup>
+
+</Project>

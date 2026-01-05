@@ -1,0 +1,19 @@
+{
+	"Author": {
+		"Name": "Éwerton Ferreira",
+		"Email": "ewerton@olympus.app.br",
+		"Phone": "(00) 98765-4321"
+	},
+	"Company": {
+		"Name": "Olympus",
+		"Domain": "olympus.app.br",
+		"WebSite": "https://www.olympus.app.br"
+	},
+	"License": {
+		"Name": "All Rights Reserved",
+		"Link": "https://olympus.app.com/license"
+	},
+	"Culture": {
+		"DefaultCulture": "pt-BR"
+	}
+}

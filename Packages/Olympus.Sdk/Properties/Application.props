@@ -1,0 +1,25 @@
+<Project>
+
+	<!-- Application Properties -->
+	<PropertyGroup Label="ApplicationProperties">
+		<AppName Condition="$(AppName)==''">$(SolutionName)</AppName>
+		<AppTitle Condition="$(AppTitle)==''">$(SolutionTitle)</AppTitle>
+		<Product>$(SolutionTitle)</Product>
+		<Authors>$(SolutionAuthors)</Authors>
+		<Company>$(SolutionCustomer)</Company>
+		<Description>$(SolutionTitle)</Description>
+		<Copyright>© $([System.DateTime]::Now.Year) - Éwerton Ferreira</Copyright>
+	</PropertyGroup>
+
+	<!-- Web Application Properties -->
+	<PropertyGroup Label="WebAppProperties" Condition="$(IsWebApplicationHost)=='true'">
+		<WebAppTheme Condition="$(WebAppTheme)==''">default</WebAppTheme>
+		<WebAppThemeColor Condition="$(WebAppThemeColor)==''">#ffffff</WebAppThemeColor>
+		<WebAppBackgroundColor Condition="$(WebAppBackgroundColor)==''">#ffffff</WebAppBackgroundColor>
+		<WebAppIconAnyBackgroundColor Condition="$(WebAppIconAnyBackgroundColor)==''">transparent</WebAppIconAnyBackgroundColor>
+		<WebAppIconMaskableBackgroundColor Condition="$(WebAppIconMaskableBackgroundColor)==''">#ffffff</WebAppIconMaskableBackgroundColor>
+		<WebAppIconAnyScale Condition="$(WebAppIconAnyScale)==''">1.0</WebAppIconAnyScale>
+		<WebAppIconMaskableScale Condition="$(WebAppIconMaskableScale)==''">0.7</WebAppIconMaskableScale>
+	</PropertyGroup>
+
+</Project>

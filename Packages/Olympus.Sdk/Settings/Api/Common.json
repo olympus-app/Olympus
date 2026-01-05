@@ -1,0 +1,12 @@
+{
+	"Host": {
+		"Name": "Olympus API",
+		"Type": "API"
+	},
+	"Admin": {
+		"Name": "Éwerton Ferreira",
+		"UserName": "ewerton@olympus.app.br",
+		"Email": "ewerton@olympus.app.br",
+		"Password": "Password123!"
+	}
+}

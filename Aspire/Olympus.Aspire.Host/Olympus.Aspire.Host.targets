@@ -1,8 +1,2 @@
 <Project>
-
-	<!-- Project Imports -->
-	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreProjectTargets)" Condition="Exists($(CoreProjectTargets))" />
-	</ImportGroup>
-
 </Project>

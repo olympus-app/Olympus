@@ -1,8 +1,6 @@
 namespace Olympus.Core.Settings;
 
-public class StorageSettings {
-
-	public const string SectionName = "Storage";
+public class StorageSettings : Settings {
 
 	public const string ServiceName = "Minio";
 
@@ -20,9 +18,18 @@ public class StorageSettings {
 
 	public bool UseSSL { get; set; }
 
-	public string ConnectionString {
-		get => field ?? $"Endpoint={Protocol}://{Host}:{Port};AccessKey={AccessKey};SecretKey={SecretKey}";
-		set => field = value;
+	public string ConnectionString { get => field ?? $"Endpoint={Protocol}://{Host}:{Port};AccessKey={AccessKey};SecretKey={SecretKey}"; set; }
+
+	public override void Configure(IConfiguration configuration) {
+
+		configuration.Bind("Storage", this);
+
+		Host = configuration.GetValueFromEnvironment($"{ServiceName}_{nameof(Host)}", Host);
+		Port = configuration.GetValueFromEnvironment($"{ServiceName}_{nameof(Port)}", Port);
+		AccessKey = configuration.GetValueFromEnvironment($"{ServiceName}_{nameof(AccessKey)}", AccessKey);
+		SecretKey = configuration.GetValueFromEnvironment($"{ServiceName}_{nameof(SecretKey)}", SecretKey);
+		ConnectionString = configuration.GetConnectionString(ServiceName, ConnectionString);
+
 	}
 
 }

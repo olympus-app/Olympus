@@ -1,0 +1,11 @@
+{
+	"recommendations": [
+		"BaitunaCode.code-stats-viewer",
+		"editorconfig.editorconfig",
+		"ms-dotnettools.csdevkit",
+		"ms-dotnettools.csharp",
+		"redhat.vscode-xml",
+		"thewerthon.thewerthon-midnight",
+		"thewerthon.thewerthon-toggle-files-exclude"
+	]
+}

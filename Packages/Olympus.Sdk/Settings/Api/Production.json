@@ -1,0 +1,23 @@
+{
+	"AllowedHosts": "*",
+	"Logging": {
+		"LogLevel": {
+			"Default": "None",
+			"Microsoft.EntityFrameworkCore.Query": "Warning",
+			"Microsoft.EntityFrameworkCore.Database.Command": "Information"
+		},
+		"Debug": {
+			"LogLevel": {
+				"Default": "None"
+			}
+		},
+		"Console": {
+			"LogLevel": {
+				"Default": "Warning",
+				"Microsoft.AspNetCore": "Error",
+				"Microsoft.Hosting.Lifetime": "Information",
+				"Microsoft.EntityFrameworkCore": "None"
+			}
+		}
+	}
+}

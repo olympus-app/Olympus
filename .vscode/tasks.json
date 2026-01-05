@@ -133,8 +133,58 @@
 		},
 		{
 			"type": "shell",
+			"label": ".NET Containerize: All Projects",
+			"command": "dotnet publish --configuration Release /t:PublishContainer",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Containerize: API Host",
+			"command": "dotnet publish Hosts/Olympus.Api.Host --configuration Release /t:PublishContainer",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Containerize: Web Host",
+			"command": "dotnet publish Hosts/Olympus.Web.Host --configuration Release /t:PublishContainer",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
+			}
+		},
+		{
+			"type": "shell",
 			"label": ".NET Pack: All Projects",
-			"command": " dotnet pack --configuration Release --output .nuget",
+			"command": "dotnet pack --configuration Release --output C:/Development/NuGet",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Pack: SDK Project",
+			"command": "dotnet pack Packages/Olympus.Sdk --configuration Release --output C:/Development/NuGet; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.sdk -Recurse -Force -ErrorAction Ignore; dotnet restore",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": ".NET Pack: Analyzers Project",
+			"command": "dotnet pack Packages/Olympus.Analyzers --configuration Release --output C:/Development/NuGet; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.analyzers -Recurse -Force -ErrorAction Ignore; dotnet restore",
 			"problemMatcher": [],
 			"icon": {
 				"id": "package",
@@ -214,7 +264,7 @@
 		{
 			"type": "shell",
 			"label": "Aspire: Update",
-			"command": "aspire update",
+			"command": "aspire update Aspire/Olympus.Aspire.Host",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "package",
@@ -224,7 +274,7 @@
 		{
 			"type": "shell",
 			"label": "Aspire: Publish",
-			"command": "aspire publish --output-path Aspire/Olympus.Aspire.Host/Publish",
+			"command": "aspire publish Aspire/Olympus.Aspire.Host --output-path Aspire/Olympus.Aspire.Host/Publish",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "file-text",

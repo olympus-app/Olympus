@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Assembly Properties -->
+	<PropertyGroup Label="AssemblyProperties">
+		<OlympusSdkAssembly>$(MSBuildThisFileDirectory)..\tasks\Olympus.Sdk.dll</OlympusSdkAssembly>
+	</PropertyGroup>
+
+	<!-- Register Tasks -->
+	<UsingTask TaskName="Olympus.Sdk.Tasks.ProcessTemplate" AssemblyFile="$(OlympusSdkAssembly)" />
+	<UsingTask TaskName="Olympus.Sdk.Tasks.GenerateIco" AssemblyFile="$(OlympusSdkAssembly)" />
+	<UsingTask TaskName="Olympus.Sdk.Tasks.GeneratePng" AssemblyFile="$(OlympusSdkAssembly)" />
+	<UsingTask TaskName="Olympus.Sdk.Tasks.BundleCss" AssemblyFile="$(OlympusSdkAssembly)" />
+	<UsingTask TaskName="Olympus.Sdk.Tasks.BundleJs" AssemblyFile="$(OlympusSdkAssembly)" />
+
+</Project>

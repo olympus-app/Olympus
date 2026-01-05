@@ -1,8 +1,27 @@
 <Project>
 
-	<!-- Project Imports -->
-	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreBackendProjectTargets)" Condition="Exists($(CoreBackendProjectTargets))" />
-	</ImportGroup>
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="Olympus.Api" />
+		<Using Include="Olympus.Api.Cache" />
+		<Using Include="Olympus.Api.Database" />
+		<Using Include="Olympus.Api.Documentation" />
+		<Using Include="Olympus.Api.Endpoints" />
+		<Using Include="Olympus.Api.ErrorHandling" />
+		<Using Include="Olympus.Api.Http" />
+		<Using Include="Olympus.Api.Identity" />
+		<Using Include="Olympus.Api.Json" />
+		<Using Include="Olympus.Api.Localization" />
+		<Using Include="Olympus.Api.Metadata" />
+		<Using Include="Olympus.Api.Queries" />
+		<Using Include="Olympus.Api.Routing" />
+		<Using Include="Olympus.Api.Storage" />
+		<Using Include="Olympus.Api.WebClient" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="Microsoft.AspNetCore.Builder" />
+	</ItemGroup>
 
 </Project>

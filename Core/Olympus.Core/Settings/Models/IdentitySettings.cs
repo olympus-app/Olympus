@@ -1,8 +1,6 @@
 namespace Olympus.Core.Settings;
 
-public class IdentitySettings {
-
-	public const string SectionName = "Identity";
+public class IdentitySettings : Settings {
 
 	public const string GroupName = "Identity";
 
@@ -36,19 +34,27 @@ public class IdentitySettings {
 
 	public IdentityProviderSettings Providers { get; } = new();
 
+	public override void Configure(IConfiguration configuration) {
+
+		configuration.Bind("Identity", this);
+
+	}
+
 }
 
-public class IdentityProviderSettings {
-
-	public const string SectionName = "Identity:Providers";
+public class IdentityProviderSettings : Settings {
 
 	public MicrosoftBusinessSettings MicrosoftBusiness { get; } = new();
 
+	public override void Configure(IConfiguration configuration) {
+
+		configuration.Bind("Identity:Providers", this);
+
+	}
+
 }
 
-public class MicrosoftBusinessSettings {
-
-	public const string SectionName = "Identity:Providers:MicrosoftBusiness";
+public class MicrosoftBusinessSettings : Settings {
 
 	public string Domain { get; set; } = string.Empty;
 
@@ -59,5 +65,11 @@ public class MicrosoftBusinessSettings {
 	public string ClientSecret { get; set; } = string.Empty;
 
 	public string CallbackPath { get; set; } = "/signin-microsoft";
+
+	public override void Configure(IConfiguration configuration) {
+
+		configuration.Bind("Identity:Providers:MicrosoftBusiness", this);
+
+	}
 
 }

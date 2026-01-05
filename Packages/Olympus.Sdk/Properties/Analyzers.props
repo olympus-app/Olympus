@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Analyzers Properties -->
+	<PropertyGroup Label="AnalyzersProperties">
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+	</PropertyGroup>
+
+	<!-- Analyzers References -->
+	<ItemGroup Label="AnalyzersReferences" Condition="$(IsAnalyzer)=='false'">
+		<PackageReference Include="Olympus.Analyzers" PrivateAssets="all" />
+	</ItemGroup>
+
+</Project>

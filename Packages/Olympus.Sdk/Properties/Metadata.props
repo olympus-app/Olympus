@@ -1,0 +1,53 @@
+<Project>
+
+	<!-- Metadata Properties -->
+	<PropertyGroup Label="MetadataProperties" Condition="$(IsPackableProject)=='true'">
+		<Product>$(ProjectTitle)</Product>
+		<AssemblyName>$(ProjectName)</AssemblyName>
+		<AssemblyTitle>$(ProjectTitle)</AssemblyTitle>
+		<Description>$(ProjectTitle)</Description>
+	</PropertyGroup>
+
+	<!-- Package Metadata Properties -->
+	<PropertyGroup Label="MetadataProperties" Condition="$(IsPackableProject)=='true'">
+		<Product>$(ProjectTitle)</Product>
+		<AssemblyTitle>$(ProjectTitle) Package</AssemblyTitle>
+		<Description>$(ProjectTitle) Package</Description>
+	</PropertyGroup>
+
+	<!-- Core Package Metadata Properties -->
+	<PropertyGroup Label="MetadataProperties" Condition="$(IsCorePackage)=='true' Or $(IsCoreModulePackage)=='true'">
+		<Product>$(ProjectTitle)</Product>
+		<AssemblyTitle>$(ProjectTitle.Replace(' Core','')) Core Package</AssemblyTitle>
+		<Description>$(ProjectTitle.Replace(' Core','')) Core Package</Description>
+	</PropertyGroup>
+
+	<!-- Module Package Metadata Properties -->
+	<PropertyGroup Label="MetadataProperties" Condition="$(IsRegularModulePackage)=='true'">
+		<Product>$(ProjectTitle)</Product>
+		<AssemblyTitle>$(ProjectTitle) Module Package</AssemblyTitle>
+		<Description>$(ProjectTitle) Module Package</Description>
+	</PropertyGroup>
+
+	<!-- Application Package Metadata Properties -->
+	<PropertyGroup Label="MetadataProperties" Condition="$(IsApplicationPackage)=='true'">
+		<Product>$(ProjectTitle)</Product>
+		<AssemblyTitle>$(ProjectTitle) Application Package</AssemblyTitle>
+		<Description>$(ProjectTitle) Application Package</Description>
+	</PropertyGroup>
+
+	<!-- Application Host Metadata Properties -->
+	<PropertyGroup Label="MetadataProperties" Condition="$(IsApplicationHost)=='true'">
+		<Product>$(ProjectTitle)</Product>
+		<AssemblyTitle>$(ProjectTitle.Replace(' Host','')) Application Host</AssemblyTitle>
+		<Description>$(ProjectTitle.Replace(' Host','')) Application Host</Description>
+	</PropertyGroup>
+
+	<!-- Unit Tests Metadata Properties -->
+	<PropertyGroup Label="MetadataProperties" Condition="$(IsTestsProject)=='true'">
+		<Product>$(ProjectTitle)</Product>
+		<AssemblyTitle>$(ProjectTitle.Replace(' Tests','')) Tests</AssemblyTitle>
+		<Description>$(ProjectTitle.Replace(' Tests','')) Tests</Description>
+	</PropertyGroup>
+
+</Project>

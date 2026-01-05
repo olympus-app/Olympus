@@ -1,0 +1,21 @@
+<Project>
+
+	<!-- Properties Imports -->
+	<ImportGroup Label="PropertiesImports">
+		<Import Project="..\properties\Solution.props" />
+		<Import Project="..\properties\Project.props" />
+		<Import Project="..\properties\Framework.props" />
+		<Import Project="..\properties\Application.props" />
+		<Import Project="..\properties\Compilation.props" />
+		<Import Project="..\properties\Localization.props" />
+		<Import Project="..\properties\Version.props" />
+		<Import Project="..\properties\GitHub.props" />
+		<Import Project="..\properties\Metadata.props" />
+		<Import Project="..\properties\Analyzers.props" />
+		<Import Project="..\properties\References.props" />
+		<Import Project="..\properties\Packages.props" Condition="$(IsMainSolution)=='false'" />
+		<Import Project="..\properties\Assets.props" />
+		<Import Project="..\properties\Imports.props" />
+	</ImportGroup>
+
+</Project>

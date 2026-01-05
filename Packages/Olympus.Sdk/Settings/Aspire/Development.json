@@ -1,0 +1,28 @@
+{
+	"Parameters": {
+		"Cloudflared-Token": "",
+		"Postgres-Username": "",
+		"Postgres-Password": "",
+		"Minio-Username": "",
+		"Minio-Password": "",
+		"Redis-Password": ""
+	},
+	"Logging": {
+		"LogLevel": {
+			"Default": "None"
+		},
+		"Debug": {
+			"LogLevel": {
+				"Default": "None"
+			}
+		},
+		"Console": {
+			"LogLevel": {
+				"Default": "Warning",
+				"Microsoft.AspNetCore": "Error",
+				"Aspire.Hosting.DistributedApplication": "Information",
+				"Microsoft.Extensions.Diagnostics.HealthChecks": "None"
+			}
+		}
+	}
+}

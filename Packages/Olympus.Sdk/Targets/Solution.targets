@@ -1,0 +1,38 @@
+<Project>
+
+	<!-- Solution Properties Validation -->
+	<Target Name="SolutionPropertiesValidation" BeforeTargets="Build">
+		<Error Condition="$(SolutionName)==''" Text="Property 'SolutionName' is not set." />
+		<Error Condition="$(SolutionTitle)==''" Text="Property 'SolutionTitle' is not set." />
+		<Error Condition="$(SolutionAuthors)==''" Text="Property 'SolutionAuthors' is not set." />
+		<Error Condition="$(SolutionCustomer)==''" Text="Property 'SolutionCustomer' is not set." />
+		<Error Condition="$(SolutionFolder)==''" Text="Property 'SolutionFolder' is not set." />
+		<Error Condition="!Exists('$(SolutionFolder)')" Text="The path in 'SolutionFolder' does not exist." />
+	</Target>
+
+	<!-- Create Assets Folder -->
+	<Target Name="CreateAssetsFolder" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsMainSolution)=='false' And $(IsApplicationHost)=='true' And !Exists('$(SolutionFolder)\.assets')">
+		<MakeDir Directories="$(SolutionFolder)\.assets" />
+	</Target>
+
+	<!-- Create Config Folder -->
+	<Target Name="CreateConfigFolder" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsMainSolution)=='false' And $(IsApplicationHost)=='true' And !Exists('$(SolutionFolder)\.config')">
+		<MakeDir Directories="$(SolutionFolder)\.config" />
+	</Target>
+
+	<!-- Create GitHub Folder -->
+	<Target Name="CreateGitHubFolder" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsMainSolution)=='false' And $(IsApplicationHost)=='true' And !Exists('$(SolutionFolder)\.github')">
+		<MakeDir Directories="$(SolutionFolder)\.github" />
+	</Target>
+
+	<!-- Create Settings Folder -->
+	<Target Name="CreateSettingsFolder" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsMainSolution)=='false' And $(IsApplicationHost)=='true' And !Exists('$(SolutionFolder)\.settings')">
+		<MakeDir Directories="$(SolutionFolder)\.settings" />
+	</Target>
+
+	<!-- Create VS Code Folder -->
+	<Target Name="CreateVSCodeFolder" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsMainSolution)=='false' And $(IsApplicationHost)=='true' And !Exists('$(SolutionFolder)\.vscode')">
+		<MakeDir Directories="$(SolutionFolder)\.vscode" />
+	</Target>
+
+</Project>

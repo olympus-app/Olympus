@@ -1,15 +1,2 @@
 <Project>
-
-	<!-- Project Imports -->
-	<ImportGroup Label="ProjectImports">
-		<Import Project="$(WebProjectProps)" Condition="Exists('$(WebProjectProps)')" />
-	</ImportGroup>
-
-	<!-- Project Usings -->
-	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
-		<Using Include="Olympus.Web.Host" />
-		<Using Include="Olympus.Web.Host.Modularization" />
-		<Using Include="Olympus.Web.Host.Services" />
-	</ItemGroup>
-
 </Project>

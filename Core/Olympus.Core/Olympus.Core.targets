@@ -1,2 +1,25 @@
 <Project>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="Olympus.Core.Hosting" />
+		<Using Include="Olympus.Core.Identity" />
+		<Using Include="Olympus.Core.Localization" />
+		<Using Include="Olympus.Core.Modules" />
+		<Using Include="Olympus.Core.Primitives" />
+		<Using Include="Olympus.Core.Settings" />
+		<Using Include="Olympus.Core.Storage" />
+		<Using Include="Olympus.Core.Web" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="FastEnumUtility" />
+		<Using Include="Humanizer" />
+		<Using Include="Microsoft.Extensions.Configuration" />
+		<Using Include="Microsoft.Extensions.DependencyInjection" />
+		<Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
+		<Using Include="Microsoft.Extensions.Options" />
+	</ItemGroup>
+
 </Project>

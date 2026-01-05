@@ -1,23 +1,17 @@
 namespace Olympus.Core.Modules;
 
-public abstract class AppModuleOptions : ModuleSettings, IAppModuleOptions {
+public abstract class AppModuleOptions(AppModuleType type, AppModuleCategory category) : AppModule(type, category), IAppModuleOptions {
 
-	public abstract string Name { get; }
+	public abstract void Configure(IConfiguration configuration);
 
-	public abstract string Path { get; }
+	public static void AddOption<TOption>(IServiceCollection services) where TOption : class, IAppModuleOptions {
 
-	public abstract string ApiPath { get; }
+		services.AddOptions<TOption>().Configure<IConfiguration>(static (settings, configuration) => settings.Configure(configuration));
 
-	public abstract string WebPath { get; }
+		services.AddSingleton<IAppModuleOptions>(static services => services.GetRequiredService<IOptions<TOption>>().Value);
 
-	public virtual int[] ApiVersions { get; } = [1];
+		services.AddSingleton(static services => services.GetRequiredService<IOptions<TOption>>().Value);
 
-	public abstract AppModuleType Type { get; }
-
-	public abstract AppModuleCategory Category { get; }
-
-	public abstract Type Routes { get; }
-
-	public abstract Type Permissions { get; }
+	}
 
 }

@@ -1,0 +1,20 @@
+<Project>
+
+	<!-- Solution Properties Validation -->
+	<Target Name="SolutionPropertiesValidation" BeforeTargets="Build">
+		<Error Condition="$(AppName)==''" Text="Property 'AppName' is not set." />
+		<Error Condition="$(AppTitle)==''" Text="Property 'AppTitle' is not set." />
+	</Target>
+
+	<!-- Web Application Properties Validation -->
+	<Target Name="WebAppPropertiesValidation" BeforeTargets="Build" Condition="$(IsWebApplicationHost)=='true'">
+		<Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(WebAppTheme)', '^(default|bootstrap|fluentui|materialdesign|materialyou)$'))" Text="Property 'WebAppTheme' must be one of: default, bootstrap, fluentui, materialdesign, materialyou. Current value: '$(WebAppTheme)'" />
+		<Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(WebAppThemeColor)', '^(#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}))$'))" Text="Property 'WebAppThemeColor' must be a valid hex color (e.g. #fff or #ffffff). Current value: '$(WebAppThemeColor)'" />
+		<Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(WebAppBackgroundColor)', '^(#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}))$'))" Text="Property 'WebAppBackgroundColor' must be a valid hex color (e.g. #fff or #ffffff). Current value: '$(WebAppBackgroundColor)'" />
+		<Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(WebAppIconAnyBackgroundColor)', '^(transparent|#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}))$'))" Text="Property 'WebAppIconAnyBackgroundColor' must be 'transparent' or a valid hex color. Current value: '$(WebAppIconAnyBackgroundColor)'" />
+		<Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(WebAppIconMaskableBackgroundColor)', '^(#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}))$'))" Text="Property 'WebAppIconMaskableBackgroundColor' must be a valid hex color. Current value: '$(WebAppIconMaskableBackgroundColor)'" />
+		<Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(WebAppIconAnyScale)', '^(0\.[5-9]\d*|1(\.0+)?)$'))" Text="Property 'WebAppIconAnyScale' must be a decimal between 0.5 and 1.0. Current value: '$(WebAppIconAnyScale)'" />
+		<Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(WebAppIconMaskableScale)', '^(0\.[6-9]\d*|0\.7|1(\.0+)?)$'))" Text="Property 'WebAppIconMaskableScale' must be a decimal between 0.6 and 1.0 (recommended 0.7). Current value: '$(WebAppIconMaskableScale)'" />
+	</Target>
+
+</Project>

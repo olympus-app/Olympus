@@ -1,20 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
-	<!-- Project Properties -->
-	<PropertyGroup Label="ProjectProperties">
-		<ProjectType>CorePackage</ProjectType>
-		<ProjectLayer>Frontend</ProjectLayer>
-	</PropertyGroup>
-
-	<!-- Project References -->
-	<ItemGroup Label="ProjectReferences">
-		<ProjectReference Include="$(BaseArchendProjectFile)" />
-	</ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor;Olympus.Sdk">
 
 	<!-- Package References -->
 	<ItemGroup Label="PackageReferences">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" />
-		<PackageReference Include="Radzen.Blazor" />
+		<PackageReference Include="Radzen.Blazor" ExcludeAssets="contentFiles;build;buildMultitargeting;buildTransitive" />
 	</ItemGroup>
 
 </Project>

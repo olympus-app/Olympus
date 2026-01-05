@@ -1,0 +1,11 @@
+<Project>
+
+	<!-- GitHub Properties -->
+	<PropertyGroup Label="GitHubProperties">
+		<GitHubLocation>olympus-app</GitHubLocation>
+		<GitHubRepository>olympus</GitHubRepository>
+		<RepositoryUrl>https://github.com/$(GitHubLocation)/$(GitHubRepository)</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	</PropertyGroup>
+
+</Project>

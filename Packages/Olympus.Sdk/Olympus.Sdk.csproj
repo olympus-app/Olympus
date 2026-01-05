@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<PackageType>MSBuildSdk</PackageType>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<NoWarn>$(NoWarn);NU5100;NU5128</NoWarn>
+	</PropertyGroup>
+
+	<!-- Editor Configuration -->
+	<ItemGroup Label="EditorConfiguration">
+		<EditorConfigFiles Include="Configuration\Olympus.globalconfig" />
+	</ItemGroup>
+
+	<!-- Package References -->
+	<ItemGroup Label="PackageReferences">
+		<PackageReference Include="Microsoft.Build.Utilities.Core" ExcludeAssets="runtime" />
+		<PackageReference Include="Magick.NET.Core" GeneratePathProperty="true" PrivateAssets="all" />
+		<PackageReference Include="Magick.NET-Q8-AnyCPU" GeneratePathProperty="true" PrivateAssets="all" />
+		<PackageReference Include="Radzen.Blazor" GeneratePathProperty="true" PrivateAssets="all" />
+		<PackageReference Include="NUglify" GeneratePathProperty="true" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Copy Solution Files -->
+	<Target Name="CopySolutionFiles" BeforeTargets="Build">
+		<Copy SourceFiles="..\..\Directory.Packages.props" DestinationFiles="Properties\Packages.props" SkipUnchangedFiles="true" />
+	</Target>
+
+	<!-- Copy Radzen Assets -->
+	<Target Name="CopyRadzenAssets" BeforeTargets="Build">
+		<PropertyGroup>
+			<AssetsPath>$(MSBuildProjectDirectory)\Assets</AssetsPath>
+			<RadzenPath>$(PkgRadzen_Blazor)\staticwebassets</RadzenPath>
+		</PropertyGroup>
+		<ItemGroup>
+			<RadzenFonts Include="$(RadzenPath)\fonts\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(RadzenFonts)" DestinationFolder="$(AssetsPath)\fonts\%(RecursiveDir)" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\Radzen.Blazor.min.js" DestinationFiles="$(AssetsPath)\scripts\radzen.js" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\default-base.css" DestinationFiles="$(AssetsPath)\styles\default\light-base.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\dark-base.css" DestinationFiles="$(AssetsPath)\styles\default\dark-base.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\standard-base.css" DestinationFiles="$(AssetsPath)\styles\bootstrap\light-base.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\standard-dark-base.css" DestinationFiles="$(AssetsPath)\styles\bootstrap\dark-base.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\material-base.css" DestinationFiles="$(AssetsPath)\styles\materialdesign\light-base.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\material-dark-base.css" DestinationFiles="$(AssetsPath)\styles\materialdesign\dark-base.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\math.css" DestinationFiles="$(AssetsPath)\styles\math.css" SkipUnchangedFiles="true" />
+	</Target>
+
+	<!-- Add Tasks Dependencies -->
+	<Target Name="AddTasksDependencies" BeforeTargets="GenerateNuspec">
+		<ItemGroup>
+			<_PackageFiles Include="$(OutputPath)$(AssemblyName).dll" PackagePath="tasks\$(AssemblyName).dll" Visible="false" />
+			<_PackageFiles Include="$(PkgMagick_NET_Core)\lib\netstandard20\Magick.NET.Core.dll" PackagePath="tasks\Magick.NET.Core.dll" Visible="false" />
+			<_PackageFiles Include="$(PkgMagick_NET-Q8-AnyCPU)\lib\netstandard20\Magick.NET-Q8-AnyCPU.dll" PackagePath="tasks\Magick.NET-Q8-AnyCPU.dll" Visible="false" />
+			<_MagickRuntimes Include="$(PkgMagick_NET-Q8-AnyCPU)\runtimes\win-x64\native\**\*" />
+			<_MagickRuntimes Include="$(PkgMagick_NET-Q8-AnyCPU)\runtimes\linux-x64\native\**\*" />
+			<_PackageFiles Include="@(_MagickRuntimes)" PackagePath="tasks\%(Filename)%(Extension)" BuildAction="None" Visible="false" />
+			<_PackageFiles Include="$(PkgNUglify)\lib\netstandard2.0\NUglify.dll" PackagePath="tasks\NUglify.dll" Visible="false" />
+		</ItemGroup>
+	</Target>
+
+	<!-- Add Package Files -->
+	<Target Name="AddPackageFiles" BeforeTargets="GenerateNuspec" DependsOnTargets="CopySolutionFiles;CopyRadzenAssets;AddTasksDependencies">
+		<ItemGroup>
+			<_PackageFiles Include="Olympus.Sdk.props" PackagePath="Sdk\Sdk.props" />
+			<_PackageFiles Include="Olympus.Sdk.targets" PackagePath="Sdk\Sdk.targets" />
+			<_PackageFiles Include="Assets\**\*" PackagePath="assets" />
+			<_PackageFiles Include="Configuration\Olympus.globalconfig" PackagePath="configuration" />
+			<_PackageFiles Include="Properties\*.props" PackagePath="properties" />
+			<_PackageFiles Include="Settings\**\*" PackagePath="settings" />
+			<_PackageFiles Include="Targets\*.targets" PackagePath="targets" />
+			<_PackageFiles Include="Templates\**\*.template" PackagePath="templates" />
+		</ItemGroup>
+	</Target>
+
+</Project>

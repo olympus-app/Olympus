@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Olympus.Core.Backend.Identity;
 
-public class UserTable(AppSettings settings) : EntityTable<User> {
+public class UserTable(AdminSettings settings) : EntityTable<User> {
 
 	public const string TableName = "Users";
 
@@ -29,7 +29,7 @@ public class UserTable(AppSettings settings) : EntityTable<User> {
 		builder.HasIndex(entity => entity.Email).IsUniqueWhenNotSoftDeleted();
 		builder.HasIndex(entity => entity.NormalizedEmail).IsUniqueWhenNotSoftDeleted();
 
-		var seed = GetSeed(settings.Admin);
+		var seed = GetSeed(settings);
 		builder.HasData(seed);
 
 	}

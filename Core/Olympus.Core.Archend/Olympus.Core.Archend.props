@@ -1,24 +1,2 @@
 <Project>
-
-	<!-- Project Imports -->
-	<ImportGroup Label="ProjectImports">
-		<Import Project="$(CoreProjectProps)" Condition="Exists('$(CoreProjectProps)')" />
-	</ImportGroup>
-
-	<!-- Project Usings -->
-	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
-		<Using Include="Olympus.Core.Archend" />
-		<Using Include="Olympus.Core.Archend.Endpoints" />
-		<Using Include="Olympus.Core.Archend.Entities" />
-		<Using Include="Olympus.Core.Archend.Identity" />
-		<Using Include="Olympus.Core.Archend.Modules" />
-		<Using Include="Olympus.Core.Archend.Storage" />
-	</ItemGroup>
-
-	<!-- Package Usings -->
-	<ItemGroup Label="PackageUsings" Condition="$(OlympusImplicitUsings)=='enable'">
-		<Using Include="FastEndpoints" />
-		<Using Include="System.Text.Json.Serialization" />
-	</ItemGroup>
-
 </Project>

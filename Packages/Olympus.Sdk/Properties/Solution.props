@@ -1,0 +1,124 @@
+<Project>
+
+	<!-- Solution Properties -->
+	<PropertyGroup Label="SolutionProperties">
+		<SolutionName>$(SolutionName.Trim())</SolutionName>
+		<SolutionTitle>$(SolutionTitle.Trim())</SolutionTitle>
+		<SolutionAuthors>$(SolutionAuthors.Trim())</SolutionAuthors>
+		<SolutionCustomer>$(SolutionCustomer.Trim())</SolutionCustomer>
+		<SolutionFolder>$(SolutionFolder.TrimEnd('\').TrimEnd('/'))</SolutionFolder>
+	</PropertyGroup>
+
+	<!-- Solution Properties Initialization -->
+	<PropertyGroup Label="SolutionProperties">
+		<AssetsFolder>$(SolutionFolder)</AssetsFolder>
+		<SettingsFolder>$(SolutionFolder)</SettingsFolder>
+		<AspireFolder>$(SolutionFolder)</AspireFolder>
+		<CoreFolder>$(SolutionFolder)</CoreFolder>
+		<HostsFolder>$(SolutionFolder)</HostsFolder>
+		<ModulesFolder>$(SolutionFolder)</ModulesFolder>
+		<IsMainSolution>false</IsMainSolution>
+	</PropertyGroup>
+
+	<!-- Solution Properties Evaluation -->
+	<PropertyGroup Label="SolutionProperties">
+		<AssetsFolder Condition="Exists('$(SolutionFolder)\.assets')">$(SolutionFolder)\.assets</AssetsFolder>
+		<SettingsFolder Condition="Exists('$(SolutionFolder)\.settings')">$(SolutionFolder)\.settings</SettingsFolder>
+		<AspireFolder Condition="Exists('$(SolutionFolder)\Aspire')">$(SolutionFolder)\Aspire</AspireFolder>
+		<CoreFolder Condition="Exists('$(SolutionFolder)\Core')">$(SolutionFolder)\Core</CoreFolder>
+		<HostsFolder Condition="Exists('$(SolutionFolder)\Hosts')">$(SolutionFolder)\Hosts</HostsFolder>
+		<ModulesFolder Condition="Exists('$(SolutionFolder)\Modules')">$(SolutionFolder)\Modules</ModulesFolder>
+		<IsMainSolution Condition="$(SolutionName)=='Olympus'">true</IsMainSolution>
+	</PropertyGroup>
+
+	<!-- Core Project Properties -->
+	<PropertyGroup Label="CoreProjectProperties" Condition="Exists('$(CoreFolder)\$(SolutionName).Core\$(SolutionName).Core.csproj')">
+		<CoreProjectName>$(SolutionName).Core</CoreProjectName>
+		<CoreProjectFolder>$(CoreFolder)\$(CoreProjectName)</CoreProjectFolder>
+		<CoreProjectFile>$(CoreProjectFolder)\$(CoreProjectName).csproj</CoreProjectFile>
+		<CoreProjectProps>$(CoreProjectFolder)\$(CoreProjectName).props</CoreProjectProps>
+		<CoreProjectTargets>$(CoreProjectFolder)\$(CoreProjectName).targets</CoreProjectTargets>
+	</PropertyGroup>
+
+	<!-- Core Archend Project Properties -->
+	<PropertyGroup Label="CoreArchendProjectProperties" Condition="Exists('$(CoreFolder)\$(SolutionName).Core.Archend\$(SolutionName).Core.Archend.csproj')">
+		<CoreArchendProjectName>$(SolutionName).Core.Archend</CoreArchendProjectName>
+		<CoreArchendProjectFolder>$(CoreFolder)\$(CoreArchendProjectName)</CoreArchendProjectFolder>
+		<CoreArchendProjectFile>$(CoreArchendProjectFolder)\$(CoreArchendProjectName).csproj</CoreArchendProjectFile>
+		<CoreArchendProjectProps>$(CoreArchendProjectFolder)\$(CoreArchendProjectName).props</CoreArchendProjectProps>
+		<CoreArchendProjectTargets>$(CoreArchendProjectFolder)\$(CoreArchendProjectName).targets</CoreArchendProjectTargets>
+	</PropertyGroup>
+
+	<!-- Core Backend Project Properties -->
+	<PropertyGroup Label="CoreBackendProjectProperties" Condition="Exists('$(CoreFolder)\$(SolutionName).Core.Backend\$(SolutionName).Core.Backend.csproj')">
+		<CoreBackendProjectName>$(SolutionName).Core.Backend</CoreBackendProjectName>
+		<CoreBackendProjectFolder>$(CoreFolder)\$(CoreBackendProjectName)</CoreBackendProjectFolder>
+		<CoreBackendProjectFile>$(CoreBackendProjectFolder)\$(CoreBackendProjectName).csproj</CoreBackendProjectFile>
+		<CoreBackendProjectProps>$(CoreBackendProjectFolder)\$(CoreBackendProjectName).props</CoreBackendProjectProps>
+		<CoreBackendProjectTargets>$(CoreBackendProjectFolder)\$(CoreBackendProjectName).targets</CoreBackendProjectTargets>
+	</PropertyGroup>
+
+	<!-- Core Frontend Project Properties -->
+	<PropertyGroup Label="CoreFrontendProjectProperties" Condition="Exists('$(CoreFolder)\$(SolutionName).Core.Frontend\$(SolutionName).Core.Frontend.csproj')">
+		<CoreFrontendProjectName>$(SolutionName).Core.Frontend</CoreFrontendProjectName>
+		<CoreFrontendProjectFolder>$(CoreFolder)\$(CoreFrontendProjectName)</CoreFrontendProjectFolder>
+		<CoreFrontendProjectFile>$(CoreFrontendProjectFolder)\$(CoreFrontendProjectName).csproj</CoreFrontendProjectFile>
+		<CoreFrontendProjectProps>$(CoreFrontendProjectFolder)\$(CoreFrontendProjectName).props</CoreFrontendProjectProps>
+		<CoreFrontendProjectTargets>$(CoreFrontendProjectFolder)\$(CoreFrontendProjectName).targets</CoreFrontendProjectTargets>
+	</PropertyGroup>
+
+	<!-- Aspire Project Properties -->
+	<PropertyGroup Label="AspireProjectProperties" Condition="Exists('$(AspireFolder)\$(SolutionName).Aspire\$(SolutionName).Aspire.csproj')">
+		<AspireProjectName>$(SolutionName).Aspire</AspireProjectName>
+		<AspireProjectFolder>$(AspireFolder)\$(AspireProjectName)</AspireProjectFolder>
+		<AspireProjectFile>$(AspireProjectFolder)\$(AspireProjectName).csproj</AspireProjectFile>
+		<AspireProjectProps>$(AspireProjectFolder)\$(AspireProjectName).props</AspireProjectProps>
+		<AspireProjectTargets>$(AspireProjectFolder)\$(AspireProjectName).targets</AspireProjectTargets>
+	</PropertyGroup>
+
+	<!-- Aspire Host Project Properties -->
+	<PropertyGroup Label="AspireHostProjectProperties" Condition="Exists('$(AspireFolder)\$(SolutionName).Aspire.Host\$(SolutionName).Aspire.Host.csproj')">
+		<AspireHostProjectName>$(SolutionName).Aspire.Host</AspireHostProjectName>
+		<AspireHostProjectFolder>$(AspireFolder)\$(AspireHostProjectName)</AspireHostProjectFolder>
+		<AspireHostProjectFile>$(AspireHostProjectFolder)\$(AspireHostProjectName).csproj</AspireHostProjectFile>
+		<AspireHostProjectProps>$(AspireHostProjectFolder)\$(AspireHostProjectName).props</AspireHostProjectProps>
+		<AspireHostProjectTargets>$(AspireHostProjectFolder)\$(AspireHostProjectName).targets</AspireHostProjectTargets>
+	</PropertyGroup>
+
+	<!-- Api Project Properties -->
+	<PropertyGroup Label="ApiProjectProperties" Condition="Exists('$(HostsFolder)\$(SolutionName).Api\$(SolutionName).Api.csproj')">
+		<ApiProjectName>$(SolutionName).Api</ApiProjectName>
+		<ApiProjectFolder>$(HostsFolder)\$(ApiProjectName)</ApiProjectFolder>
+		<ApiProjectFile>$(ApiProjectFolder)\$(ApiProjectName).csproj</ApiProjectFile>
+		<ApiProjectProps>$(ApiProjectFolder)\$(ApiProjectName).props</ApiProjectProps>
+		<ApiProjectTargets>$(ApiProjectFolder)\$(ApiProjectName).targets</ApiProjectTargets>
+	</PropertyGroup>
+
+	<!-- Api Host Project Properties -->
+	<PropertyGroup Label="ApiHostProjectProperties" Condition="Exists('$(HostsFolder)\$(SolutionName).Api.Host\$(SolutionName).Api.Host.csproj')">
+		<ApiHostProjectName>$(SolutionName).Api.Host</ApiHostProjectName>
+		<ApiHostProjectFolder>$(HostsFolder)\$(ApiHostProjectName)</ApiHostProjectFolder>
+		<ApiHostProjectFile>$(ApiHostProjectFolder)\$(ApiHostProjectName).csproj</ApiHostProjectFile>
+		<ApiHostProjectProps>$(ApiHostProjectFolder)\$(ApiHostProjectName).props</ApiHostProjectProps>
+		<ApiHostProjectTargets>$(ApiHostProjectFolder)\$(ApiHostProjectName).targets</ApiHostProjectTargets>
+	</PropertyGroup>
+
+	<!-- Web Project Properties -->
+	<PropertyGroup Label="WebProjectProperties" Condition="Exists('$(HostsFolder)\$(SolutionName).Web\$(SolutionName).Web.csproj')">
+		<WebProjectName>$(SolutionName).Web</WebProjectName>
+		<WebProjectFolder>$(HostsFolder)\$(WebProjectName)</WebProjectFolder>
+		<WebProjectFile>$(WebProjectFolder)\$(WebProjectName).csproj</WebProjectFile>
+		<WebProjectProps>$(WebProjectFolder)\$(WebProjectName).props</WebProjectProps>
+		<WebProjectTargets>$(WebProjectFolder)\$(WebProjectName).targets</WebProjectTargets>
+	</PropertyGroup>
+
+	<!-- Web Host Project Properties -->
+	<PropertyGroup Label="WebHostProjectProperties" Condition="Exists('$(HostsFolder)\$(SolutionName).Web.Host\$(SolutionName).Web.Host.csproj')">
+		<WebHostProjectName>$(SolutionName).Web.Host</WebHostProjectName>
+		<WebHostProjectFolder>$(HostsFolder)\$(WebHostProjectName)</WebHostProjectFolder>
+		<WebHostProjectFile>$(WebHostProjectFolder)\$(WebHostProjectName).csproj</WebHostProjectFile>
+		<WebHostProjectProps>$(WebHostProjectFolder)\$(WebHostProjectName).props</WebHostProjectProps>
+		<WebHostProjectTargets>$(WebHostProjectFolder)\$(WebHostProjectName).targets</WebHostProjectTargets>
+	</PropertyGroup>
+
+</Project>

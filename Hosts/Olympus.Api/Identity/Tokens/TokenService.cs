@@ -6,7 +6,7 @@ namespace Olympus.Api.Identity;
 
 public static class TokenService {
 
-	public static async Task<IResult> ListAsync(ClaimsPrincipal principal, [FromServices] DatabaseContext database) {
+	public static async Task<IResult> ListAsync(ClaimsPrincipal principal, [FromServices] EntityDatabase database) {
 
 		var userId = principal.GetValue<Guid>(AppClaimsTypes.Id);
 		if (userId is null) return Results.Unauthorized();
@@ -19,7 +19,7 @@ public static class TokenService {
 
 	}
 
-	public static async Task<IResult> CreateAsync(ClaimsPrincipal principal, [Microsoft.AspNetCore.Mvc.FromBody] TokenCreateRequest input, [FromServices] DatabaseContext database) {
+	public static async Task<IResult> CreateAsync(ClaimsPrincipal principal, [Microsoft.AspNetCore.Mvc.FromBody] TokenCreateRequest input, [FromServices] EntityDatabase database) {
 
 		var userId = principal.GetValue<Guid>(AppClaimsTypes.Id);
 		if (userId is null) return Results.Unauthorized();
@@ -47,7 +47,7 @@ public static class TokenService {
 
 	}
 
-	public static async Task<IResult> DeleteAsync(ClaimsPrincipal principal, [FromRoute] Guid key, [FromServices] DatabaseContext database) {
+	public static async Task<IResult> DeleteAsync(ClaimsPrincipal principal, [FromRoute] Guid key, [FromServices] EntityDatabase database) {
 
 		var userId = principal.GetValue<Guid>(AppClaimsTypes.Id);
 		if (userId is null) return Results.Unauthorized();

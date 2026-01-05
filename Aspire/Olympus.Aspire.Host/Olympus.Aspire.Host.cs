@@ -7,10 +7,9 @@ public static class AspireHost {
 	public static void Main(string[] args) {
 
 		var builder = DistributedApplication.CreateBuilder(args);
-
-		builder.Configuration.LoadSettings();
-
 		var production = builder.AddDockerComposeEnvironment("Production");
+
+		Settings.AddSources(builder.Configuration, typeof(AspireHost).Assembly);
 
 		var databaseUsername = builder.AddParameter(Database.UsernameKey, true);
 		var databasePassword = builder.AddParameter(Database.PasswordKey, true);

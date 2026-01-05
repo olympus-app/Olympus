@@ -8,7 +8,7 @@ public static class AuthorizationRegistrator {
 	public static void AddAuthorizationServices(this WebApplicationBuilder builder) {
 
 		builder.Services.AddAuthorizationBuilder()
-			.SetDefaultPolicy(new AuthorizationPolicyBuilder(IdentityConstants.ApplicationScheme, TokenSetting.SchemeName)
+			.SetDefaultPolicy(new AuthorizationPolicyBuilder(IdentityConstants.ApplicationScheme, TokenSettings.SchemeName)
 			.RequireAuthenticatedUser()
 			.Build());
 

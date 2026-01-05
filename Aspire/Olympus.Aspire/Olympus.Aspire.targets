@@ -1,2 +1,8 @@
 <Project>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
+		<Using Include="Olympus.Aspire" />
+	</ItemGroup>
+
 </Project>

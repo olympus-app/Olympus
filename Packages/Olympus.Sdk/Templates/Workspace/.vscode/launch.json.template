@@ -1,0 +1,46 @@
+{
+	"configurations": [
+		{
+			"name": "Aspire Host",
+			"type": "dotnet",
+			"request": "launch",
+			"projectPath": "{{ASPIREHOSTPATH}}",
+			"launchConfigurationId": "TargetFramework=;Aspire",
+			"internalConsoleOptions": "openOnSessionStart",
+			"serverReadyAction": {
+				"killOnServerStop": true,
+				"action": "debugWithChrome",
+				"pattern": "Login to the dashboard at (https?://\\S+)",
+				"uriFormat": "%s"
+			}
+		},
+		{
+			"name": "API Host",
+			"type": "dotnet",
+			"request": "launch",
+			"projectPath": "{{APIHOSTPATH}}",
+			"launchConfigurationId": "TargetFramework=;API",
+			"internalConsoleOptions": "openOnSessionStart",
+			"serverReadyAction": {
+				"killOnServerStop": true,
+				"action": "debugWithChrome",
+				"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+				"uriFormat": "%s"
+			}
+		},
+		{
+			"name": "Web Host",
+			"type": "dotnet",
+			"request": "launch",
+			"projectPath": "{{WEBHOSTPATH}}",
+			"launchConfigurationId": "TargetFramework=;Web",
+			"internalConsoleOptions": "openOnSessionStart",
+			"serverReadyAction": {
+				"killOnServerStop": true,
+				"action": "debugWithChrome",
+				"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+				"uriFormat": "%s"
+			}
+		}
+	]
+}

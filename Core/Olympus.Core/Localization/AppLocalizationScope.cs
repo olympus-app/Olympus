@@ -8,14 +8,14 @@ public sealed class AppLocalizationScope : IDisposable {
 
 	private readonly CultureInfo PreviousUICulture;
 
-	public AppLocalizationScope(AppSettings settings, CultureInfo? culture = null) {
+	public AppLocalizationScope(CultureSettings settings, CultureInfo? culture = null) {
 
 		PreviousCulture = CultureInfo.CurrentCulture;
 		PreviousUICulture = CultureInfo.CurrentUICulture;
 
 		if (AppCultureInfo.IsInvariant) return;
 
-		culture ??= CultureInfo.GetCultureInfo(settings.Culture.DefaultCulture);
+		culture ??= CultureInfo.GetCultureInfo(settings.DefaultCulture);
 
 		CultureInfo.CurrentCulture = culture;
 		CultureInfo.CurrentUICulture = culture;

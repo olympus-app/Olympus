@@ -1,0 +1,15 @@
+root = true
+
+[**/Generated/**.cs]
+generated_code = true
+
+[**/Migrations/**.cs]
+generated_code = true
+
+[**/Database/**.cs]
+generated_code = true
+
+[*.{cs,razor}]
+indent_style = tab
+indent_size = 4
+tab_width = 4

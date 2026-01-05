@@ -1,0 +1,79 @@
+<Project>
+
+	<!-- Settings Folders -->
+	<PropertyGroup Label="SettingsFolders">
+		<BaseSettingsFolder>$(MSBuildThisFileDirectory)..\settings</BaseSettingsFolder>
+		<LocalSettingsFolder Condition="$(SettingsFolder)!=''">$(SettingsFolder)</LocalSettingsFolder>
+		<LocalSettingsFolder Condition="$(SettingsFolder)==''">$(SolutionFolder)\.settings</LocalSettingsFolder>
+	</PropertyGroup>
+
+	<!-- Link Aspire Host Settings -->
+	<Target Name="LinkAspireHostSettings" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsAspireApplicationHost)=='true'">
+
+		<PropertyGroup Label="AspireHostSettings">
+			<GlobalAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Global.json')">$(BaseSettingsFolder)\Global.json</GlobalAppHostSettings>
+			<GlobalAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Global.json')">$(LocalSettingsFolder)\Global.json</GlobalAppHostSettings>
+			<CommonAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Aspire\Common.json')">$(BaseSettingsFolder)\Aspire\Common.json</CommonAppHostSettings>
+			<CommonAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Aspire\Common.json')">$(LocalSettingsFolder)\Aspire\Common.json</CommonAppHostSettings>
+			<DevelopmentAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Aspire\Development.json')">$(BaseSettingsFolder)\Aspire\Development.json</DevelopmentAppHostSettings>
+			<DevelopmentAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Aspire\Development.json')">$(LocalSettingsFolder)\Aspire\Development.json</DevelopmentAppHostSettings>
+			<ProductionAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Aspire\Production.json')">$(BaseSettingsFolder)\Aspire\Production.json</ProductionAppHostSettings>
+			<ProductionAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Aspire\Production.json')">$(LocalSettingsFolder)\Aspire\Production.json</ProductionAppHostSettings>
+		</PropertyGroup>
+
+		<ItemGroup Label="EmbeddedSettings">
+			<EmbeddedResource Include="$(GlobalAppHostSettings)" Link="Properties\GlobalSettings.json" LogicalName="GlobalSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(CommonAppHostSettings)" Link="Properties\CommonSettings.json" LogicalName="CommonSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(DevelopmentAppHostSettings)" Link="Properties\DevelopmentSettings.json" LogicalName="DevelopmentSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(ProductionAppHostSettings)" Link="Properties\ProductionSettings.json" LogicalName="ProductionSettings.json" CopyToOutputDirectory="Never" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Link Api Host Settings -->
+	<Target Name="LinkApiHostSettings" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsApiApplicationHost)=='true'">
+
+		<PropertyGroup Label="ApiHostSettings">
+			<GlobalAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Global.json')">$(BaseSettingsFolder)\Global.json</GlobalAppHostSettings>
+			<GlobalAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Global.json')">$(LocalSettingsFolder)\Global.json</GlobalAppHostSettings>
+			<CommonAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Api\Common.json')">$(BaseSettingsFolder)\Api\Common.json</CommonAppHostSettings>
+			<CommonAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Api\Common.json')">$(LocalSettingsFolder)\Api\Common.json</CommonAppHostSettings>
+			<DevelopmentAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Api\Development.json')">$(BaseSettingsFolder)\Api\Development.json</DevelopmentAppHostSettings>
+			<DevelopmentAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Api\Development.json')">$(LocalSettingsFolder)\Api\Development.json</DevelopmentAppHostSettings>
+			<ProductionAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Api\Production.json')">$(BaseSettingsFolder)\Api\Production.json</ProductionAppHostSettings>
+			<ProductionAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Api\Production.json')">$(LocalSettingsFolder)\Api\Production.json</ProductionAppHostSettings>
+		</PropertyGroup>
+
+		<ItemGroup Label="EmbeddedSettings">
+			<EmbeddedResource Include="$(GlobalAppHostSettings)" Link="Properties\GlobalSettings.json" LogicalName="GlobalSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(CommonAppHostSettings)" Link="Properties\CommonSettings.json" LogicalName="CommonSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(DevelopmentAppHostSettings)" Link="Properties\DevelopmentSettings.json" LogicalName="DevelopmentSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(ProductionAppHostSettings)" Link="Properties\ProductionSettings.json" LogicalName="ProductionSettings.json" CopyToOutputDirectory="Never" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Link Web Host Settings -->
+	<Target Name="LinkWebHostSettings" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
+
+		<PropertyGroup Label="WebHostSettings">
+			<GlobalAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Global.json')">$(BaseSettingsFolder)\Global.json</GlobalAppHostSettings>
+			<GlobalAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Global.json')">$(LocalSettingsFolder)\Global.json</GlobalAppHostSettings>
+			<CommonAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Web\Common.json')">$(BaseSettingsFolder)\Web\Common.json</CommonAppHostSettings>
+			<CommonAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Web\Common.json')">$(LocalSettingsFolder)\Web\Common.json</CommonAppHostSettings>
+			<DevelopmentAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Web\Development.json')">$(BaseSettingsFolder)\Web\Development.json</DevelopmentAppHostSettings>
+			<DevelopmentAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Web\Development.json')">$(LocalSettingsFolder)\Web\Development.json</DevelopmentAppHostSettings>
+			<ProductionAppHostSettings Condition="Exists('$(BaseSettingsFolder)\Web\Production.json')">$(BaseSettingsFolder)\Web\Production.json</ProductionAppHostSettings>
+			<ProductionAppHostSettings Condition="Exists('$(LocalSettingsFolder)\Web\Production.json')">$(LocalSettingsFolder)\Web\Production.json</ProductionAppHostSettings>
+		</PropertyGroup>
+
+		<ItemGroup Label="EmbeddedSettings">
+			<EmbeddedResource Include="$(GlobalAppHostSettings)" Link="Properties\GlobalSettings.json" LogicalName="GlobalSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(CommonAppHostSettings)" Link="Properties\CommonSettings.json" LogicalName="CommonSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(DevelopmentAppHostSettings)" Link="Properties\DevelopmentSettings.json" LogicalName="DevelopmentSettings.json" CopyToOutputDirectory="Never" />
+			<EmbeddedResource Include="$(ProductionAppHostSettings)" Link="Properties\ProductionSettings.json" LogicalName="ProductionSettings.json" CopyToOutputDirectory="Never" />
+		</ItemGroup>
+
+	</Target>
+
+</Project>

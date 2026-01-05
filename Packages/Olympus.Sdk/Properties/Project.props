@@ -1,0 +1,85 @@
+<Project>
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<ProjectName>$(MSBuildProjectName)</ProjectName>
+		<ProjectTitle>$(MSBuildProjectName.Replace('.',' '))</ProjectTitle>
+		<ProjectFile>$(MSBuildProjectFullPath)</ProjectFile>
+		<ProjectFolder>$(MSBuildProjectDirectory.TrimEnd('\').TrimEnd('/'))</ProjectFolder>
+		<ProjectProps>$(MSBuildProjectFullPath.Replace('$(MSBuildProjectExtension)','.props'))</ProjectProps>
+		<ProjectTargets>$(MSBuildProjectFullPath.Replace('$(MSBuildProjectExtension)','.targets'))</ProjectTargets>
+	</PropertyGroup>
+
+	<!-- Project Variables Initialization -->
+	<PropertyGroup Label="ProjectVariables">
+		<IsAnalyzer>false</IsAnalyzer>
+		<IsCorePackage>false</IsCorePackage>
+		<IsArchendLayer>false</IsArchendLayer>
+		<IsBackendLayer>false</IsBackendLayer>
+		<IsFrontendLayer>false</IsFrontendLayer>
+		<IsModulePackage>false</IsModulePackage>
+		<IsCoreBasePackage>false</IsCoreBasePackage>
+		<IsCoreModulePackage>false</IsCoreModulePackage>
+		<IsRegularModulePackage>false</IsRegularModulePackage>
+		<IsApplicationPackage>false</IsApplicationPackage>
+		<IsApplicationHost>false</IsApplicationHost>
+		<IsAspireApplication>false</IsAspireApplication>
+		<IsAspireApplicationPackage>false</IsAspireApplicationPackage>
+		<IsAspireApplicationHost>false</IsAspireApplicationHost>
+		<IsApiApplication>false</IsApiApplication>
+		<IsApiApplicationPackage>false</IsApiApplicationPackage>
+		<IsApiApplicationHost>false</IsApiApplicationHost>
+		<IsWebApplication>false</IsWebApplication>
+		<IsWebApplicationPackage>false</IsWebApplicationPackage>
+		<IsWebApplicationHost>false</IsWebApplicationHost>
+		<IsPackableProject>false</IsPackableProject>
+		<IsTestsProject>false</IsTestsProject>
+	</PropertyGroup>
+
+	<!-- Project Variables Evaluation -->
+	<PropertyGroup Label="ProjectVariables">
+		<IsAnalyzer Condition="$(ProjectName.EndsWith('.Analyzers'))">true</IsAnalyzer>
+		<IsCorePackage Condition="$(ProjectName.StartsWith('Olympus.Core'))">true</IsCorePackage>
+		<IsArchendLayer Condition="$(ProjectName.EndsWith('.Archend'))">true</IsArchendLayer>
+		<IsBackendLayer Condition="$(ProjectName.EndsWith('.Backend'))">true</IsBackendLayer>
+		<IsFrontendLayer Condition="$(ProjectName.EndsWith('.Frontend'))">true</IsFrontendLayer>
+		<IsModulePackage Condition="$(IsArchendLayer)=='true' Or $(IsBackendLayer)=='true' Or $(IsFrontendLayer)=='true'">true</IsModulePackage>
+		<IsCoreBasePackage Condition="$(IsCorePackage)=='true' And $(IsModulePackage)=='false'">true</IsCoreBasePackage>
+		<IsCoreModulePackage Condition="$(IsCorePackage)=='true' And $(IsModulePackage)=='true'">true</IsCoreModulePackage>
+		<IsRegularModulePackage Condition="$(IsModulePackage)=='true' And $(IsCorePackage)=='false'">true</IsRegularModulePackage>
+		<IsApplicationPackage Condition="$(ProjectName.EndsWith('.Aspire')) Or $(ProjectName.EndsWith('.Api')) Or $(ProjectName.EndsWith('.Web'))">true</IsApplicationPackage>
+		<IsApplicationHost Condition="$(ProjectName.EndsWith('.Host'))">true</IsApplicationHost>
+		<IsAspireApplication Condition="$(ProjectName.Contains('.Aspire'))">true</IsAspireApplication>
+		<IsAspireApplicationPackage Condition="$(IsAspireApplication)=='true' And $(IsApplicationPackage)=='true'">true</IsAspireApplicationPackage>
+		<IsAspireApplicationHost Condition="$(IsAspireApplication)=='true' And $(IsApplicationHost)=='true'">true</IsAspireApplicationHost>
+		<IsApiApplication Condition="$(ProjectName.Contains('.Api'))">true</IsApiApplication>
+		<IsApiApplicationPackage Condition="$(IsApiApplication)=='true' And $(IsApplicationPackage)=='true'">true</IsApiApplicationPackage>
+		<IsApiApplicationHost Condition="$(IsApiApplication)=='true' And $(IsApplicationHost)=='true'">true</IsApiApplicationHost>
+		<IsWebApplication Condition="$(ProjectName.Contains('.Web'))">true</IsWebApplication>
+		<IsWebApplicationPackage Condition="$(IsWebApplication)=='true' And $(IsApplicationPackage)=='true'">true</IsWebApplicationPackage>
+		<IsWebApplicationHost Condition="$(IsWebApplication)=='true' And $(IsApplicationHost)=='true'">true</IsWebApplicationHost>
+		<IsPackableProject Condition="!$(ProjectName.EndsWith('.Host'))">true</IsPackableProject>
+		<IsTestsProject Condition="$(ProjectName.EndsWith('.Tests'))">true</IsTestsProject>
+	</PropertyGroup>
+
+	<!-- Project Properties for Modular Projects -->
+	<PropertyGroup Label="ProjectProperties" Condition="$(IsModulePackage)=='true'">
+		<ArchendProjectName>$(ProjectName.Replace('Backend','Archend').Replace('Frontend','Archend'))</ArchendProjectName>
+		<ArchendProjectTitle>$(ProjectName.Replace('Backend','Archend').Replace('Frontend','Archend'))</ArchendProjectTitle>
+		<ArchendProjectFile>$(ProjectFile.Replace('Backend','Archend').Replace('Frontend','Archend'))</ArchendProjectFile>
+		<ArchendProjectFolder>$(ProjectFolder.Replace('Backend','Archend').Replace('Frontend','Archend'))</ArchendProjectFolder>
+		<ArchendProjectProps>$(ProjectProps.Replace('Backend','Archend').Replace('Frontend','Archend'))</ArchendProjectProps>
+		<ArchendProjectTargets>$(ProjectTargets.Replace('Backend','Archend').Replace('Frontend','Archend'))</ArchendProjectTargets>
+	</PropertyGroup>
+
+	<!-- Project Properties for Tests Projects -->
+	<PropertyGroup Label="ProjectProperties" Condition="$(IsTestsProject)=='true'">
+		<BaseProjectName>$(ProjectName.Replace('.Tests',''))</BaseProjectName>
+		<BaseProjectTitle>$(ProjectName.Replace('.Tests',''))</BaseProjectTitle>
+		<BaseProjectFile>$(ProjectFile.Replace('.Tests',''))</BaseProjectFile>
+		<BaseProjectFolder>$(ProjectFolder.Replace('.Tests',''))</BaseProjectFolder>
+		<BaseProjectProps>$(ProjectProps.Replace('.Tests',''))</BaseProjectProps>
+		<BaseProjectTargets>$(ProjectTargets.Replace('.Tests',''))</BaseProjectTargets>
+	</PropertyGroup>
+
+</Project>

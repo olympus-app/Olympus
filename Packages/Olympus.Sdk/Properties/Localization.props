@@ -1,0 +1,12 @@
+<Project>
+
+	<!-- Localization Properties -->
+	<PropertyGroup Label="LocalizationProperties">
+		<InvariantTimezone>true</InvariantTimezone>
+		<InvariantGlobalization>true</InvariantGlobalization>
+		<SatelliteResourceLanguages>en;es;pt</SatelliteResourceLanguages>
+		<SupportedCultures>en;en-US;es;es-ES;pt;pt-BR</SupportedCultures>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+	</PropertyGroup>
+
+</Project>
