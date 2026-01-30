@@ -17,26 +17,28 @@
 		<AspireHostDirNormalized>$(AspireHostDirNormalized.Replace('\', '/'))</AspireHostDirNormalized>
 	</PropertyGroup>
 
-	<!-- Templates Replacements Properties -->
-	<PropertyGroup Label="TemplatesReplacementsProperties" Condition="$(IsWebApplicationHost)=='true' And $(Configuration)=='Release'">
+	<!-- Templates Replacements Index Properties -->
+	<PropertyGroup Label="TemplatesReplacementsIndexProperties" Condition="$(IsWebApplicationHost)=='true' And $(Configuration)=='Release'">
 		<IndexThemesSection>$(IndexThemesSection)&lt;link rel="stylesheet" href="styles/light.css" id="theme-light" disabled /&gt;</IndexThemesSection>
 		<IndexThemesSection>$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="styles/dark.css" id="theme-dark" disabled /&gt;</IndexThemesSection>
 		<IndexThemesSection>$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="styles/common.css" id="theme-common" disabled /&gt;</IndexThemesSection>
-		<IndexDefaultScriptsSection>$(IndexDefaultScriptsSection)&lt;script src="scripts.js"&gt;&lt;/script&gt;</IndexDefaultScriptsSection>
+		<IndexHeadScriptsSection Condition="!Exists('$(LocalAssetsFolder)\scripts\head.js')">&lt;script&gt;&#xD;&#xA;$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(BaseAssetsFolder)\scripts\head.js').Trim()), '(?m)^\s*$\n?', '')), '(?m)^', '&#x9;&#x9;'))&#xD;&#xA;&#x9;&lt;/script&gt;</IndexHeadScriptsSection>
+		<IndexHeadScriptsSection Condition="Exists('$(LocalAssetsFolder)\scripts\head.js')">&lt;script&gt;&#xD;&#xA;$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(LocalAssetsFolder)\scripts\head.js').Trim()), '(?m)^\s*$\n?', '')), '(?m)^', '&#x9;&#x9;'))&#xD;&#xA;&#x9;&lt;/script&gt;</IndexHeadScriptsSection>
+		<IndexBodyScriptsSection>$(IndexBodyScriptsSection)&lt;script src="scripts.js"&gt;&lt;/script&gt;</IndexBodyScriptsSection>
 	</PropertyGroup>
 
-	<!-- Templates Replacements Properties -->
-	<PropertyGroup Label="TemplatesReplacementsProperties" Condition="$(IsWebApplicationHost)=='true' And $(Configuration)!='Release'">
+	<!-- Templates Replacements Index Properties -->
+	<PropertyGroup Label="TemplatesReplacementsIndexProperties" Condition="$(IsWebApplicationHost)=='true' And $(Configuration)!='Release'">
 		<IndexThemesSection Condition="!Exists('$(LocalAssetsFolder)\dev\light.css')">$(IndexThemesSection)&lt;link rel="stylesheet" href="styles/light.css" id="theme-light" disabled /&gt;</IndexThemesSection>
 		<IndexThemesSection Condition="Exists('$(LocalAssetsFolder)\dev\light.css')">$(IndexThemesSection)&lt;link rel="stylesheet" href="dev/light.css" id="theme-light" disabled /&gt;</IndexThemesSection>
 		<IndexThemesSection Condition="!Exists('$(LocalAssetsFolder)\dev\dark.css')">$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="styles/dark.css" id="theme-dark" disabled /&gt;</IndexThemesSection>
 		<IndexThemesSection Condition="Exists('$(LocalAssetsFolder)\dev\dark.css')">$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="dev/dark.css" id="theme-dark" disabled /&gt;</IndexThemesSection>
 		<IndexThemesSection Condition="!Exists('$(LocalAssetsFolder)\dev\common.css')">$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="styles/common.css" id="theme-common" disabled /&gt;</IndexThemesSection>
 		<IndexThemesSection Condition="Exists('$(LocalAssetsFolder)\dev\common.css')">$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="dev/common.css" id="theme-common" disabled /&gt;</IndexThemesSection>
-		<IndexBootScriptsSection Condition="!Exists('$(LocalAssetsFolder)\scripts\boot.js')">&lt;script&gt;&#xD;&#xA;$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(BaseAssetsFolder)\scripts\boot.js').Trim()), '(?m)^\s*$\n?', '')), '(?m)^', '&#x9;&#x9;'))&#xD;&#xA;&#x9;&lt;/script&gt;</IndexBootScriptsSection>
-		<IndexBootScriptsSection Condition="Exists('$(LocalAssetsFolder)\scripts\boot.js')">&lt;script&gt;&#xD;&#xA;$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(LocalAssetsFolder)\scripts\boot.js').Trim()), '(?m)^\s*$\n?', '')), '(?m)^', '&#x9;&#x9;'))&#xD;&#xA;&#x9;&lt;/script&gt;</IndexBootScriptsSection>
-		<IndexDefaultScriptsSection>$(IndexDefaultScriptsSection)&lt;script src="scripts.js"&gt;&lt;/script&gt;</IndexDefaultScriptsSection>
-		<IndexDefaultScriptsSection Condition="Exists('$(LocalAssetsFolder)\dev\scripts.js')">$(IndexDefaultScriptsSection)&#xD;&#xA;&#x9;&lt;script src="dev/scripts.js"&gt;&lt;/script&gt;</IndexDefaultScriptsSection>
+		<IndexHeadScriptsSection Condition="!Exists('$(LocalAssetsFolder)\scripts\head.js')">&lt;script&gt;&#xD;&#xA;$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(BaseAssetsFolder)\scripts\head.js').Trim()), '(?m)^\s*$\n?', '')), '(?m)^', '&#x9;&#x9;'))&#xD;&#xA;&#x9;&lt;/script&gt;</IndexHeadScriptsSection>
+		<IndexHeadScriptsSection Condition="Exists('$(LocalAssetsFolder)\scripts\head.js')">&lt;script&gt;&#xD;&#xA;$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(LocalAssetsFolder)\scripts\head.js').Trim()), '(?m)^\s*$\n?', '')), '(?m)^', '&#x9;&#x9;'))&#xD;&#xA;&#x9;&lt;/script&gt;</IndexHeadScriptsSection>
+		<IndexBodyScriptsSection>$(IndexBodyScriptsSection)&lt;script src="scripts.js"&gt;&lt;/script&gt;</IndexBodyScriptsSection>
+		<IndexBodyScriptsSection Condition="Exists('$(LocalAssetsFolder)\dev\scripts.js')">$(IndexBodyScriptsSection)&#xD;&#xA;&#x9;&lt;script src="dev/scripts.js"&gt;&lt;/script&gt;</IndexBodyScriptsSection>
 	</PropertyGroup>
 
 	<!-- Templates Replacements Properties -->
@@ -49,8 +51,8 @@
 			{{THEMECOLOR}},$(WebAppThemeColor);
 			{{BACKGROUNDCOLOR}},$(WebAppBackgroundColor);
 			{{INDEXTHEMESSECTION}},$(IndexThemesSection);
-			{{INDEXBOOTSCRIPTSSECTION}},$(IndexBootScriptsSection);
-			{{INDEXDEFAULTSCRIPTSSECTION}},$(IndexDefaultScriptsSection);
+			{{INDEXHEADSCRIPTSSECTION}},$(IndexHeadScriptsSection);
+			{{INDEXBODYSCRIPTSSECTION}},$(IndexBodyScriptsSection);
 			{{APIHOSTNAME}},$(ApiHostProjectName.Trim());
 			{{APIHOSTPATH}},$(ApiHostPathNormalized);
 			{{WEBHOSTNAME}},$(WebHostProjectName.Trim());

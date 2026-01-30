@@ -25,7 +25,7 @@
 	<link rel="apple-touch-icon" href="icons/icon-192-maskable.png" sizes="192x192" />
 	<link rel="apple-touch-icon" href="icons/icon-512-maskable.png" sizes="512x512" />
 	{{INDEXTHEMESSECTION}}
-	{{INDEXBOOTSCRIPTSSECTION}}
+	{{INDEXHEADSCRIPTSSECTION}}
 </head>
 
 <body>
@@ -35,7 +35,7 @@
 			<circle r="40%" cx="50%" cy="50%" />
 		</svg>
 	</div>
-	{{INDEXDEFAULTSCRIPTSSECTION}}
+	{{INDEXBODYSCRIPTSSECTION}}
 	<script src="_framework/blazor.webassembly.js" autostart="false"></script>
 	<script>Blazor.start({ configureRuntime: runtime => runtime.withConfig({ loadAllSatelliteResources: true }) })</script>
 	<script>navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none' });</script>

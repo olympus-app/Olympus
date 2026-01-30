@@ -61,16 +61,24 @@
 		<LightThemeInputs Condition="!Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-light.override.css')" Include="$(BaseAssetsFolder)\themes\$(WebAppTheme)\custom-light.css" />
 		<LightThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-light.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-light.css" />
 
-		<LightThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\**\*-light*.css" />
-		<LightThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\**\*-light*.override.css" />
-		<LightThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\**\*-light*.css" Exclude="$(LocalAssetsFolder)\styles\**\*.override.css" />
+		<LightThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\common\**\*-light.css" />
+		<LightThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\common\**\*-light.css" />
+		<LightThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\common\**\*-light.override.css" />
+
+		<LightThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\web\**\*-light.css" />
+		<LightThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\web\**\*-light.css" />
+		<LightThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\web\**\*-light.override.css" />
 
 		<LightThemeGlobalStyles Remove="@(LightThemeGlobalStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
 		<LightThemeInputs Include="@(LightThemeGlobalStyles);@(LightThemeGlobalStylesOverrides);@(LightThemeGlobalStylesAdditives)" />
 
-		<LightThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-light*.css" Condition="@(OlympusModule)!=''" />
-		<LightThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-light*.override.css" Condition="@(OlympusModule)!=''" />
-		<LightThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-light*.css" Exclude="$(LocalAssetsFolder)\modules\**\*.override.css" Condition="@(OlympusModule)!=''" />
+		<LightThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-light.css" Condition="@(OlympusModule)!=''" />
+		<LightThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-light.css" Condition="@(OlympusModule)!=''" />
+		<LightThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-light.override.css" Condition="@(OlympusModule)!=''" />
+
+		<LightThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-light.css" Condition="@(OlympusModule)!=''" />
+		<LightThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-light.css" Condition="@(OlympusModule)!=''" />
+		<LightThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-light.override.css" Condition="@(OlympusModule)!=''" />
 
 		<LightThemeModulesStyles Remove="@(LightThemeModulesStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
 		<LightThemeInputs Include="@(LightThemeModulesStyles);@(LightThemeModulesStylesOverrides);@(LightThemeModulesStylesAdditives)" />
@@ -84,16 +92,24 @@
 		<DarkThemeInputs Condition="!Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-dark.override.css')" Include="$(BaseAssetsFolder)\themes\$(WebAppTheme)\custom-dark.css" />
 		<DarkThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-dark.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-dark.css" />
 
-		<DarkThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\**\*-dark*.css" />
-		<DarkThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\**\*-dark*.override.css" />
-		<DarkThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\**\*-dark*.css" Exclude="$(LocalAssetsFolder)\styles\**\*.override.css" />
+		<DarkThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\common\**\*-dark.css" />
+		<DarkThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\common\**\*-dark.css" />
+		<DarkThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\common\**\*-dark.override.css" />
+
+		<DarkThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\web\**\*-dark.css" />
+		<DarkThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\web\**\*-dark.css" />
+		<DarkThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\web\**\*-dark.override.css" />
 
 		<DarkThemeGlobalStyles Remove="@(DarkThemeGlobalStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
 		<DarkThemeInputs Include="@(DarkThemeGlobalStyles);@(DarkThemeGlobalStylesOverrides);@(DarkThemeGlobalStylesAdditives)" />
 
-		<DarkThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-dark*.css" Condition="@(OlympusModule)!=''" />
-		<DarkThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-dark*.override.css" Condition="@(OlympusModule)!=''" />
-		<DarkThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-dark*.css" Exclude="$(LocalAssetsFolder)\modules\**\*.override.css" Condition="@(OlympusModule)!=''" />
+		<DarkThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-dark.css" Condition="@(OlympusModule)!=''" />
+		<DarkThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-dark.css" Condition="@(OlympusModule)!=''" />
+		<DarkThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-dark.override.css" Condition="@(OlympusModule)!=''" />
+
+		<DarkThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-dark.css" Condition="@(OlympusModule)!=''" />
+		<DarkThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-dark.css" Condition="@(OlympusModule)!=''" />
+		<DarkThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-dark.override.css" Condition="@(OlympusModule)!=''" />
 
 		<DarkThemeModulesStyles Remove="@(DarkThemeModulesStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
 		<DarkThemeInputs Include="@(DarkThemeModulesStyles);@(DarkThemeModulesStylesOverrides);@(DarkThemeModulesStylesAdditives)" />
@@ -103,16 +119,24 @@
 		<CommonThemeInputs Condition="!Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\common.override.css')" Include="$(BaseAssetsFolder)\themes\$(WebAppTheme)\common.css" />
 		<CommonThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\common.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\common.css" />
 
-		<CommonThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\**\*.css" Exclude="$(BaseAssetsFolder)\styles\**\*-dark*;$(BaseAssetsFolder)\styles\**\*-light*" />
-		<CommonThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\**\*.override.css" Exclude="$(LocalAssetsFolder)\styles\**\*-dark*;$(LocalAssetsFolder)\styles\**\*-light*" />
-		<CommonThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\**\*.css" Exclude="$(LocalAssetsFolder)\styles\**\*.override.css;$(LocalAssetsFolder)\styles\**\*-dark*;$(LocalAssetsFolder)\styles\**\*-light*" />
+		<CommonThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\common\**\*.css" Exclude="$(BaseAssetsFolder)\styles\common\**\*-light.css;$(BaseAssetsFolder)\styles\common\**\*-dark.css" />
+		<CommonThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\common\**\*.css" Exclude="$(LocalAssetsFolder)\styles\common\**\*.override.css;$(LocalAssetsFolder)\styles\common\**\*-light.css;$(LocalAssetsFolder)\styles\common\**\*-dark.css" />
+		<CommonThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\common\**\*.override.css" Exclude="$(LocalAssetsFolder)\styles\common\**\*-light.override.css;$(LocalAssetsFolder)\styles\common\**\*-dark.override.css" />
+
+		<CommonThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\web\**\*.css" Exclude="$(BaseAssetsFolder)\styles\web\**\*-light.css;$(BaseAssetsFolder)\styles\web\**\*-dark.css" />
+		<CommonThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\web\**\*.css" Exclude="$(LocalAssetsFolder)\styles\web\**\*.override.css;$(LocalAssetsFolder)\styles\web\**\*-light.css;$(LocalAssetsFolder)\styles\web\**\*-dark.css" />
+		<CommonThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\web\**\*.override.css" Exclude="$(LocalAssetsFolder)\styles\web\**\*-light.override.css;$(LocalAssetsFolder)\styles\web\**\*-dark.override.css" />
 
 		<CommonThemeGlobalStyles Remove="@(CommonThemeGlobalStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
 		<CommonThemeInputs Include="@(CommonThemeGlobalStyles);@(CommonThemeGlobalStylesOverrides);@(CommonThemeGlobalStylesAdditives)" />
 
-		<CommonThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*.css" Exclude="$(BaseAssetsFolder)\modules\**\*-dark*;$(BaseAssetsFolder)\modules\**\*-light*" Condition="@(OlympusModule)!=''" />
-		<CommonThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*.override.css" Exclude="$(LocalAssetsFolder)\modules\**\*-dark*;$(LocalAssetsFolder)\modules\**\*-light*" Condition="@(OlympusModule)!=''" />
-		<CommonThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*.css" Exclude="$(LocalAssetsFolder)\modules\**\*.override.css;$(LocalAssetsFolder)\modules\**\*-dark*;$(LocalAssetsFolder)\modules\**\*-light*" Condition="@(OlympusModule)!=''" />
+		<CommonThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*.css" Exclude="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-light.css;$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-dark.css" Condition="@(OlympusModule)!=''" />
+		<CommonThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*.css" Exclude="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*.override.css;$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-light.css;$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-dark.css" Condition="@(OlympusModule)!=''" />
+		<CommonThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*.override.css" Exclude="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-light.override.css;$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\common\**\*-dark.override.css" Condition="@(OlympusModule)!=''" />
+
+		<CommonThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*.css" Exclude="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-light.css;$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-dark.css" Condition="@(OlympusModule)!=''" />
+		<CommonThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*.css" Exclude="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*.override.css;$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-light.css;$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-dark.css" Condition="@(OlympusModule)!=''" />
+		<CommonThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*.override.css" Exclude="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-light.override.css;$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\web\**\*-dark.override.css" Condition="@(OlympusModule)!=''" />
 
 		<CommonThemeModulesStyles Remove="@(CommonThemeModulesStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
 		<CommonThemeInputs Include="@(CommonThemeModulesStyles);@(CommonThemeModulesStylesOverrides);@(CommonThemeModulesStylesAdditives)" />
@@ -135,23 +159,23 @@
 	<!-- Scripts Definitions -->
 	<ItemGroup Label="ScriptsDefinitions" Condition="$(IsWebApplicationHost)=='true'">
 
-		<AllBaseScripts Include="$(BaseAssetsFolder)\scripts\**\*.js" Exclude="$(BaseAssetsFolder)\scripts\boot.js" />
-		<AllModulesBaseSripts Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\**\*.js" Condition="@(OlympusModule)!=''" />
+		<AllBaseScripts Include="$(BaseAssetsFolder)\scripts\common\**\*.js" />
+		<AllModulesBaseScripts Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\common\**\*.js" Condition="@(OlympusModule)!=''" />
 
-		<LocalScriptOverrides Include="$(LocalAssetsFolder)\scripts\**\*.override.js" />
-		<ModulesLocalScriptOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\**\*.override.js" Condition="@(OlympusModule)!=''" />
+		<LocalScriptOverrides Include="$(LocalAssetsFolder)\scripts\common\**\*.override.js" />
+		<ModulesLocalScriptOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\common\**\*.override.js" Condition="@(OlympusModule)!=''" />
 
-		<LocalScriptAdditives Include="$(LocalAssetsFolder)\scripts\**\*.js" Exclude="$(LocalAssetsFolder)\scripts\boot.js;$(LocalAssetsFolder)\scripts\**\*.override.js" />
-		<ModulesLocalScriptAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\**\*.js" Exclude="$(LocalAssetsFolder)\modules\**\*.override.js" Condition="@(OlympusModule)!=''" />
+		<LocalScriptAdditives Include="$(LocalAssetsFolder)\scripts\common\**\*.js" Exclude="$(LocalAssetsFolder)\scripts\**\*.override.js" />
+		<ModulesLocalScriptAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\common\**\*.js" Exclude="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\common\**\*.override.js" Condition="@(OlympusModule)!=''" />
 
 		<AllBaseScripts Remove="@(LocalScriptOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
-		<AllModulesBaseSripts Remove="@(ModulesLocalScriptOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+		<AllModulesBaseScripts Remove="@(ModulesLocalScriptOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
 
 		<ScriptsInputs Include="@(AllBaseScripts)" />
 		<ScriptsInputs Include="@(LocalScriptOverrides)" />
 		<ScriptsInputs Include="@(LocalScriptAdditives)" />
 
-		<ScriptsInputs Include="@(AllModulesBaseSripts)" />
+		<ScriptsInputs Include="@(AllModulesBaseScripts)" />
 		<ScriptsInputs Include="@(ModulesLocalScriptOverrides)" />
 		<ScriptsInputs Include="@(ModulesLocalScriptAdditives)" />
 

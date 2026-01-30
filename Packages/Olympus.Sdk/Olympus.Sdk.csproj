@@ -65,14 +65,14 @@
 			<RadzenFonts Include="$(RadzenPath)\fonts\**\*.*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(RadzenFonts)" DestinationFolder="$(AssetsPath)\fonts\%(RecursiveDir)" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\Radzen.Blazor.js" DestinationFiles="$(AssetsPath)\scripts\radzen.js" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\Radzen.Blazor.js" DestinationFiles="$(AssetsPath)\scripts\common\radzen.js" SkipUnchangedFiles="true" />
 		<Copy SourceFiles="$(RadzenPath)\css\default-base.css" DestinationFiles="$(AssetsPath)\themes\default\base-light.css" SkipUnchangedFiles="true" />
 		<Copy SourceFiles="$(RadzenPath)\css\dark-base.css" DestinationFiles="$(AssetsPath)\themes\default\base-dark.css" SkipUnchangedFiles="true" />
 		<Copy SourceFiles="$(RadzenPath)\css\standard-base.css" DestinationFiles="$(AssetsPath)\themes\bootstrap\base-light.css" SkipUnchangedFiles="true" />
 		<Copy SourceFiles="$(RadzenPath)\css\standard-dark-base.css" DestinationFiles="$(AssetsPath)\themes\bootstrap\base-dark.css" SkipUnchangedFiles="true" />
 		<Copy SourceFiles="$(RadzenPath)\css\material-base.css" DestinationFiles="$(AssetsPath)\themes\materialdesign\base-light.css" SkipUnchangedFiles="true" />
 		<Copy SourceFiles="$(RadzenPath)\css\material-dark-base.css" DestinationFiles="$(AssetsPath)\themes\materialdesign\base-dark.css" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\css\math.css" DestinationFiles="$(AssetsPath)\styles\math.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\math.css" DestinationFiles="$(AssetsPath)\styles\common\math.css" SkipUnchangedFiles="true" />
 	</Target>
 
 	<!-- Add Tasks Dependencies -->
