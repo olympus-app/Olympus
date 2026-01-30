@@ -71,7 +71,7 @@
 		<PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
 		<PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.15.0-beta.1" />
 		<PackageVersion Include="PolySharp" Version="1.15.0" />
-		<PackageVersion Include="Radzen.Blazor" Version="8.7.3" />
+		<PackageVersion Include="Radzen.Blazor" Version="8.7.4" />
 		<PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
 		<PackageVersion Include="Roslynator.CodeFixes" Version="4.15.0" />
 		<PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.15.0" />
