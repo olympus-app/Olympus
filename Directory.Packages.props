@@ -2,7 +2,7 @@
 
 	<!-- Packages Properties -->
 	<PropertyGroup Label="PackagesProperties">
-		<OlympusPackagesVersion>0.7.0-alpha</OlympusPackagesVersion>
+		<OlympusPackagesVersion>0.8.0-alpha</OlympusPackagesVersion>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
 	</PropertyGroup>

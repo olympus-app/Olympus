@@ -24,7 +24,7 @@
 
 	<!-- Version Properties -->
 	<PropertyGroup Label="VersionProperties">
-		<Version>0.7.0-alpha</Version>
+		<Version>0.8.0-alpha</Version>
 		<BuildNumber>7</BuildNumber>
 		<BuildNumberForced>7</BuildNumberForced>
 	</PropertyGroup>
