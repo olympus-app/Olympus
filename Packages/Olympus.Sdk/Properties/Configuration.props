@@ -1,0 +1,8 @@
+<Project>
+
+	<!-- Global Editor Configuration -->
+	<ItemGroup Label="GlobalEditorConfiguration">
+		<EditorConfigFiles Include="$(MSBuildThisFileDirectory)..\workspace\Olympus.globalconfig" />
+	</ItemGroup>
+
+</Project>

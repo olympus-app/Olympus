@@ -12,19 +12,12 @@ public static class WebClientRegistrator {
 
 	public static void MapWebClient(this WebApplication app) {
 
-		app.MapStaticAssets();
+		app.MapStaticAssets().ShortCircuit();
 
-		var authPath = "/" + Routes.Auth.TrimStart('/');
-		var apiPath = "/" + Routes.Api.TrimStart('/');
+		app.MapGroup(AppRoutes.Auth).MapFallback(static () => Results.NotFound());
+		app.MapGroup(AppRoutes.Api).MapFallback(static () => Results.NotFound());
 
-		app.MapWhen(context =>
-			!context.Request.Path.StartsWithSegments(authPath, StringComparison.OrdinalIgnoreCase)
-			&& !context.Request.Path.StartsWithSegments(apiPath, StringComparison.OrdinalIgnoreCase),
-			static clientBranch => {
-				clientBranch.UseRouting();
-				clientBranch.UseEndpoints(static endpoints => endpoints.MapFallbackToFile(Routes.Index));
-			}
-		);
+		app.MapFallbackToFile(AppRoutes.IndexFile);
 
 	}
 

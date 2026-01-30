@@ -3,9 +3,10 @@
 	<!-- Project Usings -->
 	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Core.Backend" />
+		<Using Include="Olympus.Core.Backend.Endpoints" />
+		<Using Include="Olympus.Core.Backend.Endpoints.Endpoint" Alias="Endpoint" />
 		<Using Include="Olympus.Core.Backend.Entities" />
 		<Using Include="Olympus.Core.Backend.Identity" />
-		<Using Include="Olympus.Core.Backend.Modules" />
 		<Using Include="Olympus.Core.Backend.Storage" />
 	</ItemGroup>
 
@@ -21,7 +22,6 @@
 		<Using Include="Microsoft.AspNetCore.Mvc" />
 		<Using Include="Microsoft.EntityFrameworkCore" />
 		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
-		<Using Include="Riok.Mapperly.Abstractions" />
 		<Using Include="System.Net" />
 	</ItemGroup>
 

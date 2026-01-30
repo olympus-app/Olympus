@@ -5,10 +5,10 @@ public class MetadataMiddleware(RequestDelegate next) {
 	private readonly RequestDelegate Next = next;
 
 	private static readonly Dictionary<string, string> AppHeaders = new() {
-		{ Headers.AppVersion, AppSettings.Version },
-		{ Headers.AppVersionShort, AppSettings.VersionShort },
-		{ Headers.AppBuildNumber, AppSettings.BuildNumber.ToString() },
-		{ Headers.AppBuildNumberForced, AppSettings.BuildNumberForced.ToString() },
+		{ HttpHeaders.AppVersion, AppSettings.Version },
+		{ HttpHeaders.AppVersionShort, AppSettings.VersionShort },
+		{ HttpHeaders.AppBuildNumber, AppSettings.BuildNumber.ToString() },
+		{ HttpHeaders.AppBuildNumberForced, AppSettings.BuildNumberForced.ToString() },
 	};
 
 	public Task InvokeAsync(HttpContext context) {

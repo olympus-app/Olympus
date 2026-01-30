@@ -1,6 +1,7 @@
 ﻿@namespace Olympus.Core.Frontend.Pages
 
 @page "/"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @using Olympus.Core.Frontend.Authorization
 
@@ -9,7 +10,6 @@
 
 @* @inject ApplicationSettings application *@
 @* @inject ThemingService ThemingService *@
-@* @inject IFormFactor FormFactor *@
 
 <PageTitle>Olympus</PageTitle>
 
@@ -34,13 +34,13 @@
 		{
 			<div class="alert alert-info">Você NÃO tem CorePermissions.Users.Read</div>
 		}
-		@if (context.User.CheckPermissions(CorePermissions.Users.Write))
+		@if (context.User.CheckPermissions(CorePermissions.Users.Create))
 		{
-			<div class="alert alert-info">Você TEM CorePermissions.Users.Write</div>
+			<div class="alert alert-info">Você TEM CorePermissions.Users.Create</div>
 		}
 		else
 		{
-			<div class="alert alert-info">Você NÃO tem CorePermissions.Users.Write</div>
+			<div class="alert alert-info">Você NÃO tem CorePermissions.Users.Create</div>
 		}
 	</Authorized>
 	<NotAuthorized>
@@ -70,18 +70,113 @@
 <br />
 <br />
 
-<CheckPermissions One="CorePermissions.Users.Write">
+<CheckPermissions One="CorePermissions.Users.Create">
 	<Authorized>
 		<div class="alert alert-success">
-			Você TEM CorePermissions.Users.Write
+			Você TEM CorePermissions.Users.Create
 		</div>
 	</Authorized>
 	<NotAuthorized>
 		<div class="alert alert-warning">
-			Você NÃO tem CorePermissions.Users.Write
+			Você NÃO tem CorePermissions.Users.Create
 		</div>
 	</NotAuthorized>
 </CheckPermissions>
+
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+	<RadzenButton Text="Primary" ButtonStyle="ButtonStyle.Primary" />
+	<RadzenButton Text="Secondary" ButtonStyle="ButtonStyle.Secondary" />
+	<RadzenButton Text="Info" ButtonStyle="ButtonStyle.Info" />
+	<RadzenButton Text="Success" ButtonStyle="ButtonStyle.Success" />
+	<RadzenButton Text="Warning" ButtonStyle="ButtonStyle.Warning" />
+	<RadzenButton Text="Danger" ButtonStyle="ButtonStyle.Danger" />
+	<RadzenButton Text="Base" ButtonStyle="ButtonStyle.Base" />
+</RadzenStack>
+
+<RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3" class="rz-mt-4">Filled Shades</RadzenText>
+
+<RadzenStack Gap="1rem">
+	<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+		<RadzenButton Shade="Shade.Lighter" Text="Primary" ButtonStyle="ButtonStyle.Primary" />
+		<RadzenButton Shade="Shade.Lighter" Text="Secondary" ButtonStyle="ButtonStyle.Secondary" />
+		<RadzenButton Shade="Shade.Lighter" Text="Info" ButtonStyle="ButtonStyle.Info" />
+		<RadzenButton Shade="Shade.Lighter" Text="Success" ButtonStyle="ButtonStyle.Success" />
+		<RadzenButton Shade="Shade.Lighter" Text="Warning" ButtonStyle="ButtonStyle.Warning" />
+		<RadzenButton Shade="Shade.Lighter" Text="Danger" ButtonStyle="ButtonStyle.Danger" />
+		<RadzenButton Shade="Shade.Lighter" Text="Base" ButtonStyle="ButtonStyle.Base" />
+	</RadzenStack>
+
+	<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+		<RadzenButton Shade="Shade.Light" Text="Primary" ButtonStyle="ButtonStyle.Primary" />
+		<RadzenButton Shade="Shade.Light" Text="Secondary" ButtonStyle="ButtonStyle.Secondary" />
+		<RadzenButton Shade="Shade.Light" Text="Info" ButtonStyle="ButtonStyle.Info" />
+		<RadzenButton Shade="Shade.Light" Text="Success" ButtonStyle="ButtonStyle.Success" />
+		<RadzenButton Shade="Shade.Light" Text="Warning" ButtonStyle="ButtonStyle.Warning" />
+		<RadzenButton Shade="Shade.Light" Text="Danger" ButtonStyle="ButtonStyle.Danger" />
+		<RadzenButton Shade="Shade.Light" Text="Base" ButtonStyle="ButtonStyle.Base" />
+	</RadzenStack>
+
+	<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+		<RadzenButton Shade="Shade.Dark" Text="Primary" ButtonStyle="ButtonStyle.Primary" />
+		<RadzenButton Shade="Shade.Dark" Text="Secondary" ButtonStyle="ButtonStyle.Secondary" />
+		<RadzenButton Shade="Shade.Dark" Text="Info" ButtonStyle="ButtonStyle.Info" />
+		<RadzenButton Shade="Shade.Dark" Text="Success" ButtonStyle="ButtonStyle.Success" />
+		<RadzenButton Shade="Shade.Dark" Text="Warning" ButtonStyle="ButtonStyle.Warning" />
+		<RadzenButton Shade="Shade.Dark" Text="Danger" ButtonStyle="ButtonStyle.Danger" />
+		<RadzenButton Shade="Shade.Dark" Text="Base" ButtonStyle="ButtonStyle.Base" />
+	</RadzenStack>
+
+	<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+		<RadzenButton Shade="Shade.Darker" Text="Primary" ButtonStyle="ButtonStyle.Primary" />
+		<RadzenButton Shade="Shade.Darker" Text="Secondary" ButtonStyle="ButtonStyle.Secondary" />
+		<RadzenButton Shade="Shade.Darker" Text="Info" ButtonStyle="ButtonStyle.Info" />
+		<RadzenButton Shade="Shade.Darker" Text="Success" ButtonStyle="ButtonStyle.Success" />
+		<RadzenButton Shade="Shade.Darker" Text="Warning" ButtonStyle="ButtonStyle.Warning" />
+		<RadzenButton Shade="Shade.Darker" Text="Danger" ButtonStyle="ButtonStyle.Danger" />
+		<RadzenButton Shade="Shade.Darker" Text="Base" ButtonStyle="ButtonStyle.Base" />
+	</RadzenStack>
+</RadzenStack>
+
+<RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3" class="rz-mt-4">Filled Light and Dark</RadzenText>
+<RadzenText TextStyle="TextStyle.Body2" class="rz-mb-4">Light and Dark button styles don't have Shades</RadzenText>
+
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+	<RadzenButton Text="Light" ButtonStyle="ButtonStyle.Light" />
+	<RadzenButton Text="Dark" ButtonStyle="ButtonStyle.Dark" />
+</RadzenStack>
+
+<RadzenStack Gap="2rem" Class="rz-p-4">
+
+	<RadzenCard Variant="Variant.Outlined">
+		<RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" Class="rz-mb-3">Escala Base (Numérica)</RadzenText>
+		<RadzenText TextStyle="TextStyle.Body2" Class="rz-mb-3">Do mais claro (50) ao mais escuro (900)</RadzenText>
+		<RadzenStack Orientation="Orientation.Horizontal" Wrap="FlexWrap.Wrap" Gap="1rem" AlignItems="AlignItems.Center">
+			<RadzenButton Text="50" Style="background-color: var(--rz-base-50); color: var(--rz-black); border: 1px solid #ccc;" />
+			<RadzenButton Text="100" Style="background-color: var(--rz-base-100); color: var(--rz-black); border: 1px solid #ccc;" />
+			<RadzenButton Text="200" Style="background-color: var(--rz-base-200); color: var(--rz-black); border: 1px solid #ccc;" />
+			<RadzenButton Text="300" Style="background-color: var(--rz-base-300); color: var(--rz-black); border: 1px solid #ccc;" />
+			<RadzenButton Text="400" Style="background-color: var(--rz-base-400); color: var(--rz-black); border: 1px solid #ccc;" />
+			<RadzenButton Text="500" Style="background-color: var(--rz-base-500); color: var(--rz-white); border: 1px solid #ccc;" />
+			<RadzenButton Text="600" Style="background-color: var(--rz-base-600); color: var(--rz-white); border: 1px solid #ccc;" />
+			<RadzenButton Text="700" Style="background-color: var(--rz-base-700); color: var(--rz-white); border: 1px solid #ccc;" />
+			<RadzenButton Text="800" Style="background-color: var(--rz-base-800); color: var(--rz-white); border: 1px solid #ccc;" />
+			<RadzenButton Text="900" Style="background-color: var(--rz-base-900); color: var(--rz-white); border: 1px solid #ccc;" />
+		</RadzenStack>
+	</RadzenCard>
+
+	<RadzenCard Variant="Variant.Outlined">
+		<RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" Class="rz-mb-3">Mapeamento Semântico</RadzenText>
+		<RadzenText TextStyle="TextStyle.Body2" Class="rz-mb-3">Como os nomes (Lighter, Darker) se traduzem visualmente</RadzenText>
+		<RadzenStack Orientation="Orientation.Horizontal" Wrap="FlexWrap.Wrap" Gap="1rem" AlignItems="AlignItems.Center">
+			<RadzenButton Text="Base Lighter" Style="background-color: var(--rz-base-lighter); color: var(--rz-on-base-lighter); border: 1px solid #ccc;" />
+			<RadzenButton Text="Base Light" Style="background-color: var(--rz-base-light); color: var(--rz-on-base-light); border: 1px solid #ccc;" />
+			<RadzenButton Text="Base (Padrão)" Style="background-color: var(--rz-base); color: var(--rz-on-base); border: 1px solid #ccc;" />
+			<RadzenButton Text="Base Dark" Style="background-color: var(--rz-base-dark); color: var(--rz-on-base-dark); border: 1px solid #ccc;" />
+			<RadzenButton Text="Base Darker" Style="background-color: var(--rz-base-darker); color: var(--rz-on-base-darker); border: 1px solid #ccc;" />
+		</RadzenStack>
+	</RadzenCard>
+
+</RadzenStack>
 
 @* <RadzenButton Text="Default" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.Default))" />
 <RadzenButton Text="Bootstrap" Click="@(async () => await ThemingService.ApplyStyle(ThemingStyles.Bootstrap))" />
@@ -105,11 +200,8 @@
 
 @code {
 
-	[Inject] AuthenticationService AuthProvider { get; set; } = default!;
+	[Inject] AppAuthenticationStateProvider AuthProvider { get; set; } = default!;
 
 	async Task Logout() => await AuthProvider.LogoutAsync();
-
-	@* private string factor => FormFactor.GetFormFactor(); *@
-	@* private string platform => FormFactor.GetPlatform(); *@
 
 }

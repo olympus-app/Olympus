@@ -29,7 +29,7 @@ public static class AuthenticationRegistrator {
 
 			options.Stores.SchemaVersion = IdentitySchemaVersions.Version3;
 
-		}).AddDefaultTokenProviders().AddClaimsPrincipalFactory<ClaimsPrincipalFactory>().AddEntityFrameworkStores<EntityDatabase>();
+		}).AddDefaultTokenProviders().AddClaimsPrincipalFactory<ClaimsPrincipalFactory>().AddEntityFrameworkStores<DatabaseService>();
 
 		builder.Services.ConfigureApplicationCookie(static options => {
 

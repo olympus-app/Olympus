@@ -6,7 +6,7 @@
 		<ErrorOnDuplicatePublishAssets>true</ErrorOnDuplicatePublishAssets>
 	</PropertyGroup>
 
-	<!-- Service Worker Properties for Web Application Host -->
+	<!-- Service Worker Properties -->
 	<PropertyGroup Label="ServiceWorkerProperties" Condition="$(IsWebApplicationHost)=='true'">
 		<ServiceWorkerEnabled>true</ServiceWorkerEnabled>
 		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>

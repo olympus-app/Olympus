@@ -8,17 +8,23 @@ public sealed class AppLocalizationScope : IDisposable {
 
 	private readonly CultureInfo PreviousUICulture;
 
-	public AppLocalizationScope(CultureSettings settings, CultureInfo? culture = null) {
+	private readonly CultureInfo? PreviousThreadCulture;
+
+	private readonly CultureInfo? PreviousThreadUICulture;
+
+	public AppLocalizationScope(CultureInfo culture) {
 
 		PreviousCulture = CultureInfo.CurrentCulture;
 		PreviousUICulture = CultureInfo.CurrentUICulture;
+		PreviousThreadCulture = CultureInfo.DefaultThreadCurrentCulture;
+		PreviousThreadUICulture = CultureInfo.DefaultThreadCurrentUICulture;
 
 		if (AppCultureInfo.IsInvariant) return;
 
-		culture ??= CultureInfo.GetCultureInfo(settings.DefaultCulture);
-
 		CultureInfo.CurrentCulture = culture;
 		CultureInfo.CurrentUICulture = culture;
+		CultureInfo.DefaultThreadCurrentCulture = culture;
+		CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 	}
 
@@ -28,6 +34,8 @@ public sealed class AppLocalizationScope : IDisposable {
 
 		CultureInfo.CurrentCulture = PreviousCulture;
 		CultureInfo.CurrentUICulture = PreviousUICulture;
+		CultureInfo.DefaultThreadCurrentCulture = PreviousThreadCulture;
+		CultureInfo.DefaultThreadCurrentUICulture = PreviousThreadUICulture;
 
 	}
 

@@ -1,179 +1,91 @@
 @page "/login"
-@using System.ComponentModel.DataAnnotations
-@using System.Net.Http.Json
-@using Microsoft.AspNetCore.Components.Authorization
-@using Olympus.Core.Frontend.Authentication
+@layout Olympus.Core.Frontend.Layouts.LocksScreenLayout
+@using Olympus.Core.Frontend.Pages
 
-@inject AuthClient Client
-@inject AuthenticationService AuthStateProvider
-@inject NavigationManager Navigation
-@inject PasskeyService PasskeyService
+@attribute [AllowAnonymous]
 
-<h3 style="margin-top: 20px;">Acesso ao Olympus</h3>
+<RadzenStack Gap="0" class="rz-border-radius-4 rz-shadow-10" Style="width: 100%; max-width: 400px; overflow: hidden;">
 
-<div style="max-width: 400px; border: 1px solid #ccc; padding: 20px; border-radius: 8px;">
-	<EditForm Model="@Input" OnValidSubmit="ExecuteLogin">
-		<DataAnnotationsValidator />
-		<ValidationSummary />
+	<RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-px-8 rz-py-4" style="text-align: center;">
+		<RadzenImage Style="max-height: 8rem; max-width: 12rem;" Class="app-logo-portrait rz-m-4" />
+		<RadzenText TextStyle="TextStyle.H5" Class="rz-m-1">Bem-vindo</RadzenText>
+		<RadzenText TextStyle="TextStyle.Body2" Class="rz-color-base-500">faça login para acessar o sistema @AppUsers.Agents.Name</RadzenText>
+	</RadzenCard>
 
-		<div style="margin-bottom: 15px;">
-			<label style="display:block">Email</label>
-			<InputText @bind-Value="Input.Email" style="width: 100%; padding: 5px;" />
-		</div>
+	<RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-pt-0 rz-pb-4" style="text-align: center;">
+		<RadzenImage Path="/images/flags/pt.svg" title="Português" Click="@(() => LocalizationManager.SetCulture(AppCultureInfo.Portuguese))" Style="max-width: 1.2rem; border: var(--rz-border-normal); cursor: pointer;" Class="rz-border-radius-1 rz-m-1" />
+		<RadzenImage Path="/images/flags/en.svg" title="English" Click="@(() => LocalizationManager.SetCulture(AppCultureInfo.English))" Style="max-width: 1.2rem; border: var(--rz-border-normal); cursor: pointer;" Class="rz-border-radius-1 rz-m-1" />
+		<RadzenImage Path="/images/flags/es.svg" title="Español" Click="@(() => LocalizationManager.SetCulture(AppCultureInfo.Spanish))" Style="max-width: 1.2rem; border: var(--rz-border-normal); cursor: pointer;" Class="rz-border-radius-1 rz-m-1" />
+	</RadzenCard>
 
-		<div style="margin-bottom: 15px;">
-			<label style="display:block">Senha</label>
-			<InputText @bind-Value="Input.Password" type="password" style="width: 100%; padding: 5px;" />
-		</div>
+	<RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-px-8 rz-py-0">
+		<RadzenStack Orientation="Orientation.Vertical" Gap="0" Class="rz-justify-content-center">
 
-		<button type="submit" disabled="@isLoading" style="width: 100%; padding: 10px; cursor: pointer;">
-			@if (isLoading)
-			{
-				<span>Entrando...</span>
-			}
-			else
-			{
+			@* O TItem agora é o seu DTO direto, não LoginArgs *@
+			<RadzenTemplateForm TItem="LoginRequest" Data="@Input" Submit="@OnLoginAsync">
+				<RadzenStack Gap="0">
 
-				<span>Entrar</span>
-			}
-		</button>
+					<RadzenFormField Text="Email" Variant="Variant.Outlined" Style="width: 100%;">
+						<RadzenTextBox @bind-Value="@Input.Email" Name="Email" />
+					</RadzenFormField>
+					<RadzenRequiredValidator Component="Email" Text="Email é obrigatório" />
+					<RadzenEmailValidator Component="Email" Text="Formato de email inválido" />
 
-		@if (!string.IsNullOrEmpty(errorMessage))
-		{
-			<div style="margin-top: 15px; color: red; text-align: center;">
-				@errorMessage
+					<RadzenFormField Text="Senha" Variant="Variant.Outlined" Style="width: 100%;">
+						<RadzenPassword @bind-Value="@Input.Password" Name="Password" />
+					</RadzenFormField>
+					<RadzenRequiredValidator Component="Password" Text="Senha é obrigatória" />
+
+					@if (!string.IsNullOrEmpty(ErrorMessage))
+					{
+						<RadzenAlert Severity="AlertSeverity.Error" Variant="Variant.Flat" Shade="Shade.Lighter" AllowClose="false" Size="AlertSize.Small">
+							@ErrorMessage
+						</RadzenAlert>
+					}
+
+					<RadzenButton ButtonType="ButtonType.Submit"
+						Text="Entrar"
+						ButtonStyle="ButtonStyle.Primary"
+						Class="rz-w-100 rz-mt-2"
+						IsBusy="@IsLoading" />
+				</RadzenStack>
+			</RadzenTemplateForm>
+
+			<div class="rz-display-flex rz-align-items-center rz-justify-content-center rz-my-4">
+				<div style="flex: 1; height: 1px; background-color: var(--rz-base-lighter);"></div>
+				<RadzenText TextStyle="TextStyle.Caption" Class="rz-mx-3 rz-my-0 rz-color-base-500">OU</RadzenText>
+				<div style="flex: 1; height: 1px; background-color: var(--rz-base-lighter);"></div>
 			</div>
-		}
-	</EditForm>
-</div>
 
-<div style="margin-top: 20px; text-align: center;">
-	<hr />
-	<p>Ou</p>
+			<RadzenStack Gap="0.5rem">
 
-	<button @onclick="LoginWithMicrosoft" style="padding: 10px; cursor: pointer;">
-		Entrar com a Microsoft
-	</button>
+				<RadzenButton Click="@LoginWithPasskeyAsync"
+					Text="Entrar com Chave de Acesso"
+					ButtonStyle="ButtonStyle.Secondary"
+					Variant="Variant.Flat"
+					Icon="fingerprint"
+					Class="rz-w-100"
+					BusyText="Verificando..."
+					IsBusy="@IsLoading" />
 
-	<button type="button" @onclick="LoginWithPasskey" class="btn btn-secondary w-100 mt-2">
-		Entrar com Chave de Acesso
-	</button>
+				<RadzenButton Click="@LoginWithMicrosoft"
+					Text="Entrar com a Conta da Microsoft"
+					ButtonStyle="ButtonStyle.Light"
+					Variant="Variant.Flat"
+					Image="/images/identity/microsoft.svg"
+					Class="rz-w-100"
+					IsBusy="@IsLoading" />
 
-</div>
+			</RadzenStack>
 
-@code {
-	private UserLoginRequest Input { get; set; } = new();
-	private bool isLoading = false;
-	private string? errorMessage;
-
-	// Modelo simples apenas para este formulário
-	public class LoginModel
-	{
-		[Required, EmailAddress]
-		public string Email { get; set; } = "";
-
-		[Required]
-		public string Password { get; set; } = "";
-	}
-
-	private async Task ExecuteLogin()
-	{
-		isLoading = true;
-		errorMessage = null;
-
-		try
-		{
-			// 1. Envia as credenciais para o endpoint nativo do Identity
-			// O parâmetro ?useCookies=true é FUNDAMENTAL aqui
-			var response = await Client.LoginAsync(Input);
-
-			if (response.IsSuccessStatusCode)
-			{
-				// 2. O servidor respondeu 200 OK e enviou o cabeçalho Set-Cookie.
-				// O navegador captura esse cookie automaticamente.
-
-				// 3. Forçamos o Blazor a verificar o estado de autenticação novamente
-				// (Isso vai chamar o /auth/identity internamente usando o novo cookie)
-				var bffProvider = (AuthenticationService)AuthStateProvider;
-				await bffProvider.NotifyLoginSuccessAsync();
-
-				// 4. Redireciona para a Home
-				Navigation.NavigateTo("/");
-			}
-			else
-			{
-				errorMessage = "Email ou senha inválidos.";
-			}
-		}
-		catch (Exception ex)
-		{
-			errorMessage = $"Erro de conexão: {ex.Message}";
-		}
-		finally
-		{
-			isLoading = false;
-		}
-	}
-
-	private void LoginWithMicrosoft()
-	{
-		// 1. Define o esquema do provedor externo que configuramos no Backend
-		var provider = "MicrosoftBusiness";
-
-		// 2. Define a URL de retorno após a Microsoft autenticar (Geralmente a home)
-		var returnUrl = "/";
-
-		// 3. Constrói a URL do Identity que inicia o fluxo de Challenge
-		// O ASP.NET Core (Server) intercepta esta requisição e redireciona para a Microsoft.
-		var challengeUrl = $"/auth/external-login?provider={provider}&returnUrl={returnUrl}";
-
-		Navigation.NavigateTo(challengeUrl, forceLoad: true);
-	}
-
-	private async Task LoginWithPasskey()
-	{
-		// Passkey Login geralmente precisa saber quem é o usuário para buscar o Challenge correto
-		// (a menos que usemos "Discoverable Credentials" / Resident Keys, que é mais avançado).
-		// Por enquanto, vamos exigir que o usuário digite o email primeiro no campo Input.Email.
-
-		// Não verificamos mais se Input.Email está preenchido!
-		// O "Modo Descoberta" vai funcionar sem ele.
-		@* if (string.IsNullOrEmpty(Input.Email))
-		{
-			errorMessage = "Por favor, digite seu e-mail para localizar sua chave.";
-			return;
-		} *@
-
-		// Passamos string.Empty ou null se o email estiver vazio
-		var emailToUse = string.IsNullOrEmpty(Input.Email) ? null : Input.Email;
-
-		isLoading = true;
-		errorMessage = null;
-
-		try
-		{
-			var error = await PasskeyService.LoginWithPasskeyAsync(emailToUse ?? "");
-
-			if (error is null)
-			{
-				// Sucesso! Atualiza estado e redireciona
-				var bffProvider = (AuthenticationService)AuthStateProvider;
-				await bffProvider.NotifyLoginSuccessAsync();
-				Navigation.NavigateTo("/");
-			}
-			else
-			{
-				errorMessage = error;
-			}
-		}
-		catch (Exception ex)
-		{
-			errorMessage = $"Erro: {ex.Message}";
-		}
-		finally
-		{
-			isLoading = false;
-		}
-	}
-
-}
+		</RadzenStack>
+	</RadzenCard>
+	<RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-px-8 rz-py-8" style="text-align: center;">
+		<RadzenText TextStyle="TextStyle.Body2">
+			Ao fazer login, você concorda com:<br />
+			<RadzenLink Path="/terms" Target="_blank">Termos de Serviço</RadzenLink>
+			e a
+			<RadzenLink Path="/privacy" Target="_blank">Política de Privacidade</RadzenLink>
+		</RadzenText>
+	</RadzenCard>
+</RadzenStack>

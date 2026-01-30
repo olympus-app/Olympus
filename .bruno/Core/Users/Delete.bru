@@ -5,17 +5,14 @@ meta {
 }
 
 delete {
-  url: {{BasePath}}/api/v1/core/users/:id?force=true
+  url: {{BasePath}}/api/v1/core/users/delete?id={{TestId}}&force=true
   body: none
   auth: none
 }
 
 params:query {
-  force: true
-}
-
-params:path {
   id: {{TestId}}
+  force: true
 }
 
 headers {

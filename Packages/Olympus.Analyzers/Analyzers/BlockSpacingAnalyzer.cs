@@ -1,11 +1,9 @@
-using Olympus.Analyzers.Localization;
-
 namespace Olympus.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class BlockSpacingAnalyzer : DiagnosticAnalyzer {
 
-	public const string Identifier = "OL0002";
+	public const string Identifier = "OA0002";
 
 	public const string Category = "Formatting";
 

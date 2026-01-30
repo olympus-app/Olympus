@@ -31,6 +31,7 @@ public class AuditInterceptor(IHttpContextAccessor accessor) : SaveChangesInterc
 
 			if (entry.State == EntityState.Added) {
 
+				entry.Property(entity => entity.Id).CurrentValue = Guid.NewGuidV7();
 				entry.Property(entity => entity.ETag).CurrentValue = Guid.NewGuidV7();
 				entry.Property(entity => entity.CreatedById).CurrentValue = User?.Id ?? AppUsers.Unknown.Id;
 				entry.Property(entity => entity.UpdatedById).CurrentValue = User?.Id ?? AppUsers.Unknown.Id;

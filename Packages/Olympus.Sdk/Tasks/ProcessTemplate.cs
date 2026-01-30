@@ -56,9 +56,9 @@ public class ProcessTemplate : Task {
 
 			return true;
 
-		} catch (Exception ex) {
+		} catch (Exception exception) {
 
-			Log.LogErrorFromException(ex);
+			Log.LogErrorFromException(exception);
 
 			return false;
 

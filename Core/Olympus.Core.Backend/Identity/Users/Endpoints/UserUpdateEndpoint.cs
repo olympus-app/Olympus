@@ -1,6 +1,6 @@
 namespace Olympus.Core.Backend.Identity;
 
-public class UserUpdateEndpoint : EntityUpdateEndpoint<User, UserUpdateRequest, UserReadResponse, UserUpdateMapper> {
+public class UserUpdateEndpoint(UserService service) : EntityUpdateEndpoint<User, UserUpdateRequest, UserReadResponse>(service) {
 
 	public override void Configure() {
 

@@ -1,0 +1,87 @@
+services:
+
+  production-dashboard:
+    container_name: ${COMPOSE_PROJECT_NAME}-aspire
+    restart: always
+
+  postgres:
+    container_name: ${COMPOSE_PROJECT_NAME}-database
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    container_name: ${COMPOSE_PROJECT_NAME}-storage
+    restart: always
+
+  redis:
+    container_name: ${COMPOSE_PROJECT_NAME}-cache
+    restart: always
+
+  api:
+    container_name: ${COMPOSE_PROJECT_NAME}-api
+    restart: always
+    environment:
+      - ASPNETCORE_URLS=http://+:${API_PORT}
+      - ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      redis:
+        condition: service_started
+
+  cloudflared:
+    image: cloudflare/cloudflared:2025.11.1
+    container_name: ${COMPOSE_PROJECT_NAME}-tunnel
+    restart: always
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARED_TOKEN}
+    networks:
+      - aspire
+
+  nginx-proxy:
+    image: jc21/nginx-proxy-manager:2.13.5
+    container_name: ${COMPOSE_PROJECT_NAME}-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "81:81"
+    volumes:
+      - proxy_data:/data
+      - proxy_cert:/etc/letsencrypt
+    networks:
+      - aspire
+
+  adguard:
+    image: adguard/adguardhome:v0.107.71
+    container_name: ${COMPOSE_PROJECT_NAME}-dns
+    restart: always
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "3000:3000"
+    volumes:
+      - dns_data:/opt/adguardhome/work
+      - dns_conf:/opt/adguardhome/conf
+    networks:
+      - aspire
+
+volumes:
+  proxy_data:
+    driver: "local"
+  proxy_cert:
+    driver: "local"
+  dns_data:
+    driver: "local"
+  dns_conf:
+    driver: "local"
+
+networks:
+  aspire:

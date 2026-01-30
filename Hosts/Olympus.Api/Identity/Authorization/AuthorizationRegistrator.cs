@@ -15,8 +15,8 @@ public static class AuthorizationRegistrator {
 		builder.Services.AddSingleton<IAuthorizationHandler, PermissionsRequirementsHandler>();
 
 		builder.Services.AddAntiforgery(static options => {
-			options.HeaderName = Headers.Antiforgery;
-			options.FormFieldName = Headers.Antiforgery;
+			options.HeaderName = HttpHeaders.Antiforgery;
+			options.FormFieldName = HttpHeaders.Antiforgery;
 			options.Cookie.Name = IdentitySettings.AntiforgeryCookieName;
 			options.Cookie.HttpOnly = true;
 			options.Cookie.SameSite = SameSiteMode.Strict;

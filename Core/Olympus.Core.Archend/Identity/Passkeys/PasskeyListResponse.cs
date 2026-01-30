@@ -1,9 +1,9 @@
 namespace Olympus.Core.Archend.Identity;
 
-public record PasskeyListResponse {
+public record PasskeyListResponse : IResponse {
 
-	public required string Id { get; init; }
+	public string Id { get; init; } = string.Empty;
 
-	public required string Name { get; init; }
+	public string Name { get; init; } = string.Empty;
 
 }

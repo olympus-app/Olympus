@@ -13,30 +13,21 @@ public class AppStringLocalizerFactory(ILoggerFactory loggerFactory) : IStringLo
 
 		var sourceAssembly = resourceSource.Assembly;
 		var hostAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-
-		var sourceResourceName = $"{sourceAssembly.GetName().Name}.{resourceSource.Name}";
-		var hostResourceName = $"{hostAssembly.GetName().Name}.{resourceSource.Name}";
-
-		var sourceResourceManager = new ResourceManager(sourceResourceName, sourceAssembly);
+		var resourceName = $"{sourceAssembly.GetName().Name}.{resourceSource.Name}";
+		var sourceResourceManager = new ResourceManager(resourceName, sourceAssembly);
 		var hostResourceManager = (ResourceManager?)null;
 
-		if (hostAssembly.GetManifestResourceInfo(hostResourceName + ".resources") is not null) {
+		if (hostAssembly.GetManifestResourceNames().Contains(resourceName + ".resources")) {
 
-			hostResourceManager = new ResourceManager(hostResourceName, hostAssembly);
+			var manager = new ResourceManager(resourceName, hostAssembly);
 
-			try {
+			if (manager.GetResourceSet(System.Globalization.CultureInfo.InvariantCulture, true, true) is not null) {
 
-				if (hostResourceManager.GetResourceSet(AppCultureInfo.Invariant, true, true) is null) hostResourceManager = null;
-
-			} catch {
-
-				hostResourceManager = null;
+				hostResourceManager = manager;
 
 			}
 
 		}
-
-		hostResourceManager ??= sourceResourceManager;
 
 		return new AppStringLocalizer(sourceResourceManager, hostResourceManager);
 

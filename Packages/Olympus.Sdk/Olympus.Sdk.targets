@@ -12,6 +12,7 @@
 		<Import Project="..\targets\Documentation.targets" />
 		<Import Project="..\targets\Localization.targets" />
 		<Import Project="..\targets\References.targets" />
+		<Import Project="..\targets\Resources.targets" />
 		<Import Project="..\targets\Packages.targets" />
 		<Import Project="..\targets\Packing.targets" />
 		<Import Project="..\targets\Usings.targets" />

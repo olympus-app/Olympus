@@ -1,6 +1,6 @@
 namespace Olympus.Core.Backend.Identity;
 
-public class UserDeleteEndpoint : EntityDeleteEndpoint<User, UserDeleteRequest> {
+public class UserDeleteEndpoint(UserService service) : EntityDeleteEndpoint<User, UserDeleteRequest>(service) {
 
 	public override void Configure() {
 

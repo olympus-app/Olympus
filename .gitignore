@@ -3,14 +3,16 @@ bin/
 obj/
 
 # Generated folder
-**/Generated
+**/$Generated
 
 # Settings files
 appsettings*.json
 .settings/**/*.json
 
 # DotEnv files
+.env
 .env.*
+!.env.Template
 
 # User files
 *.user

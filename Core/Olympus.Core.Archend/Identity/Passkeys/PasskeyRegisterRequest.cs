@@ -1,6 +1,6 @@
 namespace Olympus.Core.Archend.Identity;
 
-public record PasskeyRegisterRequest {
+public record PasskeyRegisterRequest : IRequest {
 
 	public required string Credential { get; init; }
 

@@ -1,14 +1,13 @@
-window.passkeys = {
+window.Olympus.passkeys = {
 
-	/**
-	 * Registers a new passkey (Attestation)
-	 * @param {string} optionsJson - The JSON string returned by /passkeys/options/register
-	 */
 	create: async (optionsJson) => {
 
 		if (!window.PublicKeyCredential || typeof PublicKeyCredential.parseCreationOptionsFromJSON !== 'function') {
+
 			console.error("Passkeys are not supported or the browser is outdated.");
+
 			return null;
+
 		}
 
 		try {
@@ -22,21 +21,21 @@ window.passkeys = {
 		} catch (error) {
 
 			console.error("Error creating passkey:", error);
+
 			return null;
 
 		}
 
 	},
 
-	/**
-	 * Authenticates using an existing passkey (Assertion)
-	 * @param {string} optionsJson - The JSON string returned by /passkeys/options/login
-	 */
 	get: async (optionsJson) => {
 
 		if (!window.PublicKeyCredential || typeof PublicKeyCredential.parseRequestOptionsFromJSON !== 'function') {
+
 			console.error("Passkeys are not supported or the browser is outdated.");
+
 			return null;
+
 		}
 
 		try {
@@ -50,19 +49,19 @@ window.passkeys = {
 		} catch (error) {
 
 			console.error("Error obtaining passkey:", error);
+
 			return null;
 
 		}
 	},
 
-	/**
-	 * Checks if the browser supports Passkeys (WebAuthn)
-	 */
 	isSupported: async () => {
+
 		return window.PublicKeyCredential &&
 			typeof PublicKeyCredential.parseCreationOptionsFromJSON === 'function' &&
 			typeof PublicKeyCredential.parseRequestOptionsFromJSON === 'function' &&
 			(await window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable());
+
 	}
 
 };

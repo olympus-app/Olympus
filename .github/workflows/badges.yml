@@ -31,7 +31,7 @@ jobs:
         with:
           directory: ./
           patterns: "**/*.bru|**/*.cs|**/*.cshtml|**/*.csproj|**/*.css|**/*.html|**/*.js|**/*.json|**/*.props|**/*.razor|**/*.slnx|**/*.targets|**/*.xaml|**/*.xml|**/*.yaml|**/*.yml"
-          ignore: ".git|Generated|bin|obj|**/*.Designer.cs|**/*.map|**/*.min.css|**/*.min.js"
+          ignore: ".git|$Generated|bin|obj|**/*.Designer.cs|**/*.map|**/*.min.css|**/*.min.js"
 
       - name: Deploy to Branch
         uses: peaceiris/actions-gh-pages@v4

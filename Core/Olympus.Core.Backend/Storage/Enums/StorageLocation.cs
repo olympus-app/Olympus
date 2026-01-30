@@ -2,10 +2,10 @@ namespace Olympus.Core.Backend.Storage;
 
 public enum StorageLocation {
 
-	[Label("public")]
-	Public = 0,
-
 	[Label("private")]
-	Private = 1,
+	Private = 0,
+
+	[Label("public")]
+	Public = 1,
 
 }

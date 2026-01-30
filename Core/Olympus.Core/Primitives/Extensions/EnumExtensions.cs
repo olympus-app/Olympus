@@ -22,6 +22,14 @@ public static class EnumExtensions {
 
 		public string Humanized => (FastEnum.GetName(value) ?? value.ToString()).Humanize(LetterCasing.Sentence) + '.';
 
+		public string? Label => value.GetLabel(0, false);
+
+		public string GetLabel(string defaultValue, int index = 0) {
+
+			return value.GetLabel(index, false) ?? defaultValue;
+
+		}
+
 	}
 
 }

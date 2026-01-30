@@ -5,11 +5,11 @@ meta {
 }
 
 delete {
-  url: {{BasePath}}/api/v1/core/users/:id/photo
+  url: {{BasePath}}/api/v1/core/users/photo?id={{UserId}}
   body: none
   auth: none
 }
 
-params:path {
+params:query {
   id: {{UserId}}
 }

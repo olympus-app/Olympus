@@ -135,9 +135,9 @@ public class MicrosoftBusinessProviderOptions(MicrosoftBusinessSettings settings
 
 		await context.HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-		context.Response.Redirect("/");
+		// context.Response.Redirect("/");
 
-		context.HandleResponse();
+		// context.HandleResponse();
 
 	}
 

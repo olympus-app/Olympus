@@ -49,16 +49,6 @@ public class StorageService(IMinioClient client) : IStorageService {
 
 	}
 
-	public async Task UploadAsync(Stream stream, string storageBucket, string storagePath, string contentType, CancellationToken cancellationToken = default) {
-
-		await EnsureBucketExistsAsync(storageBucket, cancellationToken);
-
-		var args = new PutObjectArgs().WithBucket(storageBucket).WithObject(storagePath).WithStreamData(stream).WithObjectSize(stream.Length).WithContentType(contentType);
-
-		await client.PutObjectAsync(args, cancellationToken);
-
-	}
-
 	public Task<Stream> DownloadAsync(string storageBucket, string storagePath, CancellationToken cancellationToken = default) {
 
 		var pipe = new Pipe();
@@ -73,15 +63,25 @@ public class StorageService(IMinioClient client) : IStorageService {
 
 				await pipe.Writer.CompleteAsync();
 
-			} catch (Exception ex) {
+			} catch (Exception exception) {
 
-				await pipe.Writer.CompleteAsync(ex);
+				await pipe.Writer.CompleteAsync(exception);
 
 			}
 
 		}, cancellationToken);
 
 		return Task.FromResult(pipe.Reader.AsStream());
+
+	}
+
+	public async Task UploadAsync(Stream stream, string storageBucket, string storagePath, string contentType, CancellationToken cancellationToken = default) {
+
+		await EnsureBucketExistsAsync(storageBucket, cancellationToken);
+
+		var args = new PutObjectArgs().WithBucket(storageBucket).WithObject(storagePath).WithStreamData(stream).WithObjectSize(stream.Length).WithContentType(contentType);
+
+		await client.PutObjectAsync(args, cancellationToken);
 
 	}
 

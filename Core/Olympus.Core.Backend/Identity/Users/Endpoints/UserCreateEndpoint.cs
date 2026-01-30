@@ -1,6 +1,6 @@
 namespace Olympus.Core.Backend.Identity;
 
-public class UserCreateEndpoint : EntityCreateEndpoint<User, UserCreateRequest, UserReadResponse, UserCreateMapper> {
+public class UserCreateEndpoint(UserService service) : EntityCreateEndpoint<User, UserCreateRequest, UserReadResponse>(service) {
 
 	public override void Configure() {
 

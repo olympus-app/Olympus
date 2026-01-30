@@ -1,10 +1,12 @@
 namespace Olympus.Core.Archend;
 
-public class CoreOptions() : AppModuleOptions(AppModuleType.Core, AppModuleCategory.Infrastructure) {
+public sealed partial class CoreOptions {
 
-	public override void Configure(IConfiguration configuration) {
+	partial void OnConfigure(IConfiguration configuration, ref bool handled) {
 
-		configuration.Bind($"Modules:{ModuleName}", this);
+		configuration.Bind($"Modules:{CodeName}", this);
+
+		handled = true;
 
 	}
 

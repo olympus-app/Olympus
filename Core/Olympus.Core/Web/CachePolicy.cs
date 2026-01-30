@@ -3,27 +3,21 @@ namespace Olympus.Core.Web;
 public enum CachePolicy {
 
 	/// <summary>
-	/// Do not store any part of the response or request.
+	/// No policy.
 	/// </summary>
-	[Label("no-store")]
+	[Label("")]
 	None = 0,
 
 	/// <summary>
-	/// Do not use a cached copy without revalidating with the origin server.
+	/// The response must be revalidated.
 	/// </summary>
 	[Label("no-cache")]
-	Validate = 1,
+	Revalidate = 1,
 
 	/// <summary>
-	/// Store the response in private caches only.
+	/// The response is immutable, no need to revalidate.
 	/// </summary>
-	[Label("private")]
-	Private = 2,
-
-	/// <summary>
-	/// Store the response in public caches.
-	/// </summary>
-	[Label("public")]
-	Public = 3,
+	[Label("immutable")]
+	Immutable = 2,
 
 }

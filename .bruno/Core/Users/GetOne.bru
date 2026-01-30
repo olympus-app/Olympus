@@ -5,12 +5,12 @@ meta {
 }
 
 get {
-  url: {{BasePath}}/api/v1/core/users/:id
+  url: {{BasePath}}/api/v1/core/users/read?id={{UserId}}
   body: none
   auth: none
 }
 
-params:path {
+params:query {
   id: {{UserId}}
 }
 

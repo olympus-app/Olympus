@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Values xmlns="urn:tom-englert.de/Configuration/1/0">
+	<Value Key="AutoApplyExistingTranslations">True</Value>
+	<Value Key="AutoCreateNewLanguageFiles">False</Value>
+	<Value Key="ConfirmAddLanguageFile">True</Value>
+	<Value Key="CultureCountyOverrides">pt=pt-BR</Value>
+	<Value Key="DuplicateKeyHandling">Rename</Value>
+	<Value Key="EnableXlifSync">False</Value>
+	<Value Key="ExcelExportMode">SingleSheet</Value>
+	<Value Key="NeutralResourcesLanguage">en-US</Value>
+	<Value Key="PrefixFieldType">Value</Value>
+	<Value Key="PrefixTranslations">False</Value>
+	<Value Key="RemoveEmptyEntries">True</Value>
+	<Value Key="Rules">{"EnabledRules":["StringFormat","WhiteSpaceLead","WhiteSpaceTail","PunctuationLead","PunctuationTail"]}</Value>
+	<Value Key="SaveFilesImmediatelyUponChange">False</Value>
+	<Value Key="SortFileContentOnSave">False</Value>
+</Values>

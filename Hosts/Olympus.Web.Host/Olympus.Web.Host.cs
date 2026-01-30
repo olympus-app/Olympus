@@ -1,20 +1,18 @@
 ﻿namespace Olympus.Web.Host;
 
-public sealed class WebHost {
+public static class WebHost {
 
 	public static Task Main(string[] args) {
 
 		var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-		var info = new AppHostInfo(typeof(WebHost).Assembly);
+		var info = builder.GetWebHostInfo();
 
-		builder.AddSettings();
+		builder.LoadSettings();
 
-		builder.AddModules(info);
+		builder.AddDiscoveredServices();
 
-		builder.AddServices();
-
-		builder.AddRootComponents();
+		builder.AddWebServices();
 
 		return builder.BuildAndRunAsync();
 

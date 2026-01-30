@@ -110,9 +110,9 @@ else
 				message = $"Erro: {error}";
 			}
 		}
-		catch (Exception ex)
+		catch (Exception exception)
 		{
-			message = $"Ocorreu um erro inesperado: {ex.Message}";
+			message = $"Ocorreu um erro inesperado: {exception.Message}";
 		}
 		finally
 		{

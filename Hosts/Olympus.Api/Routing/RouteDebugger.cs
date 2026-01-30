@@ -34,7 +34,7 @@ public static class RouteDebugger {
 
 		var endpoints = dataSources.SelectMany(source => source.Endpoints).OfType<RouteEndpoint>().Where(endpoint => {
 			var route = endpoint.RoutePattern.RawText?.TrimStart('/');
-			return !string.IsNullOrEmpty(route) && (route.StartsWith("api", StringComparison.OrdinalIgnoreCase) || route.StartsWith("auth", StringComparison.OrdinalIgnoreCase));
+			return !string.IsNullOrEmpty(route) && (route.StartsWith("api", StringComparison.OrdinalIgnoreCase) || route.StartsWith("auth", StringComparison.OrdinalIgnoreCase) && !route.EndsWith(AppRoutes.ApiRoutes, StringComparison.OrdinalIgnoreCase));
 		}).OrderBy(endpoint => endpoint.RoutePattern.RawText);
 
 		foreach (var endpoint in endpoints) {

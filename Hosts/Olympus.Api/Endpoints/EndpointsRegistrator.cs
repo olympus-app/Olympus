@@ -2,18 +2,20 @@ namespace Olympus.Api.Endpoints;
 
 public static class EndpointsRegistrator {
 
-	public static void AddEndpointsServices(this WebApplicationBuilder builder) {
+	public static void AddEndpointsServices(this WebApplicationBuilder builder, ApiHostInfo info) {
 
-		builder.Services.AddFastEndpoints();
+		builder.Services.AddFastEndpoints(options => options.SourceGeneratorDiscoveredTypes.AddRange(info.EndpointsTypes));
 
 	}
 
-	public static void MapEndpoints(this WebApplication app) {
+	public static void MapEndpoints(this WebApplication app, ApiHostInfo info) {
 
 		app.UseFastEndpoints(options => {
 
+			info?.EndpointsReflection.Invoke(options.Binding.ReflectionCache);
+
 			options.Endpoints.ShortNames = true;
-			options.Endpoints.RoutePrefix = Routes.Api;
+			options.Endpoints.RoutePrefix = AppRoutes.Api.Trim('/');
 			options.Endpoints.NameGenerator = static context => context.EndpointType.Name.Crop("Endpoint");
 
 			options.Versioning.DefaultVersion = 1;

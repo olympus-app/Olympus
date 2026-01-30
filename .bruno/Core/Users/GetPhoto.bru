@@ -5,17 +5,14 @@ meta {
 }
 
 get {
-  url: {{BasePath}}/api/v1/core/users/:id/photo
+  url: {{BasePath}}/api/v1/core/users/photo?id={{UserId}}&size=small
   body: none
   auth: none
 }
 
 params:query {
-  ~size: small
-}
-
-params:path {
   id: {{UserId}}
+  size: small
 }
 
 headers {

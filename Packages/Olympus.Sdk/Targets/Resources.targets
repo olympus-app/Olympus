@@ -1,0 +1,48 @@
+<Project>
+
+	<!-- Localization Embedded Resources -->
+	<ItemGroup Label="GeneralLocalizationEmbeddedResources" Condition="$(IsApplicationHost)=='false'">
+		<EmbeddedResource Include="Resources\*.resx" Exclude="Resources\*ModuleInfo.*resx;Resources\*Permissions.*resx;Resources\*Routes.*resx">
+			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
+			<Namespace>$(RootNamespace.Replace('.Localization','')).Localization</Namespace>
+			<ResourceType>Localization</ResourceType>
+			<DefaultLang>en</DefaultLang>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<!-- Localization Overrides Embedded Resources -->
+	<ItemGroup Label="LocalizationOverridesEmbeddedResources" Condition="$(IsApplicationHost)=='true'">
+		<EmbeddedResource Include="$(ResourcesFolder)\Localization\*.resx;Resources\*.resx;">
+			<LogicalName>%(FileName).resources</LogicalName>
+			<ResourceType>LocalizationOverrides</ResourceType>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<!-- Module Info Embedded Resources -->
+	<ItemGroup Label="ModuleInfoEmbeddedResources" Condition="$(IsArchendLayer)=='true'">
+		<EmbeddedResource Include="Resources\*ModuleInfo.*resx">
+			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
+			<Namespace>$(RootNamespace)</Namespace>
+			<ResourceType>ModuleInfo</ResourceType>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<!-- Permissions Embedded Resources -->
+	<ItemGroup Label="PermissionsEmbeddedResources" Condition="$(IsArchendLayer)=='true'">
+		<EmbeddedResource Include="Resources\*Permissions.*resx">
+			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
+			<Namespace>$(RootNamespace)</Namespace>
+			<ResourceType>Permissions</ResourceType>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<!-- Routes Embedded Resources -->
+	<ItemGroup Label="RoutesEmbeddedResources" Condition="$(IsArchendLayer)=='true'">
+		<EmbeddedResource Include="Resources\*Routes.*resx">
+			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
+			<Namespace>$(RootNamespace)</Namespace>
+			<ResourceType>Routes</ResourceType>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>

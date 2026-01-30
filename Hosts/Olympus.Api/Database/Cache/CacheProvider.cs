@@ -56,9 +56,9 @@ public class CacheProvider(HybridCache hybridCache) : IEFCacheServiceProvider {
 
 			HybridCache.SetAsync(cacheKey.KeyHash, bytes, options).AsTask().GetAwaiter().GetResult();
 
-		} catch (Exception ex) {
+		} catch (Exception exception) {
 
-			Console.WriteLine(ex.Message);
+			Console.WriteLine(exception.Message);
 
 		}
 

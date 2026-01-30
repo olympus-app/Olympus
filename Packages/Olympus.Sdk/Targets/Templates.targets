@@ -1,5 +1,13 @@
 <Project>
 
+	<!-- Templates Properties -->
+	<PropertyGroup Label="TemplatesProperties">
+		<ResolveStaticWebAssetsInputsDependsOn>
+			RegisterWebHostAssetsFiles;
+			$(ResolveStaticWebAssetsInputsDependsOn)
+		</ResolveStaticWebAssetsInputsDependsOn>
+	</PropertyGroup>
+
 	<!-- Templates Replacements Normalized Properties -->
 	<PropertyGroup Label="TemplatesReplacementsNormalizedProperties">
 		<ApiHostPathNormalized>$(ApiHostProjectFile.Replace('\', '/'))</ApiHostPathNormalized>
@@ -7,6 +15,28 @@
 		<AspireHostPathNormalized>$(AspireHostProjectFile.Replace('\', '/'))</AspireHostPathNormalized>
 		<AspireHostDirNormalized>$([System.IO.Path]::GetDirectoryName('$(AspireHostProjectFile)'))</AspireHostDirNormalized>
 		<AspireHostDirNormalized>$(AspireHostDirNormalized.Replace('\', '/'))</AspireHostDirNormalized>
+	</PropertyGroup>
+
+	<!-- Templates Replacements Properties -->
+	<PropertyGroup Label="TemplatesReplacementsProperties" Condition="$(IsWebApplicationHost)=='true' And $(Configuration)=='Release'">
+		<IndexThemesSection>$(IndexThemesSection)&lt;link rel="stylesheet" href="styles/light.css" id="theme-light" disabled /&gt;</IndexThemesSection>
+		<IndexThemesSection>$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="styles/dark.css" id="theme-dark" disabled /&gt;</IndexThemesSection>
+		<IndexThemesSection>$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="styles/common.css" id="theme-common" disabled /&gt;</IndexThemesSection>
+		<IndexDefaultScriptsSection>$(IndexDefaultScriptsSection)&lt;script src="scripts.js"&gt;&lt;/script&gt;</IndexDefaultScriptsSection>
+	</PropertyGroup>
+
+	<!-- Templates Replacements Properties -->
+	<PropertyGroup Label="TemplatesReplacementsProperties" Condition="$(IsWebApplicationHost)=='true' And $(Configuration)!='Release'">
+		<IndexThemesSection Condition="!Exists('$(LocalAssetsFolder)\dev\light.css')">$(IndexThemesSection)&lt;link rel="stylesheet" href="styles/light.css" id="theme-light" disabled /&gt;</IndexThemesSection>
+		<IndexThemesSection Condition="Exists('$(LocalAssetsFolder)\dev\light.css')">$(IndexThemesSection)&lt;link rel="stylesheet" href="dev/light.css" id="theme-light" disabled /&gt;</IndexThemesSection>
+		<IndexThemesSection Condition="!Exists('$(LocalAssetsFolder)\dev\dark.css')">$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="styles/dark.css" id="theme-dark" disabled /&gt;</IndexThemesSection>
+		<IndexThemesSection Condition="Exists('$(LocalAssetsFolder)\dev\dark.css')">$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="dev/dark.css" id="theme-dark" disabled /&gt;</IndexThemesSection>
+		<IndexThemesSection Condition="!Exists('$(LocalAssetsFolder)\dev\common.css')">$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="styles/common.css" id="theme-common" disabled /&gt;</IndexThemesSection>
+		<IndexThemesSection Condition="Exists('$(LocalAssetsFolder)\dev\common.css')">$(IndexThemesSection)&#xD;&#xA;&#x9;&lt;link rel="stylesheet" href="dev/common.css" id="theme-common" disabled /&gt;</IndexThemesSection>
+		<IndexBootScriptsSection Condition="!Exists('$(LocalAssetsFolder)\scripts\boot.js')">&lt;script&gt;&#xD;&#xA;$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(BaseAssetsFolder)\scripts\boot.js').Trim()), '(?m)^\s*$\n?', '')), '(?m)^', '&#x9;&#x9;'))&#xD;&#xA;&#x9;&lt;/script&gt;</IndexBootScriptsSection>
+		<IndexBootScriptsSection Condition="Exists('$(LocalAssetsFolder)\scripts\boot.js')">&lt;script&gt;&#xD;&#xA;$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(LocalAssetsFolder)\scripts\boot.js').Trim()), '(?m)^\s*$\n?', '')), '(?m)^', '&#x9;&#x9;'))&#xD;&#xA;&#x9;&lt;/script&gt;</IndexBootScriptsSection>
+		<IndexDefaultScriptsSection>$(IndexDefaultScriptsSection)&lt;script src="scripts.js"&gt;&lt;/script&gt;</IndexDefaultScriptsSection>
+		<IndexDefaultScriptsSection Condition="Exists('$(LocalAssetsFolder)\dev\scripts.js')">$(IndexDefaultScriptsSection)&#xD;&#xA;&#x9;&lt;script src="dev/scripts.js"&gt;&lt;/script&gt;</IndexDefaultScriptsSection>
 	</PropertyGroup>
 
 	<!-- Templates Replacements Properties -->
@@ -18,12 +48,18 @@
 			{{AUTHORS}},$(SolutionAuthors);
 			{{THEMECOLOR}},$(WebAppThemeColor);
 			{{BACKGROUNDCOLOR}},$(WebAppBackgroundColor);
+			{{INDEXTHEMESSECTION}},$(IndexThemesSection);
+			{{INDEXBOOTSCRIPTSSECTION}},$(IndexBootScriptsSection);
+			{{INDEXDEFAULTSCRIPTSSECTION}},$(IndexDefaultScriptsSection);
 			{{APIHOSTNAME}},$(ApiHostProjectName.Trim());
 			{{APIHOSTPATH}},$(ApiHostPathNormalized);
 			{{WEBHOSTNAME}},$(WebHostProjectName.Trim());
 			{{WEBHOSTPATH}},$(WebHostPathNormalized);
 			{{ASPIREHOSTPATH}},$(AspireHostPathNormalized);
-			{{ASPIREHOSTDIR}},$(AspireHostDirNormalized)
+			{{ASPIREHOSTDIR}},$(AspireHostDirNormalized);
+			Olympus.Aspire.Host,$(RootNamespace);
+			Olympus.Api.Host,$(RootNamespace);
+			Olympus.Web.Host,$(RootNamespace);
 		</TemplatesReplacements>
 	</PropertyGroup>
 
@@ -39,8 +75,8 @@
 		<AspireHostCodeTemplates Include="$(MSBuildThisFileDirectory)..\templates\Aspire.Host\*.cs.template">
 			<GeneratedFile>$(IntermediateOutputPath)$(RootNamespace).%(Filename).g.cs</GeneratedFile>
 		</AspireHostCodeTemplates>
-		<AspireHostPublishTemplates Include="$(MSBuildThisFileDirectory)..\templates\Aspire.Host\Publish\**\*.template">
-			<GeneratedFile>$(ProjectFolder)\Publish\%(Filename)</GeneratedFile>
+		<AspireHostPublishTemplates Include="$(MSBuildThisFileDirectory)..\templates\Aspire.Host\$Publish\**\*.template">
+			<GeneratedFile>$(ProjectFolder)\$Publish\%(Filename)</GeneratedFile>
 		</AspireHostPublishTemplates>
 	</ItemGroup>
 
@@ -56,20 +92,14 @@
 		<WebHostCodeTemplates Include="$(MSBuildThisFileDirectory)..\templates\Web.Host\*.cs.template">
 			<GeneratedFile>$(IntermediateOutputPath)$(RootNamespace).%(Filename).g.cs</GeneratedFile>
 		</WebHostCodeTemplates>
-		<WebHostAssetsTemplates Include="$(MSBuildThisFileDirectory)..\templates\Web.Host\wwwroot\**\*.template" Exclude="$(MSBuildThisFileDirectory)..\templates\Web.Host\wwwroot\service-worker*.template">
+		<WebHostAssetsTemplates Include="$(MSBuildThisFileDirectory)..\templates\Web.Host\wwwroot\**\*.template">
 			<GeneratedFile>$(IntermediateOutputPath)wwwroot\%(RecursiveDir)%(Filename)</GeneratedFile>
+			<RelativePath>%(RecursiveDir)%(Filename)</RelativePath>
 		</WebHostAssetsTemplates>
 	</ItemGroup>
 
-	<!-- Web Application Host Service Worker Definitions -->
-	<PropertyGroup Label="WebHostServiceWorkerDefinitions" Condition="$(IsWebApplicationHost)=='true'">
-		<ServiceWorkerTemplateFile Condition="$(Configuration)!=Release">$(MSBuildThisFileDirectory)..\templates\Web.Host\wwwroot\service-worker.js.template</ServiceWorkerTemplateFile>
-		<ServiceWorkerTemplateFile Condition="$(Configuration)==Release">$(MSBuildThisFileDirectory)..\templates\Web.Host\wwwroot\service-worker.published.js.template</ServiceWorkerTemplateFile>
-		<ServiceWorkerGeneratedFile>$(IntermediateOutputPath)wwwroot\service-worker.js</ServiceWorkerGeneratedFile>
-	</PropertyGroup>
-
 	<!-- Process Workspace Templates -->
-	<Target Name="ProcessWorkspaceTemplates" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="@(WorkspaceTemplates)" Outputs="%(WorkspaceTemplates.GeneratedFile)" Condition="$(IsMainSolution)=='false' And $(IsApplicationHost)=='true'">
+	<Target Name="ProcessWorkspaceTemplates" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="@(WorkspaceTemplates)" Outputs="%(WorkspaceTemplates.GeneratedFile)" Condition="$(IsApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ProcessTemplate
 			InputFile="%(WorkspaceTemplates.Identity)"
@@ -80,7 +110,7 @@
 	</Target>
 
 	<!-- Generate Aspire Application Host Code Files -->
-	<Target Name="GenerateAspireHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" Inputs="@(AspireHostCodeTemplates)" Outputs="%(AspireHostCodeTemplates.GeneratedFile)" Condition="$(IsAspireApplicationHost)=='true'">
+	<Target Name="GenerateAspireHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" Inputs="@(AspireHostCodeTemplates)" Outputs="%(AspireHostCodeTemplates.GeneratedFile)" Condition="$(IsAspireApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ProcessTemplate
 			InputFile="%(AspireHostCodeTemplates.Identity)"
@@ -91,7 +121,7 @@
 	</Target>
 
 	<!-- Register Aspire Application Host Code Files -->
-	<Target Name="RegisterAspireHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" DependsOnTargets="GenerateAspireHostCodeFiles" Condition="$(IsAspireApplicationHost)=='true'">
+	<Target Name="RegisterAspireHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" DependsOnTargets="GenerateAspireHostCodeFiles" Condition="$(IsAspireApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ItemGroup>
 			<Compile Include="@(AspireHostCodeTemplates->'%(GeneratedFile)')" />
@@ -101,7 +131,7 @@
 	</Target>
 
 	<!-- Generate Aspire Application Host Publish Files -->
-	<Target Name="GenerateAspireHostPublishFiles" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="@(AspireHostPublishTemplates)" Outputs="%(AspireHostPublishTemplates.GeneratedFile)" Condition="$(IsAspireApplicationHost)=='true'">
+	<Target Name="GenerateAspireHostPublishFiles" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="@(AspireHostPublishTemplates)" Outputs="%(AspireHostPublishTemplates.GeneratedFile)" Condition="$(IsAspireApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ProcessTemplate
 			InputFile="%(AspireHostPublishTemplates.Identity)"
@@ -111,13 +141,13 @@
 
 	</Target>
 
-	<!-- Register Aspire Application Host Assets Files -->
-	<Target Name="RegisterAspireHostPublishFiles" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateAspireHostPublishFiles" Condition="$(IsAspireApplicationHost)=='true'">
+	<!-- Register Aspire Application Host Publish Files -->
+	<Target Name="RegisterAspireHostPublishFiles" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateAspireHostPublishFiles" Condition="$(IsAspireApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ItemGroup>
 			<Content Remove="@(AspireHostPublishTemplates->'%(GeneratedFile)')" />
 			<Content Include="@(AspireHostPublishTemplates->'%(GeneratedFile)')">
-				<Link>Publish\%(AspireHostPublishTemplates.Filename)</Link>
+				<Link>$Publish\%(AspireHostPublishTemplates.Filename)</Link>
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			</Content>
@@ -127,7 +157,7 @@
 	</Target>
 
 	<!-- Generate Api Application Host Code Files -->
-	<Target Name="GenerateApiHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" Inputs="@(ApiHostCodeTemplates)" Outputs="%(ApiHostCodeTemplates.GeneratedFile)" Condition="$(IsApiApplicationHost)=='true'">
+	<Target Name="GenerateApiHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" Inputs="@(ApiHostCodeTemplates)" Outputs="%(ApiHostCodeTemplates.GeneratedFile)" Condition="$(IsApiApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ProcessTemplate
 			InputFile="%(ApiHostCodeTemplates.Identity)"
@@ -138,7 +168,7 @@
 	</Target>
 
 	<!-- Register Api Application Host Code Files -->
-	<Target Name="RegisterApiHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" DependsOnTargets="GenerateApiHostCodeFiles" Condition="$(IsApiApplicationHost)=='true'">
+	<Target Name="RegisterApiHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" DependsOnTargets="GenerateApiHostCodeFiles" Condition="$(IsApiApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ItemGroup>
 			<Compile Include="@(ApiHostCodeTemplates->'%(GeneratedFile)')" />
@@ -148,7 +178,7 @@
 	</Target>
 
 	<!-- Generate Web Application Host Code Files -->
-	<Target Name="GenerateWebHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" Inputs="@(WebHostCodeTemplates)" Outputs="%(WebHostCodeTemplates.GeneratedFile)" Condition="$(IsWebApplicationHost)=='true'">
+	<Target Name="GenerateWebHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" Inputs="@(WebHostCodeTemplates)" Outputs="%(WebHostCodeTemplates.GeneratedFile)" Condition="$(IsWebApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ProcessTemplate
 			InputFile="%(WebHostCodeTemplates.Identity)"
@@ -159,7 +189,7 @@
 	</Target>
 
 	<!-- Register Web Application Host Code Files -->
-	<Target Name="RegisterWebHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" DependsOnTargets="GenerateWebHostCodeFiles" Condition="$(IsWebApplicationHost)=='true'">
+	<Target Name="RegisterWebHostCodeFiles" BeforeTargets="BeforeCompile;CoreCompile" DependsOnTargets="GenerateWebHostCodeFiles" Condition="$(IsWebApplicationHost)=='true' And $(IsMainSolution)=='false'">
 
 		<ItemGroup>
 			<Compile Include="@(WebHostCodeTemplates->'%(GeneratedFile)')" />
@@ -183,51 +213,39 @@
 	<Target Name="RegisterWebHostAssetsFiles" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateWebHostAssetsFiles" Condition="$(IsWebApplicationHost)=='true'">
 
 		<ItemGroup>
-			<Content Remove="@(WebHostAssetsTemplates->'%(GeneratedFile)')" />
-			<Content Include="@(WebHostAssetsTemplates->'%(GeneratedFile)')">
-				<Link>wwwroot\%(WebHostAssetsTemplates.RecursiveDir)%(WebHostAssetsTemplates.Filename)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-			</Content>
-			<FileWrites Include="@(WebHostAssetsTemplates->'%(GeneratedFile)')" />
+			<GeneratedTemplates Include="@(WebHostAssetsTemplates->'%(GeneratedFile)')">
+				<RelativePath>%(WebHostAssetsTemplates.RelativePath)</RelativePath>
+			</GeneratedTemplates>
 		</ItemGroup>
 
-	</Target>
+		<DefineStaticWebAssets
+			CandidateAssets="@(GeneratedTemplates)"
+			SourceType="Computed"
+			SourceId="$(PackageId)"
+			ContentRoot="$(IntermediateOutputPath)wwwroot\"
+			BasePath="/"
+			AssetKind="All"
+			AssetMode="All"
+			AssetRole="Primary"
+			AssetMergeSource="$(StaticWebAssetMergeTarget)"
+			CopyToOutputDirectory="Never"
+			CopyToPublishDirectory="PreserveNewest"
+		>
+			<Output TaskParameter="Assets" ItemName="GeneratedTemplatesAssets" />
+		</DefineStaticWebAssets>
 
-	<!-- Generate Web Application Host Service Worker Files -->
-	<Target Name="GenerateWebHostServiceWorkerFiles" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="$(ServiceWorkerTemplateFile)" Outputs="$(ServiceWorkerGeneratedFile)" Condition="$(IsWebApplicationHost)=='true'">
-
-		<ProcessTemplate InputFile="$(ServiceWorkerTemplateFile)" OutputFile="$(ServiceWorkerGeneratedFile)" />
-
-	</Target>
-
-	<!-- Register Web Application Host Service Worker Files -->
-	<Target Name="RegisterWebHostServiceWorkerFiles" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateWebHostServiceWorkerFiles" Condition="$(IsWebApplicationHost)=='true'">
-
-		<ItemGroup>
-			<Content Remove="wwwroot\service-worker.js" />
-			<ServiceWorker Remove="@(ServiceWorker)" />
-			<ServiceWorker Include="$(ServiceWorkerGeneratedFile)" PublishedContent="$(ServiceWorkerGeneratedFile)">
-				<Link>wwwroot\service-worker.js</Link>
-				<TargetPath>wwwroot\service-worker.js</TargetPath>
-				<AssetTraitName>BlazorServiceWorker</AssetTraitName>
-				<AssetTraitValue>ServiceWorkerJs</AssetTraitValue>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-			</ServiceWorker>
-			<FileWrites Include="$(ServiceWorkerGeneratedFile)" />
-		</ItemGroup>
-
-	</Target>
-
-	<!-- Fix Web Application Host Service Worker Files -->
-	<Target Name="FixWebHostServiceWorkerFiles" AfterTargets="ResolvePublishServiceWorkerStaticWebAssetsConfiguration">
+		<DefineStaticWebAssetEndpoints
+			CandidateAssets="@(GeneratedTemplatesAssets)"
+			ExistingEndpoints="@(StaticWebAssetEndpoint)"
+			ContentTypeMappings="@(StaticWebAssetContentTypeMapping)"
+		>
+			<Output TaskParameter="Endpoints" ItemName="GeneratedTemplatesEndpoints" />
+		</DefineStaticWebAssetEndpoints>
 
 		<ItemGroup>
-			<_PublishServiceWorker Update="@(_PublishServiceWorker)">
-				<RelativePath>service-worker.js</RelativePath>
-				<TargetPath>wwwroot\service-worker.js</TargetPath>
-			</_PublishServiceWorker>
+			<StaticWebAsset Include="@(GeneratedTemplatesAssets)" />
+			<StaticWebAssetEndpoint Include="@(GeneratedTemplatesEndpoints)" />
+			<FileWrites Include="@(GeneratedTemplates)" />
 		</ItemGroup>
 
 	</Target>

@@ -2,17 +2,19 @@
 
 public static class Web {
 
-	public static void AddServices(this WebAssemblyHostBuilder builder) {
+	public static void AddWebServices(this WebAssemblyHostBuilder builder) {
 
-		builder.AddWebServices();
+		ServicesRegistrator.AddWebServices(builder);
 
 		builder.AddRadzenServices();
+
+		builder.AddRootComponents();
 
 	}
 
 	public static void AddRootComponents(this WebAssemblyHostBuilder builder) {
 
-		builder.RootComponents.Add<Core.Frontend.Routes>("#app");
+		builder.RootComponents.Add<AppRouter>("#app");
 
 		builder.RootComponents.Add<HeadOutlet>("head::after");
 

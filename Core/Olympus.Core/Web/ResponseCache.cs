@@ -2,15 +2,58 @@ namespace Olympus.Core.Web;
 
 public static class ResponseCache {
 
-	public static string From(CachePolicy location, TimeSpan? duration = null, bool immutable = false) {
+	/// <summary>
+	/// Do not store the response.
+	/// </summary>
+	public const string None = "no-store";
 
-		var seconds = duration?.TotalSeconds ?? TimeSpan.FromHours(1).TotalSeconds;
+	/// <summary>
+	/// Store the response in private caches only.
+	/// </summary>
+	public const string Private = "private";
 
-		var maxage = location != CachePolicy.None && seconds > 0 ? $", max-age={seconds}" : string.Empty;
+	/// <summary>
+	/// Store the response in private caches only and revalidate before using it.
+	/// </summary>
+	public const string PrivateRevalidate = "private, no-cache";
 
-		var immutability = immutable && location != CachePolicy.None ? ", immutable" : string.Empty;
+	/// <summary>
+	/// Store the response in public caches.
+	/// </summary>
+	public const string Public = "public";
 
-		return location.GetLabel() + maxage + immutability;
+	/// <summary>
+	/// Store the response in public caches and revalidate before using it.
+	/// </summary>
+	public const string PublicRevalidate = "public, no-cache";
+
+	/// <summary>
+	/// Builds a Cache-Control header value based on cache location, policy, and duration.
+	/// </summary>
+	/// <remarks>
+	/// When <paramref name="location"/> is <c>None</c>, both <paramref name="policy"/> and <paramref name="duration"/> are ignored.
+	/// </remarks>
+	/// <param name="location">
+	/// Defines where the response may be cached (none, private, or public).
+	/// </param>
+	/// <param name="policy">
+	/// Defines how the cached response should be used (no policy, revalidate or immutable).
+	/// </param>
+	/// <param name="duration">
+	/// Defines the maximum time the response may be reused, in seconds.
+	/// </param>
+	/// <returns>
+	/// A valid Cache-Control header string representing the given configuration.
+	/// </returns>
+	public static string From(CacheLocation location, CachePolicy policy, TimeSpan? duration = null) {
+
+		var seconds = duration?.TotalSeconds ?? 0;
+
+		var maxage = location != CacheLocation.None && seconds > 0 ? $", max-age={seconds}" : string.Empty;
+
+		var usage = location != CacheLocation.None && policy != CachePolicy.None ? $", {policy.Label}" : string.Empty;
+
+		return location.Label + maxage + usage;
 
 	}
 

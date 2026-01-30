@@ -4,12 +4,6 @@ namespace Olympus.Core.Backend.Identity;
 
 public class Role : IdentityRole<Guid>, IEntity {
 
-	public override Guid Id { get; set; }
-
-	public override string? Name { get; set; }
-
-	public override string? NormalizedName { get; set; }
-
 	public string? Description { get; set; }
 
 	public virtual ICollection<UserRole> Users { get; set; } = [];

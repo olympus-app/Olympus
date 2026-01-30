@@ -8,7 +8,7 @@ namespace Olympus.Api.Database;
 
 public static class DatabaseRegistrator {
 
-	public static void AddDatabaseServices(this WebApplicationBuilder builder, AppHostInfo info) {
+	public static void AddDatabaseServices(this WebApplicationBuilder builder, ApiHostInfo info) {
 
 		var connectionString = builder.Configuration.GetConnectionString(DatabaseSettings.DatabaseName) ?? throw new InvalidOperationException(nameof(DatabaseRegistrator));
 
@@ -24,9 +24,7 @@ public static class DatabaseRegistrator {
 
 		builder.Services.AddSingleton<IEFCacheServiceProvider, CacheProvider>();
 
-		builder.Services.AddScoped<IEntityDatabase>(static provider => provider.GetRequiredService<IDbContextFactory<EntityDatabase>>().CreateDbContext());
-
-		builder.Services.AddPooledDbContextFactory<EntityDatabase>((services, options) => {
+		builder.Services.AddPooledDbContextFactory<DatabaseService>((services, options) => {
 			var model = services.GetService<IModel>();
 			if (model is not null) options.UseModel(model);
 			options.UseExceptionProcessor();
@@ -40,7 +38,9 @@ public static class DatabaseRegistrator {
 			});
 		});
 
-		builder.EnrichNpgsqlDbContext<EntityDatabase>();
+		builder.EnrichNpgsqlDbContext<DatabaseService>();
+
+		builder.Services.AddScoped<IDatabaseService>(static provider => provider.GetRequiredService<IDbContextFactory<DatabaseService>>().CreateDbContext());
 
 		builder.Services.AddEFSecondLevelCache(static options => {
 			options.UseCustomCacheProvider<CacheProvider>(CacheExpirationMode.Sliding, 1.Hours());
@@ -53,7 +53,8 @@ public static class DatabaseRegistrator {
 	public static void UpdateDatabase(this WebApplication app) {
 
 		using var scope = app.Services.CreateScope();
-		var database = scope.ServiceProvider.GetRequiredService<EntityDatabase>();
+
+		var database = scope.ServiceProvider.GetRequiredService<DatabaseService>();
 
 		database.Database.Migrate();
 

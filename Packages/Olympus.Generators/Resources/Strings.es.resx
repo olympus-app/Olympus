@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EmptyResourceFileTitle" xml:space="preserve">
+    <value>Archivo de recursos vacío</value>
+  </data>
+  <data name="EmptyResourceFileMessage" xml:space="preserve">
+    <value>Archivo de recurso generado sin ningún miembro</value>
+  </data>
+  <data name="EmptyResourceFileDescription" xml:space="preserve">
+    <value>El archivo de recursos debería tener al menos un miembro.</value>
+  </data>
+  <data name="InvalidResourceKeyTitle" xml:space="preserve">
+    <value>Clave inválida en el archivo de recursos</value>
+  </data>
+  <data name="InvalidResourceKeyMessage" xml:space="preserve">
+    <value>La entrada con la clave '{0}' es inválida y será ignorada</value>
+  </data>
+  <data name="InvalidResourceKeyDescription" xml:space="preserve">
+    <value>Las claves de recursos deben ser válidas.</value>
+  </data>
+  <data name="MissingResourceValueTitle" xml:space="preserve">
+    <value>Valor faltante en el archivo de recursos</value>
+  </data>
+  <data name="MissingResourceValueMessage" xml:space="preserve">
+    <value>La entrada con la clave '{0}' no tiene valor y será ignorada</value>
+  </data>
+  <data name="MissingResourceValueDescription" xml:space="preserve">
+    <value>Las claves de recursos deben ser válidas.</value>
+  </data>
+  <data name="DuplicateResourceKeyTitle" xml:space="preserve">
+    <value>Clave duplicada en el archivo de recursos</value>
+  </data>
+  <data name="DuplicateResourceKeyMessage" xml:space="preserve">
+    <value>La entrada con la clave '{0}' se duplica y será ignorada</value>
+  </data>
+  <data name="DuplicateResourceKeyDescription" xml:space="preserve">
+    <value>Las claves de recursos no deberían ser duplicados.</value>
+  </data>
+  <data name="MissingResourceTranslationTitle" xml:space="preserve">
+    <value>Falta la traducción para una clave específica</value>
+  </data>
+  <data name="MissingResourceTranslationMessage" xml:space="preserve">
+    <value>La entrada con la clave '{0}' carece de traducción para {1} ({2})</value>
+  </data>
+  <data name="MissingResourceTranslationDescription" xml:space="preserve">
+    <value>Las entradas de recursos deben tener traducciones para todos los idiomas soportados.</value>
+  </data>
+  <data name="InvalidPermissionIdentifierTitle" xml:space="preserve">
+    <value>Identificador de permiso no válido</value>
+  </data>
+  <data name="InvalidPermissionIdentifierMessage" xml:space="preserve">
+    <value>El identificador de permiso para la clave '{0}' debe ser un número entero válido</value>
+  </data>
+  <data name="InvalidPermissionIdentifierDescription" xml:space="preserve">
+    <value>El identificador de permiso debe ser un número entero válido.</value>
+  </data>
+  <data name="DuplicatePermissionIdentifierTitle" xml:space="preserve">
+    <value>Identificador de permiso duplicado</value>
+  </data>
+  <data name="DuplicatePermissionIdentifierMessage" xml:space="preserve">
+    <value>El identificador de permiso para la clave '{0}' ya está en uso</value>
+  </data>
+  <data name="DuplicatePermissionIdentifierDescription" xml:space="preserve">
+    <value>El identificador de permiso debe ser exclusivo.</value>
+  </data>
+  <data name="InvalidPermissionKeyTitle" xml:space="preserve">
+    <value>Clave de permisos inválida</value>
+  </data>
+  <data name="InvalidPermissionKeyMessage" xml:space="preserve">
+    <value>La clave de permisos '{0}' debe seguir el formato 'Module.Feature.Action'</value>
+  </data>
+  <data name="InvalidPermissionKeyDescription" xml:space="preserve">
+    <value>El identificador de permiso debe seguir el formato 'Module.Feature.Action'.</value>
+  </data>
+  <data name="InvalidRouteKeyTitle" xml:space="preserve">
+    <value>Clave de ruta no válida</value>
+  </data>
+  <data name="InvalidRouteKeyMessage" xml:space="preserve">
+    <value>La clave de ruta '{0}' debe seguir el formato 'Module.Segments'</value>
+  </data>
+  <data name="InvalidRouteKeyDescription" xml:space="preserve">
+    <value>El identificador de ruta debe seguir el formato 'Module.Segments'.</value>
+  </data>
+  <data name="ServiceLifecycleTitle" xml:space="preserve">
+    <value>Violación del ciclo de vida del servicio</value>
+  </data>
+  <data name="ServiceLifecycleMessage" xml:space="preserve">
+    <value>El tipo '{0}' implementa ciclos de vida de servicio conflictivos: {1}</value>
+  </data>
+  <data name="ServiceLifecycleDescription" xml:space="preserve">
+    <value>Exige que un tipo implemente solo una estrategia específica de ciclo de vida del servicio (Transitoria, Con Ámbito, Singleton, Configuración o Compleja) para evitar el registro ambiguo de inyección de dependencias.</value>
+  </data>
+</root>

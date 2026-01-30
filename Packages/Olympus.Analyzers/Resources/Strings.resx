@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="OneLevelNamespaceTitle" xml:space="preserve">
+		<value>Namespace violation</value>
+	</data>
+  <data name="OneLevelNamespaceMessage" xml:space="preserve">
+		<value>Namespace '{0}' does not match the folder path and depth level. It was expected to be '{1}'.</value>
+	</data>
+  <data name="OneLevelNamespaceDescription" xml:space="preserve">
+		<value>Enforces that the namespace corresponds to the assembly name followed by the first directory level.</value>
+	</data>
+  <data name="OneLevelNamespaceCodeFixTitle" xml:space="preserve">
+		<value>Fix namespace</value>
+	</data>
+  <data name="BlockSpacingTitle" xml:space="preserve">
+		<value>Block spacing violation</value>
+	</data>
+  <data name="BlockSpacingMessageAfterOpen" xml:space="preserve">
+		<value>Block should start with a blank line</value>
+	</data>
+  <data name="BlockSpacingMessageBeforeClose" xml:space="preserve">
+		<value>Block should end with a blank line</value>
+	</data>
+  <data name="BlockSpacingDescription" xml:space="preserve">
+		<value>Enforces the insertion of a blank line at the beginning and end of blocks.</value>
+	</data>
+  <data name="InitializerSpacingTitle" xml:space="preserve">
+		<value>Initializer spacing violation</value>
+	</data>
+  <data name="InitializerSpacingMessageRemoveAfterOpen" xml:space="preserve">
+		<value>Initializer must not start with a blank line</value>
+	</data>
+  <data name="InitializerSpacingMessageRemoveBetweenItems" xml:space="preserve">
+		<value>There should be no blank lines between items</value>
+	</data>
+  <data name="InitializerSpacingMessageRemoveBeforeClose" xml:space="preserve">
+		<value>Initializer must not end with a blank line</value>
+	</data>
+  <data name="InitializerSpacingDescription" xml:space="preserve">
+		<value>Enforces that initializers do not begin or end with blank lines.</value>
+	</data>
+  <data name="BlockSpacingCodeFixTitle" xml:space="preserve">
+		<value>Insert blank line</value>
+	</data>
+  <data name="InitializerSpacingCodeFixTitle" xml:space="preserve">
+		<value>Remove blank line</value>
+	</data>
+  <data name="ReturnSpacingTitle" xml:space="preserve">
+		<value>Return statement spacing violation</value>
+	</data>
+  <data name="ReturnSpacingMessage" xml:space="preserve">
+		<value>Return statement must be preceded by a blank line</value>
+	</data>
+  <data name="ReturnSpacingDescription" xml:space="preserve">
+		<value>Enforces the insertion of a blank line before the return statement, unless it is on the same line as the previous statement or is the first statement in a block.</value>
+	</data>
+  <data name="ReturnSpacingCodeFixTitle" xml:space="preserve">
+		<value>Insert a blank line before the return statement</value>
+	</data>
+  <data name="LambdaParameterNamingTitle" xml:space="preserve">
+		<value>Lambda parameter naming violation</value>
+	</data>
+  <data name="LambdaParameterNamingMessage" xml:space="preserve">
+		<value>The parameter '{0}' should be renamed to '{1}' to match its type</value>
+	</data>
+  <data name="LambdaParameterNamingDescription" xml:space="preserve">
+		<value>Enforces that lambda parameters use meaningful names derived from their type instead of single letters.</value>
+	</data>
+  <data name="LambdaParameterNamingCodeFixTitle" xml:space="preserve">
+		<value>Rename to '{0}'</value>
+	</data>
+  <data name="StaticLambdaTitle" xml:space="preserve">
+		<value>The expression can be static</value>
+	</data>
+  <data name="StaticLambdaMessage" xml:space="preserve">
+		<value>This expression does not capture any state and can be marked static</value>
+	</data>
+  <data name="StaticLambdaDescription" xml:space="preserve">
+		<value>Enforces the use of the static modifier on expressions that do not capture state.</value>
+	</data>
+  <data name="StaticLambdaCodeFixTitle" xml:space="preserve">
+		<value>Make expression static</value>
+	</data>
+  <data name="SuffixNamingTitle" xml:space="preserve">
+    <value>Suffix naming violation</value>
+  </data>
+  <data name="SuffixNamingMessage" xml:space="preserve">
+    <value>The type '{0}' should end with the suffix '{1}'</value>
+  </data>
+  <data name="SuffixNamingDescription" xml:space="preserve">
+    <value>Enforces that types inheriting from classes or implementing interfaces share the same suffix.</value>
+  </data>
+  <data name="SuffixNamingCodeFixTitle" xml:space="preserve">
+    <value>Rename to '{0}'</value>
+  </data>
+  <data name="FileNamingTitle" xml:space="preserve">
+    <value>File naming violation</value>
+  </data>
+  <data name="FileNamingMessage" xml:space="preserve">
+    <value>The file name '{0}' does not match the expected type name '{1}'</value>
+  </data>
+  <data name="FileNamingDescription" xml:space="preserve">
+    <value>Enforces that the file name matches the declared type name (or the first type name if multiple are present).</value>
+  </data>
+  <data name="FileNamingCodeFixTitle" xml:space="preserve">
+    <value>Rename file to '{0}'</value>
+  </data>
+</root>

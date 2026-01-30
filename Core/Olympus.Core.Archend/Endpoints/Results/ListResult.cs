@@ -1,18 +1,14 @@
-#pragma warning disable OL0007
-
 namespace Olympus.Core.Archend.Endpoints;
 
-public class ListResult<T>(int count, IEnumerable<T> items) : IEntityResponse where T : class {
-
-	public ListResult() : this(0, []) { }
+public class ListResult<TResponse>(IEnumerable<TResponse> items) : IResponse where TResponse : class, IResponse {
 
 	[JsonPropertyOrder(0)]
-	public int Count { get; init; } = count;
+	public int Count { get; private set; } = items.Count();
 
-	[JsonPropertyOrder(4)]
-	public IEnumerable<T> Items { get; init; } = items;
+	[JsonPropertyOrder(1)]
+	public IEnumerable<TResponse> Items { get; init; } = items;
 
-	public void Deconstruct(out int count, out IEnumerable<T> items) {
+	public void Deconstruct(out int count, out IEnumerable<TResponse> items) {
 
 		count = Count;
 		items = Items;
@@ -20,5 +16,3 @@ public class ListResult<T>(int count, IEnumerable<T> items) : IEntityResponse wh
 	}
 
 }
-
-#pragma warning restore OL0007

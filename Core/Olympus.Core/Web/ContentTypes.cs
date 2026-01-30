@@ -2,6 +2,8 @@ namespace Olympus.Core.Web;
 
 public static class ContentTypes {
 
+	public const string Text = "text/plain";
+
 	public const string Json = "application/json";
 
 	public const string Stream = "application/octet-stream";

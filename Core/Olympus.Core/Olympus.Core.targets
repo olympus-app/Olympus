@@ -7,6 +7,8 @@
 		<Using Include="Olympus.Core.Localization" />
 		<Using Include="Olympus.Core.Modules" />
 		<Using Include="Olympus.Core.Primitives" />
+		<Using Include="Olympus.Core.Routing" />
+		<Using Include="Olympus.Core.Services" />
 		<Using Include="Olympus.Core.Settings" />
 		<Using Include="Olympus.Core.Storage" />
 		<Using Include="Olympus.Core.Web" />

@@ -1,0 +1,15 @@
+<Project>
+
+	<!-- Generators Properties -->
+	<PropertyGroup Label="GeneratorsProperties">
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
+		<InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.Extensions.Configuration.Binder.SourceGeneration</InterceptorsNamespaces>
+	</PropertyGroup>
+
+	<!-- Generators References -->
+	<ItemGroup Label="GeneratorsReferences" Condition="$(IsGenerator)=='false'">
+		<PackageReference Include="Olympus.Generators" PrivateAssets="all" />
+	</ItemGroup>
+
+</Project>

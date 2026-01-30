@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EmptyResourceFileTitle" xml:space="preserve">
+		<value>Empty resource file</value>
+	</data>
+  <data name="EmptyResourceFileMessage" xml:space="preserve">
+		<value>Resource file generated without any members</value>
+	</data>
+  <data name="EmptyResourceFileDescription" xml:space="preserve">
+		<value>Resource file should have at least one member.</value>
+	</data>
+  <data name="InvalidResourceKeyTitle" xml:space="preserve">
+    <value>Invalid key in resource file</value>
+  </data>
+  <data name="InvalidResourceKeyMessage" xml:space="preserve">
+    <value>Entry with key '{0}' is invalid and will be ignored</value>
+  </data>
+  <data name="InvalidResourceKeyDescription" xml:space="preserve">
+    <value>Resource keys must be valid.</value>
+  </data>
+  <data name="MissingResourceValueTitle" xml:space="preserve">
+    <value>Missing value in resource file</value>
+  </data>
+  <data name="MissingResourceValueMessage" xml:space="preserve">
+    <value>Entry with key '{0}' has no value and will be ignored</value>
+  </data>
+  <data name="MissingResourceValueDescription" xml:space="preserve">
+    <value>Resource keys must be valid.</value>
+  </data>
+  <data name="DuplicateResourceKeyTitle" xml:space="preserve">
+    <value>Duplicate key in resource file</value>
+  </data>
+  <data name="DuplicateResourceKeyMessage" xml:space="preserve">
+    <value>Entry with key '{0}' is duplicated and will be ignored</value>
+  </data>
+  <data name="DuplicateResourceKeyDescription" xml:space="preserve">
+    <value>Resource keys should not be duplicates.</value>
+  </data>
+  <data name="MissingResourceTranslationTitle" xml:space="preserve">
+    <value>Missing translation for specific key</value>
+  </data>
+  <data name="MissingResourceTranslationMessage" xml:space="preserve">
+    <value>Entry with key '{0}' is missing a translation for {1} ({2})</value>
+  </data>
+  <data name="MissingResourceTranslationDescription" xml:space="preserve">
+    <value>Resource entries must have translations for all supported languages.</value>
+  </data>
+  <data name="InvalidPermissionIdentifierTitle" xml:space="preserve">
+    <value>Invalid permission identifier</value>
+  </data>
+  <data name="InvalidPermissionIdentifierMessage" xml:space="preserve">
+    <value>The permission identifier for key '{0}' must be a valid integer</value>
+  </data>
+  <data name="InvalidPermissionIdentifierDescription" xml:space="preserve">
+    <value>Permission identifier must be a valid integer.</value>
+  </data>
+  <data name="DuplicatePermissionIdentifierTitle" xml:space="preserve">
+    <value>Duplicate permission identifier</value>
+  </data>
+  <data name="DuplicatePermissionIdentifierMessage" xml:space="preserve">
+    <value>The permission identifier for key '{0}' is already in use</value>
+  </data>
+  <data name="DuplicatePermissionIdentifierDescription" xml:space="preserve">
+    <value>Permission identifier must be exclusive.</value>
+  </data>
+  <data name="InvalidPermissionKeyTitle" xml:space="preserve">
+    <value>Invalid permission key</value>
+  </data>
+  <data name="InvalidPermissionKeyMessage" xml:space="preserve">
+    <value>The permission key '{0}' must follow the format 'Module.Feature.Action'</value>
+  </data>
+  <data name="InvalidPermissionKeyDescription" xml:space="preserve">
+    <value>Permission identifier must follow the format 'Module.Feature.Action'.</value>
+  </data>
+  <data name="InvalidRouteKeyTitle" xml:space="preserve">
+    <value>Invalid route key</value>
+  </data>
+  <data name="InvalidRouteKeyMessage" xml:space="preserve">
+    <value>The route key '{0}' must follow the format 'Module.Segments'</value>
+  </data>
+  <data name="InvalidRouteKeyDescription" xml:space="preserve">
+    <value>Route identifier must follow the format 'Module.Segments'.</value>
+  </data>
+  <data name="ServiceLifecycleTitle" xml:space="preserve">
+    <value>Service lifecycle violation</value>
+  </data>
+  <data name="ServiceLifecycleMessage" xml:space="preserve">
+    <value>The type '{0}' implements conflicting service lifecycles: {1}</value>
+  </data>
+  <data name="ServiceLifecycleDescription" xml:space="preserve">
+    <value>Enforces that a type implements only one specific service lifecycle strategy (Transient, Scoped, Singleton, Settings, or Complex) to avoid ambiguous dependency injection registration.</value>
+  </data>
+</root>

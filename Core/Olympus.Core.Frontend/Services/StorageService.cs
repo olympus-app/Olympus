@@ -15,7 +15,7 @@ public abstract class BaseStorageService(IJSRuntime js, StorageLocation location
 
 	public async Task<T?> GetAsync<T>(string key) {
 
-		var json = await js.InvokeAsync<string?>($"{location.GetLabel()}.getItem", key);
+		var json = await js.InvokeAsync<string?>($"{location.Label}.getItem", key);
 
 		return json is null ? default : JsonSerializer.Deserialize<T>(json);
 
@@ -25,13 +25,13 @@ public abstract class BaseStorageService(IJSRuntime js, StorageLocation location
 
 		var json = JsonSerializer.Serialize(value);
 
-		await js.InvokeVoidAsync($"{location.GetLabel()}.setItem", key, json);
+		await js.InvokeVoidAsync($"{location.Label}.setItem", key, json);
 
 	}
 
 	public ValueTask RemoveAsync(string key) {
 
-		return js.InvokeVoidAsync($"{location.GetLabel()}.removeItem", key);
+		return js.InvokeVoidAsync($"{location.Label}.removeItem", key);
 
 	}
 

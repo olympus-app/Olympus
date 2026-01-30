@@ -6,16 +6,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Olympus.Api.Identity;
 
-public class TokenAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, EntityDatabase database, IUserClaimsPrincipalFactory<User> principalFactory) : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder) {
+public class TokenAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, Database.DatabaseService database, IUserClaimsPrincipalFactory<User> principalFactory) : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder) {
 
 	protected override async Task<AuthenticateResult> HandleAuthenticateAsync() {
 
-		if (!Request.Headers.TryGetValue(Headers.Authorization, out var authorizationHeader)) return AuthenticateResult.NoResult();
+		if (!Request.Headers.TryGetValue(HttpHeaders.Authorization, out var authorizationHeader)) return AuthenticateResult.NoResult();
 
 		var headerValue = authorizationHeader.ToString();
-		if (!headerValue.StartsWith(Headers.Bearer, StringComparison.OrdinalIgnoreCase)) return AuthenticateResult.NoResult();
+		if (!headerValue.StartsWith(HttpHeaders.Bearer, StringComparison.OrdinalIgnoreCase)) return AuthenticateResult.NoResult();
 
-		var tokenSpan = headerValue.AsSpan(Headers.Bearer.Length).Trim();
+		var tokenSpan = headerValue.AsSpan(HttpHeaders.Bearer.Length).Trim();
 		var tokenHash = TokenService.ComputeHash(tokenSpan);
 
 		var apiToken = await database.Set<Token>().AsNoTracking().Cacheable(CacheExpirationMode.Sliding, TimeSpan.FromMinutes(30)).FirstOrDefaultAsync(token => token.Hash == tokenHash);

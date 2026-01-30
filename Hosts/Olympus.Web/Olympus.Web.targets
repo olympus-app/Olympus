@@ -3,8 +3,11 @@
 	<!-- Project Usings -->
 	<ItemGroup Label="ProjectUsings" Condition="$(OlympusImplicitUsings)=='enable'">
 		<Using Include="Olympus.Web" />
+		<Using Include="Olympus.Web.Hosting" />
+		<Using Include="Olympus.Web.Pages" />
 		<Using Include="Olympus.Web.Radzen" />
 		<Using Include="Olympus.Web.Services" />
+		<Using Include="Olympus.Web.Routing" />
 	</ItemGroup>
 
 	<!-- Package Usings -->

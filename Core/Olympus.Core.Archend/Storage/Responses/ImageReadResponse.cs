@@ -1,3 +1,3 @@
 namespace Olympus.Core.Archend.Storage;
 
-public record ImageReadResponse : FileReadResponse { }
+public record ImageReadResponse : StorageEntityReadResponse { }

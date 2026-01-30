@@ -1,0 +1,31 @@
+<Project>
+
+	<!-- Additional Files -->
+	<PropertyGroup Label="AdditionalFiles">
+		<AdditionalFileItemNames>$(AdditionalFileItemNames);EmbeddedResource</AdditionalFileItemNames>
+	</PropertyGroup>
+
+	<!-- Visible Properties -->
+	<ItemGroup Label="VisibleProperties">
+		<CompilerVisibleProperty Include="SolutionName" />
+		<CompilerVisibleProperty Include="IsApplicationHost" />
+		<CompilerVisibleProperty Include="IsAspireApplicationHost" />
+		<CompilerVisibleProperty Include="IsApiApplicationHost" />
+		<CompilerVisibleProperty Include="IsWebApplicationHost" />
+		<CompilerVisibleProperty Include="IsModulePackage" />
+		<CompilerVisibleProperty Include="IsArchendLayer" />
+		<CompilerVisibleProperty Include="IsBackendLayer" />
+		<CompilerVisibleProperty Include="IsFrontendLayer" />
+	</ItemGroup>
+
+	<!-- Embedded Resource Visible Metadata -->
+	<ItemGroup Label="EmbeddedResourceVisibleMetadata">
+		<CompilerVisibleItemMetadata Include="EmbeddedResource" MetadataName="ResourceType" />
+		<CompilerVisibleItemMetadata Include="EmbeddedResource" MetadataName="Namespace" />
+		<CompilerVisibleItemMetadata Include="EmbeddedResource" MetadataName="IsPublic" />
+		<CompilerVisibleItemMetadata Include="EmbeddedResource" MetadataName="ClassName" />
+		<CompilerVisibleItemMetadata Include="EmbeddedResource" MetadataName="DefaultLang" />
+		<CompilerVisibleItemMetadata Include="EmbeddedResource" MetadataName="EmitFormatMethods" />
+	</ItemGroup>
+
+</Project>

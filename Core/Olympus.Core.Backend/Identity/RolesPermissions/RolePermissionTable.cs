@@ -1,6 +1,6 @@
 namespace Olympus.Core.Backend.Identity;
 
-public class RolePermissionTable(IEnumerable<IAppModulePermissions> modules) : EntityTable<RolePermission> {
+public class RolePermissionTable(IEnumerable<IAppModuleInfo> modules) : EntityTable<RolePermission> {
 
 	public const string TableName = "RolesPermissions";
 
@@ -20,7 +20,7 @@ public class RolePermissionTable(IEnumerable<IAppModulePermissions> modules) : E
 
 	}
 
-	public static List<RolePermission> GetSeed(IEnumerable<IAppModulePermissions> modules) {
+	public static List<RolePermission> GetSeed(IEnumerable<IAppModuleInfo> modules) {
 
 		var seed = new List<RolePermission>();
 		var roles = RoleTable.GetSeed();

@@ -1,35 +1,18 @@
 namespace Olympus.Core.Backend.Entities;
 
-public abstract class EntityCreateEndpoint<TEntity, TCreateRequest, TReadResponse, TMapper> : EntityEndpoint<TEntity, TCreateRequest, TReadResponse, TMapper> where TEntity : class, IEntity where TCreateRequest : class, IEntityCreateRequest where TReadResponse : class, IEntityReadResponse where TMapper : class, IEntityCreateMapper<TEntity, TCreateRequest, TReadResponse> {
+public abstract class EntityCreateEndpoint<TEntity, TCreateRequest, TReadResponse>(IEntityService<TEntity> service) : EntityEndpoint<TEntity>.WithRequest<TCreateRequest>.WithResponse<TReadResponse>(service) where TEntity : class, IEntity where TCreateRequest : class, IEntityCreateRequest where TReadResponse : class, IEntityReadResponse {
 
-	protected virtual async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken = default) {
+	public IEntityRequestMapper<TEntity, TCreateRequest> RequestMapper { get; set; } = default!;
 
-		Database.Set<TEntity>().Add(entity);
-
-		await Database.SaveChangesAsync(cancellationToken);
-
-		entity.CreatedBy = User.CurrentUser;
-		entity.UpdatedBy ??= entity.CreatedBy;
-
-		return entity;
-
-	}
-
-	protected virtual void PrepareResponse(TCreateRequest request, TReadResponse response) {
-
-		if (response.ETag is not null) HttpContext.Response.Headers.ETag = EntityTag.From(response.ETag);
-
-	}
+	public IEntityResponseMapper<TEntity, TReadResponse> ResponseMapper { get; set; } = default!;
 
 	public override async Task<Void> HandleAsync(TCreateRequest request, CancellationToken cancellationToken) {
 
-		var entity = Map.ToEntity(request);
+		var entity = RequestMapper.MapToEntity(request);
 
-		entity = await CreateAsync(entity, cancellationToken);
+		entity = await Service.CreateAsync(entity, cancellationToken);
 
-		var response = Map.FromEntity(entity);
-
-		PrepareResponse(request, response);
+		var response = ResponseMapper.MapFromEntity(entity);
 
 		return await Send.CreatedAsync(response, cancellationToken);
 

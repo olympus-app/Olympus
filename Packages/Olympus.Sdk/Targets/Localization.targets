@@ -20,23 +20,4 @@
 		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 	</PropertyGroup>
 
-	<!-- Hosts and Tests Embedded Resources -->
-	<ItemGroup Label="LocalizationEmbeddedResources" Condition="$(IsApplicationHost)=='true' Or $(IsTestsProject)=='true'">
-		<EmbeddedResource Include="Localization\**\*.resx">
-			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
-			<GenerateSource>false</GenerateSource>
-		</EmbeddedResource>
-	</ItemGroup>
-
-	<!-- General Embedded Resources -->
-	<ItemGroup Label="LocalizationEmbeddedResources" Condition="!($(IsApplicationHost)=='true' Or $(IsTestsProject)=='true')">
-		<EmbeddedResource Include="Localization\**\*.resx">
-			<LogicalName>$(AssemblyName).%(FileName).resources</LogicalName>
-			<CustomNamespace>$(RootNamespace.Replace('.Localization','')).Localization</CustomNamespace>
-			<EmitFormatMethods>true</EmitFormatMethods>
-			<GenerateSource>true</GenerateSource>
-			<DefaultLang>en</DefaultLang>
-		</EmbeddedResource>
-	</ItemGroup>
-
 </Project>

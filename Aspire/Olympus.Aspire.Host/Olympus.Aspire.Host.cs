@@ -7,16 +7,16 @@ public static class AspireHost {
 	public static void Main(string[] args) {
 
 		var builder = DistributedApplication.CreateBuilder(args);
-		var production = builder.AddDockerComposeEnvironment("Production");
 
-		Settings.AddSources(builder.Configuration, typeof(AspireHost).Assembly);
+		builder.Configuration.LoadSettings(typeof(AspireHost).Assembly);
+
+		var production = builder.AddDockerComposeEnvironment("Production");
 
 		var databaseUsername = builder.AddParameter(Database.UsernameKey, true);
 		var databasePassword = builder.AddParameter(Database.PasswordKey, true);
 		var storageUsername = builder.AddParameter(Storage.UsernameKey, true);
 		var storagePassword = builder.AddParameter(Storage.PasswordKey, true);
 		var cachePassword = builder.AddParameter(Cache.PasswordKey, true);
-		var tunnelToken = builder.AddParameter(Tunnel.TokenKey, true);
 
 		var postgres = builder.AddPostgres(Database.ServiceName, databaseUsername, databasePassword, Database.Port)
 			.WithContainerName(Database.ContainerName.ToLower())
@@ -83,17 +83,6 @@ public static class AspireHost {
 					DisplayOrder = App.Routes.DisplayOrder,
 				});
 			})
-			.WithExternalHttpEndpoints();
-
-		var cloudflare = builder.AddContainer(Tunnel.ServiceName, Tunnel.ImageName)
-			.WithReference(api).WaitFor(api)
-			.WithEnvironment(Tunnel.TokenEnvKey, tunnelToken)
-			.WithContainerName(Tunnel.ContainerName.ToLower())
-			.WithLifetime(Tunnel.Lifetime)
-			.WithImageTag(Tunnel.ImageTag)
-			.WithIconName(Tunnel.IconName)
-			.WithArgs(Tunnel.CommandArgs)
-			.WithComputeEnvironment(production)
 			.WithExternalHttpEndpoints();
 
 		builder.Build().Run();

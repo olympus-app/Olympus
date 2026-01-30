@@ -8,30 +8,6 @@ public class IdentitySettings : Settings {
 
 	public const string AntiforgeryCookieName = "Olympus.Antiforgery";
 
-	public const string ApiPath = "/auth";
-
-	public const string LoginPath = "/login";
-
-	public static class Endpoints {
-
-		public const string Login = ApiPath + "/login";
-
-		public const string Logout = ApiPath + "/logout";
-
-		public const string Register = ApiPath + "/register";
-
-		public const string Identity = ApiPath + "/identity";
-
-		public const string Cookie = ApiPath + "/cookie";
-
-		public const string ExternalLogin = ApiPath + "/external-login";
-
-		public const string ExternalCallback = ApiPath + "/external-callback";
-
-		public const string Antiforgery = ApiPath + "/antiforgery";
-
-	}
-
 	public IdentityProviderSettings Providers { get; } = new();
 
 	public override void Configure(IConfiguration configuration) {

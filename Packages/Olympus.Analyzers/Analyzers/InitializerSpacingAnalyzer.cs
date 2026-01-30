@@ -1,11 +1,9 @@
-using Olympus.Analyzers.Localization;
-
 namespace Olympus.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class InitializerSpacingAnalyzer : DiagnosticAnalyzer {
 
-	public const string Identifier = "OL0003";
+	public const string Identifier = "OA0003";
 
 	public const string Category = "Formatting";
 
@@ -15,15 +13,15 @@ public class InitializerSpacingAnalyzer : DiagnosticAnalyzer {
 
 	private static readonly LocalizableString MessageRemoveBeforeClose = new LocalizableResourceString(nameof(Strings.InitializerSpacingMessageRemoveBeforeClose), Strings.ResourceManager, typeof(Strings));
 
-	private static readonly LocalizableString MessageRemoveBetweenItems = new LocalizableResourceString(nameof(Strings.InitializerSpacingMessageRemoveBetweenItems), Strings.ResourceManager, typeof(Strings)); // NOVO
+	private static readonly LocalizableString MessageRemoveBetweenItems = new LocalizableResourceString(nameof(Strings.InitializerSpacingMessageRemoveBetweenItems), Strings.ResourceManager, typeof(Strings));
 
 	private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Strings.InitializerSpacingDescription), Strings.ResourceManager, typeof(Strings));
 
-	private static readonly DiagnosticDescriptor RuleAfterOpen = new(Identifier, Title, MessageRemoveAfterOpen, Category, DiagnosticSeverity.Info, true, Description);
+	private static readonly DiagnosticDescriptor RuleAfterOpen = new(Identifier, Title, MessageRemoveAfterOpen, Category, DiagnosticSeverity.Info, false, Description);
 
-	private static readonly DiagnosticDescriptor RuleBeforeClose = new(Identifier, Title, MessageRemoveBeforeClose, Category, DiagnosticSeverity.Info, true, Description);
+	private static readonly DiagnosticDescriptor RuleBeforeClose = new(Identifier, Title, MessageRemoveBeforeClose, Category, DiagnosticSeverity.Info, false, Description);
 
-	private static readonly DiagnosticDescriptor RuleBetweenItems = new(Identifier, Title, MessageRemoveBetweenItems, Category, DiagnosticSeverity.Info, true, Description); // NOVO
+	private static readonly DiagnosticDescriptor RuleBetweenItems = new(Identifier, Title, MessageRemoveBetweenItems, Category, DiagnosticSeverity.Info, false, Description);
 
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [RuleAfterOpen, RuleBeforeClose, RuleBetweenItems];
 

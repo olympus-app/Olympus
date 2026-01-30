@@ -25,7 +25,7 @@ public static class EntityTableExtensions {
 
 		public IndexBuilder<TEntity> IsUniqueWhenNotSoftDeleted() {
 
-			return builder.IsUnique().HasAnnotation(IEntityDatabase.SoftDeleteIndexAnnotation, true);
+			return builder.IsUnique().HasAnnotation(IDatabaseService.SoftDeleteIndexAnnotation, true);
 
 		}
 

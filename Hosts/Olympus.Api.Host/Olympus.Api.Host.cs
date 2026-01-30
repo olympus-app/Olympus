@@ -6,19 +6,19 @@ public static class ApiHost {
 
 		var builder = WebApplication.CreateBuilder(args);
 
-		var info = new AppHostInfo(typeof(ApiHost).Assembly);
+		var info = builder.GetApiHostInfo();
 
-		builder.AddAspire();
+		builder.LoadSettings();
 
-		builder.AddSettings();
+		builder.AddAspireServices();
 
-		builder.AddDatabase();
+		builder.AddDiscoveredServices();
 
-		builder.AddModules(info);
+		builder.AddApiServices(info);
 
-		builder.AddServices(info);
+		builder.AddDatabaseModel();
 
-		builder.BuildAndRun();
+		builder.BuildAndRun(info);
 
 	}
 

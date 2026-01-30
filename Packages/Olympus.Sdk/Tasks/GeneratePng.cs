@@ -75,9 +75,9 @@ public class GeneratePng : Task {
 
 			return !Log.HasLoggedErrors;
 
-		} catch (Exception ex) {
+		} catch (Exception exception) {
 
-			Log.LogErrorFromException(ex);
+			Log.LogErrorFromException(exception);
 
 			return false;
 

@@ -1,0 +1,15 @@
+﻿@namespace Olympus.Core.Frontend.Layouts
+
+@inherits LayoutComponentBase
+
+<RadzenLayout class="lockscreen">
+	<RadzenHeader />
+	<RadzenBody>
+		@Body
+	</RadzenBody>
+	<RadzenFooter>
+		<RadzenStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
+			<RadzenText TextStyle="TextStyle.Body2" class="rz-color-base-500">@AppInfo.Values.Author</RadzenText>
+		</RadzenStack>
+	</RadzenFooter>
+</RadzenLayout>

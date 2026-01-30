@@ -5,12 +5,12 @@ meta {
 }
 
 post {
-  url: {{BasePath}}/api/v1/core/users/:id/photo
+  url: {{BasePath}}/api/v1/core/users/photo?id={{UserId}}
   body: multipartForm
   auth: none
 }
 
-params:path {
+params:query {
   id: {{UserId}}
 }
 

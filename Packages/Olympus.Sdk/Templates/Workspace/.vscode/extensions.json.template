@@ -6,6 +6,7 @@
 		"ms-dotnettools.csharp",
 		"redhat.vscode-xml",
 		"thewerthon.thewerthon-midnight",
-		"thewerthon.thewerthon-toggle-files-exclude"
+		"thewerthon.thewerthon-scope-to-this",
+		"thewerthon.thewerthon-toggle-files-exclude",
 	]
 }

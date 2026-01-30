@@ -1,11 +1,9 @@
-using Olympus.Analyzers.Localization;
-
 namespace Olympus.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class OneLevelNamespaceAnalyzer : DiagnosticAnalyzer {
 
-	public const string Identifier = "OL0001";
+	public const string Identifier = "OA0001";
 
 	public const string Category = "Architecture";
 

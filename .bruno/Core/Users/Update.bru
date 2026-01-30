@@ -5,12 +5,12 @@ meta {
 }
 
 put {
-  url: {{BasePath}}/api/v1/core/users/:id
+  url: {{BasePath}}/api/v1/core/users/update?id={{TestId}}
   body: json
   auth: none
 }
 
-params:path {
+params:query {
   id: {{TestId}}
 }
 

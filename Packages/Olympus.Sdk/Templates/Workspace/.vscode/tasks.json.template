@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"type": "shell",
-			"label": "Containerize",
+			"label": "Application: Containerize",
 			"command": "dotnet publish \"{{APIHOSTPATH}}\" --configuration Release /t:PublishContainer",
 			"problemMatcher": [],
 			"icon": {
@@ -13,8 +13,8 @@
 		},
 		{
 			"type": "shell",
-			"label": "Aspire: Publish",
-			"command": "aspire publish \"{{ASPIREHOSTPATH}}\" --output-path \"{{ASPIREHOSTDIR}}/Publish\"",
+			"label": "Application: Publish",
+			"command": "aspire publish \"{{ASPIREHOSTPATH}}\" --output-path \"{{ASPIREHOSTDIR}}/`$Publish\"",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "file-text",
@@ -27,7 +27,7 @@
 			"command": "docker compose --env-file .env.Test up --detach",
 			"problemMatcher": [],
 			"options": {
-				"cwd": "{{ASPIREHOSTDIR}}/Publish"
+				"cwd": "{{ASPIREHOSTDIR}}/`$Publish"
 			},
 			"icon": {
 				"id": "server",
@@ -40,7 +40,7 @@
 			"command": "docker compose --env-file .env.Test down",
 			"problemMatcher": [],
 			"options": {
-				"cwd": "{{ASPIREHOSTDIR}}/Publish"
+				"cwd": "{{ASPIREHOSTDIR}}/`$Publish"
 			},
 			"icon": {
 				"id": "server",
@@ -60,7 +60,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Add Migration",
-			"command": "dotnet ef migrations add ${input:migration} --output-dir Migrations --project \"{{APIHOSTPATH}}\" --configuration Migrations",
+			"command": "dotnet ef migrations add ${input:migration} --output-dir `$Migrations --project \"{{APIHOSTPATH}}\" --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -80,7 +80,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Generate Database",
-			"command": "${input:confirm}dotnet ef dbcontext optimize --output-dir Database --namespace {{APIHOSTNAME}}.Database --project \"{{APIHOSTPATH}}\" --configuration Migrations",
+			"command": "${input:confirm}dotnet ef dbcontext optimize --output-dir `$Database --namespace {{APIHOSTNAME}}.Database --project \"{{APIHOSTPATH}}\" --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -105,6 +105,16 @@
 			"icon": {
 				"id": "database",
 				"color": "terminal.ansiMagenta"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Solution: Clean All",
+			"command": "${input:confirm}dotnet clean && Get-ChildItem -Path ${workspaceFolder} -Include bin,obj -Directory -Recurse -Force | Remove-Item -Recurse -Force",
+			"problemMatcher": [],
+			"icon": {
+				"id": "symbol-function",
+				"color": "terminal.ansiYellow"
 			}
 		}
 	],

@@ -1,6 +1,6 @@
 namespace Olympus.Core.Archend.Identity;
 
-public record TokenCreateRequest {
+public record TokenCreateRequest : EntityCreateRequest {
 
 	public required string Name { get; set; }
 

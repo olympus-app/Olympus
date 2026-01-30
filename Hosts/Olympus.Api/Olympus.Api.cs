@@ -2,7 +2,7 @@ namespace Olympus.Api;
 
 public static class Api {
 
-	public static void AddServices(this WebApplicationBuilder builder, AppHostInfo info) {
+	public static void AddApiServices(this WebApplicationBuilder builder, ApiHostInfo info) {
 
 		builder.AddGlobalExceptionHandlerServices();
 
@@ -32,13 +32,13 @@ public static class Api {
 
 		builder.AddDataProtectionServices();
 
-		builder.AddEndpointsServices();
+		builder.AddEndpointsServices(info);
 
 		builder.AddDocumentationServices(info);
 
 	}
 
-	public static void BuildAndRun(this WebApplicationBuilder builder) {
+	public static void BuildAndRun(this WebApplicationBuilder builder, ApiHostInfo info) {
 
 		var app = builder.Build();
 
@@ -60,15 +60,7 @@ public static class Api {
 
 		app.UseWebClientMiddleware();
 
-		app.MapAuthenticationEndpoints();
-
-		app.MapAuthorizationEndpoints();
-
-		app.MapPasskeysEndpoints();
-
-		app.MapTokensEndpoints();
-
-		app.MapEndpoints();
+		app.MapEndpoints(info);
 
 		app.MapDocumentation();
 

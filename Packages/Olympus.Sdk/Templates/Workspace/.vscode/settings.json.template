@@ -1,7 +1,8 @@
 {
 	"codeStatsViewer.excludeDirs": [
+		"$Generated",
 		".git",
-		"Generated",
+		".settings",
 		"bin",
 		"obj",
 	],
@@ -57,27 +58,13 @@
 	"editor.suggest.showVariables": true,
 	"editor.suggest.showWords": true,
 	"files.exclude": {
-		".editorconfig": false,
-		".gitattributes": false,
-		".github": false,
-		".gitignore": false,
-		"**/.aspire": false,
-		"**/.assets": false,
-		"**/.bruno": false,
-		"**/.config": false,
-		"**/.gemini": false,
-		"**/.nuget": false,
-		"**/.props": false,
-		"**/.resources": false,
-		"**/.settings": false,
-		"**/.vscode": false,
-		"**/*.config": false,
-		"**/*.csproj": false,
-		"**/*.md": false,
-		"**/*.txt": false,
-		"global.json": false
+		".*": false,
+		"*.md": false,
+		"*.json": false,
+		"*.txt": false,
+		"*.xml": false
 	},
 	"search.exclude": {
-		"**/Generated/**": true
+		"**/$Generated/**": true
 	}
 }

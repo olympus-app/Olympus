@@ -18,7 +18,7 @@ public static class RoutingRegistrator {
 
 	public static void UseRoutingMiddleware(this WebApplication app) {
 
-		if (app.Environment.IsDevelopment()) app.MapGet($"/{Routes.ApiRoutes}", RouteDebugger.DebugAsync);
+		if (app.Environment.IsDevelopment()) app.MapGet(AppRoutes.ApiRoutes, RouteDebugger.DebugAsync);
 
 		app.UseRouting();
 

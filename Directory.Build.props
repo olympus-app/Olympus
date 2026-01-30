@@ -7,6 +7,7 @@
 		<SolutionAuthors>Éwerton Ferreira</SolutionAuthors>
 		<SolutionCustomer>Olympus Application</SolutionCustomer>
 		<SolutionFolder>$(MSBuildThisFileDirectory)</SolutionFolder>
+		<IsMainSolution>true</IsMainSolution>
 	</PropertyGroup>
 
 	<!-- Application Properties -->
@@ -23,9 +24,9 @@
 
 	<!-- Version Properties -->
 	<PropertyGroup Label="VersionProperties">
-		<Version>0.6.0-alpha</Version>
-		<BuildNumber>6</BuildNumber>
-		<BuildNumberForced>6</BuildNumberForced>
+		<Version>0.7.0-alpha</Version>
+		<BuildNumber>7</BuildNumber>
+		<BuildNumberForced>7</BuildNumberForced>
 	</PropertyGroup>
 
 	<!-- Web Application Properties -->
@@ -39,8 +40,8 @@
 		<WebAppIconMaskableScale>0.7</WebAppIconMaskableScale>
 	</PropertyGroup>
 
-	<!-- Modules Definition -->
-	<ItemGroup Label="ModulesDefinition">
+	<!-- Modules Definitions -->
+	<ItemGroup Label="ModulesDefinitions">
 		<!-- <OlympusModule Include="Athena" /> -->
 		<!-- <OlympusModule Include="Eleuthia" /> -->
 	</ItemGroup>

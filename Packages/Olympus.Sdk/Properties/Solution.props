@@ -11,24 +11,21 @@
 
 	<!-- Solution Properties Initialization -->
 	<PropertyGroup Label="SolutionProperties">
-		<AssetsFolder>$(SolutionFolder)</AssetsFolder>
-		<SettingsFolder>$(SolutionFolder)</SettingsFolder>
+		<AssetsFolder>$(SolutionFolder)\.assets</AssetsFolder>
+		<ResourcesFolder>$(SolutionFolder)\.resources</ResourcesFolder>
+		<SettingsFolder>$(SolutionFolder)\.settings</SettingsFolder>
 		<AspireFolder>$(SolutionFolder)</AspireFolder>
 		<CoreFolder>$(SolutionFolder)</CoreFolder>
 		<HostsFolder>$(SolutionFolder)</HostsFolder>
 		<ModulesFolder>$(SolutionFolder)</ModulesFolder>
-		<IsMainSolution>false</IsMainSolution>
 	</PropertyGroup>
 
 	<!-- Solution Properties Evaluation -->
 	<PropertyGroup Label="SolutionProperties">
-		<AssetsFolder Condition="Exists('$(SolutionFolder)\.assets')">$(SolutionFolder)\.assets</AssetsFolder>
-		<SettingsFolder Condition="Exists('$(SolutionFolder)\.settings')">$(SolutionFolder)\.settings</SettingsFolder>
 		<AspireFolder Condition="Exists('$(SolutionFolder)\Aspire')">$(SolutionFolder)\Aspire</AspireFolder>
 		<CoreFolder Condition="Exists('$(SolutionFolder)\Core')">$(SolutionFolder)\Core</CoreFolder>
 		<HostsFolder Condition="Exists('$(SolutionFolder)\Hosts')">$(SolutionFolder)\Hosts</HostsFolder>
 		<ModulesFolder Condition="Exists('$(SolutionFolder)\Modules')">$(SolutionFolder)\Modules</ModulesFolder>
-		<IsMainSolution Condition="$(SolutionName)=='Olympus'">true</IsMainSolution>
 	</PropertyGroup>
 
 	<!-- Core Project Properties -->

@@ -1,0 +1,44 @@
+﻿@namespace Olympus.Core.Frontend.Layouts
+
+@inherits LayoutComponentBase
+
+<RadzenLayout Style="grid-template-areas: 'rz-header rz-header' 'rz-sidebar rz-body'" id="main-layout">
+	<RadzenHeader>
+		<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.SpaceBetween" Gap="0.5rem" class="rz-header-area">
+			<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem">
+				<RadzenSidebarToggle Click="ToggleSidebar" />
+				<RadzenLabel Text="Olympus" />
+			</RadzenStack>
+			<RadzenProfileMenu>
+				<Template>
+					<RadzenGravatar Email="eeeeewerton@gmail.com" />
+				</Template>
+				<ChildContent>
+					<RadzenProfileMenuItem Text="Button 1" Path="buttons" />
+					<RadzenProfileMenuItem Text="Button 2" Path="buttons" />
+					<RadzenProfileMenuItem Text="Button 3" Path="buttons" />
+				</ChildContent>
+			</RadzenProfileMenu>
+		</RadzenStack>
+	</RadzenHeader>
+	<RadzenSidebar @bind-Expanded="@sidebarExpanded">
+		<NavMenu />
+	</RadzenSidebar>
+	<RadzenBody class="rz-p-4">
+		@Body
+	</RadzenBody>
+	@if (sidebarExpanded)
+	{
+		<div @onclick="ToggleSidebar" class="rz-sidebar-overlay"></div>
+	}
+</RadzenLayout>
+
+<RadzenComponents />
+
+@code {
+
+	private bool sidebarExpanded = true;
+
+	private void ToggleSidebar() => sidebarExpanded = !sidebarExpanded;
+
+}

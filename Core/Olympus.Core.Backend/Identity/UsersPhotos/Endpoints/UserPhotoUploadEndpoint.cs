@@ -1,13 +1,10 @@
 namespace Olympus.Core.Backend.Identity;
 
-public class UserPhotoUploadEndpoint : ImageUploadEndpoint<User, UserPhoto> {
+public class UserPhotoUploadEndpoint(UserPhotoService service) : EntityWithImageUploadEndpoint<UserPhoto, UserPhotoUploadRequest>(service) {
 
 	public override void Configure() {
 
 		Post(CoreRoutes.Users.Photo);
-
-		StorageOptions(StorageLocation.Public, fileName: "profile.jpg");
-		ProcessorOptions(ImageSize.Medium, ResizeMode.Crop, true);
 
 	}
 

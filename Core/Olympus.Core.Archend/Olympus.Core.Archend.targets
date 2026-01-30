@@ -6,7 +6,6 @@
 		<Using Include="Olympus.Core.Archend.Endpoints" />
 		<Using Include="Olympus.Core.Archend.Entities" />
 		<Using Include="Olympus.Core.Archend.Identity" />
-		<Using Include="Olympus.Core.Archend.Modules" />
 		<Using Include="Olympus.Core.Archend.Storage" />
 	</ItemGroup>
 

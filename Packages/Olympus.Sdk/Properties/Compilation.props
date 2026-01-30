@@ -7,12 +7,8 @@
 		<RootNamespace>$(ProjectName)</RootNamespace>
 		<OlympusImplicitUsings>enable</OlympusImplicitUsings>
 		<OlympusImplicitReferences>enable</OlympusImplicitReferences>
-		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
-		<EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
 		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
-		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
-		<InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.Extensions.Configuration.Binder.SourceGeneration</InterceptorsNamespaces>
 	</PropertyGroup>
 
 	<!-- Compilation Properties for Aspire Application Package -->

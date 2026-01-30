@@ -1,7 +1,11 @@
 namespace Olympus.Core.Modules;
 
-public interface IAppModuleOptions : IAppModule {
+public interface IAppModuleOptions : IOptionsService<IAppModuleOptions> {
 
-	public void Configure(IConfiguration configuration);
+	public string CodeName { get; }
+
+	public string DisplayName { get; }
+
+	public string BaseRoute { get; }
 
 }

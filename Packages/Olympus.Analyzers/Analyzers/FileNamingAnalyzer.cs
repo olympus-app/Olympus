@@ -1,13 +1,11 @@
-using Olympus.Analyzers.Localization;
-
 namespace Olympus.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class FileNamingAnalyzer : DiagnosticAnalyzer {
 
-	public const string Identifier = "OL0008";
+	public const string Identifier = "OA0008";
 
-	public const string Category = "Naming";
+	public const string Category = "Style";
 
 	private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Strings.FileNamingTitle), Strings.ResourceManager, typeof(Strings));
 

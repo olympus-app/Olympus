@@ -1,8 +1,6 @@
-using System.Reflection;
-
 namespace Olympus.Core.Backend.Identity;
 
-public class PermissionTable(IEnumerable<IAppModulePermissions> modules) : EntityTable<Permission> {
+public class PermissionTable(IEnumerable<IAppModuleInfo> modules) : EntityTable<Permission> {
 
 	public const string TableName = "Permissions";
 
@@ -25,25 +23,13 @@ public class PermissionTable(IEnumerable<IAppModulePermissions> modules) : Entit
 
 	}
 
-	public static List<Permission> GetSeed(IAppModulePermissions module) {
-
-		var permissions = new List<Permission>();
-
-		var extracted = ExtractPermissions(module.GetType(), module.ModuleName);
-
-		permissions.AddRange(extracted);
-
-		return permissions;
-
-	}
-
-	public static List<Permission> GetSeed(IEnumerable<IAppModulePermissions> modules) {
+	public static List<Permission> GetSeed(IEnumerable<IAppModuleInfo> modules) {
 
 		var permissions = new List<Permission>();
 
 		foreach (var module in modules) {
 
-			var extracted = ExtractPermissions(module.GetType(), module.ModuleName);
+			var extracted = GetSeed(module);
 
 			permissions.AddRange(extracted);
 
@@ -53,38 +39,25 @@ public class PermissionTable(IEnumerable<IAppModulePermissions> modules) : Entit
 
 	}
 
-	private static List<Permission> ExtractPermissions(Type permissionsType, string moduleName) {
+	public static List<Permission> GetSeed(IAppModuleInfo module) {
 
 		var permissions = new List<Permission>();
 
-		foreach (var featureType in permissionsType.GetNestedTypes(BindingFlags.Public | BindingFlags.Static)) {
+		foreach (var info in module.Permissions) {
 
-			var featureName = featureType.Name;
+			var permission = PrepareSeed(
+				new Permission() {
+					Id = Guid.From(info.Value),
+					Value = info.Value,
+					Name = info.Name,
+					Description = info.Description,
+					Module = info.Module,
+					Feature = info.Feature,
+					Action = info.Action,
+				}, true, false, true, true
+			);
 
-			var actionFields = featureType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
-				.Where(field => field.IsLiteral && !field.IsInitOnly && field.FieldType == typeof(int));
-
-			foreach (var field in actionFields) {
-
-				var actionName = field.Name;
-				var fullName = $"{moduleName}.{featureName}.{actionName}";
-				var value = (int)field.GetValue(null)!;
-
-				var permission = PrepareSeed(
-					new Permission() {
-						Id = Guid.From(value),
-						Value = value,
-						Name = fullName,
-						Description = fullName,
-						Module = moduleName,
-						Feature = featureName,
-						Action = actionName,
-					}, true, false, true, true
-				);
-
-				permissions.Add(permission);
-
-			}
+			permissions.Add(permission);
 
 		}
 

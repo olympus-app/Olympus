@@ -39,15 +39,13 @@ public class BundleJs : Task {
 
 			if (Log.HasLoggedErrors) return false;
 
-			var settings = new CodeSettings {
+			var result = Uglify.Js(builder.ToString(), new CodeSettings {
 				OutputMode = OutputMode.SingleLine,
 				LocalRenaming = LocalRenaming.KeepAll,
 				ScriptVersion = ScriptVersion.EcmaScript6,
 				PreserveImportantComments = false,
 				MinifyCode = false,
-			};
-
-			var result = Uglify.Js(builder.ToString(), settings);
+			});
 
 			if (result.HasErrors) {
 
@@ -58,6 +56,7 @@ public class BundleJs : Task {
 				}
 
 				return false;
+
 			}
 
 			var directory = Path.GetDirectoryName(OutputFile);
@@ -68,9 +67,9 @@ public class BundleJs : Task {
 
 			return true;
 
-		} catch (Exception ex) {
+		} catch (Exception exception) {
 
-			Log.LogErrorFromException(ex);
+			Log.LogErrorFromException(exception);
 
 			return false;
 

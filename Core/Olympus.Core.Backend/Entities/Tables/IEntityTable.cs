@@ -1,6 +1,6 @@
 namespace Olympus.Core.Backend.Entities;
 
-public interface IEntityTable {
+public interface IEntityTable : ITransientService<IEntityTable> {
 
 	public void Apply(ModelBuilder builder);
 

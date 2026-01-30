@@ -1,0 +1,12 @@
+<Project>
+
+	<!-- Resources Files Hierarchy -->
+	<Target Name="ResourcesFilesHierarchy" BeforeTargets="GenerateMSBuildEditorConfigFileCore;CoreCompile">
+
+		<ItemGroup>
+			<EmbeddedResource Update="**\*.??.resx;**\*.??-??.resx;**\*.??-????.resx" DependentUpon="$([System.IO.Path]::ChangeExtension($([System.IO.Path]::GetFileNameWithoutExtension(%(Identity))), '.resx'))" />
+		</ItemGroup>
+
+	</Target>
+
+</Project>

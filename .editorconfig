@@ -1,16 +1,22 @@
 root = true
 
-[**/Generated/**.cs]
+[**/$Generated/**/*.cs]
 generated_code = true
 
-[*.{cs,razor}]
+[**/$Migrations/**/*.cs]
+generated_code = true
+
+[**/$Database/**/*.cs]
+generated_code = true
+
+[*.cs]
 indent_style = tab
 indent_size = 4
 tab_width = 4
 
-# OL0003: Initializer Spacing
-dotnet_diagnostic.OL0003.severity = none
+[*.razor]
+indent_style = tab
+indent_size = 2
+tab_width = 2
 
-# OL0007: Suffix Naming
-dotnet_diagnostic.OL0007.severity = suggestion
-olympus_suffix_naming_targets = Model, Request, Response, Result, Mapper, Endpoint
+[*.{cs,razor}]

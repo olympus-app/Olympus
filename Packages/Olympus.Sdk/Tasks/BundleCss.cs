@@ -31,6 +31,7 @@ public class BundleCss : Task {
 				} else {
 
 					Log.LogError($"BundleCss source file not found: {file.ItemSpec}");
+					
 				}
 
 			}
@@ -41,6 +42,8 @@ public class BundleCss : Task {
 				OutputMode = OutputMode.SingleLine,
 				CommentMode = CssComment.None,
 				ColorNames = CssColor.Hex,
+				RemoveEmptyBlocks = true,
+				FixIE8Fonts = false,
 			});
 
 			if (result.HasErrors) {
@@ -63,9 +66,9 @@ public class BundleCss : Task {
 
 			return true;
 
-		} catch (Exception ex) {
+		} catch (Exception exception) {
 
-			Log.LogErrorFromException(ex);
+			Log.LogErrorFromException(exception);
 
 			return false;
 

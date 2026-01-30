@@ -1,10 +1,5 @@
 <Project>
 
-	<!-- Global Editor Configuration -->
-	<ItemGroup Label="GlobalEditorConfiguration">
-		<EditorConfigFiles Include="$(MSBuildThisFileDirectory)..\configuration\Olympus.globalconfig" />
-	</ItemGroup>
-
 	<!-- Debug Configuration -->
 	<PropertyGroup Label="Configuration" Condition="$(Configuration)=='Debug' Or $(Configuration)==''">
 		<BlazorWebAssemblyOmitDebugProxyOutput>false</BlazorWebAssemblyOmitDebugProxyOutput>

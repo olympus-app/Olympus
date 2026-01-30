@@ -1,13 +1,31 @@
 <Project>
 
-	<!-- Assets Folders -->
-	<PropertyGroup Label="AssetsFolders" Condition="$(IsApplicationHost)=='true'">
-		<BaseAssetsFolder>$(MSBuildThisFileDirectory)..\assets</BaseAssetsFolder>
-		<LocalAssetsFolder Condition="$(AssetsFolder)!=''">$(AssetsFolder)</LocalAssetsFolder>
-		<LocalAssetsFolder Condition="$(AssetsFolder)==''">$(SolutionFolder)\.assets</LocalAssetsFolder>
+	<!-- Assets Dependencies -->
+	<PropertyGroup Label="AssetsDependencies">
+		<ResolveStaticWebAssetsInputsDependsOn>
+			RegisterWebHostAssets;
+			RegisterWebHostIcons;
+			RegisterWebHostThemes;
+			RegisterWebHostScripts;
+			$(ResolveStaticWebAssetsInputsDependsOn)
+		</ResolveStaticWebAssetsInputsDependsOn>
+		<ResolveBuildRelatedStaticWebAssetsDependsOn>
+			GenerateBuildServiceWorkerFiles;
+			$(ResolveBuildRelatedStaticWebAssetsDependsOn)
+		</ResolveBuildRelatedStaticWebAssetsDependsOn>
+		<ResolvePublishRelatedStaticWebAssetsDependsOn>
+			GeneratePublishServiceWorkerFiles;
+			$(ResolvePublishRelatedStaticWebAssetsDependsOn)
+		</ResolvePublishRelatedStaticWebAssetsDependsOn>
 	</PropertyGroup>
 
-	<!-- AppIcon Resolution -->
+	<!-- Assets Folders -->
+	<PropertyGroup Label="AssetsFolders" Condition="$(IsApplicationHost)=='true'">
+		<BaseAssetsFolder>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\assets'))</BaseAssetsFolder>
+		<LocalAssetsFolder>$([System.IO.Path]::GetFullPath('$(AssetsFolder)'))</LocalAssetsFolder>
+	</PropertyGroup>
+
+	<!-- AppIcon Definitions -->
 	<PropertyGroup Label="AppIconResolution" Condition="$(IsApplicationHost)=='true'">
 		<AppIconSourceFile Condition="Exists('$(BaseAssetsFolder)\icons\icon.svg')">$(BaseAssetsFolder)\icons\icon.svg</AppIconSourceFile>
 		<AppIconSourceFile Condition="Exists('$(LocalAssetsFolder)\icons\icon.svg')">$(LocalAssetsFolder)\icons\icon.svg</AppIconSourceFile>
@@ -21,38 +39,137 @@
 		<AppIconAnySizes Include="16;24;32;44;48;64;128;180;192;256;512" />
 		<AppIconMaskableSizes Include="128;180;192;256;512" />
 
-		<GeneratedIcons Include="@(AppIconAnySizes->'$(IntermediateOutputPath)wwwroot\icons\icon-%(Identity)-any.png')" />
-		<GeneratedIcons Include="@(AppIconMaskableSizes->'$(IntermediateOutputPath)wwwroot\icons\icon-%(Identity)-maskable.png')" />
+		<GeneratedIcons Include="@(AppIconAnySizes->'$(IntermediateOutputPath)wwwroot\icons\icon-%(Identity)-any.png')">
+			<RelativePath>icons\%(Filename)%(Extension)</RelativePath>
+		</GeneratedIcons>
+
+		<GeneratedIcons Include="@(AppIconMaskableSizes->'$(IntermediateOutputPath)wwwroot\icons\icon-%(Identity)-maskable.png')">
+			<RelativePath>icons\%(Filename)%(Extension)</RelativePath>
+		</GeneratedIcons>
 
 	</ItemGroup>
 
 	<!-- Themes Definitions -->
 	<ItemGroup Label="ThemesDefinitions" Condition="$(IsWebApplicationHost)=='true'">
 
-		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\light-base.css" />
-		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\light-custom.css" />
-		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\common.css" />
-		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\global.css" />
-		<LightThemeInputs Include="$(BaseAssetsFolder)\styles\web.css" />
+		<!-- Light Theme -->
+		<LightThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-light.override.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-light.override.css" />
+		<LightThemeInputs Condition="!Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-light.override.css')" Include="$(BaseAssetsFolder)\themes\$(WebAppTheme)\base-light.css" />
+		<LightThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-light.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-light.css" />
 
-		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\dark-base.css" />
-		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\dark-custom.css" />
-		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\$(WebAppTheme)\common.css" />
-		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\global.css" />
-		<DarkThemeInputs Include="$(BaseAssetsFolder)\styles\web.css" />
+		<LightThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-light.override.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-light.override.css" />
+		<LightThemeInputs Condition="!Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-light.override.css')" Include="$(BaseAssetsFolder)\themes\$(WebAppTheme)\custom-light.css" />
+		<LightThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-light.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-light.css" />
 
-		<GeneratedThemes Include="$(IntermediateOutputPath)wwwroot\styles\light.css" />
-		<GeneratedThemes Include="$(IntermediateOutputPath)wwwroot\styles\dark.css" />
+		<LightThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\**\*-light*.css" />
+		<LightThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\**\*-light*.override.css" />
+		<LightThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\**\*-light*.css" Exclude="$(LocalAssetsFolder)\styles\**\*.override.css" />
+
+		<LightThemeGlobalStyles Remove="@(LightThemeGlobalStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+		<LightThemeInputs Include="@(LightThemeGlobalStyles);@(LightThemeGlobalStylesOverrides);@(LightThemeGlobalStylesAdditives)" />
+
+		<LightThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-light*.css" Condition="@(OlympusModule)!=''" />
+		<LightThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-light*.override.css" Condition="@(OlympusModule)!=''" />
+		<LightThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-light*.css" Exclude="$(LocalAssetsFolder)\modules\**\*.override.css" Condition="@(OlympusModule)!=''" />
+
+		<LightThemeModulesStyles Remove="@(LightThemeModulesStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+		<LightThemeInputs Include="@(LightThemeModulesStyles);@(LightThemeModulesStylesOverrides);@(LightThemeModulesStylesAdditives)" />
+
+		<!-- Dark Theme -->
+		<DarkThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-dark.override.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-dark.override.css" />
+		<DarkThemeInputs Condition="!Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-dark.override.css')" Include="$(BaseAssetsFolder)\themes\$(WebAppTheme)\base-dark.css" />
+		<DarkThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-dark.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\base-dark.css" />
+
+		<DarkThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-dark.override.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-dark.override.css" />
+		<DarkThemeInputs Condition="!Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-dark.override.css')" Include="$(BaseAssetsFolder)\themes\$(WebAppTheme)\custom-dark.css" />
+		<DarkThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-dark.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\custom-dark.css" />
+
+		<DarkThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\**\*-dark*.css" />
+		<DarkThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\**\*-dark*.override.css" />
+		<DarkThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\**\*-dark*.css" Exclude="$(LocalAssetsFolder)\styles\**\*.override.css" />
+
+		<DarkThemeGlobalStyles Remove="@(DarkThemeGlobalStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+		<DarkThemeInputs Include="@(DarkThemeGlobalStyles);@(DarkThemeGlobalStylesOverrides);@(DarkThemeGlobalStylesAdditives)" />
+
+		<DarkThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-dark*.css" Condition="@(OlympusModule)!=''" />
+		<DarkThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-dark*.override.css" Condition="@(OlympusModule)!=''" />
+		<DarkThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*-dark*.css" Exclude="$(LocalAssetsFolder)\modules\**\*.override.css" Condition="@(OlympusModule)!=''" />
+
+		<DarkThemeModulesStyles Remove="@(DarkThemeModulesStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+		<DarkThemeInputs Include="@(DarkThemeModulesStyles);@(DarkThemeModulesStylesOverrides);@(DarkThemeModulesStylesAdditives)" />
+
+		<!-- Common Theme -->
+		<CommonThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\common.override.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\common.override.css" />
+		<CommonThemeInputs Condition="!Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\common.override.css')" Include="$(BaseAssetsFolder)\themes\$(WebAppTheme)\common.css" />
+		<CommonThemeInputs Condition="Exists('$(LocalAssetsFolder)\themes\$(WebAppTheme)\common.css')" Include="$(LocalAssetsFolder)\themes\$(WebAppTheme)\common.css" />
+
+		<CommonThemeGlobalStyles Include="$(BaseAssetsFolder)\styles\**\*.css" Exclude="$(BaseAssetsFolder)\styles\**\*-dark*;$(BaseAssetsFolder)\styles\**\*-light*" />
+		<CommonThemeGlobalStylesOverrides Include="$(LocalAssetsFolder)\styles\**\*.override.css" Exclude="$(LocalAssetsFolder)\styles\**\*-dark*;$(LocalAssetsFolder)\styles\**\*-light*" />
+		<CommonThemeGlobalStylesAdditives Include="$(LocalAssetsFolder)\styles\**\*.css" Exclude="$(LocalAssetsFolder)\styles\**\*.override.css;$(LocalAssetsFolder)\styles\**\*-dark*;$(LocalAssetsFolder)\styles\**\*-light*" />
+
+		<CommonThemeGlobalStyles Remove="@(CommonThemeGlobalStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+		<CommonThemeInputs Include="@(CommonThemeGlobalStyles);@(CommonThemeGlobalStylesOverrides);@(CommonThemeGlobalStylesAdditives)" />
+
+		<CommonThemeModulesStyles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*.css" Exclude="$(BaseAssetsFolder)\modules\**\*-dark*;$(BaseAssetsFolder)\modules\**\*-light*" Condition="@(OlympusModule)!=''" />
+		<CommonThemeModulesStylesOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*.override.css" Exclude="$(LocalAssetsFolder)\modules\**\*-dark*;$(LocalAssetsFolder)\modules\**\*-light*" Condition="@(OlympusModule)!=''" />
+		<CommonThemeModulesStylesAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*.css" Exclude="$(LocalAssetsFolder)\modules\**\*.override.css;$(LocalAssetsFolder)\modules\**\*-dark*;$(LocalAssetsFolder)\modules\**\*-light*" Condition="@(OlympusModule)!=''" />
+
+		<CommonThemeModulesStyles Remove="@(CommonThemeModulesStylesOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+		<CommonThemeInputs Include="@(CommonThemeModulesStyles);@(CommonThemeModulesStylesOverrides);@(CommonThemeModulesStylesAdditives)" />
+
+		<!-- Finish -->
+		<GeneratedThemes Include="$(IntermediateOutputPath)wwwroot\styles\light.css">
+			<RelativePath>styles\%(Filename)%(Extension)</RelativePath>
+		</GeneratedThemes>
+
+		<GeneratedThemes Include="$(IntermediateOutputPath)wwwroot\styles\dark.css">
+			<RelativePath>styles\%(Filename)%(Extension)</RelativePath>
+		</GeneratedThemes>
+
+		<GeneratedThemes Include="$(IntermediateOutputPath)wwwroot\styles\common.css">
+			<RelativePath>styles\%(Filename)%(Extension)</RelativePath>
+		</GeneratedThemes>
 
 	</ItemGroup>
 
 	<!-- Scripts Definitions -->
 	<ItemGroup Label="ScriptsDefinitions" Condition="$(IsWebApplicationHost)=='true'">
 
-		<ScriptsInputs Include="$(BaseAssetsFolder)\scripts\*.js" />
-		<GeneratedScripts Include="$(IntermediateOutputPath)wwwroot\scripts.js" />
+		<AllBaseScripts Include="$(BaseAssetsFolder)\scripts\**\*.js" Exclude="$(BaseAssetsFolder)\scripts\boot.js" />
+		<AllModulesBaseSripts Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\**\*.js" Condition="@(OlympusModule)!=''" />
+
+		<LocalScriptOverrides Include="$(LocalAssetsFolder)\scripts\**\*.override.js" />
+		<ModulesLocalScriptOverrides Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\**\*.override.js" Condition="@(OlympusModule)!=''" />
+
+		<LocalScriptAdditives Include="$(LocalAssetsFolder)\scripts\**\*.js" Exclude="$(LocalAssetsFolder)\scripts\boot.js;$(LocalAssetsFolder)\scripts\**\*.override.js" />
+		<ModulesLocalScriptAdditives Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\**\*.js" Exclude="$(LocalAssetsFolder)\modules\**\*.override.js" Condition="@(OlympusModule)!=''" />
+
+		<AllBaseScripts Remove="@(LocalScriptOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+		<AllModulesBaseSripts Remove="@(ModulesLocalScriptOverrides->'$([System.String]::Copy('%(FullPath)').Replace('$(LocalAssetsFolder)', '$(BaseAssetsFolder)').Replace('.override', ''))')" />
+
+		<ScriptsInputs Include="@(AllBaseScripts)" />
+		<ScriptsInputs Include="@(LocalScriptOverrides)" />
+		<ScriptsInputs Include="@(LocalScriptAdditives)" />
+
+		<ScriptsInputs Include="@(AllModulesBaseSripts)" />
+		<ScriptsInputs Include="@(ModulesLocalScriptOverrides)" />
+		<ScriptsInputs Include="@(ModulesLocalScriptAdditives)" />
+
+		<GeneratedScripts Include="$(IntermediateOutputPath)wwwroot\scripts.js">
+			<RelativePath>%(Filename)%(Extension)</RelativePath>
+		</GeneratedScripts>
 
 	</ItemGroup>
+
+	<!-- ServiceWorker Definitions -->
+	<PropertyGroup Label="ServiceWorkerDefinitions" Condition="$(IsWebApplicationHost)=='true'">
+		<ServiceWorkerBaseFile Condition="$(Configuration)!='Release'">$(BaseAssetsFolder)\service-worker.build.js</ServiceWorkerBaseFile>
+		<ServiceWorkerBaseFile Condition="$(Configuration)=='Release'">$(BaseAssetsFolder)\service-worker.publish.js</ServiceWorkerBaseFile>
+		<ServiceWorkerBaseFile Condition="$(Configuration)!='Release' And Exists('$(LocalAssetsFolder)\service-worker.build.js')">$(LocalAssetsFolder)\service-worker.build.js</ServiceWorkerBaseFile>
+		<ServiceWorkerBaseFile Condition="$(Configuration)=='Release' And Exists('$(LocalAssetsFolder)\service-worker.publish.js')">$(LocalAssetsFolder)\service-worker.publish.js</ServiceWorkerBaseFile>
+		<ServiceWorkerGeneratedFile>$(IntermediateOutputPath)wwwroot\service-worker.js</ServiceWorkerGeneratedFile>
+		<ServiceWorkerGeneratedManifestFile>$(IntermediateOutputPath)wwwroot\service-worker-assets.js</ServiceWorkerGeneratedManifestFile>
+	</PropertyGroup>
 
 	<!-- Generate Application Host Icon -->
 	<Target Name="GenerateApplicationIcon" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="$(AppIconSourceFile)" Outputs="$(AppIconDestinationFile)" Condition="$(IsApplicationHost)=='true'">
@@ -79,36 +196,114 @@
 	</Target>
 
 	<!-- Register Web Application Host Icons -->
-	<Target Name="RegisterWebHostIcons" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateWebHostIcons" Condition="$(IsWebApplicationHost)=='true'">
+	<Target Name="RegisterWebHostIcons" DependsOnTargets="GenerateWebHostIcons" Condition="$(IsWebApplicationHost)=='true'">
 
-		<ItemGroup Label="WebHostIcons">
-			<Content Include="@(GeneratedIcons)">
-				<Link>wwwroot\icons\%(Filename)%(Extension)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-			</Content>
+		<DefineStaticWebAssets
+			CandidateAssets="@(GeneratedIcons)"
+			SourceType="Computed"
+			SourceId="$(PackageId)"
+			ContentRoot="$(IntermediateOutputPath)wwwroot\"
+			BasePath="/"
+			AssetKind="All"
+			AssetMode="All"
+			AssetRole="Primary"
+			AssetMergeSource="$(StaticWebAssetMergeTarget)"
+			CopyToOutputDirectory="Never"
+			CopyToPublishDirectory="PreserveNewest"
+		>
+			<Output TaskParameter="Assets" ItemName="GeneratedIconsAssets" />
+		</DefineStaticWebAssets>
+
+		<DefineStaticWebAssetEndpoints
+			CandidateAssets="@(GeneratedIconsAssets)"
+			ExistingEndpoints="@(StaticWebAssetEndpoint)"
+			ContentTypeMappings="@(StaticWebAssetContentTypeMapping)"
+		>
+			<Output TaskParameter="Endpoints" ItemName="GeneratedIconsEndpoints" />
+		</DefineStaticWebAssetEndpoints>
+
+		<ItemGroup>
+			<StaticWebAsset Include="@(GeneratedIconsAssets)" />
+			<StaticWebAssetEndpoint Include="@(GeneratedIconsEndpoints)" />
 			<FileWrites Include="@(GeneratedIcons)" />
 		</ItemGroup>
 
 	</Target>
 
-	<!-- Generate Web Application Host Themes -->
-	<Target Name="GenerateWebHostThemes" BeforeTargets="BeforeBuild;ResolveProjectReferences" Inputs="@(LightThemeInputs);@(DarkThemeInputs)" Outputs="@(GeneratedThemes)" Condition="$(IsWebApplicationHost)=='true'">
+	<!-- Resolve Web Host Theme Inputs -->
+	<Target Name="ResolveWebHostThemesInputs" AfterTargets="BundleScopedCssFiles" DependsOnTargets="ResolveReferencedProjectsStaticWebAssets;BundleScopedCssFiles">
 
+		<ItemGroup>
+			<WebHostThemeInputs Include="@(LightThemeInputs)" />
+			<WebHostThemeInputs Include="@(DarkThemeInputs)" />
+			<WebHostThemeInputs Include="@(CommonThemeInputs)" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<HostScopedCssBundle Include="$(IntermediateOutputPath)scopedcss\projectbundle\$(PackageId).bundle.scp.css" />
+			<ReferencedScopedCssBundles Include="@(StaticWebAsset)" Condition="'%(StaticWebAsset.AssetTraitName)'=='ScopedCss' And '%(StaticWebAsset.AssetTraitValue)'=='ProjectBundle'" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<WebHostThemeInputs Include="@(HostScopedCssBundle)" Condition="Exists('%(Identity)')" />
+			<WebHostThemeInputs Include="@(ReferencedScopedCssBundles)" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Generate Web Application Host Themes -->
+	<Target Name="GenerateWebHostThemes" AfterTargets="BundleScopedCssFiles" DependsOnTargets="ResolveWebHostThemesInputs" Inputs="@(WebHostThemeInputs)" Outputs="@(GeneratedThemes)" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup>
+			<CommonThemeInputs Include="@(HostScopedCssBundle)" Condition="Exists('%(Identity)')" />
+			<CommonThemeInputs Include="@(ReferencedScopedCssBundles)" />
+		</ItemGroup>
+
+		<BundleCss InputFiles="@(CommonThemeInputs)" OutputFile="$(IntermediateOutputPath)wwwroot\styles\common.css" />
 		<BundleCss InputFiles="@(LightThemeInputs)" OutputFile="$(IntermediateOutputPath)wwwroot\styles\light.css" />
 		<BundleCss InputFiles="@(DarkThemeInputs)" OutputFile="$(IntermediateOutputPath)wwwroot\styles\dark.css" />
 
 	</Target>
 
-	<!-- Register Web Application Host Themes -->
-	<Target Name="RegisterWebHostThemes" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateWebHostThemes" Condition="$(IsWebApplicationHost)=='true'">
+	<!-- Disallow Scoped CSS Publishing -->
+	<Target Name="DisallowScopedCSSPublishing" AfterTargets="ResolveStaticWebAssetsInputs" BeforeTargets="GenerateStaticWebAssetsPublishManifest;CopyStaticWebAssetsToPublish">
 
 		<ItemGroup>
-			<Content Include="@(GeneratedThemes)">
-				<Link>wwwroot\styles\%(Filename)%(Extension)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-			</Content>
+			<StaticWebAsset Update="@(StaticWebAsset)" Condition="'%(StaticWebAsset.AssetTraitName)'=='ScopedCss'" CopyToPublishDirectory="Never" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Register Web Application Host Themes -->
+	<Target Name="RegisterWebHostThemes" DependsOnTargets="GenerateWebHostThemes" Condition="$(IsWebApplicationHost)=='true'">
+
+		<DefineStaticWebAssets
+			CandidateAssets="@(GeneratedThemes)"
+			SourceType="Computed"
+			SourceId="$(PackageId)"
+			ContentRoot="$(IntermediateOutputPath)wwwroot\"
+			BasePath="/"
+			AssetKind="All"
+			AssetMode="All"
+			AssetRole="Primary"
+			AssetMergeSource="$(StaticWebAssetMergeTarget)"
+			CopyToOutputDirectory="Never"
+			CopyToPublishDirectory="PreserveNewest"
+		>
+			<Output TaskParameter="Assets" ItemName="GeneratedThemesAssets" />
+		</DefineStaticWebAssets>
+
+		<DefineStaticWebAssetEndpoints
+			CandidateAssets="@(GeneratedThemesAssets)"
+			ExistingEndpoints="@(StaticWebAssetEndpoint)"
+			ContentTypeMappings="@(StaticWebAssetContentTypeMapping)"
+		>
+			<Output TaskParameter="Endpoints" ItemName="GeneratedThemesEndpoints" />
+		</DefineStaticWebAssetEndpoints>
+
+		<ItemGroup>
+			<StaticWebAsset Include="@(GeneratedThemesAssets)" />
+			<StaticWebAssetEndpoint Include="@(GeneratedThemesEndpoints)" />
 			<FileWrites Include="@(GeneratedThemes)" />
 		</ItemGroup>
 
@@ -122,62 +317,260 @@
 	</Target>
 
 	<!-- Register Web Application Host Scripts -->
-	<Target Name="RegisterWebHostScripts" BeforeTargets="BeforeBuild;ResolveProjectReferences" DependsOnTargets="GenerateWebHostScripts" Condition="$(IsWebApplicationHost)=='true'">
+	<Target Name="RegisterWebHostScripts" DependsOnTargets="GenerateWebHostScripts" Condition="$(IsWebApplicationHost)=='true'">
+
+		<DefineStaticWebAssets
+			CandidateAssets="@(GeneratedScripts)"
+			SourceType="Computed"
+			SourceId="$(PackageId)"
+			ContentRoot="$(IntermediateOutputPath)wwwroot\"
+			BasePath="/"
+			AssetKind="All"
+			AssetMode="All"
+			AssetRole="Primary"
+			AssetMergeSource="$(StaticWebAssetMergeTarget)"
+			CopyToOutputDirectory="Never"
+			CopyToPublishDirectory="PreserveNewest"
+		>
+			<Output TaskParameter="Assets" ItemName="GeneratedScriptsAssets" />
+		</DefineStaticWebAssets>
+
+		<DefineStaticWebAssetEndpoints
+			CandidateAssets="@(GeneratedScriptsAssets)"
+			ExistingEndpoints="@(StaticWebAssetEndpoint)"
+			ContentTypeMappings="@(StaticWebAssetContentTypeMapping)"
+		>
+			<Output TaskParameter="Endpoints" ItemName="GeneratedScriptsEndpoints" />
+		</DefineStaticWebAssetEndpoints>
 
 		<ItemGroup>
-			<Content Include="@(GeneratedScripts)">
-				<Link>wwwroot\%(Filename)%(Extension)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-			</Content>
+			<StaticWebAsset Include="@(GeneratedScriptsAssets)" />
+			<StaticWebAssetEndpoint Include="@(GeneratedScriptsEndpoints)" />
 			<FileWrites Include="@(GeneratedScripts)" />
 		</ItemGroup>
 
 	</Target>
 
-	<!-- Link Web Application Host Assets -->
-	<Target Name="LinkWebHostAssets" BeforeTargets="BeforeBuild;ResolveProjectReferences" Condition="$(IsWebApplicationHost)=='true'">
+	<!-- Register Web Application Host Assets -->
+	<Target Name="RegisterWebHostAssets" DependsOnTargets="RegisterWebHostIcons;RegisterWebHostThemes;RegisterWebHostScripts" Condition="$(IsWebApplicationHost)=='true'">
 
-		<ItemGroup Label="WebHostBaseAssets">
-			<WebHostBaseAssets Include="$(BaseAssetsFolder)\**\*" Exclude="$(BaseAssetsFolder)\modules\**\*;$(BaseAssetsFolder)\styles\**\*;$(BaseAssetsFolder)\scripts\**\*" />
-			<WebHostBaseAssets Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\**\*" Condition="@(OlympusModule)!=''" />
+		<ItemGroup>
+			<WebHostBaseFiles Include="$(BaseAssetsFolder)\**\*" Exclude="$(BaseAssetsFolder)\service-worker*;$(BaseAssetsFolder)\modules\**\*;$(BaseAssetsFolder)\styles\**\*;$(BaseAssetsFolder)\themes\**\*;$(BaseAssetsFolder)\scripts\**\*">
+				<RelativePath>%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+			</WebHostBaseFiles>
+			<WebHostBaseFiles Include="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\**\*" Exclude="$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*;$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\themes\**\*;$(BaseAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\**\*" Condition="@(OlympusModule)!=''">
+				<RelativePath>modules\%(OlympusModule.Identity)\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+			</WebHostBaseFiles>
+			<WebHostLocalFiles Include="$(LocalAssetsFolder)\**\*" Exclude="$(LocalAssetsFolder)\service-worker*;$(LocalAssetsFolder)\modules\**\*;$(LocalAssetsFolder)\styles\**\*;$(LocalAssetsFolder)\themes\**\*;$(LocalAssetsFolder)\scripts\**\*">
+				<RelativePath>%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+			</WebHostLocalFiles>
+			<WebHostLocalFiles Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\**\*" Exclude="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\styles\**\*;$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\themes\**\*;$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\scripts\**\*" Condition="@(OlympusModule)!=''">
+				<RelativePath>modules\%(OlympusModule.Identity)\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+			</WebHostLocalFiles>
 		</ItemGroup>
 
-		<ItemGroup Label="WebHostBaseAssetsRelativeLinkPath">
-			<WebHostBaseAssets Update="@(WebHostBaseAssets)">
-				<RelativeLinkPath>$([MSBuild]::MakeRelative($(BaseAssetsFolder), %(Identity)))</RelativeLinkPath>
-			</WebHostBaseAssets>
+		<ItemGroup>
+			<WebHostBaseFiles Remove="$(BaseAssetsFolder)\dev\**\*" Condition="'$(Configuration)'=='Release'" />
+			<WebHostLocalFiles Remove="$(LocalAssetsFolder)\dev\**\*" Condition="'$(Configuration)'=='Release'" />
 		</ItemGroup>
 
-		<ItemGroup Label="WebHostBaseAssetsExclusions">
-			<WebHostBaseAssets Remove="@(WebHostBaseAssets)" Condition="Exists('$(LocalAssetsFolder)\%(RelativeLinkPath)')" />
+		<DefineStaticWebAssets
+			CandidateAssets="@(WebHostBaseFiles)"
+			SourceType="Computed"
+			SourceId="$(PackageId)"
+			ContentRoot="$(BaseAssetsFolder)\"
+			BasePath="/"
+			AssetKind="All"
+			AssetMode="All"
+			AssetRole="Primary"
+			AssetMergeSource="$(StaticWebAssetMergeTarget)"
+			CopyToOutputDirectory="Never"
+			CopyToPublishDirectory="PreserveNewest"
+		>
+			<Output TaskParameter="Assets" ItemName="WebHostBaseAssets" />
+		</DefineStaticWebAssets>
+
+		<DefineStaticWebAssets
+			CandidateAssets="@(WebHostLocalFiles)"
+			SourceType="Computed"
+			SourceId="$(PackageId)"
+			ContentRoot="$(LocalAssetsFolder)\"
+			BasePath="/"
+			AssetKind="All"
+			AssetMode="All"
+			AssetRole="Primary"
+			AssetMergeSource="$(StaticWebAssetMergeTarget)"
+			CopyToOutputDirectory="Never"
+			CopyToPublishDirectory="PreserveNewest"
+		>
+			<Output TaskParameter="Assets" ItemName="WebHostLocalAssets" />
+		</DefineStaticWebAssets>
+
+		<PropertyGroup>
+			<WebHostLocalAssetsRelativePaths>;@(WebHostLocalAssets->'%(RelativePath)');</WebHostLocalAssetsRelativePaths>
+		</PropertyGroup>
+
+		<ItemGroup>
+			<WebHostBaseAssets Remove="@(WebHostBaseAssets)" Condition="$(WebHostLocalAssetsRelativePaths.Contains(';%(RelativePath);'))" />
 		</ItemGroup>
 
-		<ItemGroup Label="WebHostLocalAssets">
-			<WebHostLocalAssets Include="$(LocalAssetsFolder)\**\*" Exclude="$(LocalAssetsFolder)\modules\**\*" />
-			<WebHostLocalAssets Include="$(LocalAssetsFolder)\modules\%(OlympusModule.Identity)\**\*" Condition="@(OlympusModule)!=''" />
+		<DefineStaticWebAssetEndpoints
+			CandidateAssets="@(WebHostBaseAssets);@(WebHostLocalAssets)"
+			ExistingEndpoints="@(StaticWebAssetEndpoint)"
+			ContentTypeMappings="@(StaticWebAssetContentTypeMapping)"
+		>
+			<Output TaskParameter="Endpoints" ItemName="WebHostAssetsEndpoints" />
+		</DefineStaticWebAssetEndpoints>
+
+		<ItemGroup>
+			<StaticWebAsset Include="@(WebHostBaseAssets);@(WebHostLocalAssets)" />
+			<StaticWebAssetEndpoint Include="@(WebHostAssetsEndpoints)" />
 		</ItemGroup>
 
-		<ItemGroup Label="WebHostLocalAssetsRelativeLinkPath">
-			<WebHostLocalAssets Update="@(WebHostLocalAssets)">
-				<RelativeLinkPath>$([MSBuild]::MakeRelative($(LocalAssetsFolder), %(Identity)))</RelativeLinkPath>
-			</WebHostLocalAssets>
+	</Target>
+
+	<!-- Generate Build Service Worker Files -->
+	<Target Name="GenerateBuildServiceWorkerFiles" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup>
+			<ServiceWorkerBuildAssetsInput Include="@(StaticWebAsset)" Condition="%(AssetRole)!='Alternative' And %(StaticWebAsset.AssetTraitName)!='BlazorServiceWorker' And %(StaticWebAsset.AssetTraitName)!='ScopedCss'" />
 		</ItemGroup>
 
-		<ItemGroup Label="WebHostAssetsBundle">
-			<WebHostAssetsBundle Include="@(WebHostBaseAssets);@(WebHostLocalAssets)" />
+		<ComputeStaticWebAssetsForCurrentProject
+			Assets="@(ServiceWorkerBuildAssetsInput)"
+			ProjectMode="$(StaticWebAssetProjectMode)"
+			AssetKind="Build"
+			Source="$(PackageId)"
+		>
+			<Output TaskParameter="StaticWebAssets" ItemName="ServiceWorkerBuildAssets" />
+		</ComputeStaticWebAssetsForCurrentProject>
+
+		<ComputeStaticWebAssetsTargetPaths Assets="@(ServiceWorkerBuildAssets)" PathPrefix="/" UseAlternatePathDirectorySeparator="true">
+			<Output TaskParameter="AssetsWithTargetPath" ItemName="ServiceWorkerBuildAssetsWithPaths" />
+		</ComputeStaticWebAssetsTargetPaths>
+
+		<ItemGroup>
+			<ServiceWorkerBuildManifestItems Include="@(ServiceWorkerBuildAssetsWithPaths)">
+				<AssetUrl>%(ServiceWorkerBuildAssetsWithPaths.TargetPath)</AssetUrl>
+			</ServiceWorkerBuildManifestItems>
 		</ItemGroup>
 
-		<ItemGroup Label="WebHostAssetsBundleToLink">
-			<WebHostAssetsBundleToLink Include="@(WebHostAssetsBundle)">
-				<Link>wwwroot\%(RelativeLinkPath)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-			</WebHostAssetsBundleToLink>
+		<GenerateServiceWorkerAssetsManifest
+			Version="$(ServiceWorkerAssetsManifestVersion)"
+			Assets="@(ServiceWorkerBuildManifestItems)"
+			OutputPath="$(ServiceWorkerGeneratedManifestFile)">
+			<Output TaskParameter="CalculatedVersion" PropertyName="ServiceWorkerCalculatedVersion" />
+		</GenerateServiceWorkerAssetsManifest>
+
+		<Copy SourceFiles="$(ServiceWorkerBaseFile)" DestinationFiles="$(ServiceWorkerGeneratedFile)" SkipUnchangedFiles="true" />
+
+		<UpdateServiceWorkerFileWithVersion
+			ServiceWorkerSource="$(ServiceWorkerBaseFile)"
+			ServiceWorkerDestination="$(ServiceWorkerGeneratedFile)"
+			ManifestVersion="$(ServiceWorkerCalculatedVersion)" />
+
+		<ItemGroup>
+			<ServiceWorkerBuildGeneratedFiles Include="$(ServiceWorkerGeneratedFile);$(ServiceWorkerGeneratedManifestFile)" />
 		</ItemGroup>
 
-		<ItemGroup Label="WebHostAssetsBundleContent">
-			<Content Include="@(WebHostAssetsBundleToLink)" />
+		<DefineStaticWebAssets
+			CandidateAssets="@(ServiceWorkerBuildGeneratedFiles)"
+			SourceType="Computed"
+			SourceId="$(PackageId)"
+			ContentRoot="$(IntermediateOutputPath)wwwroot\"
+			BasePath="/"
+			AssetKind="Build"
+			AssetRole="Primary"
+			CopyToOutputDirectory="PreserveNewest"
+			CopyToPublishDirectory="Never"
+		>
+			<Output TaskParameter="Assets" ItemName="ServiceWorkerBuildFinalAssets" />
+		</DefineStaticWebAssets>
+
+		<DefineStaticWebAssetEndpoints
+			CandidateAssets="@(ServiceWorkerBuildFinalAssets)"
+			ExistingEndpoints="@(StaticWebAssetEndpoint)"
+			ContentTypeMappings="@(StaticWebAssetContentTypeMapping)"
+		>
+			<Output TaskParameter="Endpoints" ItemName="ServiceWorkerBuildEndpoints" />
+		</DefineStaticWebAssetEndpoints>
+
+		<ItemGroup>
+			<StaticWebAsset Include="@(ServiceWorkerBuildFinalAssets)" />
+			<StaticWebAssetEndpoint Include="@(ServiceWorkerBuildEndpoints)" />
+		</ItemGroup>
+
+	</Target>
+
+	<!-- Generate Publish Service Worker Files -->
+	<Target Name="GeneratePublishServiceWorkerFiles" Condition="$(IsWebApplicationHost)=='true'">
+
+		<ItemGroup>
+			<ServiceWorkerPublishAssetsInput Include="@(StaticWebAsset)" Condition="%(AssetRole)!='Alternative' And %(StaticWebAsset.AssetTraitName)!='BlazorServiceWorker' And %(StaticWebAsset.AssetTraitName)!='ScopedCss'" />
+		</ItemGroup>
+
+		<ComputeStaticWebAssetsForCurrentProject
+			Assets="@(ServiceWorkerPublishAssetsInput)"
+			ProjectMode="$(StaticWebAssetProjectMode)"
+			AssetKind="Publish"
+			Source="$(PackageId)"
+		>
+			<Output TaskParameter="StaticWebAssets" ItemName="ServiceWorkerPublishAssets" />
+		</ComputeStaticWebAssetsForCurrentProject>
+
+		<ComputeStaticWebAssetsTargetPaths Assets="@(ServiceWorkerPublishAssets)" PathPrefix="/" UseAlternatePathDirectorySeparator="true">
+			<Output TaskParameter="AssetsWithTargetPath" ItemName="ServiceWorkerPublishAssetsWithPaths" />
+		</ComputeStaticWebAssetsTargetPaths>
+
+		<ItemGroup>
+			<ServiceWorkerPublishManifestItems Include="@(ServiceWorkerPublishAssetsWithPaths)">
+				<AssetUrl>%(ServiceWorkerPublishAssetsWithPaths.TargetPath)</AssetUrl>
+			</ServiceWorkerPublishManifestItems>
+		</ItemGroup>
+
+		<GenerateServiceWorkerAssetsManifest
+			Version="$(ServiceWorkerAssetsManifestVersion)"
+			Assets="@(ServiceWorkerPublishManifestItems)"
+			OutputPath="$(ServiceWorkerGeneratedManifestFile)">
+			<Output TaskParameter="CalculatedVersion" PropertyName="ServiceWorkerCalculatedVersion" />
+		</GenerateServiceWorkerAssetsManifest>
+
+		<Copy SourceFiles="$(ServiceWorkerBaseFile)" DestinationFiles="$(ServiceWorkerGeneratedFile)" SkipUnchangedFiles="true" />
+
+		<UpdateServiceWorkerFileWithVersion
+			ServiceWorkerSource="$(ServiceWorkerBaseFile)"
+			ServiceWorkerDestination="$(ServiceWorkerGeneratedFile)"
+			ManifestVersion="$(ServiceWorkerCalculatedVersion)" />
+
+		<ItemGroup>
+			<ServiceWorkerPublishGeneratedFiles Include="$(ServiceWorkerGeneratedFile);$(ServiceWorkerGeneratedManifestFile)" />
+		</ItemGroup>
+
+		<DefineStaticWebAssets
+			CandidateAssets="@(ServiceWorkerPublishGeneratedFiles)"
+			SourceType="Computed"
+			SourceId="$(PackageId)"
+			ContentRoot="$(IntermediateOutputPath)wwwroot\"
+			BasePath="/"
+			AssetKind="Publish"
+			AssetRole="Primary"
+			CopyToOutputDirectory="Never"
+			CopyToPublishDirectory="PreserveNewest"
+		>
+			<Output TaskParameter="Assets" ItemName="ServiceWorkerPublishFinalAssets" />
+		</DefineStaticWebAssets>
+
+		<DefineStaticWebAssetEndpoints
+			CandidateAssets="@(ServiceWorkerPublishFinalAssets)"
+			ExistingEndpoints="@(StaticWebAssetEndpoint)"
+			ContentTypeMappings="@(StaticWebAssetContentTypeMapping)"
+		>
+			<Output TaskParameter="Endpoints" ItemName="ServiceWorkerPublishEndpoints" />
+		</DefineStaticWebAssetEndpoints>
+
+		<ItemGroup>
+			<StaticWebAsset Include="@(ServiceWorkerPublishFinalAssets)" />
+			<StaticWebAssetEndpoint Include="@(ServiceWorkerPublishEndpoints)" />
 		</ItemGroup>
 
 	</Target>

@@ -2,14 +2,10 @@ namespace Olympus.Core.Modules;
 
 public interface IAppModuleLayer {
 
-	public int ModuleId { get; }
+	public string CodeName { get; }
 
-	public string ModuleName { get; }
+	public string DisplayName { get; }
 
-	public AppModuleType ModuleType { get; }
-
-	public AppModuleCategory ModuleCategory { get; }
-
-	public void AddLayerServices(IServiceCollection services);
+	public AppModuleLayerType LayerType { get; }
 
 }

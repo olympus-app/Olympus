@@ -1,5 +1,3 @@
-#pragma warning disable OL0007
-
 namespace Olympus.Core.Archend.Endpoints;
 
 public class ProblemResult : IResponse {
@@ -24,5 +22,3 @@ public class ProblemResult : IResponse {
 	public IEnumerable<ProblemResultDetail>? Details { get; set; }
 
 }
-
-#pragma warning restore OL0007

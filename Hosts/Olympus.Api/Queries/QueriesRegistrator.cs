@@ -1,6 +1,6 @@
 namespace Olympus.Api.Queries;
 
-#pragma warning disable IDE0060, RCS1175
+#pragma warning disable IDE0060
 
 public static class QueriesRegistrator {
 
@@ -20,4 +20,4 @@ public static class QueriesRegistrator {
 
 }
 
-#pragma warning restore IDE0060, RCS1175
+#pragma warning restore IDE0060

@@ -1,0 +1,91 @@
+:root {
+
+	--rz-alpha: transparent;
+	--rz-primary-color: #f27f35;
+	--rz-secondary-color: #3588f2;
+	--rz-info-color: #2196f3;
+	--rz-success-color: #4caf50;
+	--rz-warning-color: #ff9800;
+	--rz-danger-color: #f44336;
+	--rz-base-color: #8a8a8a;
+
+	--rz-series-1-color: #0479cc;
+	--rz-series-2-color: #68d5c8;
+	--rz-series-3-color: #ff6d41;
+	--rz-series-4-color: #cb6992;
+	--rz-series-5-color: #e6c54f;
+	--rz-series-6-color: #f9777f;
+	--rz-series-7-color: #5dbf74;
+	--rz-series-8-color: #4db9f2;
+
+	--rz-scrollbar-color: #55555550;
+	--rz-scrollbar-size: 14px;
+
+}
+
+.rz-body {
+	scrollbar-color: var(--rz-scrollbar-color) transparent;
+	scrollbar-width: thin;
+}
+
+.app-icon {
+	content: var(--app-icon);
+}
+
+.app-logo-landscape {
+	content: var(--app-logo-landscape);
+}
+
+.app-logo-portrait {
+	content: var(--app-logo-portrait);
+}
+
+.loading-progress {
+	position: relative;
+	display: block;
+	width: 8rem;
+	height: 8rem;
+	margin: 20vh auto 1rem auto;
+}
+
+.loading-progress circle {
+	fill: none;
+	stroke: var(--rz-primary-lighter);
+	stroke-width: 0.7rem;
+	transform-origin: 50% 50%;
+	transform: rotate(-90deg);
+}
+
+.loading-progress circle:last-child {
+	stroke: var(--rz-primary);
+	stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
+	transition: stroke-dasharray 0.05s ease-in-out;
+}
+
+.lockscreen {
+	background-image:
+		radial-gradient(circle,
+			rgba(0, 0, 0, 0.3) 0%,
+			rgba(0, 0, 0, 0.7) 70%,
+			rgba(0, 0, 0, 0.8) 100%),
+		url("/images/lockscreen.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.lockscreen .rz-body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lockscreen .rz-header {
+	background: none;
+	border: none;
+}
+
+.lockscreen .rz-footer {
+	background: none;
+	border: none;
+}

@@ -8,6 +8,7 @@
 		<Using Include="Olympus.Api.Documentation" />
 		<Using Include="Olympus.Api.Endpoints" />
 		<Using Include="Olympus.Api.ErrorHandling" />
+		<Using Include="Olympus.Api.Hosting" />
 		<Using Include="Olympus.Api.Http" />
 		<Using Include="Olympus.Api.Identity" />
 		<Using Include="Olympus.Api.Json" />

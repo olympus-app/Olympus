@@ -4,12 +4,20 @@ public class AppUser {
 
 	public Guid Id { get; internal init; } = Guid.Empty;
 
-	public string Name { get; internal init; } = string.Empty;
+	public string Name => NameSelector();
 
-	public string UserName { get; internal init; } = string.Empty;
+	public string UserName => UserNameSelector();
 
-	public string Email { get; internal init; } = string.Empty;
+	public string Email => EmailSelector();
 
-	public string Title { get; internal init; } = string.Empty;
+	public string Title => TitleSelector();
+
+	internal Func<string> NameSelector { get; init; } = static () => string.Empty;
+
+	internal Func<string> UserNameSelector { get; init; } = static () => string.Empty;
+
+	internal Func<string> EmailSelector { get; init; } = static () => string.Empty;
+
+	internal Func<string> TitleSelector { get; init; } = static () => string.Empty;
 
 }

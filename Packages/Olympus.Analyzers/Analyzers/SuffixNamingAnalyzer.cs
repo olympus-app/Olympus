@@ -1,13 +1,11 @@
-using Olympus.Analyzers.Localization;
-
 namespace Olympus.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class SuffixNamingAnalyzer : DiagnosticAnalyzer {
 
-	public const string Identifier = "OL0007";
+	public const string Identifier = "OA0007";
 
-	public const string Category = "Naming";
+	public const string Category = "Style";
 
 	public const string SuffixProperty = "ExpectedSuffix";
 
@@ -21,7 +19,7 @@ public class SuffixNamingAnalyzer : DiagnosticAnalyzer {
 
 	private static readonly DiagnosticDescriptor Rule = new(Identifier, Title, Message, Category, DiagnosticSeverity.Info, true, Description);
 
-	private static readonly string[] DefaultSuffixes = ["Settings", "Options", "Model", "Request", "Response", "Result", "Mapper", "Endpoint"];
+	private static readonly string[] DefaultSuffixes = ["Request", "Response"];
 
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [Rule];
 
@@ -40,17 +38,24 @@ public class SuffixNamingAnalyzer : DiagnosticAnalyzer {
 
 		var suffixes = GetConfiguredSuffixes(context, namedType);
 
-		string? requiredSuffix = null;
+		if (!TryGetTargetSuffix(namedType.Name, suffixes, out var currentSuffix)) return;
 
-		if (namedType.BaseType is not null && TryGetTargetSuffix(namedType.BaseType.Name, suffixes, out var baseSuffix)) requiredSuffix = baseSuffix;
+		string? parentSuffix = null;
 
-		if (requiredSuffix is null) {
+		if (namedType.BaseType is not null && TryGetTargetSuffix(namedType.BaseType.Name, suffixes, out var baseSuffix)) {
+
+			parentSuffix = baseSuffix;
+
+		}
+
+		if (parentSuffix is null) {
 
 			foreach (var iface in namedType.Interfaces) {
 
 				if (TryGetTargetSuffix(iface.Name, suffixes, out var ifaceSuffix)) {
 
-					requiredSuffix = ifaceSuffix;
+					parentSuffix = ifaceSuffix;
+
 					break;
 
 				}
@@ -59,28 +64,17 @@ public class SuffixNamingAnalyzer : DiagnosticAnalyzer {
 
 		}
 
-		if (requiredSuffix is null) return;
+		if (parentSuffix is null) return;
 
-		if (namedType.Name.EndsWith(requiredSuffix, StringComparison.Ordinal)) return;
+		if (string.Equals(currentSuffix, parentSuffix, StringComparison.Ordinal)) return;
 
-		var baseName = namedType.Name;
+		var baseName = namedType.Name.Substring(0, namedType.Name.Length - currentSuffix!.Length);
 
-		foreach (var suffix in suffixes) {
-
-			if (baseName.EndsWith(suffix, StringComparison.Ordinal)) {
-
-				baseName = baseName.Substring(0, baseName.Length - suffix.Length);
-				break;
-
-			}
-
-		}
-
-		var suggestedName = baseName + requiredSuffix;
+		var suggestedName = baseName + parentSuffix;
 
 		var properties = ImmutableDictionary<string, string?>.Empty.Add(SuffixProperty, suggestedName);
 
-		var diagnostic = Diagnostic.Create(Rule, namedType.Locations[0], properties, namedType.Name, requiredSuffix);
+		var diagnostic = Diagnostic.Create(Rule, namedType.Locations[0], properties, namedType.Name, parentSuffix);
 
 		context.ReportDiagnostic(diagnostic);
 

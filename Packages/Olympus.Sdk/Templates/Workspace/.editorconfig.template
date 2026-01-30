@@ -1,15 +1,22 @@
 root = true
 
-[**/Generated/**.cs]
+[**/$Generated/**/*.cs]
 generated_code = true
 
-[**/Migrations/**.cs]
+[**/$Migrations/**/*.cs]
 generated_code = true
 
-[**/Database/**.cs]
+[**/$Database/**/*.cs]
 generated_code = true
 
-[*.{cs,razor}]
+[*.cs]
 indent_style = tab
 indent_size = 4
 tab_width = 4
+
+[*.razor]
+indent_style = tab
+indent_size = 2
+tab_width = 2
+
+[*.{cs,razor}]

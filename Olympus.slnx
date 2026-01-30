@@ -4,9 +4,10 @@
 		<Configuration Name="Release" />
 		<Configuration Name="Migrations" />
 	</BuildConfigurations>
-	<Folder Name="/Aspire/">
-		<Project Path="Aspire/Olympus.Aspire.Host/Olympus.Aspire.Host.csproj" />
-		<Project Path="Aspire/Olympus.Aspire/Olympus.Aspire.csproj" />
+	<Folder Name="/Packages/">
+		<Project Path="Packages/Olympus.Analyzers/Olympus.Analyzers.csproj" />
+		<Project Path="Packages/Olympus.Generators/Olympus.Generators.csproj" />
+		<Project Path="Packages/Olympus.Sdk/Olympus.Sdk.csproj" />
 	</Folder>
 	<Folder Name="/Core/">
 		<Project Path="Core/Olympus.Core/Olympus.Core.csproj" />
@@ -20,8 +21,8 @@
 		<Project Path="Hosts/Olympus.Web/Olympus.Web.csproj" />
 		<Project Path="Hosts/Olympus.Web.Host/Olympus.Web.Host.csproj" />
 	</Folder>
-	<Folder Name="/Packages/">
-		<Project Path="Packages/Olympus.Analyzers/Olympus.Analyzers.csproj" />
-		<Project Path="Packages/Olympus.Sdk/Olympus.Sdk.csproj" />
+	<Folder Name="/Aspire/">
+		<Project Path="Aspire/Olympus.Aspire.Host/Olympus.Aspire.Host.csproj" />
+		<Project Path="Aspire/Olympus.Aspire/Olympus.Aspire.csproj" />
 	</Folder>
 </Solution>

@@ -1,11 +1,9 @@
-using Olympus.Analyzers.Localization;
-
 namespace Olympus.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class LambdaParameterNamingAnalyzer : DiagnosticAnalyzer {
 
-	public const string Identifier = "OL0005";
+	public const string Identifier = "OA0005";
 
 	public const string Category = "Semantics";
 

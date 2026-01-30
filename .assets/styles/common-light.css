@@ -1,0 +1,145 @@
+:root {
+
+	--app-icon: url("/icons/icon-light.svg");
+	--app-logo-landscape: url("/logos/logo-landscape-light.svg");
+	--app-logo-portrait: url("/logos/logo-portrait-light.svg");
+
+	--rz-default-percent: 5%;
+	--rz-lighter-percent: 80%;
+	--rz-light-percent: 40%;
+	--rz-dark-percent: 20%;
+	--rz-darker-percent: 40%;
+
+	--rz-on-default-percent: 100%;
+	--rz-on-lighter-percent: 60%;
+	--rz-on-light-percent: 60%;
+	--rz-on-dark-percent: 100%;
+	--rz-on-darker-percent: 100%;
+
+	--rz-series-default-percent: 5%;
+	--rz-series-light-percent: 25%;
+	--rz-series-dark-percent: 25%;
+
+	--rz-base-50: color-mix(in srgb, var(--rz-surface-color), var(--rz-white) 96%);
+	--rz-base-100: color-mix(in srgb, var(--rz-surface-color), var(--rz-white) 85%);
+	--rz-base-200: color-mix(in srgb, var(--rz-surface-color), var(--rz-white) 55%);
+	--rz-base-300: color-mix(in srgb, var(--rz-surface-color), var(--rz-white) 0%);
+	--rz-base-400: color-mix(in srgb, var(--rz-surface-color), var(--rz-black) 12%);
+	--rz-base-500: color-mix(in srgb, var(--rz-surface-color), var(--rz-black) 28%);
+	--rz-base-600: color-mix(in srgb, var(--rz-surface-color), var(--rz-black) 46%);
+	--rz-base-700: color-mix(in srgb, var(--rz-surface-color), var(--rz-black) 62%);
+	--rz-base-800: color-mix(in srgb, var(--rz-surface-color), var(--rz-black) 74%);
+	--rz-base-900: color-mix(in srgb, var(--rz-surface-color), var(--rz-black) 83%);
+
+	--rz-primary: color-mix(in srgb, var(--rz-primary-color), var(--rz-white) var(--rz-default-percent));
+	--rz-primary-lighter: color-mix(in srgb, var(--rz-primary-color), var(--rz-alpha) var(--rz-lighter-percent));
+	--rz-primary-light: color-mix(in srgb, var(--rz-primary-color), var(--rz-alpha) var(--rz-light-percent));
+	--rz-primary-dark: color-mix(in srgb, var(--rz-primary-color), var(--rz-black) var(--rz-dark-percent));
+	--rz-primary-darker: color-mix(in srgb, var(--rz-primary-color), var(--rz-black) var(--rz-darker-percent));
+
+	--rz-on-primary: color-mix(in srgb, var(--rz-primary-color), var(--rz-white) var(--rz-on-default-percent));
+	--rz-on-primary-lighter: color-mix(in srgb, var(--rz-primary-color), var(--rz-black) var(--rz-on-lighter-percent));
+	--rz-on-primary-light: color-mix(in srgb, var(--rz-primary-color), var(--rz-black) var(--rz-on-light-percent));
+	--rz-on-primary-dark: color-mix(in srgb, var(--rz-primary-color), var(--rz-white) var(--rz-on-dark-percent));
+	--rz-on-primary-darker: color-mix(in srgb, var(--rz-primary-color), var(--rz-white) var(--rz-on-darker-percent));
+
+	--rz-secondary: color-mix(in srgb, var(--rz-secondary-color), var(--rz-white) var(--rz-default-percent));
+	--rz-secondary-lighter: color-mix(in srgb, var(--rz-secondary-color), var(--rz-alpha) var(--rz-lighter-percent));
+	--rz-secondary-light: color-mix(in srgb, var(--rz-secondary-color), var(--rz-alpha) var(--rz-light-percent));
+	--rz-secondary-dark: color-mix(in srgb, var(--rz-secondary-color), var(--rz-black) var(--rz-dark-percent));
+	--rz-secondary-darker: color-mix(in srgb, var(--rz-secondary-color), var(--rz-black) var(--rz-darker-percent));
+
+	--rz-on-secondary: color-mix(in srgb, var(--rz-secondary-color), var(--rz-white) var(--rz-on-default-percent));
+	--rz-on-secondary-lighter: color-mix(in srgb, var(--rz-secondary-color), var(--rz-black) var(--rz-on-lighter-percent));
+	--rz-on-secondary-light: color-mix(in srgb, var(--rz-secondary-color), var(--rz-black) var(--rz-on-light-percent));
+	--rz-on-secondary-dark: color-mix(in srgb, var(--rz-secondary-color), var(--rz-white) var(--rz-on-dark-percent));
+	--rz-on-secondary-darker: color-mix(in srgb, var(--rz-secondary-color), var(--rz-white) var(--rz-on-darker-percent));
+
+	--rz-info: color-mix(in srgb, var(--rz-info-color), var(--rz-white) var(--rz-default-percent));
+	--rz-info-lighter: color-mix(in srgb, var(--rz-info-color), var(--rz-alpha) var(--rz-lighter-percent));
+	--rz-info-light: color-mix(in srgb, var(--rz-info-color), var(--rz-alpha) var(--rz-light-percent));
+	--rz-info-dark: color-mix(in srgb, var(--rz-info-color), var(--rz-black) var(--rz-dark-percent));
+	--rz-info-darker: color-mix(in srgb, var(--rz-info-color), var(--rz-black) var(--rz-darker-percent));
+
+	--rz-on-info: color-mix(in srgb, var(--rz-info-color), var(--rz-white) var(--rz-on-default-percent));
+	--rz-on-info-lighter: color-mix(in srgb, var(--rz-info-color), var(--rz-black) var(--rz-on-lighter-percent));
+	--rz-on-info-light: color-mix(in srgb, var(--rz-info-color), var(--rz-black) var(--rz-on-light-percent));
+	--rz-on-info-dark: color-mix(in srgb, var(--rz-info-color), var(--rz-white) var(--rz-on-dark-percent));
+	--rz-on-info-darker: color-mix(in srgb, var(--rz-info-color), var(--rz-white) var(--rz-on-darker-percent));
+
+	--rz-success: color-mix(in srgb, var(--rz-success-color), var(--rz-white) var(--rz-default-percent));
+	--rz-success-lighter: color-mix(in srgb, var(--rz-success-color), var(--rz-alpha) var(--rz-lighter-percent));
+	--rz-success-light: color-mix(in srgb, var(--rz-success-color), var(--rz-alpha) var(--rz-light-percent));
+	--rz-success-dark: color-mix(in srgb, var(--rz-success-color), var(--rz-black) var(--rz-dark-percent));
+	--rz-success-darker: color-mix(in srgb, var(--rz-success-color), var(--rz-black) var(--rz-darker-percent));
+
+	--rz-on-success: color-mix(in srgb, var(--rz-success-color), var(--rz-white) var(--rz-on-default-percent));
+	--rz-on-success-lighter: color-mix(in srgb, var(--rz-success-color), var(--rz-black) var(--rz-on-lighter-percent));
+	--rz-on-success-light: color-mix(in srgb, var(--rz-success-color), var(--rz-black) var(--rz-on-light-percent));
+	--rz-on-success-dark: color-mix(in srgb, var(--rz-success-color), var(--rz-white) var(--rz-on-dark-percent));
+	--rz-on-success-darker: color-mix(in srgb, var(--rz-success-color), var(--rz-white) var(--rz-on-darker-percent));
+
+	--rz-warning: color-mix(in srgb, var(--rz-warning-color), var(--rz-white) var(--rz-default-percent));
+	--rz-warning-lighter: color-mix(in srgb, var(--rz-warning-color), var(--rz-alpha) var(--rz-lighter-percent));
+	--rz-warning-light: color-mix(in srgb, var(--rz-warning-color), var(--rz-alpha) var(--rz-light-percent));
+	--rz-warning-dark: color-mix(in srgb, var(--rz-warning-color), var(--rz-black) var(--rz-dark-percent));
+	--rz-warning-darker: color-mix(in srgb, var(--rz-warning-color), var(--rz-black) var(--rz-darker-percent));
+
+	--rz-on-warning: color-mix(in srgb, var(--rz-warning-color), var(--rz-white) var(--rz-on-default-percent));
+	--rz-on-warning-lighter: color-mix(in srgb, var(--rz-warning-color), var(--rz-black) var(--rz-on-lighter-percent));
+	--rz-on-warning-light: color-mix(in srgb, var(--rz-warning-color), var(--rz-black) var(--rz-on-light-percent));
+	--rz-on-warning-dark: color-mix(in srgb, var(--rz-warning-color), var(--rz-white) var(--rz-on-dark-percent));
+	--rz-on-warning-darker: color-mix(in srgb, var(--rz-warning-color), var(--rz-white) var(--rz-on-darker-percent));
+
+	--rz-danger: color-mix(in srgb, var(--rz-danger-color), var(--rz-white) var(--rz-default-percent));
+	--rz-danger-lighter: color-mix(in srgb, var(--rz-danger-color), var(--rz-alpha) var(--rz-lighter-percent));
+	--rz-danger-light: color-mix(in srgb, var(--rz-danger-color), var(--rz-alpha) var(--rz-light-percent));
+	--rz-danger-dark: color-mix(in srgb, var(--rz-danger-color), var(--rz-black) var(--rz-dark-percent));
+	--rz-danger-darker: color-mix(in srgb, var(--rz-danger-color), var(--rz-black) var(--rz-darker-percent));
+
+	--rz-on-danger: color-mix(in srgb, var(--rz-danger-color), var(--rz-white) var(--rz-on-default-percent));
+	--rz-on-danger-lighter: color-mix(in srgb, var(--rz-danger-color), var(--rz-black) var(--rz-on-lighter-percent));
+	--rz-on-danger-light: color-mix(in srgb, var(--rz-danger-color), var(--rz-black) var(--rz-on-light-percent));
+	--rz-on-danger-dark: color-mix(in srgb, var(--rz-danger-color), var(--rz-white) var(--rz-on-dark-percent));
+	--rz-on-danger-darker: color-mix(in srgb, var(--rz-danger-color), var(--rz-white) var(--rz-on-darker-percent));
+
+	--rz-base: color-mix(in srgb, var(--rz-base-color), var(--rz-white) var(--rz-default-percent));
+	--rz-base-lighter: color-mix(in srgb, var(--rz-base-color), var(--rz-alpha) var(--rz-lighter-percent));
+	--rz-base-light: color-mix(in srgb, var(--rz-base-color), var(--rz-alpha) var(--rz-light-percent));
+	--rz-base-dark: color-mix(in srgb, var(--rz-base-color), var(--rz-black) var(--rz-dark-percent));
+	--rz-base-darker: color-mix(in srgb, var(--rz-base-color), var(--rz-black) var(--rz-darker-percent));
+
+	--rz-on-base: color-mix(in srgb, var(--rz-base-color), var(--rz-white) var(--rz-on-default-percent));
+	--rz-on-base-lighter: color-mix(in srgb, var(--rz-base-color), var(--rz-black) var(--rz-on-lighter-percent));
+	--rz-on-base-light: color-mix(in srgb, var(--rz-base-color), var(--rz-black) var(--rz-on-light-percent));
+	--rz-on-base-dark: color-mix(in srgb, var(--rz-base-color), var(--rz-white) var(--rz-on-dark-percent));
+	--rz-on-base-darker: color-mix(in srgb, var(--rz-base-color), var(--rz-white) var(--rz-on-darker-percent));
+
+	--rz-series-1: color-mix(in srgb, var(--rz-series-1-color), var(--rz-white) var(--rz-series-default-percent));
+	--rz-series-2: color-mix(in srgb, var(--rz-series-2-color), var(--rz-white) var(--rz-series-default-percent));
+	--rz-series-3: color-mix(in srgb, var(--rz-series-3-color), var(--rz-white) var(--rz-series-default-percent));
+	--rz-series-4: color-mix(in srgb, var(--rz-series-4-color), var(--rz-white) var(--rz-series-default-percent));
+	--rz-series-5: color-mix(in srgb, var(--rz-series-5-color), var(--rz-white) var(--rz-series-default-percent));
+	--rz-series-6: color-mix(in srgb, var(--rz-series-6-color), var(--rz-white) var(--rz-series-default-percent));
+	--rz-series-7: color-mix(in srgb, var(--rz-series-7-color), var(--rz-white) var(--rz-series-default-percent));
+	--rz-series-8: color-mix(in srgb, var(--rz-series-8-color), var(--rz-white) var(--rz-series-default-percent));
+
+	--rz-series-9: color-mix(in srgb, var(--rz-series-1-color), var(--rz-white) var(--rz-series-light-percent));
+	--rz-series-10: color-mix(in srgb, var(--rz-series-2-color), var(--rz-white) var(--rz-series-light-percent));
+	--rz-series-11: color-mix(in srgb, var(--rz-series-3-color), var(--rz-white) var(--rz-series-light-percent));
+	--rz-series-12: color-mix(in srgb, var(--rz-series-4-color), var(--rz-white) var(--rz-series-light-percent));
+	--rz-series-13: color-mix(in srgb, var(--rz-series-5-color), var(--rz-white) var(--rz-series-light-percent));
+	--rz-series-14: color-mix(in srgb, var(--rz-series-6-color), var(--rz-white) var(--rz-series-light-percent));
+	--rz-series-15: color-mix(in srgb, var(--rz-series-7-color), var(--rz-white) var(--rz-series-light-percent));
+	--rz-series-16: color-mix(in srgb, var(--rz-series-8-color), var(--rz-white) var(--rz-series-light-percent));
+
+	--rz-series-17: color-mix(in srgb, var(--rz-series-1-color), var(--rz-black) var(--rz-series-dark-percent));
+	--rz-series-18: color-mix(in srgb, var(--rz-series-2-color), var(--rz-black) var(--rz-series-dark-percent));
+	--rz-series-19: color-mix(in srgb, var(--rz-series-3-color), var(--rz-black) var(--rz-series-dark-percent));
+	--rz-series-20: color-mix(in srgb, var(--rz-series-4-color), var(--rz-black) var(--rz-series-dark-percent));
+	--rz-series-21: color-mix(in srgb, var(--rz-series-5-color), var(--rz-black) var(--rz-series-dark-percent));
+	--rz-series-22: color-mix(in srgb, var(--rz-series-6-color), var(--rz-black) var(--rz-series-dark-percent));
+	--rz-series-23: color-mix(in srgb, var(--rz-series-7-color), var(--rz-black) var(--rz-series-dark-percent));
+	--rz-series-24: color-mix(in srgb, var(--rz-series-8-color), var(--rz-black) var(--rz-series-dark-percent));
+
+}

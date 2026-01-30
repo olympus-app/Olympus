@@ -193,6 +193,16 @@
 		},
 		{
 			"type": "shell",
+			"label": ".NET Pack: Generators Project",
+			"command": "dotnet pack Packages/Olympus.Generators --configuration Release --output C:/Development/NuGet; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.generators -Recurse -Force -ErrorAction Ignore; dotnet restore",
+			"problemMatcher": [],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
 			"label": ".NET Outdated: List Packages",
 			"command": "dotnet outdated",
 			"problemMatcher": [],
@@ -204,7 +214,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Outdated: Update Packages",
-			"command": "dotnet outdated --upgrade:prompt",
+			"command": "dotnet outdated --upgrade:prompt --no-restore",
 			"problemMatcher": [],
 			"icon": {
 				"id": "package",
@@ -254,7 +264,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Rebuild Database",
-			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated' -Recurse -Force }; dotnet build Hosts/Olympus.Api.Host/Olympus.Api.Host.csproj --configuration Migrations && dotnet ef database drop --project Hosts/Olympus.Api.Host --force --configuration Migrations --no-build && dotnet ef migrations add ${input:migration} --output-dir Generated/Migrations --project Hosts/Olympus.Api.Host --configuration Migrations --no-build && dotnet ef dbcontext optimize --output-dir Generated/Database --namespace Olympus.Api.Host.Database --project Hosts/Olympus.Api.Host --configuration Migrations --no-build && dotnet ef database update --project Hosts/Olympus.Api.Host --configuration Migrations",
+			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/`$Generated') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/`$Generated' -Recurse -Force }; dotnet build Hosts/Olympus.Api.Host/Olympus.Api.Host.csproj --configuration Migrations && dotnet ef database drop --project Hosts/Olympus.Api.Host --force --configuration Migrations --no-build && dotnet ef migrations add ${input:migration} --output-dir `$Generated/Migrations --project Hosts/Olympus.Api.Host --configuration Migrations --no-build && dotnet ef dbcontext optimize --output-dir `$Generated/Database --namespace Olympus.Api.Host.Database --project Hosts/Olympus.Api.Host --configuration Migrations --no-build && dotnet ef database update --project Hosts/Olympus.Api.Host --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -274,7 +284,7 @@
 		{
 			"type": "shell",
 			"label": "Aspire: Publish",
-			"command": "aspire publish Aspire/Olympus.Aspire.Host --output-path Aspire/Olympus.Aspire.Host/Publish",
+			"command": "aspire publish Aspire/Olympus.Aspire.Host --output-path Aspire/Olympus.Aspire.Host/`$Publish",
 			"problemMatcher": "$msCompile",
 			"icon": {
 				"id": "file-text",
@@ -337,7 +347,7 @@
 			"command": "docker compose --env-file .env.Test up --detach",
 			"problemMatcher": [],
 			"options": {
-				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host/Publish"
+				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host/`$Publish"
 			},
 			"icon": {
 				"id": "server",
@@ -350,7 +360,7 @@
 			"command": "docker compose --env-file .env.Test down",
 			"problemMatcher": [],
 			"options": {
-				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host/Publish"
+				"cwd": "${workspaceFolder}/Aspire/Olympus.Aspire.Host/`$Publish"
 			},
 			"icon": {
 				"id": "server",
@@ -370,7 +380,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Add Migration",
-			"command": "dotnet ef migrations add ${input:migration} --output-dir Generated/Migrations --project Hosts/Olympus.Api.Host --configuration Migrations",
+			"command": "dotnet ef migrations add ${input:migration} --output-dir `$Generated/Migrations --project Hosts/Olympus.Api.Host --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -390,7 +400,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Generate Database",
-			"command": "${input:confirm}dotnet ef dbcontext optimize --output-dir Generated/Database --namespace Olympus.Api.Host.Database --project Hosts/Olympus.Api.Host --configuration Migrations",
+			"command": "${input:confirm}dotnet ef dbcontext optimize --output-dir `$Generated/Database --namespace Olympus.Api.Host.Database --project Hosts/Olympus.Api.Host --configuration Migrations",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -430,7 +440,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Clear Migrations",
-			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated/Migrations') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated/Migrations' -Recurse -Force }",
+			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/`$Generated/Migrations') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/`$Generated/Migrations' -Recurse -Force }",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -440,7 +450,7 @@
 		{
 			"type": "shell",
 			"label": "EF Core: Clear Database",
-			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated/Database') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/Generated/Database' -Recurse -Force }",
+			"command": "${input:confirm}${input:confirm2}if (Test-Path '${workspaceFolder}/Hosts/Olympus.Api.Host/`$Generated/Database') { Remove-Item -Path '${workspaceFolder}/Hosts/Olympus.Api.Host/`$Generated/Database' -Recurse -Force }",
 			"problemMatcher": [],
 			"icon": {
 				"id": "database",
@@ -449,12 +459,36 @@
 		},
 		{
 			"type": "shell",
-			"label": "Solution: Clean All",
-			"command": "${input:confirm}dotnet clean && Get-ChildItem -Path ${workspaceFolder}/* -Include bin,obj -Directory -Recurse -Force | Remove-Item -Recurse -Force",
+			"label": "Solution: Clean Solution",
+			"command": "${input:confirm}dotnet clean && Get-ChildItem -Path ${workspaceFolder} -Include bin,obj -Directory -Recurse -Force | Remove-Item -Recurse -Force",
 			"problemMatcher": [],
 			"icon": {
-				"id": "symbol-function",
+				"id": "trash",
 				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Solution: Rebuild Solution",
+			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; Get-Process dotnet -ErrorAction Ignore | Stop-Process -Force; Get-ChildItem ${workspaceFolder} -Include bin, obj -Recurse -Force | Remove-Item -Recurse -Force; Get-ChildItem ${workspaceFolder}/Packages -Directory | ForEach-Object { $cp = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $cp) { Remove-Item $cp -Recurse -Force }; dotnet pack $_.FullName --configuration Release --output C:/Development/NuGet }; Get-Process dotnet -ErrorAction Ignore | Stop-Process -Force; dotnet build ${workspaceFolder}",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"icon": {
+				"id": "refresh",
+				"color": "terminal.ansiMagenta"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Solution: Pack Solution",
+			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; Get-ChildItem ${workspaceFolder} -Filter *.csproj -Recurse -Depth 5 | Where-Object { $_.BaseName.StartsWith('Olympus') -and $_.BaseName -notlike '*.Host' } | ForEach-Object { dotnet pack $_.FullName --configuration Release --output C:/Development/NuGet }",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiCyan"
 			}
 		}
 	],

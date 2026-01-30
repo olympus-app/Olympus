@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Project Properties -->
+	<PropertyGroup Label="ProjectProperties">
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<PackageType>Dependency</PackageType>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IncludeSymbols>false</IncludeSymbols>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<IsRoslynComponent>true</IsRoslynComponent>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+		<NoWarn>$(NoWarn);CS8604;RS2000;RS2007;NU5128</NoWarn>
+		<NeutralLanguage>en</NeutralLanguage>
+	</PropertyGroup>
+
+	<!-- Editor Configuration -->
+	<ItemGroup Label="EditorConfiguration">
+		<EditorConfigFiles Include="..\Olympus.Sdk\Workspace\Olympus.globalconfig" />
+	</ItemGroup>
+
+	<!-- Embbeded Resources -->
+	<ItemGroup Label="EmbbededResources">
+		<EmbeddedResource Include="Resources\*.resx" />
+	</ItemGroup>
+
+	<!-- Packages References -->
+	<ItemGroup Label="PackagesReferences">
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" PrivateAssets="all" />
+		<PackageReference Include="PolySharp" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Package Usings -->
+	<ItemGroup Label="PackageUsings">
+		<Using Include="Microsoft.CodeAnalysis" />
+		<Using Include="Microsoft.CodeAnalysis.Diagnostics" />
+		<Using Include="Microsoft.CodeAnalysis.Text" />
+		<Using Include="System.Collections.Immutable" />
+		<Using Include="System.Diagnostics.CodeAnalysis" />
+		<Using Include="System.Globalization" />
+		<Using Include="System.Text" />
+		<Using Include="System.Text.RegularExpressions" />
+		<Using Include="System.Xml" />
+		<Using Include="System.Xml.Linq" />
+	</ItemGroup>
+
+	<!-- Project Usings -->
+	<ItemGroup Label="ProjectUsings">
+		<Using Include="Olympus.Generators.Resources" />
+	</ItemGroup>
+
+	<!-- Add Package Files -->
+	<Target Name="AddPackageFiles" BeforeTargets="GenerateNuspec">
+		<ItemGroup>
+			<_PackageFiles Include="Olympus.Generators.props" PackagePath="build\;buildTransitive\;buildMultiTargeting\" />
+			<_PackageFiles Include="Olympus.Generators.targets" PackagePath="build\;buildTransitive\;buildMultiTargeting\" />
+			<_PackageFiles Include="$(OutputPath)$(AssemblyName).dll" PackagePath="analyzers\dotnet\cs" />
+			<_PackageFiles Include="$(OutputPath)\*\$(AssemblyName).resources.dll" PackagePath="analyzers\dotnet\cs" />
+		</ItemGroup>
+	</Target>
+
+</Project>

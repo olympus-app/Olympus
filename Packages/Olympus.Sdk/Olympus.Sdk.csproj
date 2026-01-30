@@ -5,13 +5,14 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<PackageType>MSBuildSdk</PackageType>
+		<IncludeSymbols>false</IncludeSymbols>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<NoWarn>$(NoWarn);NU5100;NU5128</NoWarn>
 	</PropertyGroup>
 
 	<!-- Editor Configuration -->
 	<ItemGroup Label="EditorConfiguration">
-		<EditorConfigFiles Include="Configuration\Olympus.globalconfig" />
+		<EditorConfigFiles Include="Workspace\Olympus.globalconfig" />
 	</ItemGroup>
 
 	<!-- Package References -->
@@ -25,7 +26,33 @@
 
 	<!-- Copy Solution Files -->
 	<Target Name="CopySolutionFiles" BeforeTargets="Build">
-		<Copy SourceFiles="..\..\Directory.Packages.props" DestinationFiles="Properties\Packages.props" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\.config\dotnet-tools.json" DestinationFiles="Templates\Workspace\.config\dotnet-tools.json.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\.editorconfig" DestinationFiles="Templates\Workspace\.editorconfig.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\.gitattributes" DestinationFiles="Templates\Workspace\.gitattributes.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\.github\release.yml" DestinationFiles="Templates\Workspace\.github\release.yml.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\.github\workflows\badges.yml" DestinationFiles="Templates\Workspace\.github\workflows\badges.yml.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\.gitignore" DestinationFiles="Templates\Workspace\.gitignore.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\.vscode\extensions.json" DestinationFiles="Templates\Workspace\.vscode\extensions.json.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\.vscode\settings.json" DestinationFiles="Templates\Workspace\.vscode\settings.json.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\Directory.Packages.props" DestinationFiles="Workspace\Directory.Packages.props" SkipUnchangedFiles="true" />
+	</Target>
+
+	<!-- Copy Host Template Files -->
+	<Target Name="CopyHostTemplateFiles" BeforeTargets="Build">
+		<ItemGroup>
+			<AspireTemplateFiles Include="..\..\Aspire\Olympus.Aspire.Host\$Templates\*.cs" />
+			<ApiTemplateFiles Include="..\..\Hosts\Olympus.Api.Host\$Templates\*.cs" />
+			<WebTemplateFiles Include="..\..\Hosts\Olympus.Web.Host\$Templates\*.cs" />
+		</ItemGroup>
+		<Copy SourceFiles="@(AspireTemplateFiles)" DestinationFiles="@(AspireTemplateFiles->'Templates\Aspire.Host\%(Filename).cs.template')" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(ApiTemplateFiles)" DestinationFiles="@(ApiTemplateFiles->'Templates\Api.Host\%(Filename).cs.template')" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(WebTemplateFiles)" DestinationFiles="@(WebTemplateFiles->'Templates\Web.Host\%(Filename).cs.template')" SkipUnchangedFiles="true" />
+	</Target>
+
+	<!-- Copy Publish Template Files -->
+	<Target Name="CopyPublishTemplateFiles" BeforeTargets="Build">
+		<Copy SourceFiles="..\..\Aspire\Olympus.Aspire.Host\$Publish\.env" DestinationFiles="Templates\Aspire.Host\$Publish\.env.template" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="..\..\Aspire\Olympus.Aspire.Host\$Publish\docker-compose.override.yaml" DestinationFiles="Templates\Aspire.Host\$Publish\docker-compose.override.yaml.template" SkipUnchangedFiles="true" />
 	</Target>
 
 	<!-- Copy Radzen Assets -->
@@ -38,40 +65,40 @@
 			<RadzenFonts Include="$(RadzenPath)\fonts\**\*.*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(RadzenFonts)" DestinationFolder="$(AssetsPath)\fonts\%(RecursiveDir)" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\Radzen.Blazor.min.js" DestinationFiles="$(AssetsPath)\scripts\radzen.js" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\css\default-base.css" DestinationFiles="$(AssetsPath)\styles\default\light-base.css" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\css\dark-base.css" DestinationFiles="$(AssetsPath)\styles\default\dark-base.css" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\css\standard-base.css" DestinationFiles="$(AssetsPath)\styles\bootstrap\light-base.css" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\css\standard-dark-base.css" DestinationFiles="$(AssetsPath)\styles\bootstrap\dark-base.css" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\css\material-base.css" DestinationFiles="$(AssetsPath)\styles\materialdesign\light-base.css" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="$(RadzenPath)\css\material-dark-base.css" DestinationFiles="$(AssetsPath)\styles\materialdesign\dark-base.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\Radzen.Blazor.js" DestinationFiles="$(AssetsPath)\scripts\radzen.js" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\default-base.css" DestinationFiles="$(AssetsPath)\themes\default\base-light.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\dark-base.css" DestinationFiles="$(AssetsPath)\themes\default\base-dark.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\standard-base.css" DestinationFiles="$(AssetsPath)\themes\bootstrap\base-light.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\standard-dark-base.css" DestinationFiles="$(AssetsPath)\themes\bootstrap\base-dark.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\material-base.css" DestinationFiles="$(AssetsPath)\themes\materialdesign\base-light.css" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(RadzenPath)\css\material-dark-base.css" DestinationFiles="$(AssetsPath)\themes\materialdesign\base-dark.css" SkipUnchangedFiles="true" />
 		<Copy SourceFiles="$(RadzenPath)\css\math.css" DestinationFiles="$(AssetsPath)\styles\math.css" SkipUnchangedFiles="true" />
 	</Target>
 
 	<!-- Add Tasks Dependencies -->
 	<Target Name="AddTasksDependencies" BeforeTargets="GenerateNuspec">
 		<ItemGroup>
+			<_MagickRuntimes Include="$(PkgMagick_NET-Q8-AnyCPU)\runtimes\win-x64\native\**\*" />
+			<_MagickRuntimes Include="$(PkgMagick_NET-Q8-AnyCPU)\runtimes\linux-x64\native\**\*" />
 			<_PackageFiles Include="$(OutputPath)$(AssemblyName).dll" PackagePath="tasks\$(AssemblyName).dll" Visible="false" />
 			<_PackageFiles Include="$(PkgMagick_NET_Core)\lib\netstandard20\Magick.NET.Core.dll" PackagePath="tasks\Magick.NET.Core.dll" Visible="false" />
 			<_PackageFiles Include="$(PkgMagick_NET-Q8-AnyCPU)\lib\netstandard20\Magick.NET-Q8-AnyCPU.dll" PackagePath="tasks\Magick.NET-Q8-AnyCPU.dll" Visible="false" />
-			<_MagickRuntimes Include="$(PkgMagick_NET-Q8-AnyCPU)\runtimes\win-x64\native\**\*" />
-			<_MagickRuntimes Include="$(PkgMagick_NET-Q8-AnyCPU)\runtimes\linux-x64\native\**\*" />
 			<_PackageFiles Include="@(_MagickRuntimes)" PackagePath="tasks\%(Filename)%(Extension)" BuildAction="None" Visible="false" />
 			<_PackageFiles Include="$(PkgNUglify)\lib\netstandard2.0\NUglify.dll" PackagePath="tasks\NUglify.dll" Visible="false" />
 		</ItemGroup>
 	</Target>
 
 	<!-- Add Package Files -->
-	<Target Name="AddPackageFiles" BeforeTargets="GenerateNuspec" DependsOnTargets="CopySolutionFiles;CopyRadzenAssets;AddTasksDependencies">
+	<Target Name="AddPackageFiles" BeforeTargets="GenerateNuspec" DependsOnTargets="CopySolutionFiles;CopyHostTemplateFiles;CopyPublishTemplateFiles;CopyRadzenAssets;AddTasksDependencies">
 		<ItemGroup>
 			<_PackageFiles Include="Olympus.Sdk.props" PackagePath="Sdk\Sdk.props" />
 			<_PackageFiles Include="Olympus.Sdk.targets" PackagePath="Sdk\Sdk.targets" />
 			<_PackageFiles Include="Assets\**\*" PackagePath="assets" />
-			<_PackageFiles Include="Configuration\Olympus.globalconfig" PackagePath="configuration" />
-			<_PackageFiles Include="Properties\*.props" PackagePath="properties" />
+			<_PackageFiles Include="Properties\**\*" PackagePath="properties" />
 			<_PackageFiles Include="Settings\**\*" PackagePath="settings" />
-			<_PackageFiles Include="Targets\*.targets" PackagePath="targets" />
-			<_PackageFiles Include="Templates\**\*.template" PackagePath="templates" />
+			<_PackageFiles Include="Targets\**\*" PackagePath="targets" />
+			<_PackageFiles Include="Templates\**\*" PackagePath="templates" />
+			<_PackageFiles Include="Workspace\**\*" PackagePath="workspace" />
 		</ItemGroup>
 	</Target>
 

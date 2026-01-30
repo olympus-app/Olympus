@@ -1,11 +1,9 @@
-using Olympus.Analyzers.Localization;
-
 namespace Olympus.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class ReturnStatementSpacingAnalyzer : DiagnosticAnalyzer {
 
-	public const string Identifier = "OL0004";
+	public const string Identifier = "OA0004";
 
 	public const string Category = "Formatting";
 

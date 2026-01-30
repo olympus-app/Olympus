@@ -8,7 +8,9 @@ public static class ModelBuilderExtensions {
 
 		public void ApplyEntityConfigurations(DatabaseFacade database, IEnumerable<IEntityTable> tables, CultureSettings settings) {
 
-			using (new AppLocalizationScope(settings)) {
+			var culture = AppCultureInfo.Get(settings.DefaultCulture);
+
+			using (new AppLocalizationScope(culture)) {
 
 				var softDeleteSql = GetSoftDeleteFilterSql(database);
 
@@ -18,9 +20,9 @@ public static class ModelBuilderExtensions {
 
 					foreach (var index in entityType.GetIndexes()) {
 
-						if (index.FindAnnotation(IEntityDatabase.SoftDeleteIndexAnnotation) is not null) {
+						if (index.FindAnnotation(IDatabaseService.SoftDeleteIndexAnnotation) is not null) {
 
-							index.RemoveAnnotation(IEntityDatabase.SoftDeleteIndexAnnotation);
+							index.RemoveAnnotation(IDatabaseService.SoftDeleteIndexAnnotation);
 							index.SetFilter(softDeleteSql);
 
 						}

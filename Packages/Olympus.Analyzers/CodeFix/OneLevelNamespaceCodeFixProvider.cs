@@ -1,5 +1,3 @@
-using Olympus.Analyzers.Localization;
-
 namespace Olympus.Analyzers;
 
 [Shared]

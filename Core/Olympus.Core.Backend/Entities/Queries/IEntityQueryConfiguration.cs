@@ -1,7 +1,3 @@
-#pragma warning disable OL0007
-
 namespace Olympus.Core.Backend.Entities;
 
-public interface IEntityQueryConfiguration<T> : IGridifyMapper<T> { }
-
-#pragma warning restore OL0007
+public interface IEntityQueryConfiguration<TEntityQueryResponse> : IGridifyMapper<TEntityQueryResponse>, ISingletonService<IEntityQueryConfiguration<TEntityQueryResponse>> where TEntityQueryResponse : class, IEntityQueryResponse { }

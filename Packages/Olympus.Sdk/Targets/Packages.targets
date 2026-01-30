@@ -1,10 +1,5 @@
 <Project>
 
-	<!-- Packages References -->
-	<ItemGroup Label="PackagesReferences">
-		<PackageReference Include="ResxSourceGenerator" PrivateAssets="all" />
-	</ItemGroup>
-
 	<!-- Packages References for Core Archend Layer -->
 	<ItemGroup Label="PackagesReferences" Condition="$(OlympusImplicitReferences)=='enable' And $(IsCoreModulePackage)=='true' And $(IsArchendLayer)=='true'">
 		<PackageReference Condition="$(IsMainSolution)=='false'" Include="Olympus.Core" />
@@ -70,7 +65,6 @@
 		<PackageReference Condition="$(IsMainSolution)=='false'" Include="@(OlympusModule->'Olympus.%(Identity).Backend')" />
 		<PackageReference Condition="$(Configuration)=='Migrations'" Include="Microsoft.EntityFrameworkCore.Design" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
 		<PackageReference Condition="$(Configuration)=='Migrations'" Include="Microsoft.EntityFrameworkCore.Tools" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
-		<PackageReference Include="ServiceScan.SourceGenerator" PrivateAssets="all" />
 	</ItemGroup>
 
 	<!-- Packages References for Web Application Package -->
@@ -84,7 +78,6 @@
 		<PackageReference Condition="$(IsMainSolution)=='false'" Include="@(OlympusModule->'Olympus.%(Identity).Frontend')" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
-		<PackageReference Include="ServiceScan.SourceGenerator" PrivateAssets="all" />
 	</ItemGroup>
 
 </Project>

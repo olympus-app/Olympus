@@ -1,10 +1,12 @@
 namespace Olympus.Core.Archend.Identity;
 
-public record UserPhotoLinkResponse : EntityWithFileLinkResponse<ImageLinkResponse> {
+public record UserPhotoLinkResponse : EntityWithImageLinkResponse {
+
+	public Guid UserId { get; set; }
 
 	public string GetPhotoUrl() {
 
-		return Routes.FromApi(1).Append(CoreRoutes.Users.Photo).WithId(EntityId).WithCacheBusting(File.UpdatedAt);
+		return AppUriBuilder.FromApi(CoreRoutes.Users.Photo).WithId(UserId).WithCacheBusting(File.UpdatedAt);
 
 	}
 
