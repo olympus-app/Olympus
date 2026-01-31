@@ -19,12 +19,12 @@
 
 	<!-- Editor Configuration -->
 	<ItemGroup Label="EditorConfiguration">
-		<EditorConfigFiles Include="..\Olympus.Sdk\Workspace\Olympus.globalconfig" />
+		<EditorConfigFiles Include="../Olympus.Sdk/Workspace/Olympus.globalconfig" />
 	</ItemGroup>
 
 	<!-- Embbeded Resources -->
 	<ItemGroup Label="EmbbededResources">
-		<EmbeddedResource Include="Resources\*.resx" />
+		<EmbeddedResource Include="Resources/*.resx" />
 	</ItemGroup>
 
 	<!-- Packages References -->
@@ -58,10 +58,10 @@
 	<!-- Add Package Files -->
 	<Target Name="AddPackageFiles" BeforeTargets="GenerateNuspec">
 		<ItemGroup>
-			<_PackageFiles Include="Olympus.Analyzers.props" PackagePath="build\;buildTransitive\;buildMultiTargeting\" />
-			<_PackageFiles Include="Olympus.Analyzers.targets" PackagePath="build\;buildTransitive\;buildMultiTargeting\" />
-			<_PackageFiles Include="$(OutputPath)$(AssemblyName).dll" PackagePath="analyzers\dotnet\cs" />
-			<_PackageFiles Include="$(OutputPath)\*\$(AssemblyName).resources.dll" PackagePath="analyzers\dotnet\cs" />
+			<_PackageFiles Include="Olympus.Analyzers.props" PackagePath="build/;buildTransitive/;buildMultiTargeting/" />
+			<_PackageFiles Include="Olympus.Analyzers.targets" PackagePath="build/;buildTransitive/;buildMultiTargeting/" />
+			<_PackageFiles Include="$(OutputPath)$(AssemblyName).dll" PackagePath="analyzers/dotnet/cs" />
+			<_PackageFiles Include="$(OutputPath)/*/$(AssemblyName).resources.dll" PackagePath="analyzers/dotnet/cs" />
 		</ItemGroup>
 	</Target>
 
