@@ -8,6 +8,7 @@
 		<Import Project="..\properties\Application.props" />
 		<Import Project="..\properties\Compilation.props" />
 		<Import Project="..\properties\Configuration.props" />
+		<Import Project="..\properties\Resources.props" />
 		<Import Project="..\properties\Localization.props" />
 		<Import Project="..\properties\Version.props" />
 		<Import Project="..\properties\GitHub.props" />

@@ -1,0 +1,8 @@
+<Project>
+
+	<!-- Resources Properties -->
+	<PropertyGroup Label="ResourcesProperties">
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+	</PropertyGroup>
+
+</Project>
