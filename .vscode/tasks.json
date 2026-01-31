@@ -460,7 +460,7 @@
 		{
 			"type": "shell",
 			"label": "Solution: Clean Solution",
-			"command": "${input:confirm}dotnet clean && Get-ChildItem -Path ${workspaceFolder} -Include bin,obj -Directory -Recurse -Force | Remove-Item -Recurse -Force",
+			"command": "dotnet build-server shutdown; Get-ChildItem -Path ${workspaceFolder} -Include bin,obj -Recurse -Force | Remove-Item -Recurse -Force -ErrorAction Ignore",
 			"problemMatcher": [],
 			"icon": {
 				"id": "trash",
@@ -469,20 +469,42 @@
 		},
 		{
 			"type": "shell",
+			"label": "Solution: Restore Solution",
+			"command": "dotnet build-server shutdown; dotnet nuget locals all --clear; dotnet workload restore; dotnet tool restore; dotnet restore",
+			"problemMatcher": [],
+			"icon": {
+				"id": "cloud-download",
+				"color": "terminal.ansiBlue"
+			}
+		},
+		{
+			"type": "shell",
 			"label": "Solution: Rebuild Solution",
-			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; Get-Process dotnet -ErrorAction Ignore | Stop-Process -Force; Get-ChildItem ${workspaceFolder} -Include bin, obj -Recurse -Force | Remove-Item -Recurse -Force; Get-ChildItem ${workspaceFolder}/Packages -Directory | ForEach-Object { $cp = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $cp) { Remove-Item $cp -Recurse -Force }; dotnet pack $_.FullName --configuration Release --output C:/Development/NuGet }; Get-Process dotnet -ErrorAction Ignore | Stop-Process -Force; dotnet build ${workspaceFolder}",
+			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o C:/Development/NuGet }; dotnet build-server shutdown; dotnet build",
 			"problemMatcher": [
 				"$msCompile"
 			],
 			"icon": {
-				"id": "refresh",
+				"id": "tools",
 				"color": "terminal.ansiMagenta"
 			}
 		},
 		{
 			"type": "shell",
-			"label": "Solution: Pack Solution",
-			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; Get-ChildItem ${workspaceFolder} -Filter *.csproj -Recurse -Depth 5 | Where-Object { $_.BaseName.StartsWith('Olympus') -and $_.BaseName -notlike '*.Host' } | ForEach-Object { dotnet pack $_.FullName --configuration Release --output C:/Development/NuGet }",
+			"label": "Solution: Republish Solution",
+			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o C:/Development/NuGet }; dotnet build-server shutdown; dotnet publish",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"icon": {
+				"id": "rocket",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "Solution: Repack Solution",
+			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o C:/Development/NuGet }; dotnet build-server shutdown; dotnet pack -c Release -o C:/Development/NuGet",
 			"problemMatcher": [
 				"$msCompile"
 			],
