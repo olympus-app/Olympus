@@ -20,7 +20,7 @@ public static class AspireHost {
 
 		var postgres = builder.AddPostgres(Database.ServiceName, databaseUsername, databasePassword, Database.Port)
 			.WithContainerName(Database.ContainerName.ToLower())
-			.WithDataVolume(Database.VolumeName.ToLower())
+			.WithVolume(Database.VolumeName.ToLower(), Database.VolumeTarget.ToLower())
 			.WithLifetime(Database.Lifetime)
 			.WithImageTag(Database.ImageTag)
 			.WithIconName(Database.ServiceIconName)
@@ -31,7 +31,7 @@ public static class AspireHost {
 
 		var minio = builder.AddMinioContainer(Storage.ServiceName, storageUsername, storagePassword, Storage.Port)
 			.WithContainerName(Storage.ContainerName.ToLower())
-			.WithDataVolume(Storage.VolumeName.ToLower())
+			.WithVolume(Storage.VolumeName.ToLower(), Storage.VolumeTarget.ToLower())
 			.WithLifetime(Storage.Lifetime)
 			.WithImageTag(Storage.ImageTag)
 			.WithIconName(Storage.IconName)
@@ -50,7 +50,7 @@ public static class AspireHost {
 
 		var redis = builder.AddRedis(Cache.ServiceName, Cache.Port, cachePassword)
 			.WithContainerName(Cache.ContainerName.ToLower())
-			.WithDataVolume(Cache.VolumeName.ToLower())
+			.WithVolume(Cache.VolumeName.ToLower(), Cache.VolumeTarget.ToLower())
 			.WithLifetime(Cache.Lifetime)
 			.WithImageTag(Cache.ImageTag)
 			.WithIconName(Cache.IconName)
