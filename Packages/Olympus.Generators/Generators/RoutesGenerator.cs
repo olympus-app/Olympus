@@ -34,6 +34,7 @@ public sealed class RoutesGenerator : IIncrementalGenerator {
 			diagnostics.Add(Diagnostic.Create(BuildHelper.EmptyResourceFile, Location.Create(resourceInformation.ResourceFile.Path, default, default)));
 
 			return false;
+
 		}
 
 		var rootNode = BuildRoutesTree(values, resourceInformation.ResourceFile, diagnostics);
