@@ -11,27 +11,29 @@ public class StorageService(IMinioClient client) : IStorageService {
 
 	private static readonly ConcurrentDictionary<string, bool> CheckedBuckets = new();
 
-	private async Task EnsureBucketExistsAsync(string storageBucket, CancellationToken cancellationToken) {
+	private async Task EnsureBucketExistsAsync(StorageLocation bucket, CancellationToken cancellationToken) {
 
-		if (CheckedBuckets.ContainsKey(storageBucket)) return;
+		var bucketName = bucket.Name.ToLowerInvariant();
+
+		if (CheckedBuckets.ContainsKey(bucketName)) return;
 
 		await Semaphore.WaitAsync(cancellationToken);
 
 		try {
 
-			if (CheckedBuckets.ContainsKey(storageBucket)) return;
+			if (CheckedBuckets.ContainsKey(bucketName)) return;
 
-			var args = new BucketExistsArgs().WithBucket(storageBucket);
-			var bucket = await client.BucketExistsAsync(args, cancellationToken);
+			var args = new BucketExistsArgs().WithBucket(bucketName);
+			var exists = await client.BucketExistsAsync(args, cancellationToken);
 
-			if (!bucket) {
+			if (!exists) {
 
-				var newBucketArgs = new MakeBucketArgs().WithBucket(storageBucket);
+				var newBucketArgs = new MakeBucketArgs().WithBucket(bucketName);
 				await client.MakeBucketAsync(newBucketArgs, cancellationToken);
 
 			}
 
-			CheckedBuckets.TryAdd(storageBucket, true);
+			CheckedBuckets.TryAdd(bucketName, true);
 
 		} finally {
 
@@ -41,15 +43,19 @@ public class StorageService(IMinioClient client) : IStorageService {
 
 	}
 
-	public Task<string> LinkAsync(string storageBucket, string storagePath, int expirationSeconds, CancellationToken cancellationToken = default) {
+	public Task<string> LinkAsync(StorageLocation bucket, string path, int expirationSeconds, CancellationToken cancellationToken = default) {
 
-		var args = new PresignedGetObjectArgs().WithBucket(storageBucket).WithObject(storagePath).WithExpiry(expirationSeconds);
+		var bucketName = bucket.Name.ToLowerInvariant();
+
+		var args = new PresignedGetObjectArgs().WithBucket(bucketName).WithObject(path).WithExpiry(expirationSeconds);
 
 		return client.PresignedGetObjectAsync(args);
 
 	}
 
-	public Task<Stream> DownloadAsync(string storageBucket, string storagePath, CancellationToken cancellationToken = default) {
+	public Task<Stream> DownloadAsync(StorageLocation bucket, string path, CancellationToken cancellationToken = default) {
+
+		var bucketName = bucket.Name.ToLowerInvariant();
 
 		var pipe = new Pipe();
 
@@ -57,7 +63,7 @@ public class StorageService(IMinioClient client) : IStorageService {
 
 			try {
 
-				var args = new GetObjectArgs().WithBucket(storageBucket).WithObject(storagePath).WithCallbackStream(async (minioStream, token) => await minioStream.CopyToAsync(pipe.Writer.AsStream(), token));
+				var args = new GetObjectArgs().WithBucket(bucketName).WithObject(path).WithCallbackStream(async (minioStream, token) => await minioStream.CopyToAsync(pipe.Writer.AsStream(), token));
 
 				await client.GetObjectAsync(args, cancellationToken);
 
@@ -75,19 +81,23 @@ public class StorageService(IMinioClient client) : IStorageService {
 
 	}
 
-	public async Task UploadAsync(Stream stream, string storageBucket, string storagePath, string contentType, CancellationToken cancellationToken = default) {
+	public async Task UploadAsync(Stream stream, StorageLocation bucket, string path, string contentType, CancellationToken cancellationToken = default) {
 
-		await EnsureBucketExistsAsync(storageBucket, cancellationToken);
+		await EnsureBucketExistsAsync(bucket, cancellationToken);
 
-		var args = new PutObjectArgs().WithBucket(storageBucket).WithObject(storagePath).WithStreamData(stream).WithObjectSize(stream.Length).WithContentType(contentType);
+		var bucketName = bucket.Name.ToLowerInvariant();
+
+		var args = new PutObjectArgs().WithBucket(bucketName).WithObject(path).WithStreamData(stream).WithObjectSize(stream.Length).WithContentType(contentType);
 
 		await client.PutObjectAsync(args, cancellationToken);
 
 	}
 
-	public Task DeleteAsync(string storageBucket, string storagePath, CancellationToken cancellationToken = default) {
+	public Task DeleteAsync(StorageLocation bucket, string path, CancellationToken cancellationToken = default) {
 
-		var args = new RemoveObjectArgs().WithBucket(storageBucket).WithObject(storagePath);
+		var bucketName = bucket.Name.ToLowerInvariant();
+
+		var args = new RemoveObjectArgs().WithBucket(bucketName).WithObject(path);
 
 		return client.RemoveObjectAsync(args, cancellationToken);
 

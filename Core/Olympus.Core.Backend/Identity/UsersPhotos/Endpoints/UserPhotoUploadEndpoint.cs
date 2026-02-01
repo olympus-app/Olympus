@@ -8,4 +8,20 @@ public class UserPhotoUploadEndpoint(UserPhotoService service) : EntityWithImage
 
 	}
 
+	protected override UserPhoto Initialize(UserPhotoUploadRequest request, IFormFile file) {
+
+		return new UserPhoto() {
+			Id = request.Id,
+			UserId = request.Id,
+			File = new StorageImage() {
+				Name = "profile.jpg",
+				ContentType = ContentTypes.ImageJpeg,
+				Bucket = StorageLocation.Public,
+				Path = "Users/profile.jpg",
+				Size = file.Length,
+			},
+		};
+
+	}
+
 }

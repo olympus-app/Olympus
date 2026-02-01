@@ -58,7 +58,7 @@ public static class AspireSettings {
 
 		public const string Name = DatabaseSettings.DatabaseName;
 
-		public const string ImageTag = "17";
+		public const string ImageTag = "18";
 
 		public const string IconName = "Database";
 
@@ -75,6 +75,8 @@ public static class AspireSettings {
 		public const string PasswordKey = "Postgres-Password";
 
 		public const string VolumeName = "postgres";
+
+		public const string VolumeTarget = "/var/lib/postgresql";
 
 		public const int Port = 5432;
 
@@ -97,6 +99,8 @@ public static class AspireSettings {
 		public const string PasswordKey = "Minio-Password";
 
 		public const string VolumeName = "minio";
+
+		public const string VolumeTarget = "/data";
 
 		public const int Port = 9000;
 
@@ -141,6 +145,8 @@ public static class AspireSettings {
 		public const string PasswordKey = "Redis-Password";
 
 		public const string VolumeName = "redis";
+
+		public const string VolumeTarget = "/data";
 
 		public const int Port = 6379;
 

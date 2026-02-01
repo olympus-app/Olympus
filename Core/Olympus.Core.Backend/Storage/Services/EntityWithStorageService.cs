@@ -20,19 +20,19 @@ public abstract class EntityWithStorageService<TEntityWithStorage, TStorageEntit
 
 	public virtual Task<string> LinkAsync(TEntityWithStorage entity, CancellationToken cancellationToken = default) {
 
-		return Storage.LinkAsync(entity.File.StorageBucket.Name, entity.File.StoragePath, LinkExpiration, cancellationToken);
+		return Storage.LinkAsync(entity.File.Bucket, entity.File.Path, LinkExpiration, cancellationToken);
 
 	}
 
 	public virtual Task<Stream> DownloadAsync(TEntityWithStorage entity, CancellationToken cancellationToken = default) {
 
-		return Storage.DownloadAsync(entity.File.StorageBucket.Name, entity.File.StoragePath, cancellationToken);
+		return Storage.DownloadAsync(entity.File.Bucket, entity.File.Path, cancellationToken);
 
 	}
 
 	public virtual async Task<TEntityWithStorage> UploadAsync(TEntityWithStorage entity, Stream stream, CancellationToken cancellationToken = default) {
 
-		await Storage.UploadAsync(stream, entity.File.StorageBucket.Name, entity.File.StoragePath, entity.File.ContentType, cancellationToken);
+		await Storage.UploadAsync(stream, entity.File.Bucket, entity.File.Path, entity.File.ContentType, cancellationToken);
 
 		entity.File.Size = stream.Length;
 
@@ -44,7 +44,7 @@ public abstract class EntityWithStorageService<TEntityWithStorage, TStorageEntit
 
 	public virtual async Task<TEntityWithStorage> DeleteAsync(TEntityWithStorage entity, CancellationToken cancellationToken = default) {
 
-		await Storage.DeleteAsync(entity.File.StorageBucket.Name, entity.File.StoragePath, cancellationToken);
+		await Storage.DeleteAsync(entity.File.Bucket, entity.File.Path, cancellationToken);
 
 		Database.Set<TEntityWithStorage>().Remove(entity);
 

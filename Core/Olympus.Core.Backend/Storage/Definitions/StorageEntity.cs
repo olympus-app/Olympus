@@ -8,8 +8,8 @@ public abstract class StorageEntity : Entity, IStorageEntity {
 
 		set {
 
-			var baseName = Path.GetFileNameWithoutExtension(value);
-			var extension = Path.GetExtension(value);
+			var baseName = System.IO.Path.GetFileNameWithoutExtension(value);
+			var extension = System.IO.Path.GetExtension(value);
 
 			if (string.IsNullOrWhiteSpace(baseName)) baseName = Guid.NewGuidV7().NormalizeLower();
 			if (string.IsNullOrWhiteSpace(extension)) extension = ".bin";
@@ -25,23 +25,23 @@ public abstract class StorageEntity : Entity, IStorageEntity {
 
 	public string BaseName {
 
-		get => field ?? Path.GetFileNameWithoutExtension(Name);
+		get => field ?? System.IO.Path.GetFileNameWithoutExtension(Name);
 		private set;
 
 	}
 
 	public string Extension {
 
-		get => field ?? Path.GetExtension(Name).ToLowerInvariant();
+		get => field ?? System.IO.Path.GetExtension(Name).ToLowerInvariant();
 		private set;
 
 	}
 
 	public string ContentType { get; set; } = ContentTypes.Stream;
 
-	public StorageLocation StorageBucket { get; set; } = StorageLocation.Private;
+	public StorageLocation Bucket { get; set; } = StorageLocation.Private;
 
-	public string StoragePath {
+	public string Path {
 
 		get => !string.IsNullOrWhiteSpace(field) ? field : $"general/{Name}".ToLowerInvariant();
 
@@ -57,9 +57,9 @@ public abstract class StorageEntity : Entity, IStorageEntity {
 
 			var normalized = value.Replace('\\', '/').Trim('/');
 
-			if (!Path.HasExtension(normalized)) {
+			if (!System.IO.Path.HasExtension(normalized)) {
 
-				var extension = Path.GetExtension(Name);
+				var extension = System.IO.Path.GetExtension(Name);
 
 				if (string.IsNullOrWhiteSpace(extension)) extension = ".bin";
 

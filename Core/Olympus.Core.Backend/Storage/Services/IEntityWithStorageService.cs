@@ -1,6 +1,6 @@
 namespace Olympus.Core.Backend.Storage;
 
-public interface IEntityWithStorageService<TEntityWithStorage, TStorageEntity> : IEntityService<TEntityWithStorage> where TEntityWithStorage : class, IEntityWithStorage<TStorageEntity>, new() where TStorageEntity : class, IStorageEntity, new() {
+public interface IEntityWithStorageService<TEntityWithStorage, TStorageEntity> : IScopedService<IEntityWithStorageService<TEntityWithStorage, TStorageEntity>>, IEntityService<TEntityWithStorage> where TEntityWithStorage : class, IEntityWithStorage<TStorageEntity>, new() where TStorageEntity : class, IStorageEntity, new() {
 
 	public Task<string> LinkAsync(TEntityWithStorage entity, CancellationToken cancellationToken = default);
 

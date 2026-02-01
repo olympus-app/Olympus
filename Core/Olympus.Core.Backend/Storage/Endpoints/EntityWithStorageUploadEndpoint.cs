@@ -8,10 +8,10 @@ public abstract class EntityWithStorageUploadEndpoint<TEntityWithStorage, TStora
 			Id = request.Id,
 			File = new TStorageEntity() {
 				Name = file.FileName,
-				Size = file.Length,
 				ContentType = file.ContentType,
-				StorageBucket = StorageLocation.Private,
-				StoragePath = typeof(TStorageEntity).Name.Crop("Storage").Pluralize(),
+				Bucket = StorageLocation.Private,
+				Path = typeof(TStorageEntity).Name.Crop("Storage").Pluralize(),
+				Size = file.Length,
 			},
 		};
 

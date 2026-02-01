@@ -16,17 +16,17 @@ public abstract class EntityWithImageService<TEntityWithImage>(IDatabaseService 
 
 	public override Task<string> LinkAsync(TEntityWithImage entity, CancellationToken cancellationToken = default) {
 
-		var path = StorageImage.GetThumbnailPath(entity.File.StoragePath, ThumbnailSize);
+		var path = StorageImage.GetThumbnailPath(entity.File.Path, ThumbnailSize);
 
-		return Storage.LinkAsync(entity.File.StorageBucket.Name, path, LinkExpiration, cancellationToken);
+		return Storage.LinkAsync(entity.File.Bucket, path, LinkExpiration, cancellationToken);
 
 	}
 
 	public override Task<Stream> DownloadAsync(TEntityWithImage entity, CancellationToken cancellationToken = default) {
 
-		var path = StorageImage.GetThumbnailPath(entity.File.StoragePath, ThumbnailSize);
+		var path = StorageImage.GetThumbnailPath(entity.File.Path, ThumbnailSize);
 
-		return Storage.DownloadAsync(entity.File.StorageBucket.Name, path, cancellationToken);
+		return Storage.DownloadAsync(entity.File.Bucket, path, cancellationToken);
 
 	}
 
@@ -34,10 +34,10 @@ public abstract class EntityWithImageService<TEntityWithImage>(IDatabaseService 
 
 		await using var mainStream = await Processor.ResizeAsync(stream, ImageSize.Value, ImageSize.Value, ResizeMode, CompressionQuality, cancellationToken);
 
-		await Storage.UploadAsync(mainStream, entity.File.StorageBucket.Name, entity.File.StoragePath, entity.File.ContentType, cancellationToken);
+		await Storage.UploadAsync(mainStream, entity.File.Bucket, entity.File.Path, entity.File.ContentType, cancellationToken);
 
 		entity.File.Name = Path.ChangeExtension(entity.File.Name, FileExtensions.Jpeg);
-		entity.File.StoragePath = Path.ChangeExtension(entity.File.StoragePath, FileExtensions.Jpeg);
+		entity.File.Path = Path.ChangeExtension(entity.File.Path, FileExtensions.Jpeg);
 		entity.File.ContentType = ContentTypes.ImageJpeg;
 		entity.File.Size = mainStream.Length;
 
@@ -51,9 +51,9 @@ public abstract class EntityWithImageService<TEntityWithImage>(IDatabaseService 
 
 			foreach (var (thumbSize, thumbStream) in thumbs) {
 
-				var thumbPath = StorageImage.GetThumbnailPath(entity.File.StoragePath, thumbSize);
+				var thumbPath = StorageImage.GetThumbnailPath(entity.File.Path, thumbSize);
 
-				await Storage.UploadAsync(thumbStream, entity.File.StorageBucket.Name, thumbPath, entity.File.ContentType, cancellationToken);
+				await Storage.UploadAsync(thumbStream, entity.File.Bucket, thumbPath, entity.File.ContentType, cancellationToken);
 
 			}
 
@@ -75,13 +75,13 @@ public abstract class EntityWithImageService<TEntityWithImage>(IDatabaseService 
 
 	public override async Task<TEntityWithImage> DeleteAsync(TEntityWithImage entity, CancellationToken cancellationToken = default) {
 
-		await Storage.DeleteAsync(entity.File.StorageBucket.Name, entity.File.StoragePath, cancellationToken);
+		await Storage.DeleteAsync(entity.File.Bucket, entity.File.Path, cancellationToken);
 
 		foreach (var size in FastEnum.GetValues<ThumbnailSize>()) {
 
-			var path = StorageImage.GetThumbnailPath(entity.File.StoragePath, size);
+			var path = StorageImage.GetThumbnailPath(entity.File.Path, size);
 
-			await Storage.DeleteAsync(entity.File.StorageBucket.Name, path, cancellationToken);
+			await Storage.DeleteAsync(entity.File.Bucket, path, cancellationToken);
 
 		}
 

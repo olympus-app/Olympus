@@ -8,4 +8,14 @@ public class UserPhotoService(IDatabaseService database, IStorageService storage
 
 	protected override bool GenerateThumbnails => true;
 
+	public override IQueryable<UserPhoto> Query(Guid id, bool tracking = false) {
+
+		var query = Database.Set<UserPhoto>().AsQueryable();
+
+		if (!tracking) query = query.AsNoTracking();
+
+		return query.DefaultFilter().Where(uphoto => uphoto.UserId == id);
+
+	}
+
 }

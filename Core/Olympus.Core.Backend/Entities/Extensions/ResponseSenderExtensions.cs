@@ -102,7 +102,7 @@ public static class ResponseSenderExtensions {
 
 			if (entity.ETag is not null) sender.HttpContext.Response.Headers.ETag = EntityTag.From(entity.ETag);
 
-			return sender.HttpContext.Response.SendAsync(entity, HttpStatusCode.OK.Value, null, cancellationToken);
+			return sender.HttpContext.Response.SendStatusCodeAsync(HttpStatusCode.OK.Value, cancellationToken);
 
 		}
 

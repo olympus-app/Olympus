@@ -2,7 +2,9 @@ namespace Olympus.Core.Backend.Storage;
 
 public enum ImageSize {
 
-	Tiny = 128,
+	Tiny = 64,
+
+	Mini = 128,
 
 	Small = 256,
 
