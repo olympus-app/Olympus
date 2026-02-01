@@ -33,9 +33,24 @@ public static class RouteDebugger {
 		builder.Append("<body><h1>Route Debugger</h1><table><thead><tr><th>Verbs</th><th>Route</th><th>Handler</th></tr></thead><tbody>");
 
 		var endpoints = dataSources.SelectMany(source => source.Endpoints).OfType<RouteEndpoint>().Where(endpoint => {
-			var route = endpoint.RoutePattern.RawText?.TrimStart('/');
-			return !string.IsNullOrEmpty(route) && (route.StartsWith("api", StringComparison.OrdinalIgnoreCase) || route.StartsWith("auth", StringComparison.OrdinalIgnoreCase) && !route.EndsWith(AppRoutes.ApiRoutes, StringComparison.OrdinalIgnoreCase));
-		}).OrderBy(endpoint => endpoint.RoutePattern.RawText);
+
+			var route = endpoint.RoutePattern.RawText;
+
+			if (string.IsNullOrEmpty(route)) return false;
+
+			if (route.Contains("nonfile")) return false;
+
+			if (route.EndsWith(AppRoutes.ApiRoutes, StringComparison.OrdinalIgnoreCase)) return false;
+
+			if (route.StartsWith(AppRoutes.Api, StringComparison.OrdinalIgnoreCase)) return true;
+
+			if (route.StartsWith(AppRoutes.Auth, StringComparison.OrdinalIgnoreCase)) return true;
+
+			return false;
+
+		}).OrderBy(endpoint => !endpoint.RoutePattern.RawText?.StartsWith(AppRoutes.Auth, StringComparison.OrdinalIgnoreCase))
+		.ThenBy(endpoint => !endpoint.RoutePattern.RawText?.StartsWith(AppRoutes.Api, StringComparison.OrdinalIgnoreCase))
+		.ThenBy(endpoint => endpoint.RoutePattern.RawText);
 
 		foreach (var endpoint in endpoints) {
 

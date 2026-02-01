@@ -16,6 +16,8 @@ public static class DatabaseRegistrator {
 
 		dataSourceBuilder.ConnectionStringBuilder.IncludeErrorDetail = builder.Environment.IsDevelopment();
 
+		dataSourceBuilder.ConnectionStringBuilder.GssEncryptionMode = GssEncryptionMode.Disable;
+
 		var dataSource = dataSourceBuilder.Build();
 
 		builder.Services.AddSingleton(dataSource);
@@ -55,6 +57,16 @@ public static class DatabaseRegistrator {
 		using var scope = app.Services.CreateScope();
 
 		var database = scope.ServiceProvider.GetRequiredService<DatabaseService>();
+
+		var retries = 0;
+
+		while (!database.Database.CanConnect() && retries < 15) {
+
+			retries++;
+
+			Thread.Sleep(1000);
+
+		}
 
 		database.Database.Migrate();
 
