@@ -25,11 +25,11 @@ public class ClaimsPrincipalFactory(IDatabaseService database, UserManager<User>
 	private Task<User?> GetUserDataAsync(Guid id) {
 
 		return database.Set<User>().AsNoTracking()
+			.Include(user => user.Photo)
 			.Include(user => user.Claims)
 			.Include(user => user.Roles).ThenInclude(urole => urole.Role).ThenInclude(role => role.Claims)
-			.Include(user => user.Permissions).ThenInclude(uperm => uperm.Permission)
 			.Include(user => user.Roles).ThenInclude(urole => urole.Role).ThenInclude(role => role.Permissions).ThenInclude(rperm => rperm.Permission)
-			.Include(user => user.Photo).ThenInclude(photo => photo!.File)
+			.Include(user => user.Permissions).ThenInclude(uperm => uperm.Permission)
 			.AsSplitQuery().FirstOrDefaultAsync(user => user.Id == id);
 
 	}
@@ -43,7 +43,7 @@ public class ClaimsPrincipalFactory(IDatabaseService database, UserManager<User>
 		identity.AddClaim(AppClaimsTypes.UserName, user.UserName);
 		identity.AddClaim(AppClaimsTypes.Email, user.Email);
 		identity.AddClaim(AppClaimsTypes.Title, user.Title);
-		identity.AddClaim(AppClaimsTypes.Photo, user.Photo?.GetPhotoUrl());
+		identity.AddClaim(AppClaimsTypes.Photo, user.PhotoUrl);
 		identity.AddClaim(AppClaimsTypes.SecurityStamp, user.SecurityStamp);
 
 		foreach (var uclaim in user.Claims) identity.AddClaim(uclaim.ClaimType, uclaim.ClaimValue);

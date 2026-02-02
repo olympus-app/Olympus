@@ -32,7 +32,7 @@ public static class ResponseSenderExtensions {
 
 			var etag = EntityTag.From(item.ETag);
 
-			if (EntityTag.IfNoneMatch(sender.HttpContext.Request.Headers.ETag, etag)) return sender.NotModifiedAsync(cancellationToken);
+			if (EntityTag.IfNoneMatch(sender.HttpContext.Request.Headers.IfNoneMatch, etag)) return sender.NotModifiedAsync(cancellationToken);
 
 			if (!string.IsNullOrEmpty(etag)) sender.HttpContext.Response.Headers.ETag = etag;
 
@@ -50,7 +50,7 @@ public static class ResponseSenderExtensions {
 
 			var etag = EntityTag.From(result);
 
-			if (EntityTag.IfNoneMatch(sender.HttpContext.Request.Headers.ETag, etag)) return await sender.NotModifiedAsync(cancellationToken);
+			if (EntityTag.IfNoneMatch(sender.HttpContext.Request.Headers.IfNoneMatch, etag)) return await sender.NotModifiedAsync(cancellationToken);
 
 			if (!string.IsNullOrEmpty(etag)) sender.HttpContext.Response.Headers.ETag = etag;
 
@@ -74,7 +74,7 @@ public static class ResponseSenderExtensions {
 
 			var etag = EntityTag.From(result);
 
-			if (EntityTag.IfNoneMatch(sender.HttpContext.Request.Headers.ETag, etag)) return await sender.NotModifiedAsync(cancellationToken);
+			if (EntityTag.IfNoneMatch(sender.HttpContext.Request.Headers.IfNoneMatch, etag)) return await sender.NotModifiedAsync(cancellationToken);
 
 			if (!string.IsNullOrEmpty(etag)) sender.HttpContext.Response.Headers.ETag = etag;
 
@@ -84,17 +84,27 @@ public static class ResponseSenderExtensions {
 
 		}
 
-		public Task<Void> FileAsync<TStorageEntity>(Stream stream, TStorageEntity entity, string cacheControl = ResponseCache.PrivateRevalidate, bool enableRangeProcessing = false, CancellationToken cancellationToken = default) where TStorageEntity : class, IStorageEntity {
+		public Task<Void> FileAsync(Stream stream, StorageFile file, string cacheControl = ResponseCache.PrivateRevalidate, bool enableRangeProcessing = false, CancellationToken cancellationToken = default) {
 
-			var etag = EntityTag.From(entity.ETag);
-
-			if (EntityTag.IfNoneMatch(sender.HttpContext.Request.Headers.ETag, etag)) return sender.NotModifiedAsync(cancellationToken);
+			var etag = EntityTag.From(file.ETag);
 
 			if (!string.IsNullOrEmpty(etag)) sender.HttpContext.Response.Headers.ETag = etag;
 
 			if (!string.IsNullOrEmpty(cacheControl)) sender.HttpContext.Response.Headers.CacheControl = cacheControl;
 
-			return sender.HttpContext.Response.SendStreamAsync(stream, entity.Name, entity.Size, entity.ContentType, entity.UpdatedAt, enableRangeProcessing, cancellationToken);
+			return sender.HttpContext.Response.SendStreamAsync(stream, file.Name, file.Size, file.ContentType, file.UpdatedAt, enableRangeProcessing, cancellationToken);
+
+		}
+
+		public Task<Void> ImageAsync(Stream stream, StorageImage image, ThumbnailSize? size = null, string cacheControl = ResponseCache.PrivateRevalidate, bool enableRangeProcessing = false, CancellationToken cancellationToken = default) {
+
+			var etag = EntityTag.From(image.ETag);
+
+			if (!string.IsNullOrEmpty(etag)) sender.HttpContext.Response.Headers.ETag = etag;
+
+			if (!string.IsNullOrEmpty(cacheControl)) sender.HttpContext.Response.Headers.CacheControl = cacheControl;
+
+			return sender.HttpContext.Response.SendStreamAsync(stream, image.Name, size.HasValue ? null : image.Size, image.ContentType, image.UpdatedAt, enableRangeProcessing, cancellationToken);
 
 		}
 

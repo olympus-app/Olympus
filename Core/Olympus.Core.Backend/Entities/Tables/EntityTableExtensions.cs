@@ -13,9 +13,9 @@ public static class EntityTableExtensions {
 			builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 			builder.Property(entity => entity.ETag).IsConcurrencyToken();
 
-			builder.HasOne(entity => entity.CreatedBy).WithMany().HasForeignKey(entity => entity.CreatedById).OnDelete(DeleteBehavior.NoAction);
-			builder.HasOne(entity => entity.UpdatedBy).WithMany().HasForeignKey(entity => entity.UpdatedById).OnDelete(DeleteBehavior.NoAction);
-			builder.HasOne(entity => entity.DeletedBy).WithMany().HasForeignKey(entity => entity.DeletedById).OnDelete(DeleteBehavior.NoAction);
+			builder.HasOne(entity => entity.CreatedBy).WithMany().HasForeignKey(entity => entity.CreatedById).OnDelete(DeleteBehavior.Restrict);
+			builder.HasOne(entity => entity.UpdatedBy).WithMany().HasForeignKey(entity => entity.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+			builder.HasOne(entity => entity.DeletedBy).WithMany().HasForeignKey(entity => entity.DeletedById).OnDelete(DeleteBehavior.Restrict);
 
 		}
 

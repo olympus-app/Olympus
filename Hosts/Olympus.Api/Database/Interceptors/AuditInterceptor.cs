@@ -23,11 +23,27 @@ public class AuditInterceptor(IHttpContextAccessor accessor) : SaveChangesInterc
 
 	}
 
+	public override int SavedChanges(SaveChangesCompletedEventData eventData, int result) {
+
+		HydrateAuditFields(eventData.Context);
+
+		return base.SavedChanges(eventData, result);
+
+	}
+
+	public override ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result, CancellationToken cancellationToken = default) {
+
+		HydrateAuditFields(eventData.Context);
+
+		return base.SavedChangesAsync(eventData, result, cancellationToken);
+
+	}
+
 	private void SetAuditFields(DbContext? context) {
 
 		if (context is null) return;
 
-		foreach (var entry in context.ChangeTracker.Entries<IEntity>()) {
+		foreach (var entry in context.ChangeTracker.Entries<IEntity>().Where(entity => entity.State != EntityState.Detached)) {
 
 			if (entry.State == EntityState.Added) {
 
@@ -59,6 +75,22 @@ public class AuditInterceptor(IHttpContextAccessor accessor) : SaveChangesInterc
 				}
 
 			}
+
+		}
+
+	}
+
+	private void HydrateAuditFields(DbContext? context) {
+
+		var user = User?.AsEntity();
+
+		if (context is null || user is null) return;
+
+		foreach (var entry in context.ChangeTracker.Entries<IEntity>().Where(entity => entity.State != EntityState.Detached)) {
+
+			if (entry.Entity.CreatedById == user.Id) entry.Entity.CreatedBy = user;
+			if (entry.Entity.UpdatedById == user.Id) entry.Entity.UpdatedBy = user;
+			if (entry.Entity.DeletedById == user.Id) entry.Entity.DeletedBy = user;
 
 		}
 

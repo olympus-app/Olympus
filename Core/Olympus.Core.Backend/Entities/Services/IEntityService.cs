@@ -16,4 +16,6 @@ public interface IEntityService<TEntity> : IScopedService<IEntityService<TEntity
 
 	public Task<TEntity?> DeleteAsync(TEntity entity, bool force, CancellationToken cancellationToken = default);
 
+	public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
 }

@@ -9,8 +9,8 @@ public record UserListResponse : EntityListResponse {
 	public string? Title { get; init; }
 
 	[JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-	public UserPhotoLinkResponse? UserPhoto { get; set; }
+	public UserPhotoLinkResponse? Photo { get; set; }
 
-	public string? Photo => UserPhoto?.GetPhotoUrl();
+	public string? PhotoUrl => Photo is null ? null : AppUriBuilder.FromApi(CoreRoutes.Users.Photo).WithId(Id).WithCacheBusting(Photo.UpdatedAt).AsString();
 
 }

@@ -21,8 +21,8 @@ body:json {
 script:post-response {
   const id = res.getBody().Id;
   const etag = res.getHeader("etag");
-  if (id) bru.setVar("TestId", id);
-  if (etag) bru.setVar("TestEtag", etag);
+  if (id) bru.setVar("UserTestId", id);
+  if (etag) bru.setVar("UserTestEtag", etag);
 }
 
 settings {

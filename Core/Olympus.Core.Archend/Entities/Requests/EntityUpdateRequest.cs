@@ -6,10 +6,9 @@ public abstract record EntityUpdateRequest : IEntityUpdateRequest {
 	[QueryParam(IsRequired = true)]
 	public required Guid Id { get; init; }
 
-	[HideFromDocs]
 	[JsonPropertyOrder(9998)]
-	[FromHeader(HeaderName = HttpHeaders.IfMatch, IsRequired = false)]
-	public string ETag { get; init; } = "*";
+	[FromHeader(HeaderName = HttpHeaders.IfMatch, IsRequired = true)]
+	public string ETag { get; init; } = string.Empty;
 
 	[JsonPropertyOrder(9999)]
 	public bool IsActive { get; set; } = true;

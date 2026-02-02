@@ -18,6 +18,16 @@ public interface IDatabaseService {
 
 	public EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
+	public bool IsAdded<TEntity>(TEntity entity) where TEntity : class;
+
+	public bool IsModified<TEntity>(TEntity entity) where TEntity : class;
+
+	public bool IsDeleted<TEntity>(TEntity entity) where TEntity : class;
+
+	public bool IsUnchanged<TEntity>(TEntity entity) where TEntity : class;
+
+	public bool IsDetached<TEntity>(TEntity entity) where TEntity : class;
+
 	public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
 }

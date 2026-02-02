@@ -43,6 +43,18 @@ public class StorageService(IMinioClient client) : IStorageService {
 
 	}
 
+	public async Task UploadAsync(Stream stream, StorageLocation bucket, string path, string contentType, CancellationToken cancellationToken = default) {
+
+		await EnsureBucketExistsAsync(bucket, cancellationToken);
+
+		var bucketName = bucket.Name.ToLowerInvariant();
+
+		var args = new PutObjectArgs().WithBucket(bucketName).WithObject(path).WithStreamData(stream).WithObjectSize(stream.Length).WithContentType(contentType);
+
+		await client.PutObjectAsync(args, cancellationToken);
+
+	}
+
 	public Task<string> LinkAsync(StorageLocation bucket, string path, int expirationSeconds, CancellationToken cancellationToken = default) {
 
 		var bucketName = bucket.Name.ToLowerInvariant();
@@ -78,18 +90,6 @@ public class StorageService(IMinioClient client) : IStorageService {
 		}, cancellationToken);
 
 		return Task.FromResult(pipe.Reader.AsStream());
-
-	}
-
-	public async Task UploadAsync(Stream stream, StorageLocation bucket, string path, string contentType, CancellationToken cancellationToken = default) {
-
-		await EnsureBucketExistsAsync(bucket, cancellationToken);
-
-		var bucketName = bucket.Name.ToLowerInvariant();
-
-		var args = new PutObjectArgs().WithBucket(bucketName).WithObject(path).WithStreamData(stream).WithObjectSize(stream.Length).WithContentType(contentType);
-
-		await client.PutObjectAsync(args, cancellationToken);
 
 	}
 

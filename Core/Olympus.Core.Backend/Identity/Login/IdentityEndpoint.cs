@@ -18,7 +18,7 @@ public class IdentityEndpoint : Endpoint.WithResponse<IdentityResponse> {
 			UserName = User.GetValue(AppClaimsTypes.UserName),
 			Email = User.GetValue(AppClaimsTypes.Email) ?? AppUsers.Unknown.Email,
 			Title = User.GetValue(AppClaimsTypes.Title),
-			Photo = User.GetValue(AppClaimsTypes.Photo),
+			PhotoUrl = User.GetValue(AppClaimsTypes.Photo),
 			Roles = User.GetClaims(AppClaimsTypes.Role).Select(claim => claim.Value).ToList(),
 			Permissions = User.GetValue(AppClaimsTypes.Permissions),
 		};

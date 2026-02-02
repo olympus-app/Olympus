@@ -5,22 +5,22 @@ meta {
 }
 
 put {
-  url: {{BasePath}}/api/v1/core/users/update?id={{TestId}}
+  url: {{BasePath}}/api/v1/core/users/update?id={{UserTestId}}
   body: json
   auth: none
 }
 
 params:query {
-  id: {{TestId}}
+  id: {{UserTestId}}
 }
 
 headers {
-  If-Match: {{TestEtag}}
+  If-Match: {{UserTestEtag}}
 }
 
 body:json {
   {
-    "id": "{{TestId}}",
+    "id": "{{UserTestId}}",
     "name": "Éwerton Ferreira",
     "email": "ewerton2@gcgestao.com.br"
   }
@@ -28,7 +28,7 @@ body:json {
 
 script:post-response {
   const etag = res.getHeader("etag");
-  if (etag) bru.setVar("TestEtag", etag);
+  if (etag) bru.setVar("UserTestEtag", etag);
 }
 
 settings {

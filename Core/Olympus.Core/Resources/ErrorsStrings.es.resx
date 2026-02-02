@@ -126,9 +126,6 @@
   <data name="InvalidQuery" xml:space="preserve">
     <value>La consulta no es válida.</value>
   </data>
-  <data name="ConcurrencyConflict" xml:space="preserve">
-    <value>El registro fue modificado por otro usuario.</value>
-  </data>
   <data name="RouteKeyNotMatch" xml:space="preserve">
     <value>La clave de ruta no coincide con el identificador de entidad en el cuerpo de la solicitud.</value>
   </data>
@@ -182,5 +179,8 @@
   </data>
   <data name="PasskeyUnregisterFailed" xml:space="preserve">
     <value>No se pudo cancelar el registro de la clave de acceso.</value>
+  </data>
+  <data name="ConcurrencyConflict" xml:space="preserve">
+    <value>ETag no es válido o el registro fue modificado por otro usuario.</value>
   </data>
 </root>

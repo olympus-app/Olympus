@@ -127,7 +127,7 @@
     <value>The query is invalid.</value>
   </data>
   <data name="ConcurrencyConflict" xml:space="preserve">
-    <value>The record was modified by another user.</value>
+    <value>ETag is invalid or the record was modified by another user.</value>
   </data>
   <data name="RouteKeyNotMatch" xml:space="preserve">
     <value>Route key does not match entity identifier in the request body.</value>

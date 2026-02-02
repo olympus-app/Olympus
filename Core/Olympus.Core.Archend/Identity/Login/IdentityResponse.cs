@@ -12,7 +12,7 @@ public record IdentityResponse : IResponse {
 
 	public string? Title { get; init; }
 
-	public string? Photo { get; init; }
+	public string? PhotoUrl { get; init; }
 
 	public List<string> Roles { get; init; } = [];
 

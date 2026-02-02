@@ -16,10 +16,10 @@ params:query {
 }
 
 headers {
-  ~If-None-Match: {{PhotoEtag}}
+  ~If-None-Match: {{UserPhotoEtag}}
 }
 
 script:post-response {
   const etag = res.getHeader("etag");
-  if (etag) bru.setVar("PhotoEtag", etag);
+  if (etag) bru.setVar("UserPhotoEtag", etag);
 }

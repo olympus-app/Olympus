@@ -5,23 +5,23 @@ meta {
 }
 
 delete {
-  url: {{BasePath}}/api/v1/core/users/delete?id={{TestId}}&force=true
+  url: {{BasePath}}/api/v1/core/users/delete?id={{UserTestId}}&force=true
   body: none
   auth: none
 }
 
 params:query {
-  id: {{TestId}}
+  id: {{UserTestId}}
   force: true
 }
 
 headers {
-  If-Match: {{TestEtag}}
+  If-Match: {{UserTestEtag}}
 }
 
 script:post-response {
   const etag = res.getHeader("etag");
-  if (etag) bru.setVar("TestEtag", etag);
+  if (etag) bru.setVar("UserTestEtag", etag);
 }
 
 settings {

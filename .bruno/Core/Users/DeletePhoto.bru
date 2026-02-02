@@ -13,3 +13,7 @@ delete {
 params:query {
   id: {{UserId}}
 }
+
+headers {
+  If-Match: {{UserPhotoEtag}}
+}

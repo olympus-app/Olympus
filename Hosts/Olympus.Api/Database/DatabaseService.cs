@@ -28,4 +28,14 @@ public class DatabaseService(DbContextOptions<DatabaseService> options, IEnumera
 
 	}
 
+	public bool IsAdded<TEntity>(TEntity entity) where TEntity : class => Entry(entity).State == EntityState.Added;
+
+	public bool IsModified<TEntity>(TEntity entity) where TEntity : class => Entry(entity).State == EntityState.Modified;
+
+	public bool IsDeleted<TEntity>(TEntity entity) where TEntity : class => Entry(entity).State == EntityState.Deleted;
+
+	public bool IsUnchanged<TEntity>(TEntity entity) where TEntity : class => Entry(entity).State == EntityState.Unchanged;
+
+	public bool IsDetached<TEntity>(TEntity entity) where TEntity : class => Entry(entity).State == EntityState.Detached;
+
 }

@@ -41,18 +41,6 @@ public static class EntityExtensions {
 
 		}
 
-		public Task<List<TEntity>> ListAsync(CancellationToken cancellationToken = default) {
-
-			return query.ToListAsync(cancellationToken);
-
-		}
-
-		public Task<TEntity?> ReadAsync(CancellationToken cancellationToken = default) {
-
-			return query.SingleOrDefaultAsync(cancellationToken);
-
-		}
-
 	}
 
 }

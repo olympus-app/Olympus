@@ -12,11 +12,13 @@ public abstract class EntityUpdateEndpoint<TEntity, TUpdateRequest, TReadRespons
 
 		if (entity is null) return await Send.NotFoundAsync(cancellationToken);
 
-		if (ConflictCheck(entity, request.ETag)) return await Send.ConflictAsync(cancellationToken);
+		if (ConflictCheck(entity)) return await Send.ConflictAsync(cancellationToken);
 
 		RequestMapper.UpdateEntity(entity, request);
 
 		entity = await Service.UpdateAsync(entity, cancellationToken);
+
+		await Service.SaveChangesAsync(cancellationToken);
 
 		var response = ResponseMapper.MapFromEntity(entity);
 

@@ -8,9 +8,11 @@ public abstract class EntityDeleteEndpoint<TEntity, TDeleteRequest>(IEntityServi
 
 		if (entity is null) return await Send.NotFoundAsync(cancellationToken);
 
-		if (ConflictCheck(entity, request.ETag)) return await Send.ConflictAsync(cancellationToken);
+		if (ConflictCheck(entity)) return await Send.ConflictAsync(cancellationToken);
 
 		entity = await Service.DeleteAsync(entity, request.Force, cancellationToken);
+
+		await Service.SaveChangesAsync(cancellationToken);
 
 		return await Send.DeletedAsync(entity, cancellationToken);
 

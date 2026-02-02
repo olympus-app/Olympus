@@ -58,11 +58,11 @@
 	"editor.suggest.showVariables": true,
 	"editor.suggest.showWords": true,
 	"files.exclude": {
-		".*": false,
-		"*.md": false,
-		"*.json": false,
-		"*.txt": false,
-		"*.xml": false
+		".*": true,
+		"*.md": true,
+		"*.json": true,
+		"*.txt": true,
+		"*.xml": true
 	},
 	"search.exclude": {
 		"**/$Generated/**": true

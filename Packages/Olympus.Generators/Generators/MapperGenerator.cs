@@ -377,8 +377,8 @@ public sealed class MapperGenerator : IIncrementalGenerator {
 	private static List<PropertyMap> GetPropertyMaps(INamedTypeSymbol dto, INamedTypeSymbol entity, int recursionDepth) {
 
 		var maps = new List<PropertyMap>();
-		var dtoProps = GetPublicProperties(dto);
-		var entityProps = GetPublicProperties(entity);
+		var dtoProps = GetAccessibleProperties(dto, false);
+		var entityProps = GetAccessibleProperties(entity, true);
 
 		foreach (var dProp in dtoProps) {
 
@@ -414,8 +414,8 @@ public sealed class MapperGenerator : IIncrementalGenerator {
 				maps.Add(new PropertyMap(
 					DtoProp: dProp.Name,
 					EntityProp: eProp.Name,
-					CanWriteToDto: dProp.SetMethod is not null || dProp.IsRequired || IsInitOnly(dProp),
-					CanWriteToEntity: eProp.SetMethod is not null || eProp.IsRequired || IsInitOnly(eProp),
+					CanWriteToDto: IsWritable(dProp, false),
+					CanWriteToEntity: IsWritable(eProp, true),
 					IsDtoInit: IsInitOnly(dProp),
 					IsEntityInit: IsInitOnly(eProp),
 					IsNested: isNested,
@@ -432,14 +432,24 @@ public sealed class MapperGenerator : IIncrementalGenerator {
 
 	}
 
-	private static IEnumerable<IPropertySymbol> GetPublicProperties(INamedTypeSymbol symbol) {
+	private static IEnumerable<IPropertySymbol> GetAccessibleProperties(INamedTypeSymbol symbol, bool allowInternal) {
 
 		var props = new List<IPropertySymbol>();
 		var current = symbol;
 
 		while (current is not null) {
 
-			props.AddRange(current.GetMembers().OfType<IPropertySymbol>().Where(p => p.DeclaredAccessibility == Accessibility.Public && !p.IsStatic));
+			props.AddRange(current.GetMembers().OfType<IPropertySymbol>().Where(prop => {
+
+				if (prop.IsStatic) return false;
+
+				if (prop.DeclaredAccessibility == Accessibility.Public) return true;
+
+				if (allowInternal && (prop.DeclaredAccessibility == Accessibility.Internal || prop.DeclaredAccessibility == Accessibility.ProtectedOrInternal)) return true;
+
+				return false;
+
+			}));
 
 			current = current.BaseType;
 
@@ -452,6 +462,20 @@ public sealed class MapperGenerator : IIncrementalGenerator {
 	private static bool IsInitOnly(IPropertySymbol property) {
 
 		return property.SetMethod?.IsInitOnly == true;
+
+	}
+
+	private static bool IsWritable(IPropertySymbol property, bool allowInternal) {
+
+		if (property.SetMethod is null) return false;
+
+		var accessibility = property.SetMethod.DeclaredAccessibility;
+
+		if (accessibility == Accessibility.Public) return true;
+
+		if (allowInternal && (accessibility == Accessibility.Internal || accessibility == Accessibility.ProtectedOrInternal)) return true;
+
+		return false;
 
 	}
 

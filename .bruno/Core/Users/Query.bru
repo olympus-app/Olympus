@@ -16,3 +16,12 @@ params:query {
   ~filter: id={{UserId}}
   ~orderBy: id desc
 }
+
+headers {
+  ~If-None-Match: {{UserQueryEtag}}
+}
+
+script:post-response {
+  const etag = res.getHeader("etag");
+  if (etag) bru.setVar("UserQueryEtag", etag);
+}

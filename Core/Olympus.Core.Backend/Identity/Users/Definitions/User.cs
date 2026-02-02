@@ -8,7 +8,11 @@ public class User : IdentityUser<Guid>, IEntity {
 
 	public string? Title { get; set; }
 
-	public virtual UserPhoto? Photo { get; set; }
+	public Guid? PhotoId { get; set; }
+
+	public virtual StorageImage? Photo { get; set; }
+
+	public string? PhotoUrl => Photo is null ? null : AppUriBuilder.FromApi(CoreRoutes.Users.Photo).WithId(Id).WithCacheBusting(Photo.UpdatedAt).AsString();
 
 	public virtual ICollection<UserClaim> Claims { get; set; } = [];
 

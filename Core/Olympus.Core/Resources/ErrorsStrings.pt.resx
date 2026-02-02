@@ -126,9 +126,6 @@
   <data name="InvalidQuery" xml:space="preserve">
     <value>A consulta é inválida.</value>
   </data>
-  <data name="ConcurrencyConflict" xml:space="preserve">
-    <value>O registro foi modificado por outro usuário.</value>
-  </data>
   <data name="RouteKeyNotMatch" xml:space="preserve">
     <value>A chave de rota não corresponde ao identificador da entidade no corpo da solicitação.</value>
   </data>
@@ -182,5 +179,8 @@
   </data>
   <data name="PasskeyUnregisterFailed" xml:space="preserve">
     <value>Falha ao cancelar o registro da chave de acesso.</value>
+  </data>
+  <data name="ConcurrencyConflict" xml:space="preserve">
+    <value>ETag é inválida ou o registro foi modificado por outro usuário.</value>
   </data>
 </root>

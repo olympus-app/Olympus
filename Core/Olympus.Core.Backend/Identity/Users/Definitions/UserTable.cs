@@ -29,6 +29,8 @@ public class UserTable(AdminSettings settings) : EntityTable<User> {
 		builder.HasIndex(user => user.Email).IsUniqueWhenNotSoftDeleted();
 		builder.HasIndex(user => user.NormalizedEmail).IsUniqueWhenNotSoftDeleted();
 
+		builder.HasOne(entity => entity.Photo).WithOne().HasForeignKey<User>(entity => entity.PhotoId).OnDelete(DeleteBehavior.SetNull);
+
 		var seed = GetSeed(settings);
 		builder.HasData(seed);
 
