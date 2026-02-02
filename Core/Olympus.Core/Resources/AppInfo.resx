@@ -129,4 +129,7 @@
   <data name="Organization" xml:space="preserve">
     <value>Olympus Company</value>
   </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>© {0} - Olympus Software</value>
+  </data>
 </root>

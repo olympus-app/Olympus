@@ -1,5 +1,6 @@
 @page "/login"
 @layout Olympus.Core.Frontend.Layouts.LocksScreenLayout
+@using Olympus.Core.Archend.Localization
 @using Olympus.Core.Frontend.Pages
 
 @attribute [AllowAnonymous]
@@ -8,8 +9,8 @@
 
 	<RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-px-8 rz-py-4" style="text-align: center;">
 		<RadzenImage Style="max-height: 8rem; max-width: 12rem;" Class="app-logo-portrait rz-m-4" />
-		<RadzenText TextStyle="TextStyle.H5" Class="rz-m-1">Bem-vindo</RadzenText>
-		<RadzenText TextStyle="TextStyle.Body2" Class="rz-color-base-500">faça login para acessar o sistema @AppUsers.Agents.Name</RadzenText>
+		<RadzenText TextStyle="TextStyle.H5" Class="rz-m-1">@CoreStrings.Values.Login_Title</RadzenText>
+		<RadzenText TextStyle="TextStyle.Body2" Class="rz-color-base-500">@CoreStrings.Values.Login_Subtitle</RadzenText>
 	</RadzenCard>
 
 	<RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-pt-0 rz-pb-4" style="text-align: center;">
@@ -21,17 +22,16 @@
 	<RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-px-8 rz-py-0">
 		<RadzenStack Orientation="Orientation.Vertical" Gap="0" Class="rz-justify-content-center">
 
-			@* O TItem agora é o seu DTO direto, não LoginArgs *@
 			<RadzenTemplateForm TItem="LoginRequest" Data="@Input" Submit="@OnLoginAsync">
 				<RadzenStack Gap="0">
 
-					<RadzenFormField Text="Email" Variant="Variant.Outlined" Style="width: 100%;">
+					<RadzenFormField Text="@CoreStrings.Values.Login_EmailLabel" Variant="Variant.Outlined" Style="width: 100%;">
 						<RadzenTextBox @bind-Value="@Input.Email" Name="Email" />
 					</RadzenFormField>
 					<RadzenRequiredValidator Component="Email" Text="Email é obrigatório" />
 					<RadzenEmailValidator Component="Email" Text="Formato de email inválido" />
 
-					<RadzenFormField Text="Senha" Variant="Variant.Outlined" Style="width: 100%;">
+					<RadzenFormField Text="@CoreStrings.Values.Login_PasswordLabel" Variant="Variant.Outlined" Style="width: 100%;">
 						<RadzenPassword @bind-Value="@Input.Password" Name="Password" />
 					</RadzenFormField>
 					<RadzenRequiredValidator Component="Password" Text="Senha é obrigatória" />
@@ -44,36 +44,38 @@
 					}
 
 					<RadzenButton ButtonType="ButtonType.Submit"
-						Text="Entrar"
+						Text="@CoreStrings.Values.Login_PasswordSignIn"
 						ButtonStyle="ButtonStyle.Primary"
 						Class="rz-w-100 rz-mt-2"
+						BusyText="Aguarde..."
 						IsBusy="@IsLoading" />
 				</RadzenStack>
 			</RadzenTemplateForm>
 
 			<div class="rz-display-flex rz-align-items-center rz-justify-content-center rz-my-4">
 				<div style="flex: 1; height: 1px; background-color: var(--rz-base-lighter);"></div>
-				<RadzenText TextStyle="TextStyle.Caption" Class="rz-mx-3 rz-my-0 rz-color-base-500">OU</RadzenText>
+				<RadzenText TextStyle="TextStyle.Caption" Class="rz-mx-3 rz-my-0 rz-color-base-500">@CoreStrings.Values.Login_OtherMethodsLabel.ToUpperInvariant()</RadzenText>
 				<div style="flex: 1; height: 1px; background-color: var(--rz-base-lighter);"></div>
 			</div>
 
 			<RadzenStack Gap="0.5rem">
 
 				<RadzenButton Click="@LoginWithPasskeyAsync"
-					Text="Entrar com Chave de Acesso"
+					Text="@CoreStrings.Values.Login_PasskeySignIn"
 					ButtonStyle="ButtonStyle.Secondary"
 					Variant="Variant.Flat"
 					Icon="fingerprint"
 					Class="rz-w-100"
-					BusyText="Verificando..."
+					BusyText="Aguarde..."
 					IsBusy="@IsLoading" />
 
 				<RadzenButton Click="@LoginWithMicrosoft"
-					Text="Entrar com a Conta da Microsoft"
+					Text="@CoreStrings.Values.Login_MicrosoftSignIn"
 					ButtonStyle="ButtonStyle.Light"
 					Variant="Variant.Flat"
 					Image="/images/identity/microsoft.svg"
 					Class="rz-w-100"
+					BusyText="Aguarde..."
 					IsBusy="@IsLoading" />
 
 			</RadzenStack>
@@ -82,10 +84,10 @@
 	</RadzenCard>
 	<RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-px-8 rz-py-8" style="text-align: center;">
 		<RadzenText TextStyle="TextStyle.Body2">
-			Ao fazer login, você concorda com:<br />
-			<RadzenLink Path="/terms" Target="_blank">Termos de Serviço</RadzenLink>
-			e a
-			<RadzenLink Path="/privacy" Target="_blank">Política de Privacidade</RadzenLink>
+			@CoreStrings.Values.Login_AgreementLabel<br />
+			<RadzenLink Path="/terms" Target="_blank">@CoreStrings.Values.Login_AgreementTerms</RadzenLink>
+			@CoreStrings.Values.Login_AgreementJoin
+			<RadzenLink Path="/privacy" Target="_blank">@CoreStrings.Values.Login_AgreementPolicy</RadzenLink>
 		</RadzenText>
 	</RadzenCard>
 </RadzenStack>

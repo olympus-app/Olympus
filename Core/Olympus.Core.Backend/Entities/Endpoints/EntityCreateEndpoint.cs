@@ -14,6 +14,9 @@ public abstract class EntityCreateEndpoint<TEntity, TCreateRequest, TReadRespons
 
 		await Service.SaveChangesAsync(cancellationToken);
 
+		entity.CreatedBy = User.AsEntity();
+		entity.UpdatedBy ??= entity.CreatedBy;
+
 		var response = ResponseMapper.MapFromEntity(entity);
 
 		return await Send.CreatedAsync(response, cancellationToken);

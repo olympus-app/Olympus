@@ -1,6 +1,8 @@
 {
 	"codeStatsViewer.excludeDirs": [
 		"$Generated",
+		"$Database",
+		"$Migrations",
 		".git",
 		".settings",
 		"bin",
@@ -58,11 +60,11 @@
 	"editor.suggest.showVariables": true,
 	"editor.suggest.showWords": true,
 	"files.exclude": {
-		".*": true,
-		"*.md": true,
-		"*.json": true,
-		"*.txt": true,
-		"*.xml": true
+		".*": false,
+		"*.md": false,
+		"*.json": false,
+		"*.txt": false,
+		"*.xml": false
 	},
 	"search.exclude": {
 		"**/$Generated/**": true

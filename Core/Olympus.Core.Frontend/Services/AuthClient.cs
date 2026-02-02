@@ -6,7 +6,7 @@ public sealed class AuthClient(HttpClient client) {
 
 	public Task<HttpResponseMessage> LoginAsync(LoginRequest request, bool useCookies = true) {
 
-		var url = AppUriBuilder.FromApi(CoreRoutes.Identity.Login).WithQuery(useCookies).AsUrl();
+		var url = AppUriBuilder.FromAuth(CoreRoutes.Identity.Login).WithQuery(useCookies).AsUrl();
 
 		return client.PostAsJsonAsync(url, request);
 
@@ -14,7 +14,7 @@ public sealed class AuthClient(HttpClient client) {
 
 	public Task<HttpResponseMessage> LogoutAsync() {
 
-		var url = AppUriBuilder.FromApi(CoreRoutes.Identity.Logout).AsUrl();
+		var url = AppUriBuilder.FromAuth(CoreRoutes.Identity.Logout).AsUrl();
 
 		return client.PostAsync(url, null);
 
@@ -22,7 +22,7 @@ public sealed class AuthClient(HttpClient client) {
 
 	public Task<AntiforgeryResponse?> GetAntiforgeryAsync() {
 
-		var url = AppUriBuilder.FromApi(CoreRoutes.Identity.Antiforgery).AsUrl();
+		var url = AppUriBuilder.FromAuth(CoreRoutes.Identity.Antiforgery).AsUrl();
 
 		return client.GetFromJsonAsync<AntiforgeryResponse>(url);
 
@@ -30,7 +30,7 @@ public sealed class AuthClient(HttpClient client) {
 
 	public Task<IdentityResponse?> GetIdentityAsync() {
 
-		var url = AppUriBuilder.FromApi(CoreRoutes.Identity.Info).AsUrl();
+		var url = AppUriBuilder.FromAuth(CoreRoutes.Identity.Info).AsUrl();
 
 		return client.GetFromJsonAsync<IdentityResponse>(url);
 

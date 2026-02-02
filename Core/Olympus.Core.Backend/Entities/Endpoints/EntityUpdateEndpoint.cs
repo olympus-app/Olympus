@@ -20,6 +20,9 @@ public abstract class EntityUpdateEndpoint<TEntity, TUpdateRequest, TReadRespons
 
 		await Service.SaveChangesAsync(cancellationToken);
 
+		entity.UpdatedBy = User.AsEntity();
+		entity.CreatedBy ??= entity.UpdatedBy;
+
 		var response = ResponseMapper.MapFromEntity(entity);
 
 		return await Send.UpdatedAsync(response, cancellationToken);

@@ -18,6 +18,8 @@ public static class ClaimsPrincipalExtensions {
 
 		public string? Title => principal.GetValue(AppClaimsTypes.Title);
 
+		public string? Photo => principal.GetValue(AppClaimsTypes.Photo);
+
 		public bool IsAuthenticated => principal.Identity?.IsAuthenticated ?? false;
 
 		public IEnumerable<Claim> GetClaims(string claimType) {
