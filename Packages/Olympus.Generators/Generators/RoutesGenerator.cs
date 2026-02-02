@@ -204,15 +204,19 @@ public sealed class RoutesGenerator : IIncrementalGenerator {
 		var resourceFileName = Path.GetFileNameWithoutExtension(resourceFile.Path);
 		var resourceAccessName = className is null || string.IsNullOrEmpty(className) ? string.Join(".", rootNamespace, resourceFileName) : className;
 
+		if (BuildHelper.SplitName(resourceFileName, out _, out var suffix)) {
+
+			try {
+
+				CultureInfo.GetCultureInfo(suffix);
+
+				return [];
+
+			} catch (CultureNotFoundException) { }
+
+		}
+
 		BuildHelper.SplitName(resourceAccessName, out var resourceNamespace, out var resourceClassName);
-
-		try {
-
-			CultureInfo.GetCultureInfo(resourceClassName);
-
-			return [];
-
-		} catch (CultureNotFoundException) { }
 
 		return [
 			new ResourceInformation() {

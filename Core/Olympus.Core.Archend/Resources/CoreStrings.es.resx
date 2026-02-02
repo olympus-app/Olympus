@@ -136,7 +136,7 @@
     <value>Ingresar con Clave de Acceso</value>
   </data>
   <data name="Login_MicrosoftSignIn" xml:space="preserve">
-    <value>Entrar con la Cuenta de Microsoft</value>
+    <value>Ingresar con la Cuenta de Microsoft</value>
   </data>
   <data name="Login_OtherMethodsLabel" xml:space="preserve">
     <value>o</value>

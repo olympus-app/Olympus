@@ -35,6 +35,9 @@ appsettings*.json
 !.vscode/tasks.json
 *.code-workspace
 
+# MSBuild Binary Log
+msbuild.binlog
+
 # General
 ._*
 *.lnk
