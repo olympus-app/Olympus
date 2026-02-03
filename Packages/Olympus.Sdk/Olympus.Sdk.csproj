@@ -51,8 +51,8 @@
 
 	<!-- Copy Publish Template Files -->
 	<Target Name="CopyPublishTemplateFiles" BeforeTargets="Build">
-		<Copy SourceFiles="../../Aspire/Olympus.Aspire.Host/$Publish/.env" DestinationFiles="Templates/Aspire.Host/$Publish/.env.template" SkipUnchangedFiles="true" />
-		<Copy SourceFiles="../../Aspire/Olympus.Aspire.Host/$Publish/docker-compose.override.yaml" DestinationFiles="Templates/Aspire.Host/$Publish/docker-compose.override.yaml.template" SkipUnchangedFiles="true" />
+		<Copy Condition="Exists('../../Aspire/Olympus.Aspire.Host/$Publish/.env')" SourceFiles="../../Aspire/Olympus.Aspire.Host/$Publish/.env" DestinationFiles="Templates/Aspire.Host/$Publish/.env.template" SkipUnchangedFiles="true" />
+		<Copy Condition="Exists('../../Aspire/Olympus.Aspire.Host/$Publish/docker-compose.override.yaml')" SourceFiles="../../Aspire/Olympus.Aspire.Host/$Publish/docker-compose.override.yaml" DestinationFiles="Templates/Aspire.Host/$Publish/docker-compose.override.yaml.template" SkipUnchangedFiles="true" />
 	</Target>
 
 	<!-- Copy Radzen Assets -->
