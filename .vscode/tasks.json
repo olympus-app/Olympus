@@ -164,7 +164,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Pack: All Projects",
-			"command": "dotnet pack --configuration Release --output C:/Development/NuGet",
+			"command": "dotnet pack --configuration Release --output D:/NuGet/Packages",
 			"problemMatcher": [],
 			"icon": {
 				"id": "package",
@@ -174,7 +174,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Pack: SDK Project",
-			"command": "dotnet pack Packages/Olympus.Sdk --configuration Release --output C:/Development/NuGet; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.sdk -Recurse -Force -ErrorAction Ignore; dotnet restore",
+			"command": "dotnet pack Packages/Olympus.Sdk --configuration Release --output D:/NuGet/Packages; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.sdk -Recurse -Force -ErrorAction Ignore; dotnet restore",
 			"problemMatcher": [],
 			"icon": {
 				"id": "package",
@@ -184,7 +184,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Pack: Analyzers Project",
-			"command": "dotnet pack Packages/Olympus.Analyzers --configuration Release --output C:/Development/NuGet; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.analyzers -Recurse -Force -ErrorAction Ignore; dotnet restore",
+			"command": "dotnet pack Packages/Olympus.Analyzers --configuration Release --output D:/NuGet/Packages; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.analyzers -Recurse -Force -ErrorAction Ignore; dotnet restore",
 			"problemMatcher": [],
 			"icon": {
 				"id": "package",
@@ -194,7 +194,7 @@
 		{
 			"type": "shell",
 			"label": ".NET Pack: Generators Project",
-			"command": "dotnet pack Packages/Olympus.Generators --configuration Release --output C:/Development/NuGet; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.generators -Recurse -Force -ErrorAction Ignore; dotnet restore",
+			"command": "dotnet pack Packages/Olympus.Generators --configuration Release --output D:/NuGet/Packages; Remove-Item ${env:USERPROFILE}/.nuget/packages/olympus.generators -Recurse -Force -ErrorAction Ignore; dotnet restore",
 			"problemMatcher": [],
 			"icon": {
 				"id": "package",
@@ -480,7 +480,7 @@
 		{
 			"type": "shell",
 			"label": "Solution: Rebuild Solution",
-			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o C:/Development/NuGet }; dotnet build-server shutdown; dotnet build",
+			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o D:/NuGet/Packages }; dotnet build-server shutdown; dotnet build",
 			"problemMatcher": [
 				"$msCompile"
 			],
@@ -492,7 +492,7 @@
 		{
 			"type": "shell",
 			"label": "Solution: Republish Solution",
-			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o C:/Development/NuGet }; dotnet build-server shutdown; dotnet publish",
+			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o D:/NuGet/Packages }; dotnet build-server shutdown; dotnet publish",
 			"problemMatcher": [
 				"$msCompile"
 			],
@@ -504,7 +504,7 @@
 		{
 			"type": "shell",
 			"label": "Solution: Repack Solution",
-			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o C:/Development/NuGet }; dotnet build-server shutdown; dotnet pack -c Release -o C:/Development/NuGet",
+			"command": "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; dotnet build-server shutdown; Get-ChildItem \"${workspaceFolder}/Packages\" -Directory | ForEach-Object { $pkgCache = Join-Path $Env:UserProfile \".nuget/packages/$($_.Name.ToLower())\"; if (Test-Path $pkgCache) { Remove-Item $pkgCache -Recurse -Force -ErrorAction Ignore }; dotnet pack $_.FullName -c Release -o D:/NuGet/Packages }; dotnet build-server shutdown; dotnet pack -c Release -o D:/NuGet/Packages",
 			"problemMatcher": [
 				"$msCompile"
 			],
