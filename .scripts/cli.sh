@@ -21,7 +21,20 @@ olympus() {
     local NUGET_OUTPUT="$HOME/.nuget/local"
     local IS_SPECIFIC_TARGET=false
 
-    if [ $# -eq 0 ]; then DO_BUILD=true; fi
+	local SOLUTION_FILE=$(find "$REPOSITORY_PATH" -maxdepth 1 -name "*.slnx" -print -quit)
+    local SOLUTION_NAME=""
+
+	if [ -n "$SOLUTION_FILE" ]; then
+
+		SOLUTION_NAME=$(basename "$SOLUTION_FILE" .slnx)
+
+	fi
+
+    if [ $# -eq 0 ]; then
+
+		DO_BUILD=true;
+
+	fi
 
     while [[ "$#" -gt 0 ]]; do
 
@@ -135,8 +148,6 @@ olympus() {
 
         else
 
-			local SOLUTION_FILE=$(find "$REPOSITORY_PATH" -maxdepth 1 \( -name "*.slnx" -o -name "*.sln" \) -print -quit)
-
             dotnet workload restore "$SOLUTION_FILE"
             dotnet tool restore --tool-manifest "$REPOSITORY_PATH/.config/dotnet-tools.json"
             dotnet restore "$REPOSITORY_PATH"
@@ -169,19 +180,48 @@ olympus() {
 
     fi
 
-    if [ "$DO_WATCHRUN" = true ]; then
+	local BUILD_CONFIG="Debug"
 
-        dotnet watch --project "$TARGET_PATH" run -c Debug -v "$VERBOSITY"
+    if [ "$DO_PUBLISH" = true ]; then
 
-    elif [ "$DO_RUN" = true ]; then
-
-        dotnet run --project "$TARGET_PATH" -c Debug -v "$VERBOSITY"
-
-    elif [ "$DO_WATCH" = true ]; then
-
-        dotnet watch --project "$TARGET_PATH" -v "$VERBOSITY"
+        BUILD_CONFIG="Release"
 
     fi
+
+	if [ "$DO_RUN" = true ] || [ "$DO_WATCH" = true ] || [ "$DO_WATCHRUN" = true ]; then
+
+		if [ "$IS_SPECIFIC_TARGET" = false ]; then
+
+			local ASPIRE_PATH_1="$REPOSITORY_PATH/Aspire/$SOLUTION_NAME.Aspire.Host"
+        	local ASPIRE_PATH_2="$REPOSITORY_PATH/$SOLUTION_NAME.Aspire.Host"
+
+			if [ -d "$ASPIRE_PATH_1" ]; then
+
+				TARGET_PATH="$ASPIRE_PATH_1"
+
+			elif [ -d "$ASPIRE_PATH_2" ]; then
+
+				TARGET_PATH="$ASPIRE_PATH_2"
+
+			fi
+
+		fi
+
+		if [ "$DO_WATCHRUN" = true ]; then
+
+			dotnet watch --project "$TARGET_PATH" run -c "$BUILD_CONFIG" -v "$VERBOSITY"
+
+		elif [ "$DO_RUN" = true ]; then
+
+			dotnet run --project "$TARGET_PATH" -c "$BUILD_CONFIG" -v "$VERBOSITY"
+
+		elif [ "$DO_WATCH" = true ]; then
+
+			dotnet watch --project "$TARGET_PATH" -c "$BUILD_CONFIG" -v "$VERBOSITY"
+
+		fi
+
+	fi
 
 }
 
