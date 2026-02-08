@@ -1,5 +1,5 @@
 # End of Line
-* text=auto
+* text=auto eol=lf
 
 # Linguist Detectable
 *.cs linguist-detectable=true
@@ -10,9 +10,10 @@
 *.js linguist-detectable=true
 *.json linguist-detectable=true
 *.md linguist-detectable=false
-*.ps1 linguist-detectable=false
+*.ps1 linguist-detectable=true
 *.razor linguist-detectable=true
 *.resx linguist-detectable=false
+*.sh linguist-detectable=true
 *.sln linguist-detectable=false
 *.slnx linguist-detectable=false
 *.xaml linguist-detectable=true
