@@ -3,8 +3,8 @@ $WindowsUser = "Ewerton"
 $LinuxUser = Read-Host "Enter username"
 $LinuxPass = Read-Host "Enter password" -MaskInput
 $RepoUrl = "https://github.com/olympus-app/Olympus"
-$PfxFile = "C:\Users\$WindowsUser\.aspnet\wsl.pfx"
-$CrtFile = "C:\Users\$WindowsUser\.aspnet\wsl.crt"
+$PfxFile = "C:\Users\$WindowsUser\.aspnet\cert.pfx"
+$CrtFile = "C:\Users\$WindowsUser\.aspnet\cert.crt"
 $SSHID = "id_ed25519"
 
 wsl --unregister $DistroName
@@ -16,7 +16,11 @@ Start-Sleep -Seconds 3
 
 if (-not (Test-Path $PfxFile) -or -not (Test-Path $CrtFile)) {
 
+	dotnet dev-certs https --clean
+	dotnet dev-certs https --trust
+
 	New-Item -ItemType Directory -Force -Path "C:\Users\$WindowsUser\.aspnet" | Out-Null
+
 	dotnet dev-certs https -ep $PfxFile -p $LinuxPass
 	dotnet dev-certs https -ep $CrtFile --format PEM
 	dotnet dev-certs https --trust
@@ -37,11 +41,6 @@ echo "[boot]" > /etc/wsl.conf
 echo "systemd=true" >> /etc/wsl.conf
 echo "[user]" >> /etc/wsl.conf
 echo "default=$LinuxUser" >> /etc/wsl.conf
-
-# Setup file watcher
-echo "fs.inotify.max_user_instances=1024" >> /etc/sysctl.conf
-echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
-sysctl -p
 
 # Update and install dependencies
 apt-get update && apt-get upgrade -y
@@ -89,8 +88,15 @@ EOF
 
 # Setup AspNet
 mkdir -p /usr/local/share/ca-certificates/aspnet
-cp /mnt/c/Users/$WindowsUser/.aspnet/wsl.crt /usr/local/share/ca-certificates/aspnet/dotnet-dev.crt
+cp /mnt/c/Users/$WindowsUser/.aspnet/cert.crt /usr/local/share/ca-certificates/aspnet/dotnet-dev.crt
 update-ca-certificates
+
+# Setup file watcher
+cat <<EOF > /etc/sysctl.d/99-filewatcher.conf
+fs.inotify.max_user_instances=4096
+fs.inotify.max_user_watches=524288
+EOF
+sysctl --system
 
 runuser -l $LinuxUser -c '
 
@@ -122,7 +128,12 @@ runuser -l $LinuxUser -c '
     git checkout dev
 
     # Setup AspNet
-	dotnet dev-certs https --import /mnt/c/Users/$WindowsUser/.aspnet/wsl.pfx -p $LinuxPass
+	mkdir -p ~/.aspnet
+    cp /mnt/c/Users/$WindowsUser/.aspnet/cert.pfx ~/.aspnet/cert.pfx
+    cp /mnt/c/Users/$WindowsUser/.aspnet/cert.crt ~/.aspnet/cert.crt
+	dotnet dev-certs https --clean --import ~/.aspnet/cert.pfx -p "$LinuxPass"
+	echo "export ASPNETCORE_Kestrel__Certificates__Default__Path=\"/home/$LinuxUser/.aspnet/cert.pfx\"" >> ~/.bashrc
+	echo "export ASPNETCORE_Kestrel__Certificates__Default__Password=\"$LinuxPass\"" >> ~/.bashrc
 
 	# Setup CLI
 	chmod +x ~/Olympus/.scripts/cli.sh
