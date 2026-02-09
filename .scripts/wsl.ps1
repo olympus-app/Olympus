@@ -3,7 +3,8 @@ $WindowsUser = "Ewerton"
 $LinuxUser = Read-Host "Enter username"
 $LinuxPass = Read-Host "Enter password" -MaskInput
 $RepoUrl = "https://github.com/olympus-app/Olympus"
-$CertFile = "C:\Users\$WindowsUser\.aspnet\wsl.pfx"
+$PfxFile = "C:\Users\$WindowsUser\.aspnet\wsl.pfx"
+$CrtFile = "C:\Users\$WindowsUser\.aspnet\wsl.crt"
 $SSHID = "id_ed25519"
 
 wsl --unregister $DistroName
@@ -13,10 +14,11 @@ if ($LASTEXITCODE -ne 0) { exit }
 
 Start-Sleep -Seconds 3
 
-if (-not (Test-Path $CertFile)) {
+if (-not (Test-Path $PfxFile) -or -not (Test-Path $CrtFile)) {
 
 	New-Item -ItemType Directory -Force -Path "C:\Users\$WindowsUser\.aspnet" | Out-Null
-	dotnet dev-certs https -ep $CertFile -p $LinuxPass
+	dotnet dev-certs https -ep $PfxFile -p $LinuxPass
+	dotnet dev-certs https -ep $CrtFile --format PEM
 	dotnet dev-certs https --trust
 
 }
@@ -39,6 +41,7 @@ echo "default=$LinuxUser" >> /etc/wsl.conf
 # Setup file watcher
 echo "fs.inotify.max_user_instances=1024" >> /etc/sysctl.conf
 echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+sysctl -p
 
 # Update and install dependencies
 apt-get update && apt-get upgrade -y
@@ -83,6 +86,11 @@ cat <<EOF > /etc/docker/daemon.json
   }
 }
 EOF
+
+# Setup AspNet
+mkdir -p /usr/local/share/ca-certificates/aspnet
+cp /mnt/c/Users/$WindowsUser/.aspnet/wsl.crt /usr/local/share/ca-certificates/aspnet/dotnet-dev.crt
+update-ca-certificates
 
 runuser -l $LinuxUser -c '
 
@@ -132,5 +140,5 @@ $WslRootPath = "\\wsl.localhost\$DistroName\root"
 [System.IO.File]::WriteAllText("$WslRootPath\setup.sh", ($SetupScript -replace "`r", ""))
 
 wsl -d $DistroName -u root -- bash /root/setup.sh
-wsl --terminate $DistroName
+wsl --shutdown
 wsl ~
