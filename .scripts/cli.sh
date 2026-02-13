@@ -6,6 +6,7 @@ REPOSITORY_PATH="$(dirname "$SCRIPT_DIR")"
 olympus() {
 
     local DO_MAINTENANCE=false
+	local DO_KILL=false
     local DO_CLEAN=false
     local DO_CLEAR=false
     local DO_RESTORE=false
@@ -40,6 +41,7 @@ olympus() {
 
         case $1 in
           	maintenance|m) DO_MAINTENANCE=true ;;
+			kill|k) DO_KILL=true ;;
             clean|c) DO_CLEAN=true ;;
             clear|cr) DO_CLEAR=true ;;
             restore|re) DO_RESTORE=true ;;
@@ -67,6 +69,14 @@ olympus() {
     if [ "$DO_MAINTENANCE" = true ] || [ "$DO_CLEAN" = true ]; then
 
         dotnet clean "$TARGET_PATH" -v "$VERBOSITY"
+
+    fi
+
+    if [ "$DO_MAINTENANCE" = true ] || [ "$DO_KILL" = true ]; then
+
+        killall --quiet dotnet
+		killall --quiet VBCSCompiler
+		killall --quiet --regexp '^Olympus.*'
 
     fi
 
