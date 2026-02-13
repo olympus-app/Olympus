@@ -1,0 +1,9 @@
+<Project>
+
+	<!-- Artifacts Properties -->
+	<PropertyGroup Label="ArtifactsProperties">
+		<UseArtifactsOutput>true</UseArtifactsOutput>
+		<ArtifactsPath>$(MSBuildThisFileDirectory)Temp</ArtifactsPath>
+	</PropertyGroup>
+
+</Project>

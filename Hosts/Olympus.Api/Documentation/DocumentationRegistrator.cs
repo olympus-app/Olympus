@@ -51,7 +51,7 @@ public static class DocumentationRegistrator {
 				options.Path = AppRoutes.ApiDocs;
 				options.DocumentPath = $"{AppRoutes.ApiDocs}/{AppRoutes.ApiDocsTemplate}";
 				options.CustomInlineStyles = ".scheme-container{display:none}";
-				options.CustomHeadContent = string.Empty;
+				options.CustomHeadContent = "<style>.swagger-ui .opblock .opblock-summary-path {font-size: 14px !important;}</style>";
 				options.EnableTryItOut = false;
 				options.DocExpansion = "list";
 				options.DefaultModelExpandDepth = 1;

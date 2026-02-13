@@ -21,4 +21,10 @@
 		<OutputType>Exe</OutputType>
 	</PropertyGroup>
 
+	<!-- Compilation Properties for Web Application Host -->
+	<PropertyGroup Label="CompilationProperties" Condition="$(IsWebApplication)">
+		<CompressionEnabled>false</CompressionEnabled>
+		<PublishTrimmed>false</PublishTrimmed>
+	</PropertyGroup>
+
 </Project>

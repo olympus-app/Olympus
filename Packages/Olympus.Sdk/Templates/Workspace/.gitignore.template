@@ -38,6 +38,9 @@ appsettings*.json
 # MSBuild Binary Log
 msbuild.binlog
 
+# MSBuild Artifacts
+Temp/
+
 # General
 ._*
 *.lnk
