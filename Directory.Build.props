@@ -40,6 +40,12 @@
 		<WebAppIconMaskableScale>0.7</WebAppIconMaskableScale>
 	</PropertyGroup>
 
+	<!-- Artifacts Properties -->
+	<PropertyGroup Label="ArtifactsProperties">
+		<UseArtifactsOutput>true</UseArtifactsOutput>
+		<ArtifactsPath>$(MSBuildThisFileDirectory)Temp</ArtifactsPath>
+	</PropertyGroup>
+
 	<!-- Modules Definitions -->
 	<ItemGroup Label="ModulesDefinitions">
 		<!-- <OlympusModule Include="Athena" /> -->

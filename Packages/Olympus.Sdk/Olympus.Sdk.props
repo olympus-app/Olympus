@@ -2,7 +2,6 @@
 
 	<!-- Properties Imports -->
 	<ImportGroup Label="PropertiesImports">
-		<Import Project="..\properties\Artifacts.props" />
 		<Import Project="..\properties\Solution.props" />
 		<Import Project="..\properties\Project.props" />
 		<Import Project="..\properties\Framework.props" />
