@@ -1,9 +1,13 @@
-#!/bin/bash
+# bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 REPOSITORY_PATH="$(dirname "$SCRIPT_DIR")"
 
 olympus() {
+
+	if [ "$(basename "$PWD")" != "Olympus" ]; then
+		return 1
+	fi
 
     local DO_MAINTENANCE=false
 	local DO_KILL=false
@@ -66,17 +70,17 @@ olympus() {
 
     done
 
-    if [ "$DO_MAINTENANCE" = true ] || [ "$DO_CLEAN" = true ]; then
-
-        dotnet clean "$TARGET_PATH" -v "$VERBOSITY"
-
-    fi
-
     if [ "$DO_MAINTENANCE" = true ] || [ "$DO_KILL" = true ]; then
 
         killall --quiet dotnet
 		killall --quiet VBCSCompiler
 		killall --quiet --regexp '^Olympus.*'
+
+    fi
+
+    if [ "$DO_CLEAN" = true ]; then
+
+        dotnet clean "$TARGET_PATH" -v "$VERBOSITY"
 
     fi
 
@@ -237,26 +241,3 @@ olympus() {
 
 alias oly="olympus"
 alias o="olympus"
-
-olympus_autocomple() {
-
-    local cur opts
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-
-	opts="maintenance m clean c clear cr restore re build b publish p pack pk run r watch w watchrun wr --verbose -v"
-
-    local commands=$(compgen -W "${opts}" -- ${cur})
-    local dirs=""
-
-    if cd "$REPOSITORY_PATH" 2>/dev/null; then
-        dirs=$(compgen -d -- "$cur")
-        cd - > /dev/null
-    fi
-
-    COMPREPLY=( $commands $dirs )
-    return 0
-
-}
-
-complete -F olympus_autocomple olympus oly o
